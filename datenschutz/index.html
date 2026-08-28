@@ -51,7 +51,10 @@ body{
   font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
   font-weight:700;font-size:19px;letter-spacing:-.01em;
   color:var(--tinte);text-decoration:none;margin-right:auto;
+  display:flex;align-items:center;gap:9px;
 }
+.marke .zeichen{width:27px;height:auto;flex:none;display:block}
+.marke:focus-visible{outline:2px solid var(--akzent);outline-offset:4px;border-radius:4px}
 .schalter{
   background:none;border:1px solid var(--kante);color:var(--leise);
   font:inherit;font-size:14px;padding:5px 12px;border-radius:980px;cursor:pointer;line-height:1.2;
@@ -108,7 +111,7 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
 
 <header class="leiste">
   <div class="leiste-inhalt">
-    <a class="marke" href="/">Satzwerk</a>
+    <a class="marke" href="/"><svg class="zeichen" viewBox="0 0 2335 1501" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true"><path d="M116.729 633.67C52.2772 633.67 0 685.928 0 750.399C0 814.87 52.2772 867.128 116.729 867.128C181.187 867.128 233.458 814.87 233.458 750.399C233.458 685.928 181.187 633.67 116.729 633.67Z"/><path d="M2217.85 633.67C2153.39 633.67 2101.12 685.928 2101.12 750.399C2101.12 814.87 2153.39 867.128 2217.85 867.128C2282.3 867.128 2334.58 814.87 2334.58 750.399C2334.58 685.928 2282.3 633.67 2217.85 633.67Z"/><path d="M1300.69 750.4C1300.69 688.303 1258.09 636.586 1200.64 621.699V245.065C1253.4 230.396 1292.36 182.516 1292.36 125.067C1292.36 55.9836 1236.37 0 1167.29 0C1098.21 0 1042.23 55.9836 1042.23 125.067C1042.23 182.516 1081.18 230.396 1133.94 245.065V621.702C1076.49 636.586 1033.89 688.303 1033.89 750.403C1033.89 812.494 1076.49 864.217 1133.94 879.098V1255.73C1081.18 1270.4 1042.23 1318.28 1042.23 1375.73C1042.23 1444.81 1098.21 1500.8 1167.29 1500.8C1236.37 1500.8 1292.36 1444.81 1292.36 1375.73C1292.36 1318.28 1253.4 1270.4 1200.64 1255.73V879.095C1258.09 864.214 1300.69 812.49 1300.69 750.4Z"/><path d="M758.745 441.9C758.745 372.823 702.755 316.833 633.678 316.833C564.595 316.833 508.611 372.823 508.611 441.9C508.611 499.355 547.568 547.229 600.327 561.905V938.896C547.568 953.566 508.611 1001.45 508.611 1058.9C508.611 1127.98 564.595 1183.96 633.678 1183.96C702.755 1183.96 758.745 1127.98 758.745 1058.9C758.745 1001.45 719.788 953.566 667.029 938.896V561.905C719.788 547.229 758.745 499.355 758.745 441.9Z"/><path d="M1825.98 441.9C1825.98 372.823 1769.99 316.833 1700.91 316.833C1631.83 316.833 1575.84 372.823 1575.84 441.9C1575.84 499.355 1614.8 547.229 1667.56 561.905V938.896C1614.8 953.566 1575.84 1001.45 1575.84 1058.9C1575.84 1127.98 1631.83 1183.96 1700.91 1183.96C1769.99 1183.96 1825.98 1127.98 1825.98 1058.9C1825.98 1001.45 1787.02 953.566 1734.26 938.896V561.905C1787.02 547.229 1825.98 499.355 1825.98 441.9Z"/></svg><span>Satzwerk</span></a>
     <button class="schalter" id="sprache" type="button">EN</button>
     <button class="schalter" id="modus" type="button" aria-label="Hell oder dunkel umschalten">◐</button>
   </div>
@@ -200,13 +203,22 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
 
   <h2>3. Diese Website</h2>
 
-  <h3>Zugriffsdaten</h3>
+  <h3>Hosting und Zugriffsdaten</h3>
   <p>
-    Beim Aufruf dieser Seiten werden durch den Hostinganbieter technisch notwendige
-    Zugriffsdaten verarbeitet, insbesondere IP-Adresse, Zeitpunkt des Zugriffs,
-    aufgerufene Seite, übertragene Datenmenge sowie Browser- und Betriebssystemtyp.
-    Diese Verarbeitung ist erforderlich, um die Seite auszuliefern und ihren sicheren
-    Betrieb zu gewährleisten.
+    Diese Seiten werden über GitHub Pages bereitgestellt, einen Dienst der GitHub
+    Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.
+  </p>
+  <p>
+    Beim Aufruf werden durch den Hostinganbieter technisch notwendige Zugriffsdaten
+    verarbeitet, insbesondere IP-Adresse, Zeitpunkt des Zugriffs, aufgerufene Seite,
+    übertragene Datenmenge sowie Browser- und Betriebssystemtyp. Diese Verarbeitung
+    ist erforderlich, um die Seite auszuliefern und ihren sicheren Betrieb zu
+    gewährleisten. Dabei kann eine Übermittlung in die USA stattfinden.
+  </p>
+  <p>
+    GitHub ist unter dem EU-US Data Privacy Framework zertifiziert. Weitere
+    Informationen finden sich in der Datenschutzerklärung von GitHub unter
+    <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">docs.github.com</a>.
   </p>
   <p class="klein">
     Rechtsgrundlage: berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO.
@@ -240,10 +252,11 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
 
   <h2>5. Empfänger und Drittländer</h2>
   <p>
-    Es findet keine Weitergabe deiner Daten zu Werbe- oder Analysezwecken statt. Eine
-    Übermittlung in Länder außerhalb der EU erfolgt durch mich nicht. Die
-    Verarbeitung durch Apple im Zusammenhang mit dem App Store und Apple Health
-    richtet sich nach den Bestimmungen von Apple.
+    Es findet keine Weitergabe deiner Daten zu Werbe- oder Analysezwecken statt.
+    Eine Übermittlung in die USA kann im Rahmen des Hostings dieser Website durch
+    GitHub stattfinden, siehe oben. Die Verarbeitung durch Apple im Zusammenhang mit
+    dem App Store und Apple Health richtet sich nach den Bestimmungen von Apple.
+    Die Daten in der App selbst verlassen dein Gerät nicht.
   </p>
 
   <h2>6. Deine Rechte</h2>
@@ -371,12 +384,22 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
 
   <h2>3. This website</h2>
 
-  <h3>Access data</h3>
+  <h3>Hosting and access data</h3>
   <p>
-    When these pages are accessed, the hosting provider processes technically
-    necessary access data, in particular IP address, time of access, page requested,
-    volume of data transferred and browser and operating system type. This processing
-    is necessary to deliver the page and ensure its secure operation.
+    These pages are served via GitHub Pages, a service of GitHub Inc., 88 Colin P.
+    Kelly Jr. Street, San Francisco, CA 94107, USA.
+  </p>
+  <p>
+    When a page is accessed, the hosting provider processes technically necessary
+    access data, in particular IP address, time of access, page requested, volume of
+    data transferred and browser and operating system type. This processing is
+    necessary to deliver the page and ensure its secure operation. A transfer to the
+    USA may take place in the process.
+  </p>
+  <p>
+    GitHub is certified under the EU-US Data Privacy Framework. Further information
+    can be found in GitHub's privacy statement at
+    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">docs.github.com</a>.
   </p>
   <p class="klein">Legal basis: legitimate interest under Art. 6 (1) (f) GDPR.</p>
 
@@ -406,9 +429,10 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
 
   <h2>5. Recipients and third countries</h2>
   <p>
-    Your data is not passed on for advertising or analytics purposes. I do not
-    transfer data to countries outside the EU. Processing by Apple in connection with
-    the App Store and Apple Health is governed by Apple's own terms.
+    Your data is not passed on for advertising or analytics purposes. A transfer to
+    the USA may occur as part of the hosting of this website by GitHub, see above.
+    Processing by Apple in connection with the App Store and Apple Health is governed
+    by Apple's own terms. The data inside the app itself never leaves your device.
   </p>
 
   <h2>6. Your rights</h2>
