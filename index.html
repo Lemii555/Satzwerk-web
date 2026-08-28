@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Satzwerk</title>
+<meta name="description" content="Satzwerk. Handwerk am eigenen Körper. Diese Seite entsteht gerade.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://satzwerk.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Satzwerk">
+<meta property="og:description" content="Handwerk am eigenen Körper.">
+<meta property="og:url" content="https://satzwerk.app/">
+
+<link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/publicsans.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+@font-face{font-family:"Fraunces";src:url("/fonts/fraunces.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
+@font-face{font-family:"Public Sans";src:url("/fonts/publicsans.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
+
+:root{
+  --grund:#FFFFFF;--band:#F5F5F7;--tinte:#1D1D1F;
+  --leise:#6E6E73;--kante:#D9D9DE;--akzent:#8116E0;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-mode="hell"]){
+    --grund:#000000;--band:#1C1C1E;--tinte:#FFFFFF;
+    --leise:#A1A1A6;--kante:#48484A;--akzent:#B07CFF;
+  }
+}
+:root[data-mode="dunkel"]{
+  --grund:#000000;--band:#1C1C1E;--tinte:#FFFFFF;
+  --leise:#A1A1A6;--kante:#48484A;--akzent:#B07CFF;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--grund);color:var(--tinte);
+  font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:17px;line-height:1.6;
+  display:flex;flex-direction:column;
+}
+
+main{
+  flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:64px 24px 40px;max-width:560px;margin:0 auto;
+}
+
+.bildmarke{
+  width:clamp(150px,34vw,210px);height:auto;display:block;
+  color:var(--tinte);margin:0 0 36px;
+  opacity:0;filter:blur(8px);
+  animation:auf .9s cubic-bezier(.16,1,.3,1) forwards;
+}
+.wortmarke{
+  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
+  font-weight:700;font-size:clamp(38px,9vw,58px);line-height:1;
+  letter-spacing:-.02em;margin:0 0 14px;
+  opacity:0;filter:blur(8px);
+  animation:auf .9s cubic-bezier(.16,1,.3,1) .12s forwards;
+}
+.claim{
+  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
+  font-weight:600;font-size:clamp(18px,4vw,21px);line-height:1.4;
+  margin:0 0 44px;color:var(--tinte);
+  opacity:0;filter:blur(8px);
+  animation:auf .9s cubic-bezier(.16,1,.3,1) .24s forwards;
+}
+.hinweis{
+  color:var(--leise);font-size:17px;margin:0 0 8px;max-width:44ch;
+  opacity:0;transform:translateY(12px);
+  animation:hoch .8s cubic-bezier(.16,1,.3,1) .36s forwards;
+}
+.hinweis-klein{
+  color:var(--leise);font-size:15px;margin:0;max-width:44ch;
+  opacity:0;transform:translateY(12px);
+  animation:hoch .8s cubic-bezier(.16,1,.3,1) .44s forwards;
+}
+.hinweis a,.hinweis-klein a{color:var(--akzent);text-decoration:none}
+.hinweis a:hover,.hinweis-klein a:hover{text-decoration:underline}
+
+@keyframes auf{to{opacity:1;filter:blur(0)}}
+@keyframes hoch{to{opacity:1;transform:translateY(0)}}
+
+footer{
+  padding:0 24px 40px;text-align:center;
+  color:var(--leise);font-size:15px;
+  opacity:0;animation:auf .8s cubic-bezier(.16,1,.3,1) .6s forwards;
+}
+footer nav{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+footer a{color:var(--leise);text-decoration:none}
+footer a:hover{color:var(--tinte)}
+a:focus-visible{outline:2px solid var(--akzent);outline-offset:3px;border-radius:4px}
+
+.schalter{
+  position:fixed;top:16px;right:16px;display:flex;gap:8px;z-index:10;
+}
+.schalter button{
+  background:var(--grund);border:1px solid var(--kante);color:var(--leise);
+  font:inherit;font-size:14px;padding:5px 12px;border-radius:980px;cursor:pointer;line-height:1.2;
+}
+.schalter button:hover{color:var(--tinte)}
+.schalter button:focus-visible{outline:2px solid var(--akzent);outline-offset:2px}
+
+/* Sprachumschaltung: nur Inhalte im Dokumentkörper, niemals html oder body */
+main [lang="en"],footer [lang="en"]{display:none}
+html[data-lang="en"] main [lang="de"],
+html[data-lang="en"] footer [lang="de"]{display:none}
+html[data-lang="en"] main [lang="en"]{display:block}
+html[data-lang="en"] footer a[lang="en"]{display:inline}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;filter:none!important;
+    opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="schalter">
+  <button id="sprache" type="button">EN</button>
+  <button id="modus" type="button" aria-label="Hell oder dunkel umschalten">&#9680;</button>
+</div>
+
+<main>
+<svg class="bildmarke" viewBox="0 0 2335 1501" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
+  <path d="M116.729 633.67C52.2772 633.67 0 685.928 0 750.399C0 814.87 52.2772 867.128 116.729 867.128C181.187 867.128 233.458 814.87 233.458 750.399C233.458 685.928 181.187 633.67 116.729 633.67Z"/>
+  <path d="M2217.85 633.67C2153.39 633.67 2101.12 685.928 2101.12 750.399C2101.12 814.87 2153.39 867.128 2217.85 867.128C2282.3 867.128 2334.58 814.87 2334.58 750.399C2334.58 685.928 2282.3 633.67 2217.85 633.67Z"/>
+  <path d="M1300.69 750.4C1300.69 688.303 1258.09 636.586 1200.64 621.699V245.065C1253.4 230.396 1292.36 182.516 1292.36 125.067C1292.36 55.9836 1236.37 0 1167.29 0C1098.21 0 1042.23 55.9836 1042.23 125.067C1042.23 182.516 1081.18 230.396 1133.94 245.065V621.702C1076.49 636.586 1033.89 688.303 1033.89 750.403C1033.89 812.494 1076.49 864.217 1133.94 879.098V1255.73C1081.18 1270.4 1042.23 1318.28 1042.23 1375.73C1042.23 1444.81 1098.21 1500.8 1167.29 1500.8C1236.37 1500.8 1292.36 1444.81 1292.36 1375.73C1292.36 1318.28 1253.4 1270.4 1200.64 1255.73V879.095C1258.09 864.214 1300.69 812.49 1300.69 750.4Z"/>
+  <path d="M758.745 441.9C758.745 372.823 702.755 316.833 633.678 316.833C564.595 316.833 508.611 372.823 508.611 441.9C508.611 499.355 547.568 547.229 600.327 561.905V938.896C547.568 953.566 508.611 1001.45 508.611 1058.9C508.611 1127.98 564.595 1183.96 633.678 1183.96C702.755 1183.96 758.745 1127.98 758.745 1058.9C758.745 1001.45 719.788 953.566 667.029 938.896V561.905C719.788 547.229 758.745 499.355 758.745 441.9Z"/>
+  <path d="M1825.98 441.9C1825.98 372.823 1769.99 316.833 1700.91 316.833C1631.83 316.833 1575.84 372.823 1575.84 441.9C1575.84 499.355 1614.8 547.229 1667.56 561.905V938.896C1614.8 953.566 1575.84 1001.45 1575.84 1058.9C1575.84 1127.98 1631.83 1183.96 1700.91 1183.96C1769.99 1183.96 1825.98 1127.98 1825.98 1058.9C1825.98 1001.45 1787.02 953.566 1734.26 938.896V561.905C1787.02 547.229 1825.98 499.355 1825.98 441.9Z"/>
+</svg>
+
+  <h1 class="wortmarke">Satzwerk</h1>
+  <p class="claim">Handwerk am eigenen Körper.</p>
+
+  <p class="hinweis" lang="de">Diese Seite entsteht gerade.</p>
+  <p class="hinweis" lang="en">This site is being built.</p>
+
+  <p class="hinweis-klein" lang="de">
+    Die App für iPhone kommt in Kürze in den App Store.
+  </p>
+  <p class="hinweis-klein" lang="en">
+    The iPhone app is coming to the App Store shortly.
+  </p>
+
+</main>
+
+<footer>
+  <nav>
+    <a href="/impressum/" lang="de">Impressum</a>
+    <a href="/impressum/" lang="en">Legal notice</a>
+    <a href="/datenschutz/" lang="de">Datenschutz</a>
+    <a href="/datenschutz/" lang="en">Privacy</a>
+  </nav>
+  <p>&copy; 2026 Kevin Schropp</p>
+</footer>
+
+<script>
+(function(){
+  var h=document.documentElement;
+
+  var g=null;
+  try{g=localStorage.getItem('sw-lang');}catch(e){}
+  setLang(g||((navigator.language||'de').slice(0,2)==='de'?'de':'en'));
+
+  document.getElementById('sprache').addEventListener('click',function(){
+    setLang(h.getAttribute('data-lang')==='en'?'de':'en');
+  });
+
+  function setLang(l){
+    h.setAttribute('data-lang',l);
+    document.getElementById('sprache').textContent=(l==='en'?'DE':'EN');
+    try{localStorage.setItem('sw-lang',l);}catch(e){}
+  }
+
+  var m=null;
+  try{m=localStorage.getItem('sw-mode');}catch(e){}
+  if(m){h.setAttribute('data-mode',m);}
+
+  document.getElementById('modus').addEventListener('click',function(){
+    var jetzt=h.getAttribute('data-mode');
+    var dunkel=window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var neu=!jetzt?(dunkel?'hell':'dunkel'):(jetzt==='dunkel'?'hell':'dunkel');
+    h.setAttribute('data-mode',neu);
+    try{localStorage.setItem('sw-mode',neu);}catch(e){}
+  });
+})();
+</script>
+
+</body>
+</html>
