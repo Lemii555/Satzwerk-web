@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Impressum — Satzwerk</title>
+<meta name="description" content="Impressum und Anbieterkennzeichnung für Satzwerk, Kevin Schropp.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+<!-- Schriften lokal. Keine externen Anfragen, kein Google. -->
+<link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/publicsans.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+@font-face{font-family:"Fraunces";src:url("/fonts/fraunces.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
+@font-face{font-family:"Public Sans";src:url("/fonts/publicsans.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
+
+:root{
+  --grund:#FFFFFF;
+  --band:#F5F5F7;
+  --karte:#FFFFFF;
+  --tinte:#1D1D1F;
+  --leise:#6E6E73;
+  --kante:#D9D9DE;
+  --akzent:#8116E0;
+  --leiste:rgba(255,255,255,.82);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-mode="hell"]){
+    --grund:#000000;
+    --band:#1C1C1E;
+    --karte:#1C1C1E;
+    --tinte:#FFFFFF;
+    --leise:#A1A1A6;
+    --kante:#48484A;
+    --akzent:#B07CFF;
+    --leiste:rgba(0,0,0,.82);
+  }
+}
+:root[data-mode="dunkel"]{
+  --grund:#000000;--band:#1C1C1E;--karte:#1C1C1E;--tinte:#FFFFFF;
+  --leise:#A1A1A6;--kante:#48484A;--akzent:#B07CFF;--leiste:rgba(0,0,0,.82);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--grund);
+  color:var(--tinte);
+  font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:17px;
+  line-height:1.6;
+  font-variant-numeric:tabular-nums;
+}
+
+.leiste{
+  position:sticky;top:0;z-index:10;
+  background:var(--leiste);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--kante);
+}
+.leiste-inhalt{
+  max-width:760px;margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;gap:16px;
+}
+.marke{
+  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
+  font-weight:700;font-size:19px;letter-spacing:-.01em;
+  color:var(--tinte);text-decoration:none;margin-right:auto;
+}
+.schalter{
+  background:none;border:1px solid var(--kante);color:var(--leise);
+  font:inherit;font-size:14px;padding:5px 12px;border-radius:980px;
+  cursor:pointer;line-height:1.2;
+}
+.schalter:hover{color:var(--tinte)}
+.schalter:focus-visible{outline:2px solid var(--akzent);outline-offset:2px}
+
+main{max-width:760px;margin:0 auto;padding:56px 24px 96px}
+
+h1{
+  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
+  font-weight:700;font-size:clamp(32px,6vw,44px);line-height:1.1;
+  letter-spacing:-.02em;margin:0 0 8px;
+}
+.stand{color:var(--leise);font-size:15px;margin:0 0 48px}
+
+h2{
+  font-size:20px;font-weight:600;line-height:1.3;
+  margin:44px 0 12px;letter-spacing:-.01em;
+}
+p{margin:0 0 14px;max-width:62ch}
+address{font-style:normal;margin:0 0 14px}
+a{color:var(--akzent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible{outline:2px solid var(--akzent);outline-offset:2px;border-radius:3px}
+.klein{font-size:15px;color:var(--leise)}
+
+.karte{
+  background:var(--band);border-radius:20px;padding:24px 28px;margin:0 0 8px;
+}
+.karte p:last-child{margin-bottom:0}
+
+hr{border:0;border-top:1px solid var(--kante);margin:56px 0}
+
+footer{
+  max-width:760px;margin:0 auto;padding:0 24px 64px;
+  color:var(--leise);font-size:15px;
+}
+footer a{color:var(--leise)}
+footer nav{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+
+/* Sprachumschaltung: nur Inhalte im Dokumentkoerper, niemals html oder body */
+main [lang="en"],footer [lang="en"]{display:none}
+html[data-lang="en"] main [lang="de"],
+html[data-lang="en"] footer [lang="de"]{display:none}
+html[data-lang="en"] main>[lang="en"]{display:block}
+html[data-lang="en"] main [lang="en"].klein,
+html[data-lang="en"] footer a[lang="en"]{display:inline}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="leiste">
+  <div class="leiste-inhalt">
+    <a class="marke" href="/">Satzwerk</a>
+    <button class="schalter" id="sprache" type="button">EN</button>
+    <button class="schalter" id="modus" type="button" aria-label="Hell oder dunkel umschalten">◐</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= DEUTSCH ================= -->
+<div lang="de">
+
+  <h1>Impressum</h1>
+  <p class="stand">Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)</p>
+
+  <div class="karte">
+    <address>
+      Kevin Schropp<br>
+      Satzwerk<br>
+      Veilchenweg 10<br>
+      84186 Vilsheim<br>
+      Deutschland
+    </address>
+    <p>
+      E-Mail: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a><br>
+      <span class="klein">Anfragen werden per E-Mail beantwortet, in der Regel innerhalb weniger Werktage.</span>
+    </p>
+  </div>
+
+  <h2>Umsatzsteuer</h2>
+  <p>
+    Als Kleinunternehmer im Sinne von § 19 Abs. 1 UStG wird keine Umsatzsteuer
+    berechnet und daher auch keine Umsatzsteuer-Identifikationsnummer geführt.
+  </p>
+
+  <h2>Verantwortlich für den Inhalt</h2>
+  <p>
+    Nach § 18 Abs. 2 Medienstaatsvertrag (MStV):<br>
+    Kevin Schropp, Veilchenweg 10, 84186 Vilsheim
+  </p>
+
+  <h2>Verbraucherstreitbeilegung</h2>
+  <p>
+    Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor
+    einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).
+  </p>
+  <p class="klein">
+    Die Online-Streitbeilegungsplattform der Europäischen Kommission wurde zum
+    20. Juli 2025 eingestellt. Ein Verweis darauf entfällt deshalb.
+  </p>
+
+  <h2>Haftung für Inhalte</h2>
+  <p>
+    Die Inhalte dieser Seiten wurden mit Sorgfalt erstellt. Für die Richtigkeit,
+    Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen
+    werden. Als Diensteanbieter bin ich für eigene Inhalte auf diesen Seiten nach
+    den allgemeinen Gesetzen verantwortlich, jedoch nicht verpflichtet, übermittelte
+    oder gespeicherte fremde Informationen zu überwachen.
+  </p>
+
+  <h2>Haftung für Links</h2>
+  <p>
+    Diese Seiten enthalten Links zu externen Websites Dritter, auf deren Inhalte ich
+    keinen Einfluss habe. Für diese fremden Inhalte ist stets der jeweilige Anbieter
+    verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf
+    mögliche Rechtsverstöße überprüft, rechtswidrige Inhalte waren nicht erkennbar.
+    Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links umgehend
+    entfernt.
+  </p>
+
+  <h2>Urheberrecht</h2>
+  <p>
+    Die auf diesen Seiten erstellten Inhalte und Werke unterliegen dem deutschen
+    Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
+    Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen
+    Zustimmung. Downloads und Kopien dieser Seite sind für den privaten,
+    nicht kommerziellen Gebrauch gestattet.
+  </p>
+  <p>
+    Satzwerk sowie Wort- und Bildmarke sind beim Deutschen Patent- und Markenamt
+    zur Eintragung angemeldet.
+  </p>
+
+</div>
+
+<!-- ================= ENGLISH ================= -->
+<div lang="en">
+
+  <h1>Legal notice</h1>
+  <p class="stand">Information pursuant to Section 5 of the German Digital Services Act (DDG)</p>
+
+  <div class="karte">
+    <address>
+      Kevin Schropp<br>
+      Satzwerk<br>
+      Veilchenweg 10<br>
+      84186 Vilsheim<br>
+      Germany
+    </address>
+    <p>
+      Email: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a><br>
+      <span class="klein">Enquiries are answered by email, usually within a few working days.</span>
+    </p>
+  </div>
+
+  <h2>VAT</h2>
+  <p>
+    As a small business under Section 19 (1) of the German VAT Act, no VAT is charged
+    and no VAT identification number is held.
+  </p>
+
+  <h2>Responsible for content</h2>
+  <p>
+    Pursuant to Section 18 (2) of the German Interstate Media Treaty (MStV):<br>
+    Kevin Schropp, Veilchenweg 10, 84186 Vilsheim, Germany
+  </p>
+
+  <h2>Consumer dispute resolution</h2>
+  <p>
+    I am neither willing nor obliged to take part in dispute resolution proceedings
+    before a consumer arbitration board (Section 36 VSBG).
+  </p>
+  <p class="klein">
+    The European Commission's Online Dispute Resolution platform was discontinued on
+    20 July 2025. A reference to it is therefore omitted.
+  </p>
+
+  <h2>Liability for content</h2>
+  <p>
+    The content of these pages was created with care. No guarantee can be given for
+    its accuracy, completeness or timeliness. As a service provider I am responsible
+    for my own content on these pages under general law, but not obliged to monitor
+    transmitted or stored third-party information.
+  </p>
+
+  <h2>Liability for links</h2>
+  <p>
+    These pages contain links to external websites over whose content I have no
+    influence. The respective provider is always responsible for such third-party
+    content. The linked pages were checked for possible legal violations at the time
+    of linking and no unlawful content was apparent. Should any legal infringement
+    become known, the link in question will be removed promptly.
+  </p>
+
+  <h2>Copyright</h2>
+  <p>
+    Content and works created on these pages are subject to German copyright law.
+    Reproduction, editing, distribution and any kind of use outside the limits of
+    copyright require written consent. Downloads and copies of this page are
+    permitted for private, non-commercial use.
+  </p>
+  <p>
+    Satzwerk, including the word and figurative mark, has been filed for registration
+    with the German Patent and Trade Mark Office.
+  </p>
+
+</div>
+
+</main>
+
+<footer>
+  <nav>
+    <a href="/impressum/" lang="de">Impressum</a>
+    <a href="/impressum/" lang="en">Legal notice</a>
+    <a href="/datenschutz/" lang="de">Datenschutz</a>
+    <a href="/datenschutz/" lang="en">Privacy</a>
+  </nav>
+  <p>© 2026 Kevin Schropp</p>
+</footer>
+
+<script>
+(function(){
+  var h=document.documentElement;
+
+  // Sprache
+  var gespeichert=null;
+  try{gespeichert=localStorage.getItem('sw-lang');}catch(e){}
+  var lang=gespeichert||((navigator.language||'de').slice(0,2)==='de'?'de':'en');
+  setLang(lang);
+
+  document.getElementById('sprache').addEventListener('click',function(){
+    setLang(h.getAttribute('data-lang')==='en'?'de':'en');
+  });
+
+  function setLang(l){
+    h.setAttribute('data-lang',l);
+    document.getElementById('sprache').textContent = (l==='en'?'DE':'EN');
+    try{localStorage.setItem('sw-lang',l);}catch(e){}
+  }
+
+  // Hell / Dunkel
+  var m=null;
+  try{m=localStorage.getItem('sw-mode');}catch(e){}
+  if(m){h.setAttribute('data-mode',m);}
+
+  document.getElementById('modus').addEventListener('click',function(){
+    var jetzt=h.getAttribute('data-mode');
+    var dunkelSystem=window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var neu;
+    if(!jetzt){neu=dunkelSystem?'hell':'dunkel';}
+    else{neu=(jetzt==='dunkel')?'hell':'dunkel';}
+    h.setAttribute('data-mode',neu);
+    try{localStorage.setItem('sw-mode',neu);}catch(e){}
+  });
+})();
+</script>
+
+</body>
+</html>
