@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Datenschutz — Satzwerk</title>
+<meta name="description" content="Satzwerk erhebt keine Nutzungsdaten. Alle Trainingsdaten bleiben auf dem Gerät. Apple Health nur auf Wunsch.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+<!-- Schriften lokal. Keine externen Anfragen, kein Google. -->
+<link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/publicsans.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+@font-face{font-family:"Fraunces";src:url("/fonts/fraunces.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
+@font-face{font-family:"Public Sans";src:url("/fonts/publicsans.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
+
+:root{
+  --grund:#FFFFFF;--band:#F5F5F7;--karte:#FFFFFF;--tinte:#1D1D1F;
+  --leise:#6E6E73;--kante:#D9D9DE;--akzent:#8116E0;--leiste:rgba(255,255,255,.82);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-mode="hell"]){
+    --grund:#000000;--band:#1C1C1E;--karte:#1C1C1E;--tinte:#FFFFFF;
+    --leise:#A1A1A6;--kante:#48484A;--akzent:#B07CFF;--leiste:rgba(0,0,0,.82);
+  }
+}
+:root[data-mode="dunkel"]{
+  --grund:#000000;--band:#1C1C1E;--karte:#1C1C1E;--tinte:#FFFFFF;
+  --leise:#A1A1A6;--kante:#48484A;--akzent:#B07CFF;--leiste:rgba(0,0,0,.82);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--grund);color:var(--tinte);
+  font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:17px;line-height:1.6;font-variant-numeric:tabular-nums;
+}
+
+.leiste{
+  position:sticky;top:0;z-index:10;background:var(--leiste);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--kante);
+}
+.leiste-inhalt{max-width:760px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:16px}
+.marke{
+  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
+  font-weight:700;font-size:19px;letter-spacing:-.01em;
+  color:var(--tinte);text-decoration:none;margin-right:auto;
+}
+.schalter{
+  background:none;border:1px solid var(--kante);color:var(--leise);
+  font:inherit;font-size:14px;padding:5px 12px;border-radius:980px;cursor:pointer;line-height:1.2;
+}
+.schalter:hover{color:var(--tinte)}
+.schalter:focus-visible{outline:2px solid var(--akzent);outline-offset:2px}
+
+main{max-width:760px;margin:0 auto;padding:56px 24px 96px}
+
+h1{
+  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
+  font-weight:700;font-size:clamp(32px,6vw,44px);line-height:1.1;
+  letter-spacing:-.02em;margin:0 0 8px;
+}
+.stand{color:var(--leise);font-size:15px;margin:0 0 40px}
+
+h2{font-size:20px;font-weight:600;line-height:1.3;margin:44px 0 12px;letter-spacing:-.01em}
+h3{font-size:17px;font-weight:600;margin:28px 0 8px}
+p{margin:0 0 14px;max-width:62ch}
+ul{margin:0 0 14px;padding-left:20px;max-width:62ch}
+li{margin:0 0 6px}
+address{font-style:normal;margin:0 0 14px}
+a{color:var(--akzent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible{outline:2px solid var(--akzent);outline-offset:2px;border-radius:3px}
+.klein{font-size:15px;color:var(--leise)}
+
+.karte{background:var(--band);border-radius:20px;padding:24px 28px;margin:0 0 8px}
+.karte p:last-child,.karte ul:last-child{margin-bottom:0}
+
+.kurz{
+  border-left:3px solid var(--akzent);
+  padding:4px 0 4px 20px;margin:0 0 40px;
+}
+.kurz p{font-size:19px;margin-bottom:8px}
+.kurz p:last-child{margin-bottom:0}
+
+footer{max-width:760px;margin:0 auto;padding:0 24px 64px;color:var(--leise);font-size:15px}
+footer a{color:var(--leise)}
+footer nav{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+
+/* Sprachumschaltung: nur Inhalte im Dokumentkoerper, niemals html oder body */
+main [lang="en"],footer [lang="en"]{display:none}
+html[data-lang="en"] main [lang="de"],
+html[data-lang="en"] footer [lang="de"]{display:none}
+html[data-lang="en"] main>[lang="en"]{display:block}
+html[data-lang="en"] main [lang="en"].klein,
+html[data-lang="en"] footer a[lang="en"]{display:inline}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="leiste">
+  <div class="leiste-inhalt">
+    <a class="marke" href="/">Satzwerk</a>
+    <button class="schalter" id="sprache" type="button">EN</button>
+    <button class="schalter" id="modus" type="button" aria-label="Hell oder dunkel umschalten">◐</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= DEUTSCH ================= -->
+<div lang="de">
+
+  <h1>Datenschutz</h1>
+  <p class="stand">Stand: 28. August 2026</p>
+
+  <div class="kurz">
+    <p>Die App Satzwerk erhebt keine personenbezogenen Daten.</p>
+    <p>Es gibt kein Konto, keinen Server und keine Werbung. Alle Trainings- und
+      Körperdaten bleiben auf deinem Gerät.</p>
+  </div>
+
+  <h2>1. Verantwortlicher</h2>
+  <div class="karte">
+    <address>
+      Kevin Schropp<br>
+      Satzwerk<br>
+      Veilchenweg 10<br>
+      84186 Vilsheim<br>
+      Deutschland
+    </address>
+    <p>E-Mail: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a></p>
+    <p class="klein">Ein Datenschutzbeauftragter ist gesetzlich nicht erforderlich
+      und daher nicht bestellt.</p>
+  </div>
+
+  <h2>2. Die App</h2>
+
+  <h3>Keine Erhebung, keine Übertragung</h3>
+  <p>
+    Satzwerk verarbeitet alle Eingaben ausschließlich lokal auf dem Gerät. Es
+    existiert kein Nutzerkonto, keine Anmeldung und keine Kennung. Es gibt keinen
+    Server, an den Daten übermittelt werden. Die App enthält keine Werbung, keine
+    Analysewerkzeuge und keine Tracking-Bibliotheken Dritter.
+  </p>
+  <p>
+    Betroffen sind damit unter anderem Trainingseinheiten, Übungen, Sätze, Gewichte,
+    Wiederholungen, Notizen, Studios, Körpergewicht, Körperfett und Maße. Diese Daten
+    verlassen das Gerät nicht, außer du exportierst sie selbst.
+  </p>
+
+  <h3>Export und Sicherung</h3>
+  <p>
+    Über die Teilen-Funktion des Systems kannst du deine Daten und Pläne als Text
+    ausgeben und wieder einlesen. Wohin die Daten dabei gehen, entscheidest du. Der
+    Export erfolgt ausschließlich auf deine ausdrückliche Handlung hin.
+  </p>
+
+  <h3>Apple Health</h3>
+  <p>
+    Wenn du es aktivierst, schreibt Satzwerk Trainingseinheiten, Körpergewicht und
+    Körperfett nach Apple Health. Die Funktion ist standardmäßig ausgeschaltet und
+    erfordert deine Zustimmung im Systemdialog von iOS.
+  </p>
+  <p>
+    <strong>Satzwerk liest keine Daten aus Apple Health.</strong> Werte aus anderen
+    Apps oder von einer Waage werden nicht übernommen. Die Übertragung findet
+    ausschließlich auf dem Gerät statt, Apple Health ist ein lokaler Speicher des
+    Betriebssystems.
+  </p>
+  <p>
+    Du kannst die Freigabe jederzeit in den iOS-Einstellungen unter Datenschutz und
+    Health widerrufen. Bereits geschriebene Werte kannst du in der Health-App löschen.
+  </p>
+  <p class="klein">Rechtsgrundlage: Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO.</p>
+
+  <h3>Bewertungsdialog</h3>
+  <p>
+    Satzwerk verwendet den Bewertungsdialog von Apple (SKStoreReviewController). Ob
+    und wann er erscheint, steuert das Betriebssystem. Es werden dabei keine Daten an
+    mich übermittelt, ich erfahre nicht, ob oder wie du bewertet hast.
+  </p>
+
+  <h3>App Store</h3>
+  <p>
+    Der Bezug der App läuft über den App Store. Apple erhebt und verarbeitet dabei
+    eigene Daten, auf die ich keinen Einfluss habe. Ich erhalte von Apple lediglich
+    zusammengefasste, nicht personenbezogene Statistiken, etwa die Anzahl der
+    Downloads. Es ist nicht möglich, daraus einzelne Personen zu erkennen.
+    Verantwortlich für diese Verarbeitung ist Apple.
+  </p>
+
+  <h2>3. Diese Website</h2>
+
+  <h3>Zugriffsdaten</h3>
+  <p>
+    Beim Aufruf dieser Seiten werden durch den Hostinganbieter technisch notwendige
+    Zugriffsdaten verarbeitet, insbesondere IP-Adresse, Zeitpunkt des Zugriffs,
+    aufgerufene Seite, übertragene Datenmenge sowie Browser- und Betriebssystemtyp.
+    Diese Verarbeitung ist erforderlich, um die Seite auszuliefern und ihren sicheren
+    Betrieb zu gewährleisten.
+  </p>
+  <p class="klein">
+    Rechtsgrundlage: berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO.
+  </p>
+
+  <h3>Keine Cookies</h3>
+  <p>
+    Diese Seiten setzen keine Cookies. Deine Einstellungen für Sprache sowie hell und
+    dunkel werden lokal in deinem Browser gespeichert und nicht übertragen.
+  </p>
+
+  <h3>Keine externen Inhalte</h3>
+  <p>
+    Es werden keine Schriften, Karten, Videos oder Skripte von Servern Dritter
+    nachgeladen. Alle Bestandteile dieser Seite werden vom eigenen Hosting
+    ausgeliefert. Damit entsteht beim Aufruf keine Verbindung zu Google, Meta oder
+    vergleichbaren Anbietern.
+  </p>
+
+  <h2>4. Kontakt per E-Mail</h2>
+  <p>
+    Wenn du mir schreibst, verarbeite ich deine E-Mail-Adresse und den Inhalt deiner
+    Nachricht, um sie zu beantworten. Die Nachricht bleibt so lange gespeichert, wie
+    es für die Bearbeitung erforderlich ist, sowie im Rahmen gesetzlicher
+    Aufbewahrungsfristen.
+  </p>
+  <p class="klein">
+    Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO bei vertragsbezogenen Anfragen,
+    sonst Art. 6 Abs. 1 lit. f DSGVO.
+  </p>
+
+  <h2>5. Empfänger und Drittländer</h2>
+  <p>
+    Es findet keine Weitergabe deiner Daten zu Werbe- oder Analysezwecken statt. Eine
+    Übermittlung in Länder außerhalb der EU erfolgt durch mich nicht. Die
+    Verarbeitung durch Apple im Zusammenhang mit dem App Store und Apple Health
+    richtet sich nach den Bestimmungen von Apple.
+  </p>
+
+  <h2>6. Deine Rechte</h2>
+  <p>Dir stehen gegenüber mir folgende Rechte zu:</p>
+  <ul>
+    <li>Auskunft über die zu deiner Person verarbeiteten Daten (Art. 15 DSGVO)</li>
+    <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
+    <li>Löschung (Art. 17 DSGVO)</li>
+    <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+    <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+    <li>Widerspruch gegen eine Verarbeitung auf Grundlage berechtigter Interessen
+      (Art. 21 DSGVO)</li>
+    <li>Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft
+      (Art. 7 Abs. 3 DSGVO)</li>
+  </ul>
+  <p>
+    Für die Daten in der App gilt: Da ich weder Zugriff darauf habe noch weiß, dass
+    es dich gibt, kann ich diese Rechte für die App-Daten nicht ausüben. Du hast
+    jederzeit vollständigen Zugriff, kannst alles exportieren und durch Löschen der
+    App vollständig entfernen.
+  </p>
+
+  <h2>7. Beschwerderecht</h2>
+  <p>
+    Du kannst dich bei einer Datenschutzaufsichtsbehörde beschweren. Für mich
+    zuständig ist:
+  </p>
+  <div class="karte">
+    <address>
+      Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)<br>
+      Promenade 27<br>
+      91522 Ansbach<br>
+      Deutschland
+    </address>
+  </div>
+
+  <h2>8. Änderungen</h2>
+  <p>
+    Diese Erklärung wird angepasst, wenn sich die App, die Website oder die
+    Rechtslage ändern. Es gilt jeweils die hier veröffentlichte Fassung.
+  </p>
+
+</div>
+
+<!-- ================= ENGLISH ================= -->
+<div lang="en">
+
+  <h1>Privacy</h1>
+  <p class="stand">Last updated: 28 August 2026</p>
+
+  <div class="kurz">
+    <p>The Satzwerk app collects no personal data.</p>
+    <p>There is no account, no server and no advertising. All training and body data
+      stays on your device.</p>
+  </div>
+
+  <h2>1. Controller</h2>
+  <div class="karte">
+    <address>
+      Kevin Schropp<br>
+      Satzwerk<br>
+      Veilchenweg 10<br>
+      84186 Vilsheim<br>
+      Germany
+    </address>
+    <p>Email: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a></p>
+    <p class="klein">A data protection officer is not legally required and has
+      therefore not been appointed.</p>
+  </div>
+
+  <h2>2. The app</h2>
+
+  <h3>No collection, no transmission</h3>
+  <p>
+    Satzwerk processes all entries locally on your device only. There is no user
+    account, no sign-in and no identifier. There is no server that data is sent to.
+    The app contains no advertising, no analytics tools and no third-party tracking
+    libraries.
+  </p>
+  <p>
+    This covers workouts, exercises, sets, weights, reps, notes, gyms, body weight,
+    body fat and measurements. This data does not leave your device unless you export
+    it yourself.
+  </p>
+
+  <h3>Export and backup</h3>
+  <p>
+    Using the system share sheet you can export your data and plans as text and read
+    them back in. Where that data goes is entirely your decision. Export only happens
+    on your explicit action.
+  </p>
+
+  <h3>Apple Health</h3>
+  <p>
+    If you enable it, Satzwerk writes workouts, body weight and body fat to Apple
+    Health. The feature is off by default and requires your consent in the iOS
+    system dialog.
+  </p>
+  <p>
+    <strong>Satzwerk does not read any data from Apple Health.</strong> Values from
+    other apps or from a scale are not imported. The transfer takes place on the
+    device only; Apple Health is local storage provided by the operating system.
+  </p>
+  <p>
+    You can withdraw access at any time in the iOS settings under Privacy and Health.
+    Values already written can be deleted in the Health app.
+  </p>
+  <p class="klein">Legal basis: consent under Art. 6 (1) (a) GDPR.</p>
+
+  <h3>Review prompt</h3>
+  <p>
+    Satzwerk uses Apple's review prompt (SKStoreReviewController). Whether and when it
+    appears is controlled by the operating system. No data is transmitted to me and I
+    do not learn whether or how you rated the app.
+  </p>
+
+  <h3>App Store</h3>
+  <p>
+    The app is distributed through the App Store. Apple collects and processes its own
+    data in that context, over which I have no influence. From Apple I receive only
+    aggregated, non-personal statistics such as the number of downloads. Individual
+    people cannot be identified from these. Apple is the controller for that
+    processing.
+  </p>
+
+  <h2>3. This website</h2>
+
+  <h3>Access data</h3>
+  <p>
+    When these pages are accessed, the hosting provider processes technically
+    necessary access data, in particular IP address, time of access, page requested,
+    volume of data transferred and browser and operating system type. This processing
+    is necessary to deliver the page and ensure its secure operation.
+  </p>
+  <p class="klein">Legal basis: legitimate interest under Art. 6 (1) (f) GDPR.</p>
+
+  <h3>No cookies</h3>
+  <p>
+    These pages set no cookies. Your language and light or dark preferences are stored
+    locally in your browser and are not transmitted.
+  </p>
+
+  <h3>No external content</h3>
+  <p>
+    No fonts, maps, videos or scripts are loaded from third-party servers. All parts
+    of this page are served from my own hosting. No connection to Google, Meta or
+    comparable providers is established when you open it.
+  </p>
+
+  <h2>4. Contact by email</h2>
+  <p>
+    If you write to me, I process your email address and the content of your message
+    in order to reply. The message is kept for as long as necessary to handle it and
+    within statutory retention periods.
+  </p>
+  <p class="klein">
+    Legal basis: Art. 6 (1) (b) GDPR for contract-related enquiries, otherwise
+    Art. 6 (1) (f) GDPR.
+  </p>
+
+  <h2>5. Recipients and third countries</h2>
+  <p>
+    Your data is not passed on for advertising or analytics purposes. I do not
+    transfer data to countries outside the EU. Processing by Apple in connection with
+    the App Store and Apple Health is governed by Apple's own terms.
+  </p>
+
+  <h2>6. Your rights</h2>
+  <p>You have the following rights in relation to me:</p>
+  <ul>
+    <li>Access to the data processed about you (Art. 15 GDPR)</li>
+    <li>Rectification of inaccurate data (Art. 16 GDPR)</li>
+    <li>Erasure (Art. 17 GDPR)</li>
+    <li>Restriction of processing (Art. 18 GDPR)</li>
+    <li>Data portability (Art. 20 GDPR)</li>
+    <li>Objection to processing based on legitimate interests (Art. 21 GDPR)</li>
+    <li>Withdrawal of consent with effect for the future (Art. 7 (3) GDPR)</li>
+  </ul>
+  <p>
+    For data held in the app: since I have neither access to it nor any knowledge that
+    you exist, I cannot exercise these rights on your behalf. You have full access at
+    all times, can export everything, and can remove it completely by deleting the app.
+  </p>
+
+  <h2>7. Right to complain</h2>
+  <p>
+    You may lodge a complaint with a data protection supervisory authority. The
+    authority responsible for me is:
+  </p>
+  <div class="karte">
+    <address>
+      Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)<br>
+      Promenade 27<br>
+      91522 Ansbach<br>
+      Germany
+    </address>
+  </div>
+
+  <h2>8. Changes</h2>
+  <p>
+    This notice will be updated if the app, the website or the legal situation
+    changes. The version published here applies.
+  </p>
+
+</div>
+
+</main>
+
+<footer>
+  <nav>
+    <a href="/impressum/" lang="de">Impressum</a>
+    <a href="/impressum/" lang="en">Legal notice</a>
+    <a href="/datenschutz/" lang="de">Datenschutz</a>
+    <a href="/datenschutz/" lang="en">Privacy</a>
+  </nav>
+  <p>© 2026 Kevin Schropp</p>
+</footer>
+
+<script>
+(function(){
+  var h=document.documentElement;
+
+  var gespeichert=null;
+  try{gespeichert=localStorage.getItem('sw-lang');}catch(e){}
+  var lang=gespeichert||((navigator.language||'de').slice(0,2)==='de'?'de':'en');
+  setLang(lang);
+
+  document.getElementById('sprache').addEventListener('click',function(){
+    setLang(h.getAttribute('data-lang')==='en'?'de':'en');
+  });
+
+  function setLang(l){
+    h.setAttribute('data-lang',l);
+    document.getElementById('sprache').textContent=(l==='en'?'DE':'EN');
+    try{localStorage.setItem('sw-lang',l);}catch(e){}
+  }
+
+  var m=null;
+  try{m=localStorage.getItem('sw-mode');}catch(e){}
+  if(m){h.setAttribute('data-mode',m);}
+
+  document.getElementById('modus').addEventListener('click',function(){
+    var jetzt=h.getAttribute('data-mode');
+    var dunkelSystem=window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var neu;
+    if(!jetzt){neu=dunkelSystem?'hell':'dunkel';}
+    else{neu=(jetzt==='dunkel')?'hell':'dunkel';}
+    h.setAttribute('data-mode',neu);
+    try{localStorage.setItem('sw-mode',neu);}catch(e){}
+  });
+})();
+</script>
+
+</body>
+</html>
