@@ -2,197 +2,743 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Satzwerk</title>
-<meta name="description" content="Satzwerk. Handwerk am eigenen Körper. Diese Seite entsteht gerade.">
-<meta name="robots" content="index,follow">
-<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satzwerk – Trainingstagebuch und Auswertung für iPhone</title>
+<meta name="description" content="Satzwerk ist ein Trainingstagebuch für das iPhone mit Auswertung: harte Sätze je Muskelgruppe, RIR, Verlauf je Übung und Körperwerte. Ohne Konto.">
 <link rel="canonical" href="https://satzwerk.app/">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Satzwerk">
-<meta property="og:description" content="Handwerk am eigenen Körper.">
+<meta property="og:site_name" content="Satzwerk">
+<meta property="og:title" content="Satzwerk – Trainingstagebuch und Auswertung für iPhone">
+<meta property="og:description" content="Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.">
 <meta property="og:url" content="https://satzwerk.app/">
+<meta property="og:image" content="https://satzwerk.app/img/og.jpg">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Satzwerk – Trainingstagebuch und Auswertung für iPhone">
+<meta name="twitter:description" content="Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.">
+<meta name="twitter:image" content="https://satzwerk.app/img/og.jpg">
+
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+<link rel="icon" href="img/bildmarke.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F2EE">
 
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/publicsans.woff2" as="font" type="font/woff2" crossorigin>
+<!-- Nur Vorschau, vor dem Livegang durch die selbst gehosteten Dateien ersetzen:
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600..700&family=Public+Sans:wght@400..700&display=swap" rel="stylesheet">
+-->
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "SoftwareApplication",
+ "name": "Satzwerk",
+ "applicationCategory": "HealthApplication",
+ "operatingSystem": "iOS",
+ "url": "https://apps.apple.com/app/id6786720640",
+ "description": "Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.",
+ "author": {
+  "@type": "Person",
+  "name": "Kevin Schropp"
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Was ist Satzwerk?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Satzwerk ist ein Trainingstagebuch für das iPhone. Du trägst Gewicht, Wiederholungen und RIR je Satz ein, und Satzwerk wertet daraus harte Sätze je Muskelgruppe, Intensität und den Verlauf je Übung aus. Dazu kommt ein Körperbereich mit Gewicht, Körperfett aus Hautfalten und Kalorienziel."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Für wen ist die App gedacht?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Satzwerk ist für Leute gedacht, die ihren Trainingsplan schon haben und ihn nur noch erfassen und auswerten wollen. Die App gibt keine Handlungsempfehlungen und enthält keine fertigen Pläne. Wer einen Plan sucht, ist bei einem Trainer oder einer Trainerin richtig."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Brauche ich ein Konto?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Nein, für Satzwerk ist kein Konto nötig. Die App läuft ohne Anmeldung, ohne E-Mail-Adresse und ohne Passwort. Du installierst sie und trägst dein erstes Training ein."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Wo liegen meine Daten?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Alle Daten von Satzwerk liegen auf deinem iPhone. Es gibt keinen Server, an den Trainings oder Körperwerte übertragen werden. Ein Export als Datei ist jederzeit möglich, und die Historie hat keine Zeitgrenze."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Gibt es fertige Trainingspläne?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Nein, Satzwerk enthält keine fertigen Trainingspläne. Du legst deinen eigenen Plan an, mit Trainingstagen, Übungen und Sollsätzen. Die App erfasst und wertet aus, sie gibt keine Vorgaben."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Was ist RIR und wie wird er erfasst?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "RIR steht für Reps in Reserve, also die Wiederholungen, die am Ende eines Satzes noch möglich gewesen wären. In Satzwerk trägst du den RIR am letzten Satz einer Übung ein, mit einem Tipp auf einen Wert von 0 bis 3. Daraus berechnet Satzwerk, welcher Anteil deiner Sätze nahe am Limit lag."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Was sind harte Sätze je Muskelgruppe?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Ein harter Satz ist in Satzwerk ein Arbeitssatz mit RIR 0 bis 2, also nahe am Limit. Satzwerk zählt diese Sätze je Muskelgruppe für die laufende Woche von Montag bis Sonntag und stellt die Vorwoche daneben. Aufwärmsätze zählen nie mit."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Kann ich meine Daten exportieren?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Ja, Satzwerk exportiert alle Trainings und Körperwerte als Datei, die du sichern oder auf ein neues iPhone übertragen kannst. Dieselbe Datei liest Satzwerk auch wieder ein. Trainings und Körperwerte lassen sich zusätzlich als CSV ausgeben."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Gibt es die App für Android oder die Apple Watch?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Nein. Satzwerk gibt es nur für das iPhone, nicht für Android und nicht für die Apple Watch. Die Live Activity am Sperrbildschirm läuft auf dem iPhone."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Warum heißt die App Satzwerk?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Der Name setzt sich aus Satz und Werk zusammen. Satz steht für den Trainingssatz, die kleinste Einheit im Krafttraining. Werk steht für Handwerk, für die eigene Arbeit am eigenen Körper."
+   }
+  }
+ ]
+}
+</script>
+
+<script>
+/* Farbmodus vor dem ersten Zeichnen setzen, sonst blitzt die Seite hell auf.
+   localStorage haelt nur die Einstellung, die der Nutzer selbst gewaehlt hat. */
+(function(){
+  try{
+    var m = localStorage.getItem("satzwerk-modus");
+    if (m === "hell" || m === "dunkel") document.documentElement.setAttribute("data-mode", m);
+  }catch(err){}
+})();
+</script>
 
 <style>
-@font-face{font-family:"Fraunces";src:url("/fonts/fraunces.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
-@font-face{font-family:"Public Sans";src:url("/fonts/publicsans.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
-
-:root{
-  --grund:#FFFFFF;--band:#F5F5F7;--tinte:#1D1D1F;
-  --leise:#6E6E73;--kante:#D9D9DE;--akzent:#8116E0;
+/* ---------- Schriften: zwei, selbst gehostet ---------- */
+@font-face{
+  font-family:"Fraunces";
+  src:url("/fonts/fraunces.woff2") format("woff2");
+  font-weight:100 900; font-display:swap; font-style:normal;
 }
-@media (prefers-color-scheme:dark){
+@font-face{
+  font-family:"Public Sans";
+  src:url("/fonts/publicsans.woff2") format("woff2");
+  font-weight:100 900; font-display:swap; font-style:normal;
+}
+
+/* ---------- Farben: alle Werte hier, sonst nirgends ---------- */
+:root{
+  /* Werte aus der App: src/stil.js, --bg / --surface-2 / --surface / --ink /
+     --ink-faint / --line / --akzent */
+  --grund:#F4F2EE;
+  --band:#EDEAE5;
+  --karte:#FFFFFF;
+  --tinte:#000000;
+  --leise:#5C5C5E;
+  --kante:#DCD8D2;
+  --akzent:#8116E0;
+  --leiste:rgba(244,242,238,.82);
+  --schatten:0 1px 3px rgba(0,0,0,.06);
+  color-scheme:light;
+}
+
+@media (prefers-color-scheme: dark){
   :root:not([data-mode="hell"]){
-    --grund:#000000;--band:#1C1C1E;--tinte:#FFFFFF;
-    --leise:#A1A1A6;--kante:#48484A;--akzent:#B07CFF;
+    --grund:#000000;
+    --band:#1C1C1E;
+    --karte:#1C1C1E;
+    --tinte:#FFFFFF;
+    --leise:#AEAEB2;
+    --kante:#3A3A3C;
+    --akzent:#B07CFF;
+    --leiste:rgba(0,0,0,.82);
+    --schatten:none;
+    color-scheme:dark;
   }
 }
-:root[data-mode="dunkel"]{
-  --grund:#000000;--band:#1C1C1E;--tinte:#FFFFFF;
-  --leise:#A1A1A6;--kante:#48484A;--akzent:#B07CFF;
+
+:root[data-mode="dunkel"]{ /* dieselben Dunkelwerte, manuell erzwungen */
+  --grund:#000000;
+  --band:#1C1C1E;
+  --karte:#1C1C1E;
+  --tinte:#FFFFFF;
+  --leise:#AEAEB2;
+  --kante:#3A3A3C;
+  --akzent:#B07CFF;
+  --leiste:rgba(0,0,0,.82);
+  --schatten:none;
+  color-scheme:dark;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-html{-webkit-text-size-adjust:100%}
+/* ---------- Grundlage ---------- */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0 }
+html{ -webkit-text-size-adjust:100% }
 body{
-  margin:0;background:var(--grund);color:var(--tinte);
+  background:var(--grund);
+  color:var(--tinte);
   font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
-  font-size:17px;line-height:1.6;
-  display:flex;flex-direction:column;
+  font-size:18px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{ display:block; max-width:100% }
+a{ color:var(--akzent); text-underline-offset:3px }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer }
+
+/* Fokus: sichtbar, in der Marke, ueberall gleich */
+:focus-visible{ outline:3px solid var(--akzent); outline-offset:3px; border-radius:6px }
+
+/* Die vier Textgroessen. Fraunces nur fuer Ueberschriften, Claim und Marke. */
+h1{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:700;
+    font-size:clamp(38px,7vw,60px); line-height:1.05; letter-spacing:-0.02em }
+h2,.claim{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:600;
+    font-size:clamp(24px,4vw,34px); line-height:1.15 }
+.klein{ font-size:14px; color:var(--leise); line-height:1.5 }
+p{ max-width:65ch }
+
+/* Raum: 8er-Raster, Abschnitte 64 am Handy, 96 am Desktop */
+.rahmen{ width:100%; max-width:1120px; margin:0 auto; padding:0 24px }
+section{ padding:64px 0 }
+@media (min-width:768px){ section{ padding:96px 0 } }
+
+/* Sprunglink: erst bei Tastaturfokus sichtbar */
+.sprung{ position:absolute; left:-999px; top:8px; background:var(--karte); color:var(--tinte);
+  padding:8px 16px; border-radius:980px; z-index:20; box-shadow:var(--schatten) }
+.sprung:focus{ left:8px }
+
+/* ---------- Knoepfe ---------- */
+.knopf{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:52px; padding:0 28px; border-radius:980px;
+  text-decoration:none; font-weight:600; white-space:nowrap;
+}
+.knopf-leise{ height:40px; padding:0 16px; color:var(--tinte); border:1px solid var(--kante) }
+.knopf-rund{ width:40px; padding:0 }
+.knopf-rund svg{ width:20px; height:20px; stroke:currentColor; fill:none;
+  stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round }
+.mond,.nur-dunkel{ display:none }
+:root[data-mode="dunkel"] .sonne,:root[data-mode="dunkel"] .nur-hell{ display:none }
+:root[data-mode="dunkel"] .mond,:root[data-mode="dunkel"] .nur-dunkel{ display:block }
+@media (prefers-color-scheme: dark){
+  :root:not([data-mode="hell"]) .sonne,:root:not([data-mode="hell"]) .nur-hell{ display:none }
+  :root:not([data-mode="hell"]) .mond,:root:not([data-mode="hell"]) .nur-dunkel{ display:block }
 }
 
-main{
-  flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;
-  text-align:center;padding:64px 24px 40px;max-width:560px;margin:0 auto;
+/* App-Store-Badge: Apples Grafik, schwarz im Hellen, weiss im Dunkeln */
+.badge{ display:inline-block; line-height:0 }
+.badge img{ height:52px; width:auto }
+.badge-gross img{ height:64px }
+
+/* ---------- Kopfzeile: die einzige Glasflaeche ---------- */
+.kopf{
+  position:sticky; top:0; z-index:10;
+  background:var(--leiste);
+  -webkit-backdrop-filter:blur(20px) saturate(180%); backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--kante);
+}
+.kopf .rahmen{ display:flex; align-items:center; justify-content:space-between; height:64px; gap:16px }
+.marke{ display:inline-flex; align-items:center; line-height:0 }
+.marke img{ height:24px; width:auto }
+.kopf-rechts{ display:flex; align-items:center; gap:8px }
+.knopf-store{ display:none }
+.knopf-store img{ height:40px }
+@media (min-width:768px){ .knopf-store{ display:inline-block } }
+
+/* ---------- Heldenbereich ---------- */
+.held{ padding:48px 0 64px }
+.held .rahmen{ display:grid; gap:48px; align-items:center }
+@media (min-width:768px){
+  .held{ padding:96px 0 }
+  .held .rahmen{ grid-template-columns:1fr 1fr; gap:64px }
+}
+.held-text{ display:flex; flex-direction:column; gap:24px; align-items:flex-start }
+
+/* Einmal einblenden beim Laden, gestaffelt 0 / 120 / 240 ms. Danach nichts mehr. */
+.blende{ opacity:0; transform:translateY(12px);
+  animation:einblenden 600ms cubic-bezier(0.16,1,0.3,1) forwards }
+.blende-2{ animation-delay:120ms }
+.blende-3{ animation-delay:240ms }
+@keyframes einblenden{ to{ opacity:1; transform:none } }
+
+/* Zwei Mockups, versetzt. Der hintere kleiner (88 %) und hoeher.
+   Kein Rahmen, kein Schatten, keine Perspektive. Die Ecken tragen den
+   iPhone-Radius als Prozent, damit er mit der Breite skaliert. */
+.mockups{ position:relative; width:100%; max-width:440px; margin:0 auto; aspect-ratio:1024 / 1420 }
+.huelle{ position:absolute; bottom:0; width:58% }
+.huelle-vorn{ left:4%; z-index:2 }
+.huelle-hinten{ right:2%; bottom:12%; z-index:1; transform:scale(.88); transform-origin:bottom right }
+.mockup img{ width:100%; height:auto }
+@media (max-width:767px){
+  .mockups{ max-width:360px; aspect-ratio:1024 / 1300 }
 }
 
-.bildmarke{
-  width:clamp(150px,34vw,210px);height:auto;display:block;
-  color:var(--tinte);margin:0 0 36px;
-  opacity:0;filter:blur(8px);
-  animation:auf .9s cubic-bezier(.16,1,.3,1) forwards;
+@keyframes schweben{
+  from{ transform: translateY(-9px) }
+  to  { transform: translateY(9px) }
 }
-.wortmarke{
-  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
-  font-weight:700;font-size:clamp(38px,9vw,58px);line-height:1;
-  letter-spacing:-.02em;margin:0 0 14px;
-  opacity:0;filter:blur(8px);
-  animation:auf .9s cubic-bezier(.16,1,.3,1) .12s forwards;
-}
-.claim{
-  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
-  font-weight:600;font-size:clamp(18px,4vw,21px);line-height:1.4;
-  margin:0 0 44px;color:var(--tinte);
-  opacity:0;filter:blur(8px);
-  animation:auf .9s cubic-bezier(.16,1,.3,1) .24s forwards;
-}
-.hinweis{
-  color:var(--leise);font-size:17px;margin:0 0 8px;max-width:44ch;
-  opacity:0;transform:translateY(12px);
-  animation:hoch .8s cubic-bezier(.16,1,.3,1) .36s forwards;
-}
-.hinweis-klein{
-  color:var(--leise);font-size:15px;margin:0;max-width:44ch;
-  opacity:0;transform:translateY(12px);
-  animation:hoch .8s cubic-bezier(.16,1,.3,1) .44s forwards;
-}
-.hinweis a,.hinweis-klein a{color:var(--akzent);text-decoration:none}
-.hinweis a:hover,.hinweis-klein a:hover{text-decoration:underline}
+.mockup-vorn { animation: schweben 6.0s ease-in-out infinite alternate }
+.mockup-hinten{ animation: schweben 7.4s ease-in-out infinite alternate;
+                animation-delay: -2.1s }
 
-@keyframes auf{to{opacity:1;filter:blur(0)}}
-@keyframes hoch{to{opacity:1;transform:translateY(0)}}
+/* ---------- Textkern: drei Absaetze, mittig ---------- */
+.kern .rahmen{ display:flex; flex-direction:column; align-items:center; gap:24px }
+.kern p{ text-align:center }
 
-footer{
-  padding:0 24px 40px;text-align:center;
-  color:var(--leise);font-size:15px;
-  opacity:0;animation:auf .8s cubic-bezier(.16,1,.3,1) .6s forwards;
+/* ---------- Was drin ist ---------- */
+.drin{ background:var(--band) }
+.drin h2{ text-align:center; margin-bottom:40px }
+.drin ul{ list-style:none; display:grid; gap:1px; max-width:720px; margin:0 auto;
+  background:var(--kante); border-radius:20px; box-shadow:var(--schatten); overflow:hidden }
+.drin li{ padding:14px 24px; background:var(--karte) }
+@media (min-width:768px){
+  .drin ul{ grid-template-columns:1fr 1fr }
+  .drin li:last-child:nth-child(odd){ grid-column:1 / -1 }
 }
-footer nav{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
-footer a{color:var(--leise);text-decoration:none}
-footer a:hover{color:var(--tinte)}
-a:focus-visible{outline:2px solid var(--akzent);outline-offset:3px;border-radius:4px}
+.drin .klein{ text-align:center; margin:24px auto 0 }
 
-.schalter{
-  position:fixed;top:16px;right:16px;display:flex;gap:8px;z-index:10;
-}
-.schalter button{
-  background:var(--grund);border:1px solid var(--kante);color:var(--leise);
-  font:inherit;font-size:14px;padding:5px 12px;border-radius:980px;cursor:pointer;line-height:1.2;
-}
-.schalter button:hover{color:var(--tinte)}
-.schalter button:focus-visible{outline:2px solid var(--akzent);outline-offset:2px}
+/* ---------- Download ---------- */
+.laden .rahmen{ display:flex; flex-direction:column; align-items:center; gap:32px; text-align:center }
 
-/* Sprachumschaltung: nur Inhalte im Dokumentkörper, niemals html oder body */
-main [lang="en"],footer [lang="en"]{display:none}
-html[data-lang="en"] main [lang="de"],
-html[data-lang="en"] footer [lang="de"]{display:none}
-html[data-lang="en"] main [lang="en"]{display:block}
-html[data-lang="en"] footer a[lang="en"]{display:inline}
+/* ---------- FAQ ---------- */
+.fragen h2{ text-align:center; margin-bottom:40px }
+.faq-liste{ max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:8px }
+.faq{ background:var(--karte); border-radius:20px; box-shadow:var(--schatten); padding:0 24px }
+.faq summary{ cursor:pointer; list-style:none; padding:16px 0; font-weight:600;
+  display:flex; justify-content:space-between; align-items:center; gap:16px }
+.faq summary::-webkit-details-marker{ display:none }
+.faq summary::after{ content:""; flex:none; width:10px; height:10px; margin-right:4px;
+  border-right:2px solid var(--leise); border-bottom:2px solid var(--leise);
+  transform:rotate(45deg); transition:transform 200ms ease }
+.faq[open] summary::after{ transform:rotate(225deg) }
+.faq p{ padding:0 0 20px; max-width:none }
 
-@media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important;filter:none!important;
-    opacity:1!important;transform:none!important}
+/* ---------- Fuss ---------- */
+footer{ background:var(--band); padding:64px 0 48px }
+footer .rahmen{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:16px }
+footer img{ height:32px; width:auto }
+.recht{ margin-top:24px; display:flex; gap:24px }
+.recht a{ color:var(--leise) }
+
+/* Pflicht: alles still, wenn der Nutzer es so eingestellt hat */
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; filter:none !important }
+  .blende{ opacity:1; transform:none }
 }
 </style>
 </head>
 <body>
+<a class="sprung" href="#inhalt" data-t="skip">Zum Inhalt</a>
 
-<div class="schalter">
-  <button id="sprache" type="button">EN</button>
-  <button id="modus" type="button" aria-label="Hell oder dunkel umschalten">&#9680;</button>
-</div>
+<header class="kopf">
+  <div class="rahmen">
+    <a class="marke" href="/">
+      <img class="nur-hell" src="img/logo-dunkel.svg" alt="Satzwerk" width="142" height="24">
+      <img class="nur-dunkel" src="img/logo-hell.svg" alt="Satzwerk" width="142" height="24">
+    </a>
+    <div class="kopf-rechts">
+      <button class="knopf knopf-leise" id="sprache" type="button" data-t="lang" data-t-aria="lang_aria" aria-label="Switch to English">EN</button>
+      <button class="knopf knopf-leise knopf-rund" id="modus" type="button" data-t-aria="modus_aria" aria-label="Hell oder dunkel umschalten">
+        <svg class="sonne" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="mond" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <a class="badge knopf-store" href="https://apps.apple.com/app/id6786720640">
+        <img class="nur-hell" src="img/app-store-badge-schwarz.svg" alt="Laden im App Store" width="138" height="40" data-t-alt="store">
+        <img class="nur-dunkel" src="img/app-store-badge-weiss.svg" alt="Laden im App Store" width="138" height="40" data-t-alt="store">
+      </a>
+    </div>
+  </div>
+</header>
 
-<main>
-<svg class="bildmarke" viewBox="0 0 2335 1501" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
-  <path d="M116.729 633.67C52.2772 633.67 0 685.928 0 750.399C0 814.87 52.2772 867.128 116.729 867.128C181.187 867.128 233.458 814.87 233.458 750.399C233.458 685.928 181.187 633.67 116.729 633.67Z"/>
-  <path d="M2217.85 633.67C2153.39 633.67 2101.12 685.928 2101.12 750.399C2101.12 814.87 2153.39 867.128 2217.85 867.128C2282.3 867.128 2334.58 814.87 2334.58 750.399C2334.58 685.928 2282.3 633.67 2217.85 633.67Z"/>
-  <path d="M1300.69 750.4C1300.69 688.303 1258.09 636.586 1200.64 621.699V245.065C1253.4 230.396 1292.36 182.516 1292.36 125.067C1292.36 55.9836 1236.37 0 1167.29 0C1098.21 0 1042.23 55.9836 1042.23 125.067C1042.23 182.516 1081.18 230.396 1133.94 245.065V621.702C1076.49 636.586 1033.89 688.303 1033.89 750.403C1033.89 812.494 1076.49 864.217 1133.94 879.098V1255.73C1081.18 1270.4 1042.23 1318.28 1042.23 1375.73C1042.23 1444.81 1098.21 1500.8 1167.29 1500.8C1236.37 1500.8 1292.36 1444.81 1292.36 1375.73C1292.36 1318.28 1253.4 1270.4 1200.64 1255.73V879.095C1258.09 864.214 1300.69 812.49 1300.69 750.4Z"/>
-  <path d="M758.745 441.9C758.745 372.823 702.755 316.833 633.678 316.833C564.595 316.833 508.611 372.823 508.611 441.9C508.611 499.355 547.568 547.229 600.327 561.905V938.896C547.568 953.566 508.611 1001.45 508.611 1058.9C508.611 1127.98 564.595 1183.96 633.678 1183.96C702.755 1183.96 758.745 1127.98 758.745 1058.9C758.745 1001.45 719.788 953.566 667.029 938.896V561.905C719.788 547.229 758.745 499.355 758.745 441.9Z"/>
-  <path d="M1825.98 441.9C1825.98 372.823 1769.99 316.833 1700.91 316.833C1631.83 316.833 1575.84 372.823 1575.84 441.9C1575.84 499.355 1614.8 547.229 1667.56 561.905V938.896C1614.8 953.566 1575.84 1001.45 1575.84 1058.9C1575.84 1127.98 1631.83 1183.96 1700.91 1183.96C1769.99 1183.96 1825.98 1127.98 1825.98 1058.9C1825.98 1001.45 1787.02 953.566 1734.26 938.896V561.905C1787.02 547.229 1825.98 499.355 1825.98 441.9Z"/>
-</svg>
+<main id="inhalt">
 
-  <h1 class="wortmarke">Satzwerk</h1>
-  <p class="claim">Handwerk am eigenen Körper.</p>
+  <section class="held" aria-labelledby="titel">
+    <div class="rahmen">
+      <div class="held-text">
+        <h1 id="titel" class="blende" data-t="h1">Tracken. Nicht scrollen.</h1>
+        <p class="blende blende-2" data-t="lead">Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.</p>
+        <a class="badge blende blende-3" href="https://apps.apple.com/app/id6786720640">
+          <img class="nur-hell" src="img/app-store-badge-schwarz.svg" alt="Laden im App Store" width="180" height="52" data-t-alt="store">
+          <img class="nur-dunkel" src="img/app-store-badge-weiss.svg" alt="Laden im App Store" width="180" height="52" data-t-alt="store">
+        </a>
+        <p class="klein blende blende-3" data-t="hinweis">Für iPhone. Keine Werbung, kein Konto nötig, deine Daten bleiben auf dem Gerät.</p>
+      </div>
+      <div class="mockups blende blende-2">
+        <div class="huelle huelle-hinten">
+          <div class="mockup mockup-hinten">
+            <img src="img/mockup-start-de.png" alt="Startbildschirm von Satzwerk: Wochenkalender, aktiver Plan und der nächste Trainingstag mit Übungen und Gewichten" width="1024" height="2123" loading="eager" data-t-alt="alt_hinten" data-mockup="start">
+          </div>
+        </div>
+        <div class="huelle huelle-vorn">
+          <div class="mockup mockup-vorn">
+            <img src="img/mockup-training-de.png" alt="Bildschirm von Satzwerk während des Trainings: Sätze mit Gewicht, Wiederholungen und Haken" width="1024" height="2123" loading="eager" data-t-alt="alt_vorn" data-mockup="training">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <p class="hinweis" lang="de">Diese Seite entsteht gerade.</p>
-  <p class="hinweis" lang="en">This site is being built.</p>
+  <section class="kern" aria-label="Was Satzwerk ist">
+    <div class="rahmen">
+      <p data-t="p1">Eintragen, ohne den Satz zu unterbrechen. Gewicht und Wiederholungen tippen, abhaken, weiter. Der nächste Satz übernimmt den Wert als grauen Vorschlag. Aufwärmsätze sind eigene Zeilen und zählen in der Auswertung nie mit. Am letzten Satz trägst du den RIR ein, daraus rechnet die App die Intensität.</p>
+      <p data-t="p2">Ausgewertet wird, was eine Entscheidung trägt: harte Sätze je Muskelgruppe, diese Woche gegen die Vorwoche. Der Anteil der Sätze nahe am Limit. Der Verlauf je Übung über die Zeit. Dazu der Körperbereich mit Gewicht und Wochenrate, Körperfett aus Hautfalten, fettfreier Masse und Kalorienziel.</p>
+      <p data-t="p3">Satzwerk zeigt, wo du stehst. Es sagt dir nicht, was du tun sollst. Keine Handlungsempfehlungen, kein „nimm mehr Gewicht“, kein „Deload empfohlen“. Ein Onboarding kennt deinen Bandscheibenvorfall nicht, deinen Blutdruck nicht und dein Sprunggelenk nicht. Pläne kommen von Menschen, die dich kennen. Die Zahlen kommen von hier.</p>
+    </div>
+  </section>
 
-  <p class="hinweis-klein" lang="de">
-    Die App für iPhone kommt in Kürze in den App Store.
-  </p>
-  <p class="hinweis-klein" lang="en">
-    The iPhone app is coming to the App Store shortly.
-  </p>
+  <section class="drin" aria-labelledby="drin-titel">
+    <div class="rahmen">
+      <h2 id="drin-titel" data-t="h2_drin">Was drin ist</h2>
+      <ul>
+      <li data-t="liste.0">170 Übungen, eigene frei anlegbar</li>
+      <li data-t="liste.1">RIR je Satz</li>
+      <li data-t="liste.2">Harte Sätze je Muskelgruppe</li>
+      <li data-t="liste.3">Verlauf je Übung</li>
+      <li data-t="liste.4">Mehrere Studios getrennt</li>
+      <li data-t="liste.5">Körperfett aus Hautfalten</li>
+      <li data-t="liste.6">Kalorienbedarf und Zielrate</li>
+      <li data-t="liste.7">Live Activity am Sperrbildschirm</li>
+      <li data-t="liste.8">Export und Wiedereinlesen</li>
+      <li data-t="liste.9">Deutsch und Englisch</li>
+      <li data-t="liste.10">Metrisch und imperial</li>
+      <li data-t="liste.11">Hell, dunkel oder automatisch</li>
+      <li data-t="liste.12">Apple Health (schreibend)</li>
+      </ul>
+      <p class="klein" data-t="nicht">Keine fertigen Trainingspläne, kein Feed, kein Kalorienzählen.</p>
+    </div>
+  </section>
+
+  <section class="laden" aria-labelledby="laden-titel">
+    <div class="rahmen">
+      <h2 id="laden-titel" data-t="h2_laden">Für das nächste Training.</h2>
+      <a class="badge badge-gross" href="https://apps.apple.com/app/id6786720640">
+        <img class="nur-hell" src="img/app-store-badge-schwarz.svg" alt="Laden im App Store" width="222" height="64" loading="lazy" data-t-alt="store">
+        <img class="nur-dunkel" src="img/app-store-badge-weiss.svg" alt="Laden im App Store" width="222" height="64" loading="lazy" data-t-alt="store">
+      </a>
+    </div>
+  </section>
+
+  <section class="fragen" aria-labelledby="faq-titel">
+    <div class="rahmen">
+      <h2 id="faq-titel" data-t="h2_faq">Fragen und Antworten</h2>
+      <div class="faq-liste">
+    <details class="faq">
+      <summary data-t="faq.0.0">Was ist Satzwerk?</summary>
+      <p data-t="faq.0.1">Satzwerk ist ein Trainingstagebuch für das iPhone. Du trägst Gewicht, Wiederholungen und RIR je Satz ein, und Satzwerk wertet daraus harte Sätze je Muskelgruppe, Intensität und den Verlauf je Übung aus. Dazu kommt ein Körperbereich mit Gewicht, Körperfett aus Hautfalten und Kalorienziel.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="faq.1.0">Für wen ist die App gedacht?</summary>
+      <p data-t="faq.1.1">Satzwerk ist für Leute gedacht, die ihren Trainingsplan schon haben und ihn nur noch erfassen und auswerten wollen. Die App gibt keine Handlungsempfehlungen und enthält keine fertigen Pläne. Wer einen Plan sucht, ist bei einem Trainer oder einer Trainerin richtig.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="faq.2.0">Brauche ich ein Konto?</summary>
+      <p data-t="faq.2.1">Nein, für Satzwerk ist kein Konto nötig. Die App läuft ohne Anmeldung, ohne E-Mail-Adresse und ohne Passwort. Du installierst sie und trägst dein erstes Training ein.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="faq.3.0">Wo liegen meine Daten?</summary>
+      <p data-t="faq.3.1">Alle Daten von Satzwerk liegen auf deinem iPhone. Es gibt keinen Server, an den Trainings oder Körperwerte übertragen werden. Ein Export als Datei ist jederzeit möglich, und die Historie hat keine Zeitgrenze.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="faq.4.0">Gibt es fertige Trainingspläne?</summary>
+      <p data-t="faq.4.1">Nein, Satzwerk enthält keine fertigen Trainingspläne. Du legst deinen eigenen Plan an, mit Trainingstagen, Übungen und Sollsätzen. Die App erfasst und wertet aus, sie gibt keine Vorgaben.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="faq.5.0">Was ist RIR und wie wird er erfasst?</summary>
+      <p data-t="faq.5.1">RIR steht für Reps in Reserve, also die Wiederholungen, die am Ende eines Satzes noch möglich gewesen wären. In Satzwerk trägst du den RIR am letzten Satz einer Übung ein, mit einem Tipp auf einen Wert von 0 bis 3. Daraus berechnet Satzwerk, welcher Anteil deiner Sätze nahe am Limit lag.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="faq.6.0">Was sind harte Sätze je Muskelgruppe?</summary>
+      <p data-t="faq.6.1">Ein harter Satz ist in Satzwerk ein Arbeitssatz mit RIR 0 bis 2, also nahe am Limit. Satzwerk zählt diese Sätze je Muskelgruppe für die laufende Woche von Montag bis Sonntag und stellt die Vorwoche daneben. Aufwärmsätze zählen nie mit.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="faq.7.0">Kann ich meine Daten exportieren?</summary>
+      <p data-t="faq.7.1">Ja, Satzwerk exportiert alle Trainings und Körperwerte als Datei, die du sichern oder auf ein neues iPhone übertragen kannst. Dieselbe Datei liest Satzwerk auch wieder ein. Trainings und Körperwerte lassen sich zusätzlich als CSV ausgeben.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="faq.8.0">Gibt es die App für Android oder die Apple Watch?</summary>
+      <p data-t="faq.8.1">Nein. Satzwerk gibt es nur für das iPhone, nicht für Android und nicht für die Apple Watch. Die Live Activity am Sperrbildschirm läuft auf dem iPhone.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="faq.9.0">Warum heißt die App Satzwerk?</summary>
+      <p data-t="faq.9.1">Der Name setzt sich aus Satz und Werk zusammen. Satz steht für den Trainingssatz, die kleinste Einheit im Krafttraining. Werk steht für Handwerk, für die eigene Arbeit am eigenen Körper.</p>
+    </details>
+      </div>
+    </div>
+  </section>
 
 </main>
 
 <footer>
-  <nav>
-    <a href="/impressum/" lang="de">Impressum</a>
-    <a href="/impressum/" lang="en">Legal notice</a>
-    <a href="/datenschutz/" lang="de">Datenschutz</a>
-    <a href="/datenschutz/" lang="en">Privacy</a>
-  </nav>
-  <p>&copy; 2026 Kevin Schropp</p>
+  <div class="rahmen">
+    <img class="nur-hell" src="img/logo-dunkel.svg" alt="Satzwerk" width="189" height="32" loading="lazy">
+    <img class="nur-dunkel" src="img/logo-hell.svg" alt="Satzwerk" width="189" height="32" loading="lazy">
+    <p class="claim" data-t="claim">Handwerk am eigenen Körper.</p>
+    <p class="klein"><span data-t="fuss1">Satzwerk ist eine App von Kevin Schropp, Einzelperson aus Niederbayern.</span> <span data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</span></p>
+    <p class="klein recht">
+      <a href="/impressum/" data-t="impressum">Impressum</a>
+      <a href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
+    </p>
+  </div>
 </footer>
 
 <script>
+/* Alle sichtbaren Texte in beiden Sprachen. Deutsch steht bereits im HTML;
+   das Skript setzt Englisch nur ein, wenn der Nutzer es waehlt. */
+var TEXTE = {
+ "de": {
+  "skip": "Zum Inhalt",
+  "marke": "Satzwerk",
+  "lang": "EN",
+  "lang_aria": "Switch to English",
+  "modus_aria": "Hell oder dunkel umschalten",
+  "store": "Laden im App Store",
+  "h1": "Tracken. Nicht scrollen.",
+  "lead": "Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.",
+  "hinweis": "Für iPhone. Keine Werbung, kein Konto nötig, deine Daten bleiben auf dem Gerät.",
+  "alt_vorn": "Bildschirm von Satzwerk während des Trainings: Sätze mit Gewicht, Wiederholungen und Haken",
+  "alt_hinten": "Startbildschirm von Satzwerk: Wochenkalender, aktiver Plan und der nächste Trainingstag mit Übungen und Gewichten",
+  "p1": "Eintragen, ohne den Satz zu unterbrechen. Gewicht und Wiederholungen tippen, abhaken, weiter. Der nächste Satz übernimmt den Wert als grauen Vorschlag. Aufwärmsätze sind eigene Zeilen und zählen in der Auswertung nie mit. Am letzten Satz trägst du den RIR ein, daraus rechnet die App die Intensität.",
+  "p2": "Ausgewertet wird, was eine Entscheidung trägt: harte Sätze je Muskelgruppe, diese Woche gegen die Vorwoche. Der Anteil der Sätze nahe am Limit. Der Verlauf je Übung über die Zeit. Dazu der Körperbereich mit Gewicht und Wochenrate, Körperfett aus Hautfalten, fettfreier Masse und Kalorienziel.",
+  "p3": "Satzwerk zeigt, wo du stehst. Es sagt dir nicht, was du tun sollst. Keine Handlungsempfehlungen, kein „nimm mehr Gewicht“, kein „Deload empfohlen“. Ein Onboarding kennt deinen Bandscheibenvorfall nicht, deinen Blutdruck nicht und dein Sprunggelenk nicht. Pläne kommen von Menschen, die dich kennen. Die Zahlen kommen von hier.",
+  "h2_drin": "Was drin ist",
+  "liste": [
+   "170 Übungen, eigene frei anlegbar",
+   "RIR je Satz",
+   "Harte Sätze je Muskelgruppe",
+   "Verlauf je Übung",
+   "Mehrere Studios getrennt",
+   "Körperfett aus Hautfalten",
+   "Kalorienbedarf und Zielrate",
+   "Live Activity am Sperrbildschirm",
+   "Export und Wiedereinlesen",
+   "Deutsch und Englisch",
+   "Metrisch und imperial",
+   "Hell, dunkel oder automatisch",
+   "Apple Health (schreibend)"
+  ],
+  "nicht": "Keine fertigen Trainingspläne, kein Feed, kein Kalorienzählen.",
+  "h2_laden": "Für das nächste Training.",
+  "h2_faq": "Fragen und Antworten",
+  "faq": [
+   [
+    "Was ist Satzwerk?",
+    "Satzwerk ist ein Trainingstagebuch für das iPhone. Du trägst Gewicht, Wiederholungen und RIR je Satz ein, und Satzwerk wertet daraus harte Sätze je Muskelgruppe, Intensität und den Verlauf je Übung aus. Dazu kommt ein Körperbereich mit Gewicht, Körperfett aus Hautfalten und Kalorienziel."
+   ],
+   [
+    "Für wen ist die App gedacht?",
+    "Satzwerk ist für Leute gedacht, die ihren Trainingsplan schon haben und ihn nur noch erfassen und auswerten wollen. Die App gibt keine Handlungsempfehlungen und enthält keine fertigen Pläne. Wer einen Plan sucht, ist bei einem Trainer oder einer Trainerin richtig."
+   ],
+   [
+    "Brauche ich ein Konto?",
+    "Nein, für Satzwerk ist kein Konto nötig. Die App läuft ohne Anmeldung, ohne E-Mail-Adresse und ohne Passwort. Du installierst sie und trägst dein erstes Training ein."
+   ],
+   [
+    "Wo liegen meine Daten?",
+    "Alle Daten von Satzwerk liegen auf deinem iPhone. Es gibt keinen Server, an den Trainings oder Körperwerte übertragen werden. Ein Export als Datei ist jederzeit möglich, und die Historie hat keine Zeitgrenze."
+   ],
+   [
+    "Gibt es fertige Trainingspläne?",
+    "Nein, Satzwerk enthält keine fertigen Trainingspläne. Du legst deinen eigenen Plan an, mit Trainingstagen, Übungen und Sollsätzen. Die App erfasst und wertet aus, sie gibt keine Vorgaben."
+   ],
+   [
+    "Was ist RIR und wie wird er erfasst?",
+    "RIR steht für Reps in Reserve, also die Wiederholungen, die am Ende eines Satzes noch möglich gewesen wären. In Satzwerk trägst du den RIR am letzten Satz einer Übung ein, mit einem Tipp auf einen Wert von 0 bis 3. Daraus berechnet Satzwerk, welcher Anteil deiner Sätze nahe am Limit lag."
+   ],
+   [
+    "Was sind harte Sätze je Muskelgruppe?",
+    "Ein harter Satz ist in Satzwerk ein Arbeitssatz mit RIR 0 bis 2, also nahe am Limit. Satzwerk zählt diese Sätze je Muskelgruppe für die laufende Woche von Montag bis Sonntag und stellt die Vorwoche daneben. Aufwärmsätze zählen nie mit."
+   ],
+   [
+    "Kann ich meine Daten exportieren?",
+    "Ja, Satzwerk exportiert alle Trainings und Körperwerte als Datei, die du sichern oder auf ein neues iPhone übertragen kannst. Dieselbe Datei liest Satzwerk auch wieder ein. Trainings und Körperwerte lassen sich zusätzlich als CSV ausgeben."
+   ],
+   [
+    "Gibt es die App für Android oder die Apple Watch?",
+    "Nein. Satzwerk gibt es nur für das iPhone, nicht für Android und nicht für die Apple Watch. Die Live Activity am Sperrbildschirm läuft auf dem iPhone."
+   ],
+   [
+    "Warum heißt die App Satzwerk?",
+    "Der Name setzt sich aus Satz und Werk zusammen. Satz steht für den Trainingssatz, die kleinste Einheit im Krafttraining. Werk steht für Handwerk, für die eigene Arbeit am eigenen Körper."
+   ]
+  ],
+  "claim": "Handwerk am eigenen Körper.",
+  "fuss1": "Satzwerk ist eine App von Kevin Schropp, Einzelperson aus Niederbayern.",
+  "fuss2": "Satz für den Trainingssatz, Werk für Handwerk.",
+  "impressum": "Impressum",
+  "datenschutz": "Datenschutz"
+ },
+ "en": {
+  "skip": "Skip to content",
+  "marke": "Satzwerk",
+  "lang": "DE",
+  "lang_aria": "Auf Deutsch wechseln",
+  "modus_aria": "Toggle light or dark",
+  "store": "Download on the App Store",
+  "h1": "Track. Don’t scroll.",
+  "lead": "Satzwerk records your training and evaluates it. For people who already have their plan.",
+  "hinweis": "For iPhone. No ads, no account needed, your data stays on the device.",
+  "alt_vorn": "Satzwerk screen during a workout: sets with weight, reps and check marks",
+  "alt_hinten": "Satzwerk home screen: week calendar, active plan and the next training day with exercises and weights",
+  "p1": "Log without breaking the set. Type weight and reps, check it off, move on. The next set takes the value as a grey suggestion. Warm-up sets are their own rows and never count in the analysis. On the last set you enter the RIR, and the app calculates intensity from it.",
+  "p2": "What gets evaluated is what carries a decision: hard sets per muscle group, this week against last week. The share of sets close to the limit. The trend per exercise over time. Plus the body section with weight and weekly rate, body fat from skinfolds, lean mass and calorie target.",
+  "p3": "Satzwerk shows you where you stand. It does not tell you what to do. No recommendations, no “add more weight”, no “deload suggested”. An onboarding does not know about your herniated disc, your blood pressure or your ankle. Plans come from people who know you. The numbers come from here.",
+  "h2_drin": "What is in it",
+  "liste": [
+   "170 exercises, add your own",
+   "RIR per set",
+   "Hard sets per muscle group",
+   "Trend per exercise",
+   "Several gyms kept apart",
+   "Body fat from skinfolds",
+   "Calorie needs and target rate",
+   "Live Activity on the lock screen",
+   "Export and re-import",
+   "German and English",
+   "Metric and imperial",
+   "Light, dark or automatic",
+   "Apple Health (write only)"
+  ],
+  "nicht": "No ready-made training plans, no feed, no calorie counting.",
+  "h2_laden": "For the next session.",
+  "h2_faq": "Questions and answers",
+  "faq": [
+   [
+    "What is Satzwerk?",
+    "Satzwerk is a training log for the iPhone. You enter weight, reps and RIR per set, and Satzwerk turns that into hard sets per muscle group, intensity and the trend per exercise. There is also a body section with weight, body fat from skinfolds and a calorie target."
+   ],
+   [
+    "Who is the app for?",
+    "Satzwerk is for people who already have a training plan and only want to record and evaluate it. The app gives no recommendations and contains no ready-made plans. If you are looking for a plan, a coach is the right place."
+   ],
+   [
+    "Do I need an account?",
+    "No, Satzwerk needs no account. The app runs without sign-up, without an e-mail address and without a password. You install it and log your first workout."
+   ],
+   [
+    "Where is my data stored?",
+    "All Satzwerk data stays on your iPhone. There is no server that workouts or body values are sent to. You can export a file at any time, and the history has no time limit."
+   ],
+   [
+    "Are there ready-made training plans?",
+    "No, Satzwerk contains no ready-made training plans. You create your own plan with training days, exercises and target sets. The app records and evaluates, it does not prescribe."
+   ],
+   [
+    "What is RIR and how is it recorded?",
+    "RIR stands for reps in reserve, the repetitions you could still have done at the end of a set. In Satzwerk you enter the RIR on the last set of an exercise with one tap on a value from 0 to 3. From that, Satzwerk calculates the share of your sets that were close to the limit."
+   ],
+   [
+    "What are hard sets per muscle group?",
+    "In Satzwerk a hard set is a working set with RIR 0 to 2, so close to the limit. Satzwerk counts these sets per muscle group for the current week from Monday to Sunday and shows last week next to it. Warm-up sets never count."
+   ],
+   [
+    "Can I export my data?",
+    "Yes, Satzwerk exports all workouts and body values as a file that you can back up or move to a new iPhone. Satzwerk reads the same file back in. Workouts and body values can also be exported as CSV."
+   ],
+   [
+    "Is there an Android or Apple Watch version?",
+    "No. Satzwerk is available for the iPhone only, not for Android and not for the Apple Watch. The Live Activity on the lock screen runs on the iPhone."
+   ],
+   [
+    "Why is the app called Satzwerk?",
+    "The name is made of the German words Satz and Werk. Satz means set, the smallest unit in strength training. Werk means craft, the work you do on your own body."
+   ]
+  ],
+  "claim": "Handwerk am eigenen Körper.",
+  "fuss1": "Satzwerk is an app by Kevin Schropp, an individual from Lower Bavaria.",
+  "fuss2": "Satz for the training set, Werk for craft.",
+  "impressum": "Legal notice",
+  "datenschutz": "Privacy"
+ }
+};
+
 (function(){
-  var h=document.documentElement;
+  var html = document.documentElement;
 
-  var g=null;
-  try{g=localStorage.getItem('sw-lang');}catch(e){}
-  setLang(g||((navigator.language||'de').slice(0,2)==='de'?'de':'en'));
-
-  document.getElementById('sprache').addEventListener('click',function(){
-    setLang(h.getAttribute('data-lang')==='en'?'de':'en');
-  });
-
-  function setLang(l){
-    h.setAttribute('data-lang',l);
-    document.getElementById('sprache').textContent=(l==='en'?'DE':'EN');
-    try{localStorage.setItem('sw-lang',l);}catch(e){}
+  function hole(obj, pfad){
+    return pfad.split(".").reduce(function(o, k){ return o == null ? o : o[k]; }, obj);
   }
 
-  var m=null;
-  try{m=localStorage.getItem('sw-mode');}catch(e){}
-  if(m){h.setAttribute('data-mode',m);}
+  function setzeSprache(sprache){
+    var t = TEXTE[sprache] || TEXTE.de;
+    document.querySelectorAll("[data-t]").forEach(function(el){
+      var v = hole(t, el.getAttribute("data-t"));
+      if (typeof v === "string") el.textContent = v;
+    });
+    document.querySelectorAll("[data-t-aria]").forEach(function(el){
+      var v = hole(t, el.getAttribute("data-t-aria"));
+      if (typeof v === "string") el.setAttribute("aria-label", v);
+    });
+    document.querySelectorAll("[data-t-alt]").forEach(function(el){
+      var v = hole(t, el.getAttribute("data-t-alt"));
+      if (typeof v === "string") el.setAttribute("alt", v);
+    });
+    html.setAttribute("lang", sprache);
+    setzeMockups();
+    try{ localStorage.setItem("satzwerk-sprache", sprache); }catch(err){}
+  }
 
-  document.getElementById('modus').addEventListener('click',function(){
-    var jetzt=h.getAttribute('data-mode');
-    var dunkel=window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var neu=!jetzt?(dunkel?'hell':'dunkel'):(jetzt==='dunkel'?'hell':'dunkel');
-    h.setAttribute('data-mode',neu);
-    try{localStorage.setItem('sw-mode',neu);}catch(e){}
+  /* Vier Mockups je Bildschirm: Sprache mal Farbmodus. Der wirksame Modus
+     ist die erzwungene Wahl, sonst die Systemeinstellung. */
+  var dunkelSystem = window.matchMedia("(prefers-color-scheme: dark)");
+  function wirksamerModus(){
+    return html.getAttribute("data-mode") || (dunkelSystem.matches ? "dunkel" : "hell");
+  }
+  function setzeMockups(){
+    var sprache = html.getAttribute("lang") === "en" ? "en" : "de";
+    var dunkel = wirksamerModus() === "dunkel" ? "-dunkel" : "";
+    document.querySelectorAll("[data-mockup]").forEach(function(el){
+      el.setAttribute("src", "img/mockup-" + el.getAttribute("data-mockup") + "-" + sprache + dunkel + ".png");
+    });
+  }
+  if (dunkelSystem.addEventListener) dunkelSystem.addEventListener("change", setzeMockups);
+
+  var gespeichert = null;
+  try{ gespeichert = localStorage.getItem("satzwerk-sprache"); }catch(err){}
+  if (gespeichert === "en") setzeSprache("en"); else setzeMockups();
+
+  document.getElementById("sprache").addEventListener("click", function(){
+    setzeSprache(html.getAttribute("lang") === "de" ? "en" : "de");
+  });
+
+  /* Ein Knopf, kein Menue: kehrt den gerade wirksamen Modus um. */
+  document.getElementById("modus").addEventListener("click", function(){
+    var neu = wirksamerModus() === "dunkel" ? "hell" : "dunkel";
+    html.setAttribute("data-mode", neu);
+    try{ localStorage.setItem("satzwerk-modus", neu); }catch(err){}
+    setzeMockups();
   });
 })();
 </script>
-
 </body>
 </html>
