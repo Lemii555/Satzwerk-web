@@ -2,43 +2,77 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Datenschutz — Satzwerk</title>
 <meta name="description" content="Satzwerk erhebt keine Nutzungsdaten. Alle Trainingsdaten bleiben auf dem Gerät. Apple Health nur auf Wunsch.">
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#F4F2EE" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-
-<!-- Schriften lokal. Keine externen Anfragen, kein Google. -->
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F2EE">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+<link rel="icon" href="../img/bildmarke.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/publicsans.woff2" as="font" type="font/woff2" crossorigin>
-
 <script>
+/* Hell oder dunkel folgt allein dem System (HIG Dark Mode: „Avoid offering
+   an app-specific appearance setting"). Eine frueher gespeicherte Wahl wird
+   geloescht -- ohne Knopf kaeme niemand mehr aus ihr heraus. */
 (function(){
-  try{
-    var m = localStorage.getItem("satzwerk-modus");
-    if (m === "hell" || m === "dunkel") document.documentElement.setAttribute("data-mode", m);
-  }catch(err){}
+  try{ localStorage.removeItem("satzwerk-modus"); }catch(err){}
+  /* Lichtbrechung nur, wo sie gezeichnet wird: userAgentData gibt es
+     ausschliesslich in Chromium. Safari und jedes iPhone bleiben bei Milchglas. */
+  if (navigator.userAgentData) document.documentElement.classList.add("brechung");
 })();
 </script>
 <style>
-@font-face{font-family:"Fraunces";src:url("/fonts/fraunces.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
-@font-face{font-family:"Public Sans";src:url("/fonts/publicsans.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
+/* ---------- Schriften: zwei, selbst gehostet ---------- */
+@font-face{
+  font-family:"Fraunces";
+  src:url("/fonts/fraunces.woff2") format("woff2");
+  font-weight:100 900; font-display:swap; font-style:normal;
+}
+@font-face{
+  font-family:"Public Sans";
+  src:url("/fonts/publicsans.woff2") format("woff2");
+  font-weight:100 900; font-display:swap; font-style:normal;
+}
 
-/* Farben der App, dieselben Werte wie auf der Startseite (src/stil.js) */
+/* ---------- Farben: alle Werte hier, sonst nirgends ---------- */
 :root{
+  /* Werte aus der App: src/stil.js, --bg / --surface-2 / --surface / --ink /
+     --ink-faint / --line / --akzent */
   --grund:#F4F2EE;
   --band:#EDEAE5;
   --karte:#FFFFFF;
   --tinte:#000000;
   --leise:#5C5C5E;
   --kante:#DCD8D2;
+  /* Eine Karte, die auf dem BAND liegt statt auf dem Grund, braucht die
+     naechste Flaechenebene. Hell ist das dieselbe weisse Karte; dunkel
+     waere sie sonst so dunkel wie das Band (1,00:1, Kevins Befund vom
+     23.9.). Die Werte sind die Blatt-Ebene der App, src/stil.js
+     .tl-root.dark .tl-bsheet -- dort stehen auch die Zahlen: Karte auf
+     Blatt 1,22:1, Trennlinie 1,53:1. Nachgemessen, beide stimmen. */
+  --karte-band:#FFFFFF;
+  --kante-band:#DCD8D2;
   --akzent:#8116E0;
-  --leiste:rgba(244,242,238,.82);
+  /* Glas. Werte aus der App, src/stil.js: --nav-glass (Tableiste) und
+     --lg-highlight (Glanzkante). Die Markentoenung ist --akzent-fill mit
+     90 % Deckkraft -- gerechnet haelt Weiss darauf 5,78:1, auch wenn ein
+     weisses Element darunter durchlaeuft. */
+  --glas:rgba(255,255,255,.72);
+  --glanz:rgba(255,255,255,.9);
+  --marke-glas:rgba(129,22,224,.9);
+  --marke-voll:#8116E0;
+  --auf-marke:#FFFFFF;
+  /* Ruhezustand des App-Store-Knopfs, bevor die Marke hineinlaeuft.
+     Hell Schwarz (Weiss darauf 17,76:1). */
+  --store-glas:rgba(0,0,0,.9);
+  --store-voll:#000000;
   --schatten:0 1px 3px rgba(0,0,0,.06);
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){
+
+@media (prefers-color-scheme: dark){
   :root:not([data-mode="hell"]){
     --grund:#000000;
     --band:#1C1C1E;
@@ -46,122 +80,283 @@
     --tinte:#FFFFFF;
     --leise:#AEAEB2;
     --kante:#3A3A3C;
+    --karte-band:#2C2C2E;   /* systemGray5, App-Blattebene */
+    --kante-band:#48484A;   /* systemGray3, die Linie dazu */
     --akzent:#B07CFF;
-    --leiste:rgba(0,0,0,.82);
+    --glas:rgba(28,28,30,.72);
+    --glanz:rgba(255,255,255,.16);
+    --marke-glas:rgba(143,53,240,.9);   /* App --akzent-fill dunkel, 4,56:1 im schlimmsten Fall */
+    --marke-voll:#8F35F0;
+    /* Dunkel NICHT Schwarz: auf schwarzem Grund waere das 1,00:1, der Knopf
+       unsichtbar. Die angehobene Flaeche der App (systemGray5), 1,43:1 gegen
+       den Grund, Weiss darauf 14,73:1. */
+    --store-glas:rgba(44,44,46,.9);
+    --store-voll:#2C2C2E;
     --schatten:none;
     color-scheme:dark;
   }
 }
-:root[data-mode="dunkel"]{
+
+:root[data-mode="dunkel"]{ /* dieselben Dunkelwerte, manuell erzwungen */
   --grund:#000000;
   --band:#1C1C1E;
   --karte:#1C1C1E;
   --tinte:#FFFFFF;
   --leise:#AEAEB2;
   --kante:#3A3A3C;
+  --karte-band:#2C2C2E;   /* systemGray5, App-Blattebene */
+  --kante-band:#48484A;   /* systemGray3, die Linie dazu */
   --akzent:#B07CFF;
-  --leiste:rgba(0,0,0,.82);
+  --glas:rgba(28,28,30,.72);
+  --glanz:rgba(255,255,255,.16);
+  --marke-glas:rgba(143,53,240,.9);   /* App --akzent-fill dunkel, 4,56:1 im schlimmsten Fall */
+  --marke-voll:#8F35F0;
+    /* Dunkel NICHT Schwarz: auf schwarzem Grund waere das 1,00:1, der Knopf
+       unsichtbar. Die angehobene Flaeche der App (systemGray5), 1,43:1 gegen
+       den Grund, Weiss darauf 14,73:1. */
+    --store-glas:rgba(44,44,46,.9);
+    --store-voll:#2C2C2E;
   --schatten:none;
   color-scheme:dark;
 }
 
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+/* ---------- Grundlage ---------- */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0 }
+html{ -webkit-text-size-adjust:100% }
 body{
-  margin:0;background:var(--grund);color:var(--tinte);
+  background:var(--grund);
+  color:var(--tinte);
   font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
-  font-size:18px;line-height:1.6;font-variant-numeric:tabular-nums;
+  font-size:18px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{ display:block; max-width:100% }
+a{ color:var(--akzent); text-underline-offset:3px }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer }
+
+/* Fokus: sichtbar, in der Marke, ueberall gleich */
+:focus-visible{ outline:3px solid var(--akzent); outline-offset:3px; border-radius:6px }
+
+/* Die vier Textgroessen. Fraunces nur fuer Ueberschriften, Claim und Marke. */
+h1{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:700;
+    font-size:clamp(38px,7vw,60px); line-height:1.05; letter-spacing:-0.02em }
+h2,.claim{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:600;
+    font-size:clamp(24px,4vw,34px); line-height:1.15 }
+.klein{ font-size:14px; color:var(--leise); line-height:1.5 }
+p{ max-width:65ch }
+
+/* Raum: 8er-Raster, Abschnitte 64 am Handy, 96 am Desktop */
+.rahmen{ width:100%; max-width:1120px; margin:0 auto; padding:0 24px }
+section{ padding:64px 0 }
+@media (min-width:768px){ section{ padding:96px 0 } }
+
+/* Sprunglink: erst bei Tastaturfokus sichtbar */
+.sprung{ position:absolute; left:-999px; top:8px; background:var(--karte); color:var(--tinte);
+  padding:8px 16px; border-radius:980px; z-index:20; box-shadow:var(--schatten) }
+.sprung:focus{ left:8px }
+
+/* ---------- Knoepfe ---------- */
+.knopf{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:52px; padding:0 28px; border-radius:980px;
+  text-decoration:none; font-weight:600; white-space:nowrap;
+}
+.knopf-leise{ height:40px; padding:0 16px; color:var(--tinte); border:1px solid var(--kante) }
+.nur-dunkel{ display:none }
+:root[data-mode="dunkel"] .nur-hell{ display:none }
+:root[data-mode="dunkel"] .nur-dunkel{ display:block }
+@media (prefers-color-scheme: dark){
+  :root:not([data-mode="hell"]) .nur-hell{ display:none }
+  :root:not([data-mode="hell"]) .nur-dunkel{ display:block }
 }
 
-.leiste{
-  position:sticky;top:0;z-index:10;background:var(--leiste);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);
-  backdrop-filter:saturate(180%) blur(20px);
-  border-bottom:1px solid var(--kante);
+/* ---------- Liquid Glass ----------
+   Vier Lagen wie in Apples Material: Filter (was dahinter liegt, weich und
+   gebrochen), Toenung, Glanzkante, Inhalt.
+
+   DIE EHRLICHE GRENZE, dieselbe wie in der App (CLAUDE.md): echte
+   Lichtbrechung braucht die SVG-Verschiebung in backdrop-filter, und die
+   zeichnet nur Chromium (Chrome, Edge). Safari -- also JEDES iPhone, auch
+   Chrome auf dem iPhone -- bekommt Milchglas: Unschaerfe, Toenung, Kante.
+   Die Klasse .brechung setzt das Skript im Kopf nur dort, wo
+   navigator.userAgentData existiert; das gibt es ausschliesslich in
+   Chromium. Eine Abfrage per CSS.supports taugt nicht: WebKit nimmt url()
+   in der Syntax an und zeichnet es trotzdem nicht.
+
+   WICHTIG: kein Vorfahre darf selbst backdrop-filter, filter oder
+   opacity < 1 tragen. Sonst sieht das Glas nur diesen Vorfahren statt der
+   Seite (Backdrop Root). Deshalb ist .kopf durchsichtig. */
+.glas{ position:relative; isolation:isolate; border-radius:980px; overflow:hidden }
+.glas-filter,.glas-toenung,.glas-glanz{ position:absolute; inset:0; border-radius:inherit; pointer-events:none }
+.glas-filter{ z-index:0;
+  -webkit-backdrop-filter:blur(12px) saturate(180%); backdrop-filter:blur(12px) saturate(180%) }
+.brechung .glas-filter{ backdrop-filter:blur(3px) url(#glas-brechung) saturate(180%) }
+.glas-toenung{ z-index:1; background:var(--glas) }
+.glas-glanz{ z-index:2;
+  box-shadow:inset 1px 1px 0 var(--glanz), inset -1px -1px 0 var(--glanz), inset 0 0 8px var(--glanz) }
+.glas-inhalt{ position:relative; z-index:3 }
+
+/* Der App-Store-Knopf: dasselbe Glas, in der Marke getoent. KEIN Apple-Logo
+   und kein nachgebautes Abzeichen -- Apple erlaubt beides nicht („Use only
+   the badge artwork provided", „Don't use the standalone Apple logo").
+   Erlaubt ist der Text: „can be downloaded from the App Store". „App Store"
+   bleibt auch im Deutschen englisch (Apple: „Never translate App Store"). */
+.glas-store{ display:inline-flex; text-decoration:none; height:52px }
+.glas-store .glas-toenung{ background:var(--store-glas) }
+/* Die Marke laeuft von links hinein (Kevins Vorlage, Uiverse). Per
+   clip-path statt scaleX: ein gestauchter Kreisbogen saehe an den Enden
+   verzerrt aus, ein Ausschnitt behaelt die Kapselform.
+   :hover nur mit Zeiger -- am iPhone bliebe er sonst nach dem Tippen
+   haengen. :active gilt ueberall, der Finger sieht die Marke also beim
+   Druecken; :focus-visible fuer die Tastatur. */
+.glas-fuell{ position:absolute; inset:0; z-index:1; border-radius:inherit; pointer-events:none;
+  background:var(--marke-glas); clip-path:inset(0 100% 0 0); transition:clip-path .475s ease }
+@media (hover:hover){ .glas-store:hover .glas-fuell{ clip-path:inset(0 0 0 0) } }
+.glas-store:active .glas-fuell,.glas-store:focus-visible .glas-fuell{ clip-path:inset(0 0 0 0) }
+.glas-store .glas-inhalt{ display:flex; align-items:center; gap:8px; padding:0 20px 0 24px;
+  color:var(--auf-marke); font-weight:600; white-space:nowrap }
+.glas-store svg{ width:18px; height:18px; stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+.glas-store-gross{ height:64px }
+.glas-store-gross .glas-inhalt{ padding:0 28px 0 32px }
+.glas-store-klein{ height:40px }
+.glas-store-klein .glas-inhalt{ padding:0 14px 0 18px; font-size:14px }
+
+@media (prefers-reduced-transparency: reduce){
+  .glas-filter{ -webkit-backdrop-filter:none; backdrop-filter:none }
+  .glas-toenung{ background:var(--karte) }
+  .glas-store .glas-toenung{ background:var(--store-voll) }
+  .glas-fuell{ background:var(--marke-voll) }
 }
-.leiste-inhalt{max-width:760px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:16px}
-.marke{margin-right:auto;display:inline-flex;align-items:center;line-height:0}
-img{display:block;max-width:100%}
-.marke img{height:24px;width:auto}
-.nur-dunkel{display:none}
-:root[data-mode="dunkel"] .nur-hell{display:none}
-:root[data-mode="dunkel"] .nur-dunkel{display:block}
-@media (prefers-color-scheme:dark){
-  :root:not([data-mode="hell"]) .nur-hell{display:none}
-  :root:not([data-mode="hell"]) .nur-dunkel{display:block}
+
+
+/* ---------- Kopfzeile: eine schwebende Glasleiste ----------
+   Der Rand ist durchsichtig und traegt nichts (siehe Backdrop Root oben).
+   Die Knoepfe in der Leiste verlieren ihren Rahmen: WWDC25-356 Punkt 4,
+   „hierarchy should be expressed through layout and grouping" statt
+   zusaetzlicher Raender an Leistenknoepfen. */
+.kopf{ position:sticky; top:0; z-index:10; padding:12px 0 }
+.kopf-zeile{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  height:56px; padding:0 8px 0 20px }
+.kopf .knopf-leise{ border:0 }
+.marke{ display:inline-flex; align-items:center; line-height:0 }
+.marke img{ height:24px; width:auto }
+.kopf-rechts{ display:flex; align-items:center; gap:8px }
+/* Der App-Store-Knopf erst ab 768 px. Am Handy steht er im Heldenbereich. */
+.kopf .glas-store{ display:none }
+@media (min-width:768px){ .kopf .glas-store{ display:inline-flex } }
+
+/* ---------- Fuss ----------
+   Eine grosse Karte: oben Claim und drei Spalten, unten die Wortmarke in
+   voller Breite, von der Kartenkante angeschnitten. Darunter eine Zeile
+   Kleingedrucktes mit Apples Markenhinweis. */
+footer{ padding:0 0 32px }
+.fuss-karte{ background:var(--band); border-radius:32px; overflow:hidden; padding:48px 24px 0 }
+.fuss-oben{ display:grid; gap:40px; grid-template-columns:1fr }
+@media (min-width:768px){
+  .fuss-karte{ padding:64px 56px 0 }
+  .fuss-oben{ grid-template-columns:1.5fr 1fr 1.3fr auto; gap:32px }
 }
-.schalter-rund{width:40px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;color:var(--tinte)}
-.schalter-rund svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
-.marke:focus-visible{outline:2px solid var(--akzent);outline-offset:4px;border-radius:4px}
-.schalter{
-  background:none;border:1px solid var(--kante);color:var(--tinte);
-  font:inherit;font-size:14px;padding:5px 12px;border-radius:980px;cursor:pointer;line-height:1.2;
+.fuss-marke .claim{ margin-bottom:8px }
+.fuss-spalte{ display:flex; flex-direction:column; align-items:flex-start; gap:8px }
+.fuss-kopf{ font-size:14px; font-weight:600 }
+.fuss-link{ font-size:14px; color:var(--leise); text-decoration:none }
+/* „Folge uns" ist Instagrams Bedingung dafuer, dass ein anderes Netzwerk an
+   derselben Stelle stehen darf -- nicht nur eine Ueberschrift. Wortlaut wie
+   in der App (texte.js secFollow). Die Kapsel liegt auf dem Band, also
+   Bandebene (--karte-band), wie die Liste weiter oben.
+   DIE LOGOS WERDEN NIE NACHGEZEICHNET: beide Richtlinien verbieten es
+   woertlich. Die Dateien in img/ sind dieselben wie in der App,
+   src/bauteile/sozialsymbole.js (Ticket 425). */
+.chips{ display:flex; flex-wrap:wrap; gap:8px }
+.chip{ display:inline-flex; align-items:center; gap:8px; height:40px; padding:0 16px 0 12px;
+  border-radius:980px; background:var(--karte-band); color:var(--tinte);
+  text-decoration:none; font-size:14px }
+.chip img{ width:16px; height:16px; object-fit:contain }
+/* Die Wortmarke: 1841 x 312, sichtbar sind die oberen 74 % -- die Karte
+   schneidet den Rest ab wie in Kevins Vorlage. Rein dekorativ. */
+.fuss-riese{ margin-top:48px; aspect-ratio:1841 / 230; overflow:hidden }
+.fuss-riese img{ width:100%; height:auto }
+.fuss-zeile{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px 24px;
+  padding:16px 8px 0; max-width:none }
+
+/* Pflicht: alles still, wenn der Nutzer es so eingestellt hat */
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; filter:none !important }
+  .blende{ opacity:1; transform:none }
 }
-.schalter:hover{color:var(--tinte)}
-.schalter:focus-visible{outline:2px solid var(--akzent);outline-offset:2px}
 
-main{max-width:760px;margin:0 auto;padding:56px 24px 96px}
-
-h1{
-  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
-  font-weight:700;font-size:clamp(32px,6vw,44px);line-height:1.1;
-  letter-spacing:-.02em;margin:0 0 8px;
-}
-.stand{color:var(--leise);font-size:15px;margin:0 0 40px}
-
-h2{font-size:20px;font-weight:600;line-height:1.3;margin:44px 0 12px;letter-spacing:-.01em}
-h3{font-size:17px;font-weight:600;margin:28px 0 8px}
-p{margin:0 0 14px;max-width:62ch}
-ul{margin:0 0 14px;padding-left:20px;max-width:62ch}
-li{margin:0 0 6px}
-address{font-style:normal;margin:0 0 14px}
-a{color:var(--akzent);text-decoration:none}
-a:hover{text-decoration:underline}
-a:focus-visible{outline:2px solid var(--akzent);outline-offset:2px;border-radius:3px}
-.klein{font-size:15px;color:var(--leise)}
-
-.karte{background:var(--karte);box-shadow:var(--schatten);border-radius:20px;padding:24px 28px;margin:0 0 8px}
-.karte p:last-child,.karte ul:last-child{margin-bottom:0}
-
-.kurz{
-  border-left:3px solid var(--akzent);
-  padding:4px 0 4px 20px;margin:0 0 40px;
-}
-.kurz p{font-size:19px;margin-bottom:8px}
-.kurz p:last-child{margin-bottom:0}
-
-footer{max-width:760px;margin:0 auto;padding:0 24px 64px;color:var(--leise);font-size:15px}
-footer a{color:var(--leise)}
-footer nav{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
-
-/* Sprachumschaltung: nur Inhalte im Dokumentkoerper, niemals html oder body */
-main [lang="en"],footer [lang="en"]{display:none}
-html[data-lang="en"] main [lang="de"],
-html[data-lang="en"] footer [lang="de"]{display:none}
-html[data-lang="en"] main>[lang="en"]{display:block}
-html[data-lang="en"] main [lang="en"].klein,
-html[data-lang="en"] footer a[lang="en"]{display:inline}
-
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ---------- Rechtstext ----------
+   Die Regeln der bisherigen Seite, auf main.recht begrenzt: die Startseite
+   setzt h1, h2, p und .klein fuer ihren Aufbau, der Rechtstext braucht
+   seine eigene, ruhigere Leiter. */
+main.recht{ max-width:760px; margin:0 auto; padding:40px 24px 96px }
+main.recht h1{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:700;
+  font-size:clamp(32px,6vw,44px); line-height:1.1; letter-spacing:-.02em; margin:0 0 8px }
+main.recht .stand{ color:var(--leise); font-size:15px; margin:0 0 40px }
+main.recht h2{ font-family:"Public Sans","Helvetica Neue",Arial,sans-serif; font-size:20px; font-weight:600;
+  line-height:1.3; margin:44px 0 12px; letter-spacing:-.01em }
+main.recht h3{ font-size:17px; font-weight:600; margin:28px 0 8px }
+main.recht p{ margin:0 0 14px; max-width:62ch }
+main.recht ul{ margin:0 0 14px; padding-left:20px; max-width:62ch }
+main.recht li{ margin:0 0 6px }
+main.recht address{ font-style:normal; margin:0 0 14px }
+main.recht a{ text-decoration:none }
+main.recht a:hover{ text-decoration:underline }
+main.recht .klein{ font-size:15px; color:var(--leise) }
+main.recht .karte{ background:var(--karte); box-shadow:var(--schatten); border-radius:20px;
+  padding:24px 28px; margin:0 0 8px }
+main.recht .karte p:last-child,main.recht .karte ul:last-child{ margin-bottom:0 }
+main.recht .kurz{ border-left:3px solid var(--akzent); padding:4px 0 4px 20px; margin:0 0 40px }
+main.recht .kurz p{ font-size:19px; margin-bottom:8px }
+main.recht .kurz p:last-child{ margin-bottom:0 }
+main.recht hr{ border:0; border-top:1px solid var(--kante); margin:56px 0 }
+/* Sprachumschaltung im Rechtstext: DE- und EN-Block stehen beide im
+   Dokument, data-lang am html waehlt. Kopf und Fuss uebersetzt das Skript. */
+main [lang="en"]{ display:none }
+html[data-lang="en"] main [lang="de"]{ display:none }
+html[data-lang="en"] main>[lang="en"]{ display:block }
+html[data-lang="en"] main [lang="en"].klein{ display:inline }
 </style>
 </head>
 <body>
+<a class="sprung" href="#inhalt" data-t="skip">Zum Inhalt</a>
 
-<header class="leiste">
-  <div class="leiste-inhalt">
-    <a class="marke" href="/"><img class="nur-hell" src="../img/logo-dunkel.svg" alt="Satzwerk" width="142" height="24"><img class="nur-dunkel" src="../img/logo-hell.svg" alt="Satzwerk" width="142" height="24"></a>
-    <button class="schalter" id="sprache" type="button">EN</button>
-    <button class="schalter schalter-rund" id="modus" type="button" aria-label="Hell oder dunkel umschalten"><svg class="sonne nur-hell" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="mond nur-dunkel" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+<!-- Die Brechung fuer das Glas. Nicht display:none: manche Browser finden
+     einen Filter in einem unsichtbaren svg nicht mehr. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="glas-brechung" x="0%" y="0%" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="rauschen"/>
+    <feGaussianBlur in="rauschen" stdDeviation="2" result="weich"/>
+    <feDisplacementMap in="SourceGraphic" in2="weich" scale="70" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<header class="kopf">
+  <div class="rahmen">
+    <div class="glas">
+    <span class="glas-filter"></span><span class="glas-toenung"></span><span class="glas-glanz"></span>
+    <div class="glas-inhalt kopf-zeile">
+    <a class="marke" href="/">
+      <img class="nur-hell" src="../img/logo-dunkel.svg" alt="Satzwerk" width="142" height="24">
+      <img class="nur-dunkel" src="../img/logo-hell.svg" alt="Satzwerk" width="142" height="24">
+    </a>
+    <div class="kopf-rechts">
+      <button class="knopf knopf-leise" id="sprache" type="button" data-t="lang" data-t-aria="lang_aria" aria-label="Switch to English">EN</button>
+      <a class="glas glas-store glas-store-klein" href="https://apps.apple.com/app/id6786720640"><span class="glas-filter"></span><span class="glas-toenung"></span><span class="glas-fuell"></span><span class="glas-glanz"></span><span class="glas-inhalt"><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span></a>
+    </div>
+    </div>
+    </div>
   </div>
 </header>
 
-<main>
+<main class="recht" id="inhalt">
 
 <!-- ================= DEUTSCH ================= -->
 <div lang="de">
 
   <h1>Datenschutz</h1>
-  <p class="stand">Stand: 28. August 2026</p>
+  <p class="stand">Stand: 23. September 2026</p>
 
   <div class="kurz">
     <p>Die App Satzwerk erhebt keine personenbezogenen Daten.</p>
@@ -218,10 +413,26 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
     Betriebssystems.
   </p>
   <p>
-    Du kannst die Freigabe jederzeit in den iOS-Einstellungen unter Datenschutz und
-    Health widerrufen. Bereits geschriebene Werte kannst du in der Health-App löschen.
+    Du kannst die Freigabe jederzeit in den iOS-Einstellungen unter „Datenschutz &amp;
+    Sicherheit“ &gt; „Health“ widerrufen. Bereits geschriebene Werte kannst du in der Health-App löschen.
   </p>
-  <p class="klein">Rechtsgrundlage: Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO.</p>
+  <p class="klein">Körperdaten können Gesundheitsdaten sein. Rechtsgrundlage ist deshalb
+    deine Einwilligung nach Art. 6 Abs. 1 lit. a und Art. 9 Abs. 2 lit. a DSGVO.</p>
+
+  <h3>Live Activity</h3>
+  <p>
+    Während ein Training läuft, zeigt Satzwerk eine Live Activity auf dem
+    Sperrbildschirm und, falls dein iPhone eine hat, in der Dynamic Island. Zu sehen
+    sind der Name des Trainingstags, die aktuelle Übung, Gewicht und Wiederholungen
+    des nächsten Satzes, der Satzstand, die Trainingsdauer und ein laufender
+    Countdown. Über einen Knopf kannst du dort einen Satz abhaken.
+  </p>
+  <p>
+    <strong>Diese Angaben sind auch ohne Entsperren sichtbar</strong>, also für jede
+    Person, die dein iPhone sieht. Sie werden auf dem Gerät erzeugt und nicht
+    übertragen. Du kannst Live Activities in den iOS-Einstellungen unter „Satzwerk“
+    ausschalten.
+  </p>
 
   <h3>Bewertungsdialog</h3>
   <p>
@@ -254,6 +465,10 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
     gewährleisten. Dabei kann eine Übermittlung in die USA stattfinden.
   </p>
   <p>
+    Nach Angaben von GitHub wird die IP-Adresse jedes Besuchers zu Sicherheitszwecken
+    gespeichert. Wie lange, bestimmt GitHub. Ich habe auf diese Daten keinen Zugriff.
+  </p>
+  <p>
     GitHub ist unter dem EU-US Data Privacy Framework zertifiziert. Weitere
     Informationen finden sich in der Datenschutzerklärung von GitHub unter
     <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">docs.github.com</a>.
@@ -264,8 +479,9 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
 
   <h3>Keine Cookies</h3>
   <p>
-    Diese Seiten setzen keine Cookies. Deine Einstellungen für Sprache sowie hell und
-    dunkel werden lokal in deinem Browser gespeichert und nicht übertragen.
+    Diese Seiten setzen keine Cookies. Deine Sprachwahl wird lokal in deinem Browser
+    gespeichert und nicht übertragen. Eine früher gespeicherte Einstellung für hell
+    und dunkel wird beim nächsten Aufruf gelöscht.
   </p>
 
   <h3>Keine externen Inhalte</h3>
@@ -276,12 +492,27 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
     vergleichbaren Anbietern.
   </p>
 
+  <h3>Links zu anderen Anbietern</h3>
+  <p>
+    Diese Seiten verlinken auf den App Store (Apple), Instagram (Meta) und LinkedIn.
+    Solange du keinen dieser Links antippst, entsteht keine Verbindung zu diesen
+    Anbietern und es werden keine Daten übertragen. Öffnest du einen Link, gelten die
+    Datenschutzbestimmungen des jeweiligen Anbieters.
+  </p>
+
   <h2>4. Kontakt per E-Mail</h2>
   <p>
     Wenn du mir schreibst, verarbeite ich deine E-Mail-Adresse und den Inhalt deiner
     Nachricht, um sie zu beantworten. Die Nachricht bleibt so lange gespeichert, wie
     es für die Bearbeitung erforderlich ist, sowie im Rahmen gesetzlicher
     Aufbewahrungsfristen.
+  </p>
+  <p>
+    E-Mails an diese Adresse landen in einem Postfach bei Google (Gmail). Anbieter
+    ist für Nutzer im Europäischen Wirtschaftsraum die Google Ireland Limited, Gordon
+    House, Barrow Street, Dublin 4, Irland. Eine Übermittlung an die Google LLC in
+    den USA ist möglich. Google LLC ist unter dem EU-US Data Privacy Framework
+    zertifiziert.
   </p>
   <p class="klein">
     Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO bei vertragsbezogenen Anfragen,
@@ -292,7 +523,7 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
   <p>
     Es findet keine Weitergabe deiner Daten zu Werbe- oder Analysezwecken statt.
     Eine Übermittlung in die USA kann im Rahmen des Hostings dieser Website durch
-    GitHub stattfinden, siehe oben. Die Verarbeitung durch Apple im Zusammenhang mit
+    GitHub und beim E-Mail-Kontakt durch Google stattfinden, siehe oben. Die Verarbeitung durch Apple im Zusammenhang mit
     dem App Store und Apple Health richtet sich nach den Bestimmungen von Apple.
     Die Daten in der App selbst verlassen dein Gerät nicht.
   </p>
@@ -315,6 +546,14 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
     es dich gibt, kann ich diese Rechte für die App-Daten nicht ausüben. Du hast
     jederzeit vollständigen Zugriff, kannst alles exportieren und durch Löschen der
     App vollständig entfernen.
+  </p>
+
+  <h3>Widerspruchsrecht</h3>
+  <p>
+    <strong>Soweit ich Daten auf Grundlage berechtigter Interessen (Art. 6 Abs. 1
+    lit. f DSGVO) verarbeite, kannst du dieser Verarbeitung jederzeit aus Gründen, die
+    sich aus deiner besonderen Situation ergeben, widersprechen (Art. 21 Abs. 1
+    DSGVO). Eine formlose E-Mail an info@satzwerk.app genügt.</strong>
   </p>
 
   <h2>7. Beschwerderecht</h2>
@@ -343,7 +582,7 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
 <div lang="en">
 
   <h1>Privacy</h1>
-  <p class="stand">Last updated: 28 August 2026</p>
+  <p class="stand">Last updated: 23 September 2026</p>
 
   <div class="kurz">
     <p>The Satzwerk app collects no personal data.</p>
@@ -399,10 +638,25 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
     device only; Apple Health is local storage provided by the operating system.
   </p>
   <p>
-    You can withdraw access at any time in the iOS settings under Privacy and Health.
+    You can withdraw access at any time in the iOS settings under “Privacy &amp; Security” &gt; “Health”.
     Values already written can be deleted in the Health app.
   </p>
-  <p class="klein">Legal basis: consent under Art. 6 (1) (a) GDPR.</p>
+  <p class="klein">Body data may be health data. The legal basis is therefore your consent
+    under Art. 6 (1) (a) and Art. 9 (2) (a) GDPR.</p>
+
+  <h3>Live Activity</h3>
+  <p>
+    While a workout is running, Satzwerk shows a Live Activity on the lock screen
+    and, if your iPhone has one, in the Dynamic Island. It shows the name of the
+    training day, the current exercise, weight and reps of the next set, the set
+    count, the workout duration and a running countdown. A button there lets you
+    check off a set.
+  </p>
+  <p>
+    <strong>This information is visible without unlocking</strong>, so to anyone who
+    can see your iPhone. It is generated on the device and not transmitted. You can
+    turn Live Activities off in the iOS settings under “Satzwerk”.
+  </p>
 
   <h3>Review prompt</h3>
   <p>
@@ -435,6 +689,10 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
     USA may take place in the process.
   </p>
   <p>
+    According to GitHub, every visitor's IP address is logged and stored for security
+    purposes. GitHub decides how long. I have no access to this data.
+  </p>
+  <p>
     GitHub is certified under the EU-US Data Privacy Framework. Further information
     can be found in GitHub's privacy statement at
     <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">docs.github.com</a>.
@@ -443,8 +701,9 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
 
   <h3>No cookies</h3>
   <p>
-    These pages set no cookies. Your language and light or dark preferences are stored
-    locally in your browser and are not transmitted.
+    These pages set no cookies. Your language choice is stored locally in your
+    browser and is not transmitted. A previously stored light or dark preference is
+    deleted on your next visit.
   </p>
 
   <h3>No external content</h3>
@@ -454,11 +713,25 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
     comparable providers is established when you open it.
   </p>
 
+  <h3>Links to other providers</h3>
+  <p>
+    These pages link to the App Store (Apple), Instagram (Meta) and LinkedIn. As long
+    as you do not tap one of these links, no connection to these providers is made
+    and no data is transmitted. Once you open a link, that provider's privacy policy
+    applies.
+  </p>
+
   <h2>4. Contact by email</h2>
   <p>
     If you write to me, I process your email address and the content of your message
     in order to reply. The message is kept for as long as necessary to handle it and
     within statutory retention periods.
+  </p>
+  <p>
+    Emails to this address are delivered to a Google (Gmail) mailbox. For users in the
+    European Economic Area the provider is Google Ireland Limited, Gordon House,
+    Barrow Street, Dublin 4, Ireland. A transfer to Google LLC in the USA is possible.
+    Google LLC is certified under the EU-US Data Privacy Framework.
   </p>
   <p class="klein">
     Legal basis: Art. 6 (1) (b) GDPR for contract-related enquiries, otherwise
@@ -468,7 +741,8 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
   <h2>5. Recipients and third countries</h2>
   <p>
     Your data is not passed on for advertising or analytics purposes. A transfer to
-    the USA may occur as part of the hosting of this website by GitHub, see above.
+    the USA may occur as part of the hosting of this website by GitHub and, for email
+    contact, by Google, see above.
     Processing by Apple in connection with the App Store and Apple Health is governed
     by Apple's own terms. The data inside the app itself never leaves your device.
   </p>
@@ -488,6 +762,14 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
     For data held in the app: since I have neither access to it nor any knowledge that
     you exist, I cannot exercise these rights on your behalf. You have full access at
     all times, can export everything, and can remove it completely by deleting the app.
+  </p>
+
+  <h3>Right to object</h3>
+  <p>
+    <strong>Where I process data on the basis of legitimate interests (Art. 6 (1) (f)
+    GDPR), you may object to this processing at any time on grounds relating to your
+    particular situation (Art. 21 (1) GDPR). An informal email to info@satzwerk.app is
+    sufficient.</strong>
   </p>
 
   <h2>7. Right to complain</h2>
@@ -515,49 +797,102 @@ html[data-lang="en"] footer a[lang="en"]{display:inline}
 </main>
 
 <footer>
-  <nav>
-    <a href="/impressum/" lang="de">Impressum</a>
-    <a href="/impressum/" lang="en">Legal notice</a>
-    <a href="/datenschutz/" lang="de">Datenschutz</a>
-    <a href="/datenschutz/" lang="en">Privacy</a>
-  </nav>
-  <p>© 2026 Kevin Schropp</p>
+  <div class="rahmen">
+    <div class="fuss-karte">
+      <div class="fuss-oben">
+        <div class="fuss-marke">
+          <p class="claim" data-t="claim">Handwerk am eigenen Körper.</p>
+          <p class="klein" data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</p>
+        </div>
+        <nav class="fuss-spalte" aria-labelledby="fuss-recht">
+          <p class="fuss-kopf" id="fuss-recht" data-t="rechtliches">Rechtliches</p>
+          <a class="fuss-link" href="/impressum/" data-t="impressum">Impressum</a>
+          <a class="fuss-link" href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
+        </nav>
+        <div class="fuss-spalte">
+          <p class="fuss-kopf" data-t="folgen">Folge uns</p>
+          <div class="chips">
+            <a class="chip" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener" aria-label="Satzwerk auf Instagram" data-t-aria="ig_label">
+              <img class="nur-hell" src="../img/ig-schwarz.png" alt="" width="16" height="16" loading="lazy">
+              <img class="nur-dunkel" src="../img/ig-weiss.png" alt="" width="16" height="16" loading="lazy">
+              <span>satzwerktraining</span>
+            </a>
+            <a class="chip" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener" aria-label="Satzwerk auf LinkedIn" data-t-aria="li_label">
+              <img class="nur-hell" src="../img/li-schwarz.png" alt="" width="16" height="15" loading="lazy">
+              <img class="nur-dunkel" src="../img/li-weiss.png" alt="" width="16" height="15" loading="lazy">
+              <span>satzwerk-app</span>
+            </a>
+          </div>
+        </div>
+        <div class="fuss-spalte">
+          <a class="glas glas-store" href="https://apps.apple.com/app/id6786720640"><span class="glas-filter"></span><span class="glas-toenung"></span><span class="glas-fuell"></span><span class="glas-glanz"></span><span class="glas-inhalt"><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span></a>
+          <p class="klein" data-t="fuss_iphone">Für iPhone.</p>
+        </div>
+      </div>
+      <div class="fuss-riese" aria-hidden="true">
+        <img class="nur-hell" src="../img/logo-dunkel.svg" alt="" width="1841" height="312" loading="lazy">
+        <img class="nur-dunkel" src="../img/logo-hell.svg" alt="" width="1841" height="312" loading="lazy">
+      </div>
+    </div>
+    <p class="klein fuss-zeile"><span>© 2026 Satzwerk</span><span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
+  </div>
 </footer>
 
 <script>
+/* Kopf und Fuss wie auf der Startseite; der Rechtstext hat DE- und EN-Block.
+   Ohne gespeicherte Wahl entscheidet die Browsersprache (wie bisher). */
+var TEXTE = {
+ "de": {
+  "skip": "Zum Inhalt",
+  "lang": "EN",
+  "lang_aria": "Switch to English",
+  "store": "Im App Store",
+  "claim": "Handwerk am eigenen Körper.",
+  "fuss2": "Satz für den Trainingssatz, Werk für Handwerk.",
+  "folgen": "Folge uns",
+  "rechtliches": "Rechtliches",
+  "impressum": "Impressum",
+  "datenschutz": "Datenschutz",
+  "fuss_iphone": "Für iPhone.",
+  "marken": "Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.",
+  "ig_label": "Satzwerk auf Instagram",
+  "li_label": "Satzwerk auf LinkedIn"
+ },
+ "en": {
+  "skip": "Skip to content",
+  "lang": "DE",
+  "lang_aria": "Auf Deutsch wechseln",
+  "store": "On the App Store",
+  "claim": "Handwerk am eigenen Körper.",
+  "fuss2": "Satz for the training set, Werk for craft.",
+  "folgen": "Follow us",
+  "rechtliches": "Legal",
+  "impressum": "Legal notice",
+  "datenschutz": "Privacy",
+  "fuss_iphone": "For iPhone.",
+  "marken": "Apple, App Store, Apple Watch and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries.",
+  "ig_label": "Satzwerk on Instagram",
+  "li_label": "Satzwerk on LinkedIn"
+ }
+};
 (function(){
-  var h=document.documentElement;
-
-  var gespeichert=null;
-  try{gespeichert=localStorage.getItem('satzwerk-sprache');}catch(e){}
-  var lang=gespeichert||((navigator.language||'de').slice(0,2)==='de'?'de':'en');
-  setLang(lang);
-
-  document.getElementById('sprache').addEventListener('click',function(){
-    setLang(h.getAttribute('data-lang')==='en'?'de':'en');
-  });
-
-  function setLang(l){
-    h.setAttribute('data-lang',l);
-    document.getElementById('sprache').textContent=(l==='en'?'DE':'EN');
-    try{localStorage.setItem('satzwerk-sprache',l);}catch(e){}
+  var h = document.documentElement;
+  function hole(o, k){ return o && o[k]; }
+  function setzeSprache(l){
+    var t = TEXTE[l] || TEXTE.de;
+    h.setAttribute("data-lang", l); h.setAttribute("lang", l);
+    document.querySelectorAll("[data-t]").forEach(function(el){
+      var v = hole(t, el.getAttribute("data-t")); if (typeof v === "string") el.textContent = v; });
+    document.querySelectorAll("[data-t-aria]").forEach(function(el){
+      var v = hole(t, el.getAttribute("data-t-aria")); if (typeof v === "string") el.setAttribute("aria-label", v); });
+    try{ localStorage.setItem("satzwerk-sprache", l); }catch(e){}
   }
-
-  var m=null;
-  try{m=localStorage.getItem('satzwerk-modus');}catch(e){}
-  if(m){h.setAttribute('data-mode',m);}
-
-  document.getElementById('modus').addEventListener('click',function(){
-    var jetzt=h.getAttribute('data-mode');
-    var dunkelSystem=window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var neu;
-    if(!jetzt){neu=dunkelSystem?'hell':'dunkel';}
-    else{neu=(jetzt==='dunkel')?'hell':'dunkel';}
-    h.setAttribute('data-mode',neu);
-    try{localStorage.setItem('satzwerk-modus',neu);}catch(e){}
+  var g = null; try{ g = localStorage.getItem("satzwerk-sprache"); }catch(e){}
+  setzeSprache(g === "de" || g === "en" ? g : ((navigator.language||"de").slice(0,2) === "de" ? "de" : "en"));
+  document.getElementById("sprache").addEventListener("click", function(){
+    setzeSprache(h.getAttribute("data-lang") === "en" ? "de" : "en");
   });
 })();
 </script>
-
 </body>
 </html>

@@ -136,13 +136,14 @@
 </script>
 
 <script>
-/* Farbmodus vor dem ersten Zeichnen setzen, sonst blitzt die Seite hell auf.
-   localStorage haelt nur die Einstellung, die der Nutzer selbst gewaehlt hat. */
+/* Hell oder dunkel folgt allein dem System (HIG Dark Mode: „Avoid offering
+   an app-specific appearance setting"). Eine frueher gespeicherte Wahl wird
+   geloescht -- ohne Knopf kaeme niemand mehr aus ihr heraus. */
 (function(){
-  try{
-    var m = localStorage.getItem("satzwerk-modus");
-    if (m === "hell" || m === "dunkel") document.documentElement.setAttribute("data-mode", m);
-  }catch(err){}
+  try{ localStorage.removeItem("satzwerk-modus"); }catch(err){}
+  /* Lichtbrechung nur, wo sie gezeichnet wird: userAgentData gibt es
+     ausschliesslich in Chromium. Safari und jedes iPhone bleiben bei Milchglas. */
+  if (navigator.userAgentData) document.documentElement.classList.add("brechung");
 })();
 </script>
 
@@ -178,7 +179,19 @@
   --karte-band:#FFFFFF;
   --kante-band:#DCD8D2;
   --akzent:#8116E0;
-  --leiste:rgba(244,242,238,.82);
+  /* Glas. Werte aus der App, src/stil.js: --nav-glass (Tableiste) und
+     --lg-highlight (Glanzkante). Die Markentoenung ist --akzent-fill mit
+     90 % Deckkraft -- gerechnet haelt Weiss darauf 5,78:1, auch wenn ein
+     weisses Element darunter durchlaeuft. */
+  --glas:rgba(255,255,255,.72);
+  --glanz:rgba(255,255,255,.9);
+  --marke-glas:rgba(129,22,224,.9);
+  --marke-voll:#8116E0;
+  --auf-marke:#FFFFFF;
+  /* Ruhezustand des App-Store-Knopfs, bevor die Marke hineinlaeuft.
+     Hell Schwarz (Weiss darauf 17,76:1). */
+  --store-glas:rgba(0,0,0,.9);
+  --store-voll:#000000;
   --schatten:0 1px 3px rgba(0,0,0,.06);
   color-scheme:light;
 }
@@ -194,7 +207,15 @@
     --karte-band:#2C2C2E;   /* systemGray5, App-Blattebene */
     --kante-band:#48484A;   /* systemGray3, die Linie dazu */
     --akzent:#B07CFF;
-    --leiste:rgba(0,0,0,.82);
+    --glas:rgba(28,28,30,.72);
+    --glanz:rgba(255,255,255,.16);
+    --marke-glas:rgba(143,53,240,.9);   /* App --akzent-fill dunkel, 4,56:1 im schlimmsten Fall */
+    --marke-voll:#8F35F0;
+    /* Dunkel NICHT Schwarz: auf schwarzem Grund waere das 1,00:1, der Knopf
+       unsichtbar. Die angehobene Flaeche der App (systemGray5), 1,43:1 gegen
+       den Grund, Weiss darauf 14,73:1. */
+    --store-glas:rgba(44,44,46,.9);
+    --store-voll:#2C2C2E;
     --schatten:none;
     color-scheme:dark;
   }
@@ -210,7 +231,15 @@
   --karte-band:#2C2C2E;   /* systemGray5, App-Blattebene */
   --kante-band:#48484A;   /* systemGray3, die Linie dazu */
   --akzent:#B07CFF;
-  --leiste:rgba(0,0,0,.82);
+  --glas:rgba(28,28,30,.72);
+  --glanz:rgba(255,255,255,.16);
+  --marke-glas:rgba(143,53,240,.9);   /* App --akzent-fill dunkel, 4,56:1 im schlimmsten Fall */
+  --marke-voll:#8F35F0;
+    /* Dunkel NICHT Schwarz: auf schwarzem Grund waere das 1,00:1, der Knopf
+       unsichtbar. Die angehobene Flaeche der App (systemGray5), 1,43:1 gegen
+       den Grund, Weiss darauf 14,73:1. */
+    --store-glas:rgba(44,44,46,.9);
+    --store-voll:#2C2C2E;
   --schatten:none;
   color-scheme:dark;
 }
@@ -257,55 +286,89 @@ section{ padding:64px 0 }
   text-decoration:none; font-weight:600; white-space:nowrap;
 }
 .knopf-leise{ height:40px; padding:0 16px; color:var(--tinte); border:1px solid var(--kante) }
-.knopf-rund{ width:40px; padding:0 }
-.knopf-rund svg{ width:20px; height:20px; stroke:currentColor; fill:none;
-  stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round }
-.mond,.nur-dunkel{ display:none }
-:root[data-mode="dunkel"] .sonne,:root[data-mode="dunkel"] .nur-hell{ display:none }
-:root[data-mode="dunkel"] .mond,:root[data-mode="dunkel"] .nur-dunkel{ display:block }
+.nur-dunkel{ display:none }
+:root[data-mode="dunkel"] .nur-hell{ display:none }
+:root[data-mode="dunkel"] .nur-dunkel{ display:block }
 @media (prefers-color-scheme: dark){
-  :root:not([data-mode="hell"]) .sonne,:root:not([data-mode="hell"]) .nur-hell{ display:none }
-  :root:not([data-mode="hell"]) .mond,:root:not([data-mode="hell"]) .nur-dunkel{ display:block }
+  :root:not([data-mode="hell"]) .nur-hell{ display:none }
+  :root:not([data-mode="hell"]) .nur-dunkel{ display:block }
 }
 
-/* App-Store-Badge: Apples Grafik, schwarz im Hellen, weiss im Dunkeln */
-.badge{ display:inline-block; line-height:0 }
-.badge img{ height:52px; width:auto }
-.badge-gross img{ height:64px }
+/* ---------- Liquid Glass ----------
+   Vier Lagen wie in Apples Material: Filter (was dahinter liegt, weich und
+   gebrochen), Toenung, Glanzkante, Inhalt.
 
-/* Soziale Profile. DIE LOGOS WERDEN NIE NACHGEZEICHNET: beide Richtlinien
-   verbieten es woertlich (LinkedIn „Please Do Not: Modify the color or the
-   shape of the [in] Logo", Instagram: nur Logos aus dem Brand Resource
-   Center). Die vier Dateien in img/ sind Zeichen fuer Zeichen dieselben wie
-   in der App, aus src/bauteile/sozialsymbole.js (Ticket 425).
-   Die beiden Logos haben VERSCHIEDENE Seitenverhaeltnisse (LinkedIn 78x72,
-   Instagram 72x72) -- dieselbe 20px-Box plus object-fit:contain loest das,
-   nicht zwei gerechnete Breiten. */
-.sozial{ display:inline-flex; align-items:center; justify-content:center;
-  width:40px; height:40px; border-radius:980px; line-height:0 }
-.sozial img{ width:20px; height:20px; object-fit:contain }
+   DIE EHRLICHE GRENZE, dieselbe wie in der App (CLAUDE.md): echte
+   Lichtbrechung braucht die SVG-Verschiebung in backdrop-filter, und die
+   zeichnet nur Chromium (Chrome, Edge). Safari -- also JEDES iPhone, auch
+   Chrome auf dem iPhone -- bekommt Milchglas: Unschaerfe, Toenung, Kante.
+   Die Klasse .brechung setzt das Skript im Kopf nur dort, wo
+   navigator.userAgentData existiert; das gibt es ausschliesslich in
+   Chromium. Eine Abfrage per CSS.supports taugt nicht: WebKit nimmt url()
+   in der Syntax an und zeichnet es trotzdem nicht.
 
-/* ---------- Kopfzeile: die einzige Glasflaeche ---------- */
-.kopf{
-  position:sticky; top:0; z-index:10;
-  background:var(--leiste);
-  -webkit-backdrop-filter:blur(20px) saturate(180%); backdrop-filter:blur(20px) saturate(180%);
-  border-bottom:1px solid var(--kante);
+   WICHTIG: kein Vorfahre darf selbst backdrop-filter, filter oder
+   opacity < 1 tragen. Sonst sieht das Glas nur diesen Vorfahren statt der
+   Seite (Backdrop Root). Deshalb ist .kopf durchsichtig. */
+.glas{ position:relative; isolation:isolate; border-radius:980px; overflow:hidden }
+.glas-filter,.glas-toenung,.glas-glanz{ position:absolute; inset:0; border-radius:inherit; pointer-events:none }
+.glas-filter{ z-index:0;
+  -webkit-backdrop-filter:blur(12px) saturate(180%); backdrop-filter:blur(12px) saturate(180%) }
+.brechung .glas-filter{ backdrop-filter:blur(3px) url(#glas-brechung) saturate(180%) }
+.glas-toenung{ z-index:1; background:var(--glas) }
+.glas-glanz{ z-index:2;
+  box-shadow:inset 1px 1px 0 var(--glanz), inset -1px -1px 0 var(--glanz), inset 0 0 8px var(--glanz) }
+.glas-inhalt{ position:relative; z-index:3 }
+
+/* Der App-Store-Knopf: dasselbe Glas, in der Marke getoent. KEIN Apple-Logo
+   und kein nachgebautes Abzeichen -- Apple erlaubt beides nicht („Use only
+   the badge artwork provided", „Don't use the standalone Apple logo").
+   Erlaubt ist der Text: „can be downloaded from the App Store". „App Store"
+   bleibt auch im Deutschen englisch (Apple: „Never translate App Store"). */
+.glas-store{ display:inline-flex; text-decoration:none; height:52px }
+.glas-store .glas-toenung{ background:var(--store-glas) }
+/* Die Marke laeuft von links hinein (Kevins Vorlage, Uiverse). Per
+   clip-path statt scaleX: ein gestauchter Kreisbogen saehe an den Enden
+   verzerrt aus, ein Ausschnitt behaelt die Kapselform.
+   :hover nur mit Zeiger -- am iPhone bliebe er sonst nach dem Tippen
+   haengen. :active gilt ueberall, der Finger sieht die Marke also beim
+   Druecken; :focus-visible fuer die Tastatur. */
+.glas-fuell{ position:absolute; inset:0; z-index:1; border-radius:inherit; pointer-events:none;
+  background:var(--marke-glas); clip-path:inset(0 100% 0 0); transition:clip-path .475s ease }
+@media (hover:hover){ .glas-store:hover .glas-fuell{ clip-path:inset(0 0 0 0) } }
+.glas-store:active .glas-fuell,.glas-store:focus-visible .glas-fuell{ clip-path:inset(0 0 0 0) }
+.glas-store .glas-inhalt{ display:flex; align-items:center; gap:8px; padding:0 20px 0 24px;
+  color:var(--auf-marke); font-weight:600; white-space:nowrap }
+.glas-store svg{ width:18px; height:18px; stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+.glas-store-gross{ height:64px }
+.glas-store-gross .glas-inhalt{ padding:0 28px 0 32px }
+.glas-store-klein{ height:40px }
+.glas-store-klein .glas-inhalt{ padding:0 14px 0 18px; font-size:14px }
+
+@media (prefers-reduced-transparency: reduce){
+  .glas-filter{ -webkit-backdrop-filter:none; backdrop-filter:none }
+  .glas-toenung{ background:var(--karte) }
+  .glas-store .glas-toenung{ background:var(--store-voll) }
+  .glas-fuell{ background:var(--marke-voll) }
 }
-.kopf .rahmen{ display:flex; align-items:center; justify-content:space-between; height:64px; gap:16px }
+
+
+/* ---------- Kopfzeile: eine schwebende Glasleiste ----------
+   Der Rand ist durchsichtig und traegt nichts (siehe Backdrop Root oben).
+   Die Knoepfe in der Leiste verlieren ihren Rahmen: WWDC25-356 Punkt 4,
+   „hierarchy should be expressed through layout and grouping" statt
+   zusaetzlicher Raender an Leistenknoepfen. */
+.kopf{ position:sticky; top:0; z-index:10; padding:12px 0 }
+.kopf-zeile{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  height:56px; padding:0 8px 0 20px }
+.kopf .knopf-leise{ border:0 }
 .marke{ display:inline-flex; align-items:center; line-height:0 }
 .marke img{ height:24px; width:auto }
 .kopf-rechts{ display:flex; align-items:center; gap:8px }
-.knopf-store{ display:none }
-.knopf-store img{ height:40px }
-/* Beide erst ab 768 px: auf dem iPhone SE waere die Kopfzeile sonst 407 px
-   breit bei 375 px Bildschirm (Wortmarke 142 + EN 57 + Modus 40 + zweimal
-   40 + Luecken + Rand). Im Fuss stehen sie auf jeder Breite. */
-.kopf .sozial{ display:none }
-@media (min-width:768px){
-  .knopf-store{ display:inline-block }
-  .kopf .sozial{ display:inline-flex }
-}
+/* Der App-Store-Knopf erst ab 768 px. Am Handy steht er im Heldenbereich. */
+.kopf .glas-store{ display:none }
+@media (min-width:768px){ .kopf .glas-store{ display:inline-flex } }
 
 /* ---------- Heldenbereich ---------- */
 .held{ padding:48px 0 64px }
@@ -378,17 +441,39 @@ section{ padding:64px 0 }
 .faq[open] summary::after{ transform:rotate(225deg) }
 .faq p{ padding:0 0 20px; max-width:none }
 
-/* ---------- Fuss ---------- */
-footer{ background:var(--band); padding:64px 0 48px }
-footer .rahmen{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:16px }
-footer img{ height:32px; width:auto }
+/* ---------- Fuss ----------
+   Eine grosse Karte: oben Claim und drei Spalten, unten die Wortmarke in
+   voller Breite, von der Kartenkante angeschnitten. Darunter eine Zeile
+   Kleingedrucktes mit Apples Markenhinweis. */
+footer{ padding:0 0 32px }
+.fuss-karte{ background:var(--band); border-radius:32px; overflow:hidden; padding:48px 24px 0 }
+.fuss-oben{ display:grid; gap:40px; grid-template-columns:1fr }
+@media (min-width:768px){
+  .fuss-karte{ padding:64px 56px 0 }
+  .fuss-oben{ grid-template-columns:1.5fr 1fr 1.3fr auto; gap:32px }
+}
+.fuss-marke .claim{ margin-bottom:8px }
+.fuss-spalte{ display:flex; flex-direction:column; align-items:flex-start; gap:8px }
+.fuss-kopf{ font-size:14px; font-weight:600 }
+.fuss-link{ font-size:14px; color:var(--leise); text-decoration:none }
 /* „Folge uns" ist Instagrams Bedingung dafuer, dass ein anderes Netzwerk an
    derselben Stelle stehen darf -- nicht nur eine Ueberschrift. Wortlaut wie
-   in der App (texte.js secFollow). */
-.folgen{ display:flex; flex-direction:column; align-items:center; gap:8px }
-.folgen-zeile{ display:flex; gap:8px }
-.recht{ margin-top:24px; display:flex; gap:24px }
-.recht a{ color:var(--leise) }
+   in der App (texte.js secFollow). Die Kapsel liegt auf dem Band, also
+   Bandebene (--karte-band), wie die Liste weiter oben.
+   DIE LOGOS WERDEN NIE NACHGEZEICHNET: beide Richtlinien verbieten es
+   woertlich. Die Dateien in img/ sind dieselben wie in der App,
+   src/bauteile/sozialsymbole.js (Ticket 425). */
+.chips{ display:flex; flex-wrap:wrap; gap:8px }
+.chip{ display:inline-flex; align-items:center; gap:8px; height:40px; padding:0 16px 0 12px;
+  border-radius:980px; background:var(--karte-band); color:var(--tinte);
+  text-decoration:none; font-size:14px }
+.chip img{ width:16px; height:16px; object-fit:contain }
+/* Die Wortmarke: 1841 x 312, sichtbar sind die oberen 74 % -- die Karte
+   schneidet den Rest ab wie in Kevins Vorlage. Rein dekorativ. */
+.fuss-riese{ margin-top:48px; aspect-ratio:1841 / 230; overflow:hidden }
+.fuss-riese img{ width:100%; height:auto }
+.fuss-zeile{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px 24px;
+  padding:16px 8px 0; max-width:none }
 
 /* Pflicht: alles still, wenn der Nutzer es so eingestellt hat */
 @media (prefers-reduced-motion: reduce){
@@ -400,32 +485,30 @@ footer img{ height:32px; width:auto }
 <body>
 <a class="sprung" href="#inhalt" data-t="skip">Zum Inhalt</a>
 
+<!-- Die Brechung fuer das Glas. Nicht display:none: manche Browser finden
+     einen Filter in einem unsichtbaren svg nicht mehr. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="glas-brechung" x="0%" y="0%" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="rauschen"/>
+    <feGaussianBlur in="rauschen" stdDeviation="2" result="weich"/>
+    <feDisplacementMap in="SourceGraphic" in2="weich" scale="70" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
 <header class="kopf">
   <div class="rahmen">
+    <div class="glas">
+    <span class="glas-filter"></span><span class="glas-toenung"></span><span class="glas-glanz"></span>
+    <div class="glas-inhalt kopf-zeile">
     <a class="marke" href="/">
       <img class="nur-hell" src="img/logo-dunkel.svg" alt="Satzwerk" width="142" height="24">
       <img class="nur-dunkel" src="img/logo-hell.svg" alt="Satzwerk" width="142" height="24">
     </a>
     <div class="kopf-rechts">
       <button class="knopf knopf-leise" id="sprache" type="button" data-t="lang" data-t-aria="lang_aria" aria-label="Switch to English">EN</button>
-      <button class="knopf knopf-leise knopf-rund" id="modus" type="button" data-t-aria="modus_aria" aria-label="Hell oder dunkel umschalten">
-        <svg class="sonne" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <svg class="mond" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-      </button>
-      <a class="sozial" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener"
-         aria-label="Satzwerk auf Instagram" title="Satzwerk auf Instagram" data-t-aria="ig_label" data-t-title="ig_label">
-        <img class="nur-hell" src="img/ig-schwarz.png" alt="" width="20" height="20">
-        <img class="nur-dunkel" src="img/ig-weiss.png" alt="" width="20" height="20">
-      </a>
-      <a class="sozial" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener"
-         aria-label="Satzwerk auf LinkedIn" title="Satzwerk auf LinkedIn" data-t-aria="li_label" data-t-title="li_label">
-        <img class="nur-hell" src="img/li-schwarz.png" alt="" width="20" height="18">
-        <img class="nur-dunkel" src="img/li-weiss.png" alt="" width="20" height="18">
-      </a>
-      <a class="badge knopf-store" href="https://apps.apple.com/app/id6786720640">
-        <img class="nur-hell" src="img/app-store-badge-schwarz.svg" alt="Laden im App Store" width="138" height="40" data-t-alt="store">
-        <img class="nur-dunkel" src="img/app-store-badge-weiss.svg" alt="Laden im App Store" width="138" height="40" data-t-alt="store">
-      </a>
+      <a class="glas glas-store glas-store-klein" href="https://apps.apple.com/app/id6786720640"><span class="glas-filter"></span><span class="glas-toenung"></span><span class="glas-fuell"></span><span class="glas-glanz"></span><span class="glas-inhalt"><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span></a>
+    </div>
+    </div>
     </div>
   </div>
 </header>
@@ -437,10 +520,7 @@ footer img{ height:32px; width:auto }
       <div class="held-text">
         <h1 id="titel" class="blende" data-t="h1">Tracken. Nicht scrollen.</h1>
         <p class="blende blende-2" data-t="lead">Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.</p>
-        <a class="badge blende blende-3" href="https://apps.apple.com/app/id6786720640">
-          <img class="nur-hell" src="img/app-store-badge-schwarz.svg" alt="Laden im App Store" width="180" height="52" data-t-alt="store">
-          <img class="nur-dunkel" src="img/app-store-badge-weiss.svg" alt="Laden im App Store" width="180" height="52" data-t-alt="store">
-        </a>
+        <div class="blende blende-3"><a class="glas glas-store" href="https://apps.apple.com/app/id6786720640"><span class="glas-filter"></span><span class="glas-toenung"></span><span class="glas-fuell"></span><span class="glas-glanz"></span><span class="glas-inhalt"><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span></a></div>
         <p class="klein blende blende-3" data-t="hinweis">Für iPhone. Keine Werbung, kein Konto nötig, deine Daten bleiben auf dem Gerät.</p>
       </div>
       <div class="mockups blende blende-2">
@@ -491,10 +571,7 @@ footer img{ height:32px; width:auto }
   <section class="laden" aria-labelledby="laden-titel">
     <div class="rahmen">
       <h2 id="laden-titel" data-t="h2_laden">Für das nächste Training.</h2>
-      <a class="badge badge-gross" href="https://apps.apple.com/app/id6786720640">
-        <img class="nur-hell" src="img/app-store-badge-schwarz.svg" alt="Laden im App Store" width="222" height="64" loading="lazy" data-t-alt="store">
-        <img class="nur-dunkel" src="img/app-store-badge-weiss.svg" alt="Laden im App Store" width="222" height="64" loading="lazy" data-t-alt="store">
-      </a>
+      <a class="glas glas-store glas-store-gross" href="https://apps.apple.com/app/id6786720640"><span class="glas-filter"></span><span class="glas-toenung"></span><span class="glas-fuell"></span><span class="glas-glanz"></span><span class="glas-inhalt"><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span></a>
     </div>
   </section>
 
@@ -550,29 +627,43 @@ footer img{ height:32px; width:auto }
 
 <footer>
   <div class="rahmen">
-    <img class="nur-hell" src="img/logo-dunkel.svg" alt="Satzwerk" width="189" height="32" loading="lazy">
-    <img class="nur-dunkel" src="img/logo-hell.svg" alt="Satzwerk" width="189" height="32" loading="lazy">
-    <p class="claim" data-t="claim">Handwerk am eigenen Körper.</p>
-    <p class="klein" data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</p>
-    <div class="folgen">
-      <p class="klein" data-t="folgen">Folge uns</p>
-      <div class="folgen-zeile">
-        <a class="sozial" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener"
-           aria-label="Satzwerk auf Instagram" title="Satzwerk auf Instagram" data-t-aria="ig_label" data-t-title="ig_label">
-          <img class="nur-hell" src="img/ig-schwarz.png" alt="" width="20" height="20" loading="lazy">
-          <img class="nur-dunkel" src="img/ig-weiss.png" alt="" width="20" height="20" loading="lazy">
-        </a>
-        <a class="sozial" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener"
-           aria-label="Satzwerk auf LinkedIn" title="Satzwerk auf LinkedIn" data-t-aria="li_label" data-t-title="li_label">
-          <img class="nur-hell" src="img/li-schwarz.png" alt="" width="20" height="18" loading="lazy">
-          <img class="nur-dunkel" src="img/li-weiss.png" alt="" width="20" height="18" loading="lazy">
-        </a>
+    <div class="fuss-karte">
+      <div class="fuss-oben">
+        <div class="fuss-marke">
+          <p class="claim" data-t="claim">Handwerk am eigenen Körper.</p>
+          <p class="klein" data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</p>
+        </div>
+        <nav class="fuss-spalte" aria-labelledby="fuss-recht">
+          <p class="fuss-kopf" id="fuss-recht" data-t="rechtliches">Rechtliches</p>
+          <a class="fuss-link" href="/impressum/" data-t="impressum">Impressum</a>
+          <a class="fuss-link" href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
+        </nav>
+        <div class="fuss-spalte">
+          <p class="fuss-kopf" data-t="folgen">Folge uns</p>
+          <div class="chips">
+            <a class="chip" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener" aria-label="Satzwerk auf Instagram" data-t-aria="ig_label">
+              <img class="nur-hell" src="img/ig-schwarz.png" alt="" width="16" height="16" loading="lazy">
+              <img class="nur-dunkel" src="img/ig-weiss.png" alt="" width="16" height="16" loading="lazy">
+              <span>satzwerktraining</span>
+            </a>
+            <a class="chip" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener" aria-label="Satzwerk auf LinkedIn" data-t-aria="li_label">
+              <img class="nur-hell" src="img/li-schwarz.png" alt="" width="16" height="15" loading="lazy">
+              <img class="nur-dunkel" src="img/li-weiss.png" alt="" width="16" height="15" loading="lazy">
+              <span>satzwerk-app</span>
+            </a>
+          </div>
+        </div>
+        <div class="fuss-spalte">
+          <a class="glas glas-store" href="https://apps.apple.com/app/id6786720640"><span class="glas-filter"></span><span class="glas-toenung"></span><span class="glas-fuell"></span><span class="glas-glanz"></span><span class="glas-inhalt"><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span></a>
+          <p class="klein" data-t="fuss_iphone">Für iPhone.</p>
+        </div>
+      </div>
+      <div class="fuss-riese" aria-hidden="true">
+        <img class="nur-hell" src="img/logo-dunkel.svg" alt="" width="1841" height="312" loading="lazy">
+        <img class="nur-dunkel" src="img/logo-hell.svg" alt="" width="1841" height="312" loading="lazy">
       </div>
     </div>
-    <p class="klein recht">
-      <a href="/impressum/" data-t="impressum">Impressum</a>
-      <a href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
-    </p>
+    <p class="klein fuss-zeile"><span>© 2026 Satzwerk</span><span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
   </div>
 </footer>
 
@@ -585,8 +676,7 @@ var TEXTE = {
   "marke": "Satzwerk",
   "lang": "EN",
   "lang_aria": "Switch to English",
-  "modus_aria": "Hell oder dunkel umschalten",
-  "store": "Laden im App Store",
+  "store": "Im App Store",
   "h1": "Tracken. Nicht scrollen.",
   "lead": "Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.",
   "hinweis": "Für iPhone. Keine Werbung, kein Konto nötig, deine Daten bleiben auf dem Gerät.",
@@ -659,6 +749,9 @@ var TEXTE = {
   "claim": "Handwerk am eigenen Körper.",
   "fuss2": "Satz für den Trainingssatz, Werk für Handwerk.",
   "folgen": "Folge uns",
+  "rechtliches": "Rechtliches",
+  "fuss_iphone": "Für iPhone.",
+  "marken": "Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.",
   "ig_label": "Satzwerk auf Instagram",
   "li_label": "Satzwerk auf LinkedIn",
   "impressum": "Impressum",
@@ -669,8 +762,7 @@ var TEXTE = {
   "marke": "Satzwerk",
   "lang": "DE",
   "lang_aria": "Auf Deutsch wechseln",
-  "modus_aria": "Toggle light or dark",
-  "store": "Download on the App Store",
+  "store": "On the App Store",
   "h1": "Track. Don’t scroll.",
   "lead": "Satzwerk records your training and evaluates it. For people who already have their plan.",
   "hinweis": "For iPhone. No ads, no account needed, your data stays on the device.",
@@ -743,6 +835,9 @@ var TEXTE = {
   "claim": "Handwerk am eigenen Körper.",
   "fuss2": "Satz for the training set, Werk for craft.",
   "folgen": "Follow us",
+  "rechtliches": "Legal",
+  "fuss_iphone": "For iPhone.",
+  "marken": "Apple, App Store, Apple Watch and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries.",
   "ig_label": "Satzwerk on Instagram",
   "li_label": "Satzwerk on LinkedIn",
   "impressum": "Legal notice",
@@ -803,13 +898,6 @@ var TEXTE = {
     setzeSprache(html.getAttribute("lang") === "de" ? "en" : "de");
   });
 
-  /* Ein Knopf, kein Menue: kehrt den gerade wirksamen Modus um. */
-  document.getElementById("modus").addEventListener("click", function(){
-    var neu = wirksamerModus() === "dunkel" ? "hell" : "dunkel";
-    html.setAttribute("data-mode", neu);
-    try{ localStorage.setItem("satzwerk-modus", neu); }catch(err){}
-    setzeMockups();
-  });
 })();
 </script>
 </body>
