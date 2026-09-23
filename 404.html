@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seite nicht gefunden – Satzwerk</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/img/bildmarke.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/publicsans.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+/* Farbmodus vor dem ersten Zeichnen setzen */
+(function(){
+  try{
+    var m = localStorage.getItem("satzwerk-modus");
+    if (m === "hell" || m === "dunkel") document.documentElement.setAttribute("data-mode", m);
+  }catch(err){}
+})();
+</script>
+<style>
+@font-face{font-family:"Fraunces";src:url("/fonts/fraunces.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
+@font-face{font-family:"Public Sans";src:url("/fonts/publicsans.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
+
+:root{
+  --grund:#F4F2EE;
+  --tinte:#000000;
+  --leise:#5C5C5E;
+  --akzent:#8116E0;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-mode="hell"]){
+    --grund:#000000;
+    --tinte:#FFFFFF;
+    --leise:#AEAEB2;
+    --akzent:#B07CFF;
+    color-scheme:dark;
+  }
+}
+:root[data-mode="dunkel"]{
+  --grund:#000000;
+  --tinte:#FFFFFF;
+  --leise:#AEAEB2;
+  --akzent:#B07CFF;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--grund);color:var(--tinte);
+  font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:18px;line-height:1.6;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:24px;text-align:center;
+}
+.inhalt{display:flex;flex-direction:column;align-items:center;gap:16px}
+img{display:block;height:28px;width:auto;margin-bottom:24px}
+.nur-dunkel{display:none}
+:root[data-mode="dunkel"] .nur-hell{display:none}
+:root[data-mode="dunkel"] .nur-dunkel{display:block}
+@media (prefers-color-scheme:dark){
+  :root:not([data-mode="hell"]) .nur-hell{display:none}
+  :root:not([data-mode="hell"]) .nur-dunkel{display:block}
+}
+h1{
+  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
+  font-weight:600;font-size:clamp(24px,4vw,34px);line-height:1.15;
+}
+p{color:var(--leise);font-size:14px}
+a{
+  color:var(--akzent);text-decoration:none;font-weight:600;
+  display:inline-flex;align-items:center;height:52px;padding:0 28px;
+  border-radius:980px;border:1px solid var(--akzent);margin-top:8px;
+}
+a:focus-visible{outline:3px solid var(--akzent);outline-offset:3px}
+</style>
+</head>
+<body>
+  <div class="inhalt">
+    <img class="nur-hell" src="/img/logo-dunkel.svg" alt="Satzwerk" width="166" height="28">
+    <img class="nur-dunkel" src="/img/logo-hell.svg" alt="Satzwerk" width="166" height="28">
+    <h1>Diese Seite gibt es nicht.</h1>
+    <p>Der Link ist alt oder hat einen Tippfehler.</p>
+    <a href="/">Zur Startseite</a>
+  </div>
+</body>
+</html>

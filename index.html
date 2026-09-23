@@ -169,6 +169,14 @@
   --tinte:#000000;
   --leise:#5C5C5E;
   --kante:#DCD8D2;
+  /* Eine Karte, die auf dem BAND liegt statt auf dem Grund, braucht die
+     naechste Flaechenebene. Hell ist das dieselbe weisse Karte; dunkel
+     waere sie sonst so dunkel wie das Band (1,00:1, Kevins Befund vom
+     23.9.). Die Werte sind die Blatt-Ebene der App, src/stil.js
+     .tl-root.dark .tl-bsheet -- dort stehen auch die Zahlen: Karte auf
+     Blatt 1,22:1, Trennlinie 1,53:1. Nachgemessen, beide stimmen. */
+  --karte-band:#FFFFFF;
+  --kante-band:#DCD8D2;
   --akzent:#8116E0;
   --leiste:rgba(244,242,238,.82);
   --schatten:0 1px 3px rgba(0,0,0,.06);
@@ -183,6 +191,8 @@
     --tinte:#FFFFFF;
     --leise:#AEAEB2;
     --kante:#3A3A3C;
+    --karte-band:#2C2C2E;   /* systemGray5, App-Blattebene */
+    --kante-band:#48484A;   /* systemGray3, die Linie dazu */
     --akzent:#B07CFF;
     --leiste:rgba(0,0,0,.82);
     --schatten:none;
@@ -197,6 +207,8 @@
   --tinte:#FFFFFF;
   --leise:#AEAEB2;
   --kante:#3A3A3C;
+  --karte-band:#2C2C2E;   /* systemGray5, App-Blattebene */
+  --kante-band:#48484A;   /* systemGray3, die Linie dazu */
   --akzent:#B07CFF;
   --leiste:rgba(0,0,0,.82);
   --schatten:none;
@@ -338,9 +350,12 @@ section{ padding:64px 0 }
 /* ---------- Was drin ist ---------- */
 .drin{ background:var(--band) }
 .drin h2{ text-align:center; margin-bottom:40px }
+/* Die 1px-Luecken im Raster zeigen den Untergrund der Liste -- das sind die
+   Trennlinien. Karte und Linie kommen aus der Bandebene, sonst steht im
+   Dunkeln eine Karte in Bandfarbe auf dem Band. */
 .drin ul{ list-style:none; display:grid; gap:1px; max-width:720px; margin:0 auto;
-  background:var(--kante); border-radius:20px; box-shadow:var(--schatten); overflow:hidden }
-.drin li{ padding:14px 24px; background:var(--karte) }
+  background:var(--kante-band); border-radius:20px; box-shadow:var(--schatten); overflow:hidden }
+.drin li{ padding:14px 24px; background:var(--karte-band) }
 @media (min-width:768px){
   .drin ul{ grid-template-columns:1fr 1fr }
   .drin li:last-child:nth-child(odd){ grid-column:1 / -1 }
