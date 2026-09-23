@@ -261,6 +261,18 @@ section{ padding:64px 0 }
 .badge img{ height:52px; width:auto }
 .badge-gross img{ height:64px }
 
+/* Soziale Profile. DIE LOGOS WERDEN NIE NACHGEZEICHNET: beide Richtlinien
+   verbieten es woertlich (LinkedIn „Please Do Not: Modify the color or the
+   shape of the [in] Logo", Instagram: nur Logos aus dem Brand Resource
+   Center). Die vier Dateien in img/ sind Zeichen fuer Zeichen dieselben wie
+   in der App, aus src/bauteile/sozialsymbole.js (Ticket 425).
+   Die beiden Logos haben VERSCHIEDENE Seitenverhaeltnisse (LinkedIn 78x72,
+   Instagram 72x72) -- dieselbe 20px-Box plus object-fit:contain loest das,
+   nicht zwei gerechnete Breiten. */
+.sozial{ display:inline-flex; align-items:center; justify-content:center;
+  width:40px; height:40px; border-radius:980px; line-height:0 }
+.sozial img{ width:20px; height:20px; object-fit:contain }
+
 /* ---------- Kopfzeile: die einzige Glasflaeche ---------- */
 .kopf{
   position:sticky; top:0; z-index:10;
@@ -274,7 +286,14 @@ section{ padding:64px 0 }
 .kopf-rechts{ display:flex; align-items:center; gap:8px }
 .knopf-store{ display:none }
 .knopf-store img{ height:40px }
-@media (min-width:768px){ .knopf-store{ display:inline-block } }
+/* Beide erst ab 768 px: auf dem iPhone SE waere die Kopfzeile sonst 407 px
+   breit bei 375 px Bildschirm (Wortmarke 142 + EN 57 + Modus 40 + zweimal
+   40 + Luecken + Rand). Im Fuss stehen sie auf jeder Breite. */
+.kopf .sozial{ display:none }
+@media (min-width:768px){
+  .knopf-store{ display:inline-block }
+  .kopf .sozial{ display:inline-flex }
+}
 
 /* ---------- Heldenbereich ---------- */
 .held{ padding:48px 0 64px }
@@ -348,6 +367,11 @@ section{ padding:64px 0 }
 footer{ background:var(--band); padding:64px 0 48px }
 footer .rahmen{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:16px }
 footer img{ height:32px; width:auto }
+/* „Folge uns" ist Instagrams Bedingung dafuer, dass ein anderes Netzwerk an
+   derselben Stelle stehen darf -- nicht nur eine Ueberschrift. Wortlaut wie
+   in der App (texte.js secFollow). */
+.folgen{ display:flex; flex-direction:column; align-items:center; gap:8px }
+.folgen-zeile{ display:flex; gap:8px }
 .recht{ margin-top:24px; display:flex; gap:24px }
 .recht a{ color:var(--leise) }
 
@@ -373,6 +397,16 @@ footer img{ height:32px; width:auto }
         <svg class="sonne" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
         <svg class="mond" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
       </button>
+      <a class="sozial" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener"
+         aria-label="Satzwerk auf Instagram" title="Satzwerk auf Instagram" data-t-aria="ig_label" data-t-title="ig_label">
+        <img class="nur-hell" src="img/ig-schwarz.png" alt="" width="20" height="20">
+        <img class="nur-dunkel" src="img/ig-weiss.png" alt="" width="20" height="20">
+      </a>
+      <a class="sozial" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener"
+         aria-label="Satzwerk auf LinkedIn" title="Satzwerk auf LinkedIn" data-t-aria="li_label" data-t-title="li_label">
+        <img class="nur-hell" src="img/li-schwarz.png" alt="" width="20" height="18">
+        <img class="nur-dunkel" src="img/li-weiss.png" alt="" width="20" height="18">
+      </a>
       <a class="badge knopf-store" href="https://apps.apple.com/app/id6786720640">
         <img class="nur-hell" src="img/app-store-badge-schwarz.svg" alt="Laden im App Store" width="138" height="40" data-t-alt="store">
         <img class="nur-dunkel" src="img/app-store-badge-weiss.svg" alt="Laden im App Store" width="138" height="40" data-t-alt="store">
@@ -504,7 +538,22 @@ footer img{ height:32px; width:auto }
     <img class="nur-hell" src="img/logo-dunkel.svg" alt="Satzwerk" width="189" height="32" loading="lazy">
     <img class="nur-dunkel" src="img/logo-hell.svg" alt="Satzwerk" width="189" height="32" loading="lazy">
     <p class="claim" data-t="claim">Handwerk am eigenen Körper.</p>
-    <p class="klein"><span data-t="fuss1">Satzwerk ist eine App von Kevin Schropp, Einzelperson aus Niederbayern.</span> <span data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</span></p>
+    <p class="klein" data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</p>
+    <div class="folgen">
+      <p class="klein" data-t="folgen">Folge uns</p>
+      <div class="folgen-zeile">
+        <a class="sozial" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener"
+           aria-label="Satzwerk auf Instagram" title="Satzwerk auf Instagram" data-t-aria="ig_label" data-t-title="ig_label">
+          <img class="nur-hell" src="img/ig-schwarz.png" alt="" width="20" height="20" loading="lazy">
+          <img class="nur-dunkel" src="img/ig-weiss.png" alt="" width="20" height="20" loading="lazy">
+        </a>
+        <a class="sozial" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener"
+           aria-label="Satzwerk auf LinkedIn" title="Satzwerk auf LinkedIn" data-t-aria="li_label" data-t-title="li_label">
+          <img class="nur-hell" src="img/li-schwarz.png" alt="" width="20" height="18" loading="lazy">
+          <img class="nur-dunkel" src="img/li-weiss.png" alt="" width="20" height="18" loading="lazy">
+        </a>
+      </div>
+    </div>
     <p class="klein recht">
       <a href="/impressum/" data-t="impressum">Impressum</a>
       <a href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
@@ -593,8 +642,10 @@ var TEXTE = {
    ]
   ],
   "claim": "Handwerk am eigenen Körper.",
-  "fuss1": "Satzwerk ist eine App von Kevin Schropp, Einzelperson aus Niederbayern.",
   "fuss2": "Satz für den Trainingssatz, Werk für Handwerk.",
+  "folgen": "Folge uns",
+  "ig_label": "Satzwerk auf Instagram",
+  "li_label": "Satzwerk auf LinkedIn",
   "impressum": "Impressum",
   "datenschutz": "Datenschutz"
  },
@@ -675,8 +726,10 @@ var TEXTE = {
    ]
   ],
   "claim": "Handwerk am eigenen Körper.",
-  "fuss1": "Satzwerk is an app by Kevin Schropp, an individual from Lower Bavaria.",
   "fuss2": "Satz for the training set, Werk for craft.",
+  "folgen": "Follow us",
+  "ig_label": "Satzwerk on Instagram",
+  "li_label": "Satzwerk on LinkedIn",
   "impressum": "Legal notice",
   "datenschutz": "Privacy"
  }
@@ -698,6 +751,10 @@ var TEXTE = {
     document.querySelectorAll("[data-t-aria]").forEach(function(el){
       var v = hole(t, el.getAttribute("data-t-aria"));
       if (typeof v === "string") el.setAttribute("aria-label", v);
+    });
+    document.querySelectorAll("[data-t-title]").forEach(function(el){
+      var v = hole(t, el.getAttribute("data-t-title"));
+      if (typeof v === "string") el.setAttribute("title", v);
     });
     document.querySelectorAll("[data-t-alt]").forEach(function(el){
       var v = hole(t, el.getAttribute("data-t-alt"));
