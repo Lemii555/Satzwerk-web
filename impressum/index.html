@@ -337,7 +337,9 @@ footer{ padding:0 0 32px }
    Die Regeln der bisherigen Seite, auf main.recht begrenzt: die Startseite
    setzt h1, h2, p und .klein fuer ihren Aufbau, der Rechtstext braucht
    seine eigene, ruhigere Leiter. */
-main.recht{ max-width:760px; margin:0 auto; padding:40px 24px 96px }
+/* Rahmen so breit wie Kopfleiste und Fusszeile (1120, Kevin 27.9.2026).
+   Der Fliesstext bleibt bei 62ch, sonst werden die Zeilen zu lang. */
+main.recht{ max-width:1120px; margin:0 auto; padding:40px 24px 96px }
 main.recht h1{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:700;
   font-size:clamp(32px,6vw,44px); line-height:1.1; letter-spacing:-.02em; margin:0 0 8px }
 main.recht .stand{ color:var(--leise); font-size:15px; margin:0 0 48px }
