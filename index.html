@@ -490,12 +490,15 @@ html.menue-offen{ overflow:hidden }
 .kern p{ text-align:center }
 
 /* ---------- Was drin ist ---------- */
+/* Karten, Listen und FAQ laufen auf der vollen Rahmenbreite (1120 minus 2 x 24),
+   wie Kopfleiste und Fusszeile. Nur Fliesstext bleibt bei 65ch, sonst werden
+   die Zeilen zu lang zum Lesen. Kevin, 27.9.2026. */
 .drin{ background:var(--band) }
 .drin h2{ text-align:center; margin-bottom:40px }
 /* Die 1px-Luecken im Raster zeigen den Untergrund der Liste -- das sind die
    Trennlinien. Karte und Linie kommen aus der Bandebene, sonst steht im
    Dunkeln eine Karte in Bandfarbe auf dem Band. */
-.drin ul{ list-style:none; display:grid; gap:1px; max-width:720px; margin:0 auto;
+.drin ul{ list-style:none; display:grid; gap:1px; margin:0;
   background:var(--kante-band); border-radius:20px; box-shadow:var(--schatten); overflow:hidden }
 .drin li{ padding:14px 24px; background:var(--karte-band) }
 @media (min-width:768px){
@@ -505,7 +508,7 @@ html.menue-offen{ overflow:hidden }
 .drin .klein{ text-align:center; margin:24px auto 0 }
 /* Frei und Pro: zwei Gruppen mit Kopfzeile, wie eine Gruppe in Einstellungen.
    „Pro" steht immer in der Markenfarbe (ENTSCHEIDUNG_PRO.md 2). */
-.drin h3{ max-width:720px; margin:0 auto 8px; padding:0 24px; font-size:15px;
+.drin h3{ margin:0 0 8px; padding:0 24px; font-size:15px;
   font-weight:600; letter-spacing:.02em; color:var(--leise) }
 .drin h3.ist-pro{ color:var(--akzent) }
 .drin ul + h3{ margin-top:40px }
@@ -516,7 +519,7 @@ html.menue-offen{ overflow:hidden }
 .pro .rahmen{ display:flex; flex-direction:column; align-items:center; gap:24px; text-align:center }
 .pro h2 img{ height:clamp(28px,4.4vw,40px); width:auto }
 .pro .pro-unter{ margin-top:-12px; color:var(--leise) }
-.pro ul{ list-style:none; display:grid; gap:1px; width:100%; max-width:720px; text-align:left;
+.pro ul{ list-style:none; display:grid; gap:1px; width:100%; text-align:left;
   background:var(--kante); border-radius:20px; box-shadow:var(--schatten); overflow:hidden }
 .pro li{ display:flex; flex-direction:column; gap:2px; padding:16px 24px; background:var(--karte) }
 .pro li strong{ font-weight:600 }
@@ -530,7 +533,7 @@ html.menue-offen{ overflow:hidden }
 
 /* ---------- FAQ ---------- */
 .fragen h2{ text-align:center; margin-bottom:40px }
-.faq-liste{ max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:8px }
+.faq-liste{ margin:0; display:flex; flex-direction:column; gap:8px }
 .faq{ background:var(--karte); border-radius:20px; box-shadow:var(--schatten); padding:0 24px }
 .faq summary{ cursor:pointer; list-style:none; padding:16px 0; font-weight:600;
   display:flex; justify-content:space-between; align-items:center; gap:16px }
