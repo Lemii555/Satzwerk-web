@@ -3,8 +3,111 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Datenschutz — Satzwerk</title>
-<meta name="description" content="Satzwerk erhebt keine Nutzungsdaten. Alle Trainingsdaten bleiben auf dem Gerät. Apple Health nur auf Wunsch.">
+<title>Was Satzwerk auswertet – Training, Muskeln, Körper</title>
+<meta name="description" content="Wie Satzwerk rechnet: Wiederholungsziel je Übung, Sätze je Muskelgruppe, Intensität aus RIR, Gewicht, Körperfett aus Hautfalten und Umfänge.">
+<link rel="canonical" href="https://satzwerk.app/auswertung/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Satzwerk">
+<meta property="og:title" content="Was Satzwerk auswertet">
+<meta property="og:description" content="Wiederholungsziel je Übung, Sätze je Muskelgruppe, Intensität aus RIR, Gewicht, Körperfett und Umfänge. Wie Satzwerk rechnet und was es bewusst nicht rechnet.">
+<meta property="og:url" content="https://satzwerk.app/auswertung/">
+<meta property="og:image" content="https://satzwerk.app/img/og.jpg">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "TechArticle",
+ "headline": "Was Satzwerk auswertet",
+ "alternativeHeadline": "What Satzwerk analyzes",
+ "inLanguage": ["de", "en"],
+ "url": "https://satzwerk.app/auswertung/",
+ "datePublished": "2026-09-28",
+ "dateModified": "2026-09-28",
+ "author": { "@type": "Person", "name": "Kevin Schropp" },
+ "about": {
+  "@type": "MobileApplication",
+  "name": "Satzwerk",
+  "operatingSystem": "iOS 16 oder neuer",
+  "applicationCategory": "HealthApplication",
+  "url": "https://satzwerk.app/",
+  "installUrl": "https://apps.apple.com/app/id6786720640"
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Zählt Satzwerk Aufwärmsätze mit?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Nein. Aufwärmsätze sind eigene Zeilen und zählen in keiner Auswertung."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Wie weit reicht die Auswertung in Satzwerk zurück?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Die Daten haben keine Zeitgrenze. Jedes Training bleibt im Archiv, auch ohne Pro."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Gibt Satzwerk Gewichtsempfehlungen?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Nein. Satzwerk sagt, ob die Wiederholungen im Ziel lagen, zum Beispiel zu leicht. Welches Gewicht als Nächstes kommt, entscheidet der Nutzer."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Kann ich Daten aus Hevy oder Strong in Satzwerk übernehmen?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Nein. Satzwerk liest keine Exporte aus anderen Apps. Eigene Pläne lassen sich als Text teilen und wieder einlesen."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does Satzwerk count warm-up sets?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Warm-up sets are their own rows and never count in any analysis."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How far back does the Satzwerk analysis go?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The data has no time limit. Every workout stays in the archive, also without Pro."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does Satzwerk recommend weights?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Satzwerk shows whether the reps were on target, for example too light. The user decides which weight comes next."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I import my data from Hevy or Strong into Satzwerk?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Satzwerk does not read exports from other apps. Your own plans can be shared as text and read back in."
+   }
+  }
+ ]
+}
+</script>
 <meta name="robots" content="index,follow">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F2EE">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
@@ -366,6 +469,28 @@ main [lang="en"]{ display:none }
 html[data-lang="en"] main [lang="de"]{ display:none }
 html[data-lang="en"] main>[lang="en"]{ display:block }
 html[data-lang="en"] main [lang="en"].klein{ display:inline }
+
+/* ---------- Seite Auswertung ----------
+   Baut auf main.recht auf. Dazu: die Kennzeichnung Frei/Pro an jeder
+   Ueberschrift ("Pro" immer in der Markenfarbe, ENTSCHEIDUNG_PRO.md 2),
+   die Tabelle "Auf einen Blick" und zwei Karten nebeneinander. */
+main.recht .tag{ display:inline-block; vertical-align:middle; margin-left:8px; padding:2px 10px;
+  border-radius:980px; border:1px solid var(--kante); font-size:13px; font-weight:600;
+  line-height:1.5; color:var(--leise) }
+main.recht .tag-pro{ color:var(--akzent); border-color:var(--akzent) }
+main.recht h3.ist-pro{ color:var(--akzent) }
+main.recht .blick{ display:grid; grid-template-columns:1fr; gap:4px 24px; margin:0 }
+main.recht .blick dt{ font-weight:600 }
+main.recht .blick dd{ margin:0 0 12px; max-width:62ch }
+@media (min-width:768px){
+  main.recht .blick{ grid-template-columns:140px 1fr }
+  main.recht .blick dd{ margin:0 0 8px }
+}
+main.recht .zwei{ display:grid; gap:8px; grid-template-columns:1fr; margin:0 0 16px }
+@media (min-width:768px){ main.recht .zwei{ grid-template-columns:1fr 1fr } }
+main.recht .zwei h3{ margin-top:0 }
+main.recht .quellen{ font-size:16px }
+main.recht .store{ margin:24px 0 8px }
 </style>
 </head>
 <body>
@@ -444,523 +569,321 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
 <!-- ================= DEUTSCH ================= -->
 <div lang="de">
 
-  <h1>Datenschutz</h1>
-  <p class="stand">Stand: 28. September 2026</p>
+  <h1>Was Satzwerk auswertet</h1>
+  <p class="stand">Stand: Version 2.0, 28. September 2026</p>
 
   <div class="kurz">
-    <p>Die App Satzwerk erhebt keine personenbezogenen Daten.</p>
-    <p>Es gibt kein Konto, keinen Server und keine Werbung. Alle Trainings- und
-      Körperdaten bleiben auf deinem Gerät.</p>
-    <p>Satzwerk Pro (ab Version 2.0) kaufst du über Apple. Ich erfahre dabei nicht,
-      wer du bist.</p>
+    <p>Satzwerk ist ein Trainingstagebuch für das iPhone. Es erfasst Krafttraining
+      Satz für Satz und wertet es aus: je Übung, je Muskelgruppe und je Woche. Dazu
+      kommt ein Körperbereich mit Gewicht, Körperfett und Umfängen.</p>
+    <p>Die App zeigt Befunde. Sie gibt keine Anweisungen, keine Gewichtsempfehlung
+      und keinen fertigen Plan.</p>
   </div>
 
-  <h2>1. Verantwortlicher</h2>
+  <h2>Auf einen Blick</h2>
   <div class="karte">
-    <address>
-      Kevin Schropp<br>
-      Satzwerk<br>
-      Veilchenweg 10<br>
-      84186 Vilsheim<br>
-      Deutschland
-    </address>
-    <p>E-Mail: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a></p>
-    <p class="klein">Ein Datenschutzbeauftragter ist gesetzlich nicht erforderlich
-      und daher nicht bestellt.</p>
+    <dl class="blick">
+      <dt>Gerät</dt><dd>iPhone ab iOS 16. Keine App für Android, iPad oder Apple Watch.</dd>
+      <dt>Sprachen</dt><dd>Deutsch und Englisch. Metrisch oder imperial, unabhängig von der Sprache.</dd>
+      <dt>Konto</dt><dd>Kein Konto nötig. Keine Anmeldung, keine E-Mail-Adresse.</dd>
+      <dt>Daten</dt><dd>Liegen auf dem iPhone. Kein Server, keine Synchronisation zwischen Geräten.</dd>
+      <dt>Modell</dt><dd>Erfassen ist frei. Die Auswertung ist Satzwerk Pro, als Monats- oder Jahresabo über Apple. Nach der Installation sind 30 Tage Pro geschenkt.</dd>
+      <dt>Für wen</dt><dd>Für Leute, die ihren Trainingsplan schon haben und wissen wollen, ob er wirkt.</dd>
+    </dl>
   </div>
 
-  <h2>2. Die App</h2>
+  <h2>Was du erfasst</h2>
+  <p>Je Satz Gewicht und Wiederholungen, bei Zeitübungen die Dauer. Jede Übung trägt
+    ein Wiederholungsziel, zum Beispiel 8 bis 12, und eine Muskelgruppe.
+    Aufwärmsätze sind eigene Zeilen und zählen in keiner Auswertung.</p>
+  <p>Mit Pro trägst du am letzten Satz einer Übung den RIR ein, die Wiederholungen
+    in Reserve. Und jede Einheit hängt an einem Studio, weil dieselbe Übung an einer
+    anderen Maschine andere Werte hat.</p>
 
-  <h3>Keine Erhebung, keine Übertragung</h3>
-  <p>
-    Satzwerk verarbeitet alle Eingaben ausschließlich lokal auf dem Gerät. Es
-    existiert kein Nutzerkonto, keine Anmeldung und keine Kennung, die Satzwerk vergibt. Es gibt keinen
-    Server, an den Daten übermittelt werden. Die App enthält keine Werbung, keine
-    Analysewerkzeuge und keine Tracking-Bibliotheken Dritter.
-  </p>
-  <p>
-    Betroffen sind damit unter anderem Trainingseinheiten, Übungen, Sätze, Gewichte,
-    Wiederholungen, Notizen, Studios, Körpergewicht, Körperfett und Maße. Diese Daten
-    verlassen das Gerät nicht, außer du exportierst sie selbst.
-  </p>
+  <h2>Training</h2>
 
-  <h3>Export und Sicherung</h3>
-  <p>
-    Über die Teilen-Funktion des Systems kannst du deine Daten und Pläne als Text
-    ausgeben und wieder einlesen. Wohin die Daten dabei gehen, entscheidest du. Der
-    Export erfolgt ausschließlich auf deine ausdrückliche Handlung hin.
-  </p>
+  <h3>Progression je Übung <span class="tag tag-pro">Pro</span></h3>
+  <p>Satzwerk prüft je Übung, ob die Wiederholungen der letzten Einheit im
+    Wiederholungsziel liegen. Gezählt werden nur Arbeitssätze. Der Befund lautet:
+    im Ziel, am oberen Rand, zu leicht, zu schwer oder mal drüber, mal drunter.</p>
+  <p>Daneben steht das schwerste Gewicht der Übung in dieser Kalenderwoche gegen die
+    Woche davor, jeweils Montag bis Sonntag. Dazu eine Kurve über die Wochen, je
+    Studio getrennt.</p>
 
-  <h3>Apple Health</h3>
-  <p>
-    Wenn du es aktivierst, schreibt Satzwerk Trainingseinheiten, Körpergewicht und
-    Körperfett nach Apple Health. Die Funktion ist standardmäßig ausgeschaltet und
-    erfordert deine Zustimmung im Systemdialog von iOS.
-  </p>
-  <p>
-    <strong>Satzwerk liest keine Daten aus Apple Health.</strong> Werte aus anderen
-    Apps oder von einer Waage werden nicht übernommen. Die Übertragung findet
-    ausschließlich auf dem Gerät statt, Apple Health ist ein lokaler Speicher des
-    Betriebssystems.
-  </p>
-  <p>
-    Du kannst die Freigabe jederzeit in den iOS-Einstellungen unter „Datenschutz &amp;
-    Sicherheit“ &gt; „Health“ widerrufen. Bereits geschriebene Werte kannst du in der Health-App löschen.
-  </p>
-  <p class="klein">Körperdaten können Gesundheitsdaten sein. Rechtsgrundlage ist deshalb
-    deine Einwilligung nach Art. 6 Abs. 1 lit. a und Art. 9 Abs. 2 lit. a DSGVO.</p>
+  <h3>Sätze je Muskelgruppe <span class="tag tag-pro">Pro</span></h3>
+  <p>Satzwerk zählt je Muskelgruppe die Arbeitssätze der Woche, ohne Aufwärmsätze,
+    und stellt die Vorwoche daneben. Acht Gruppen: Brust, Rücken, Schultern, Bizeps,
+    Trizeps, Quadrizeps, Hamstrings und Gesäß, Waden.</p>
+  <p>Als Linie steht der Bereich von 10 bis 20 Sätzen je Muskel und Woche dabei, aus
+    der Metaanalyse von Schoenfeld, Ogborn und Krieger (2017). Die App zeigt, ob eine
+    Woche darunter, darin oder darüber liegt. Sie sagt nicht, wie viele Sätze du
+    machen sollst.</p>
 
-  <h3>Live Activity</h3>
-  <p>
-    Während ein Training läuft, zeigt Satzwerk eine Live Activity auf dem
-    Sperrbildschirm und, falls dein iPhone eine hat, in der Dynamic Island. Zu sehen
-    sind der Name des Trainingstags, die aktuelle Übung, Gewicht und Wiederholungen
-    des nächsten Satzes, der Satzstand, die Trainingsdauer und ein laufender
-    Countdown. Über einen Knopf kannst du dort einen Satz abhaken.
-  </p>
-  <p>
-    <strong>Diese Angaben sind auch ohne Entsperren sichtbar</strong>, also für jede
-    Person, die dein iPhone sieht. Sie werden auf dem Gerät erzeugt und nicht
-    übertragen. Du kannst Live Activities in den iOS-Einstellungen unter „Satzwerk“
-    ausschalten.
-  </p>
+  <h3>Intensität <span class="tag tag-pro">Pro</span></h3>
+  <p>Die Intensität ist der Anteil harter Sätze an allen Arbeitssätzen einer Woche,
+    verglichen mit den Wochen davor. Hart heißt in Satzwerk: RIR 0 bis 2. Für die
+    Sätze vor dem letzten schätzt Satzwerk den RIR, je Satz eine Wiederholung mehr in
+    Reserve.</p>
 
-  <h3>Bewertungsdialog</h3>
-  <p>
-    Satzwerk verwendet den Bewertungsdialog von Apple (SKStoreReviewController). Ob
-    und wann er erscheint, steuert das Betriebssystem. Es werden dabei keine Daten an
-    mich übermittelt, ich erfahre nicht, ob oder wie du bewertet hast.
-  </p>
+  <h3>Wochenraster und Archiv <span class="tag">Frei</span></h3>
+  <p>Das Wochenraster zeigt rund ein halbes Jahr auf einem Bildschirm, einen Punkt je
+    Tag. Das Archiv hält jede Einheit mit allen Sätzen fest, ohne Zeitgrenze. Wer
+    einen Plan löscht oder umbenennt, ändert das Archiv nicht.</p>
 
-  <h3>Satzwerk Pro</h3>
-  <p>
-    Ab Version 2.0 gibt es Satzwerk Pro, ein Abo im Monat oder im Jahr. Kauf, Zahlung, Verlängerung,
-    Kündigung und Erstattung laufen ausschließlich über Apple und deine Apple-ID. In
-    der EU wickelt die Apple Distribution International Ltd., Hollyhill Industrial
-    Estate, Hollyhill, Cork, Irland, den Kauf ab. Apple verarbeitet dabei deine Daten
-    in eigener Verantwortung, siehe die
-    <a href="https://www.apple.com/de/legal/privacy/">Datenschutzrichtlinie von Apple</a>.
-    Ich erhalte von Apple keine Namen, keine Apple-ID, keine E-Mail-Adresse und keine
-    Zahlungsdaten.
-  </p>
-  <p>
-    Auf deinem Gerät fragt die App über iOS bei Apple ab, ob dein Abo aktiv ist und
-    mit welcher Version du Satzwerk zuerst geladen hast. Die zweite Angabe entscheidet,
-    ob du als bisheriger Nutzer Pro geschenkt bekommst. Beide Antworten kommen von
-    Apple auf dein Gerät und bleiben dort. Satzwerk sendet nichts an mich.
-  </p>
-  <p>
-    Für den Testmonat speichert die App im Schlüsselbund von iOS, wann er begonnen
-    hat, und ob beim ersten Start einer Version mit Pro schon Daten in der App waren.
-    Gespeichert werden nur ein Zeitpunkt und eine Ja-Nein-Angabe, keine Trainings-
-    oder Körperwerte. Die Einträge liegen nur auf diesem Gerät. Sie werden nicht über
-    iCloud abgeglichen und stehen nicht in deiner Sicherungsdatei. Nach heutigem
-    Verhalten von iOS bleiben sie erhalten, wenn du die App löschst.
-  </p>
-  <p>
-    Kündigen kannst du in den iPhone-Einstellungen unter deinem Namen &gt;
-    „Abonnements“. Eine Erstattung beantragst du bei Apple unter
-    <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.
-  </p>
-  <p class="klein">Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO: Ich stelle dir die
-    gekauften oder geschenkten Funktionen bereit. Das Speichern und Auslesen auf deinem
-    Gerät ist dafür unbedingt erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG).</p>
+  <h2>Körper</h2>
 
-  <h3>App Store</h3>
-  <p>
-    Der Bezug der App läuft über den App Store. Apple erhebt und verarbeitet dabei
-    eigene Daten, auf die ich keinen Einfluss habe. Von Apple erhalte ich
-    Statistiken, etwa die Anzahl der Downloads, und Berichte zu Abo-Käufen. Diese
-    Berichte enthalten je Kauf, Verlängerung oder Erstattung eine zufällige Kennung,
-    die Apple vergibt, dazu Land, Gerätetyp, Datum und Preis. Namen, Apple-ID,
-    E-Mail-Adresse oder Zahlungsdaten erhalte ich nicht. Ich kann die Kennung keiner
-    Person zuordnen. Verantwortlich für diese Verarbeitung ist Apple.
-  </p>
+  <h3>Gewicht <span class="tag">Frei</span></h3>
+  <p>Der Schnitt der Woche gegen die Vorwoche, das gemessene Tempo pro Woche und der
+    Verlauf als Kurve.</p>
 
-  <h2>3. Diese Website</h2>
+  <h3>Ziel je Phase <span class="tag tag-pro">Pro</span></h3>
+  <p>Eine Phase ist Aufbau, Erhalt oder Cut, mit geplantem Tempo und Zielgewicht.
+    Satzwerk stellt geplantes und gemessenes Tempo nebeneinander und rechnet die
+    Kalorien am Tag aus dem Grundumsatz der fettfreien Masse (Katch-McArdle). Ein Cut
+    mit mehr als 1 % des Körpergewichts pro Woche lässt sich nicht anlegen (Helms,
+    Aragon und Fitschen 2014). Die Rechnung ersetzt keine ärztliche Beratung.</p>
 
-  <h3>Hosting und Zugriffsdaten</h3>
-  <p>
-    Diese Seiten werden über GitHub Pages bereitgestellt, einen Dienst der GitHub
-    Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.
-  </p>
-  <p>
-    Beim Aufruf werden durch den Hostinganbieter technisch notwendige Zugriffsdaten
-    verarbeitet, insbesondere IP-Adresse, Zeitpunkt des Zugriffs, aufgerufene Seite,
-    übertragene Datenmenge sowie Browser- und Betriebssystemtyp. Diese Verarbeitung
-    ist erforderlich, um die Seite auszuliefern und ihren sicheren Betrieb zu
-    gewährleisten. Dabei kann eine Übermittlung in die USA stattfinden.
-  </p>
-  <p>
-    Nach Angaben von GitHub wird die IP-Adresse jedes Besuchers zu Sicherheitszwecken
-    gespeichert. Wie lange, bestimmt GitHub. Ich habe auf diese Daten keinen Zugriff.
-  </p>
-  <p>
-    GitHub ist unter dem EU-US Data Privacy Framework zertifiziert. Weitere
-    Informationen finden sich in der Datenschutzerklärung von GitHub unter
-    <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">docs.github.com</a>.
-  </p>
-  <p class="klein">
-    Rechtsgrundlage: berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO.
-  </p>
+  <h3>Körperfett <span class="tag tag-pro">Pro</span></h3>
+  <p>Drei Messarten: 3 Hautfalten nach Jackson und Pollock, 4 Hautfalten nach Durnin
+    und Womersley oder der Wert einer Bioimpedanz-Waage. Aus den Falten rechnet
+    Satzwerk mit der Formel von Siri den Körperfettanteil. Bei der Waage fragt die
+    App nach Tageszeit und letztem Training, weil beides den Wert stark verschiebt.</p>
+  <p>Ein Wechsel der Messart ist ein Bruch. Die Kurve reißt ab, umgerechnet wird
+    nichts. Aus Gewicht und Körperfett zeigt Satzwerk, ob eine Veränderung aus Fett
+    oder aus fettfreier Masse bestand.</p>
 
-  <h3>Keine Cookies</h3>
-  <p>
-    Diese Seiten setzen keine Cookies. Deine Sprachwahl wird lokal in deinem Browser
-    gespeichert und nicht übertragen. Eine früher gespeicherte Einstellung für hell
-    und dunkel wird beim nächsten Aufruf gelöscht.
-  </p>
+  <h3>Umfänge <span class="tag tag-pro">Pro</span></h3>
+  <p>Taille, Brust, Hüfte, Arm und Bein. Die Taille steht vorn und bekommt als
+    einzige eine Kurve. Die anderen schwanken stärker, als sie sich verändern.</p>
 
-  <h3>Keine externen Inhalte</h3>
-  <p>
-    Es werden keine Schriften, Karten, Videos oder Skripte von Servern Dritter
-    nachgeladen. Alle Bestandteile dieser Seite werden vom eigenen Hosting
-    ausgeliefert. Damit entsteht beim Aufruf keine Verbindung zu Google, Meta oder
-    vergleichbaren Anbietern.
-  </p>
-
-  <h3>Links zu anderen Anbietern</h3>
-  <p>
-    Diese Seiten verlinken auf den App Store (Apple), Instagram (Meta) und LinkedIn.
-    Solange du keinen dieser Links antippst, entsteht keine Verbindung zu diesen
-    Anbietern und es werden keine Daten übertragen. Öffnest du einen Link, gelten die
-    Datenschutzbestimmungen des jeweiligen Anbieters.
-  </p>
-
-  <h2>4. Kontakt per E-Mail</h2>
-  <p>
-    Wenn du mir schreibst, verarbeite ich deine E-Mail-Adresse und den Inhalt deiner
-    Nachricht, um sie zu beantworten. Die Nachricht bleibt so lange gespeichert, wie
-    es für die Bearbeitung erforderlich ist, sowie im Rahmen gesetzlicher
-    Aufbewahrungsfristen.
-  </p>
-  <p>
-    E-Mails an diese Adresse landen in einem Postfach bei Google (Gmail). Anbieter
-    ist für Nutzer im Europäischen Wirtschaftsraum die Google Ireland Limited, Gordon
-    House, Barrow Street, Dublin 4, Irland. Eine Übermittlung an die Google LLC in
-    den USA ist möglich. Google LLC ist unter dem EU-US Data Privacy Framework
-    zertifiziert.
-  </p>
-  <p class="klein">
-    Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO bei vertragsbezogenen Anfragen,
-    sonst Art. 6 Abs. 1 lit. f DSGVO.
-  </p>
-
-  <h2>5. Empfänger und Drittländer</h2>
-  <p>
-    Es findet keine Weitergabe deiner Daten zu Werbe- oder Analysezwecken statt.
-    Eine Übermittlung in die USA kann im Rahmen des Hostings dieser Website durch
-    GitHub und beim E-Mail-Kontakt durch Google stattfinden, siehe oben. Die Verarbeitung durch Apple im Zusammenhang mit
-    dem App Store, Käufen und Apple Health richtet sich nach den Bestimmungen von Apple.
-    Die Daten in der App selbst verlassen dein Gerät nicht.
-  </p>
-
-  <h2>6. Deine Rechte</h2>
-  <p>Dir stehen gegenüber mir folgende Rechte zu:</p>
+  <h2>Was Satzwerk bewusst nicht rechnet</h2>
   <ul>
-    <li>Auskunft über die zu deiner Person verarbeiteten Daten (Art. 15 DSGVO)</li>
-    <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
-    <li>Löschung (Art. 17 DSGVO)</li>
-    <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
-    <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
-    <li>Widerspruch gegen eine Verarbeitung auf Grundlage berechtigter Interessen
-      (Art. 21 DSGVO)</li>
-    <li>Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft
-      (Art. 7 Abs. 3 DSGVO)</li>
+    <li><strong>Keine Tonnage.</strong> Das bewegte Gesamtgewicht wächst mit
+      Körpergewicht, Satzzahl und Übungswahl und sagt über keins davon etwas.</li>
+    <li><strong>Keine geschätzte Maximalkraft.</strong> Verglichen wird das Gewicht,
+      das du wirklich bewegt hast.</li>
+    <li><strong>Keine Empfehlungen.</strong> Kein „mehr Gewicht“, keine Kilozahl.</li>
+    <li><strong>Keine fertigen Pläne.</strong> Pläne kommen von Menschen, die dich
+      kennen.</li>
+    <li><strong>Kein Kalorienzählen.</strong> Satzwerk rechnet einen Tagesbedarf,
+      protokolliert aber kein Essen.</li>
+    <li><strong>Kein Feed.</strong> Keine Follower, keine Likes.</li>
   </ul>
-  <p>
-    Für die Daten in der App gilt: Da ich weder Zugriff darauf habe noch weiß, dass
-    es dich gibt, kann ich diese Rechte für die App-Daten nicht ausüben. Du hast
-    jederzeit vollständigen Zugriff, kannst alles exportieren und durch Löschen der
-    App entfernen. Ausgenommen sind die beiden Einträge zum Testmonat, siehe
-    „Satzwerk Pro“. Für Kauf- und Zahlungsdaten wende dich an Apple:
-    <a href="https://www.apple.com/de/legal/privacy/contact/">apple.com/legal/privacy/contact</a>.
-  </p>
 
-  <h3>Widerspruchsrecht</h3>
-  <p>
-    <strong>Soweit ich Daten auf Grundlage berechtigter Interessen (Art. 6 Abs. 1
-    lit. f DSGVO) verarbeite, kannst du dieser Verarbeitung jederzeit aus Gründen, die
-    sich aus deiner besonderen Situation ergeben, widersprechen (Art. 21 Abs. 1
-    DSGVO). Eine formlose E-Mail an info@satzwerk.app genügt.</strong>
-  </p>
-
-  <h2>7. Beschwerderecht</h2>
-  <p>
-    Du kannst dich bei einer Datenschutzaufsichtsbehörde beschweren. Für mich
-    zuständig ist:
-  </p>
-  <div class="karte">
-    <address>
-      Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)<br>
-      Promenade 27<br>
-      91522 Ansbach<br>
-      Deutschland
-    </address>
+  <h2>Frei und Pro</h2>
+  <div class="zwei">
+    <div class="karte">
+      <h3>Frei</h3>
+      <ul>
+        <li>Eigene Pläne, unbegrenzt</li>
+        <li>Training mit Vorschlagswerten aus der letzten Einheit</li>
+        <li>Live Activity am Sperrbildschirm</li>
+        <li>Bibliothek mit 170 Übungen</li>
+        <li>Archiv und Wochenraster</li>
+        <li>Gewicht mit Verlauf und gemessenem Tempo</li>
+        <li>Sicherung, Wiederherstellen, CSV-Export</li>
+        <li>Apple Health</li>
+      </ul>
+    </div>
+    <div class="karte">
+      <h3 class="ist-pro">Pro</h3>
+      <ul>
+        <li>Progression je Übung</li>
+        <li>Sätze je Muskelgruppe</li>
+        <li>Intensität und RIR-Erfassung</li>
+        <li>Studios, Werte je Studio getrennt</li>
+        <li>Ziel je Phase mit Kalorien am Tag</li>
+        <li>Körperfett und Umfänge</li>
+      </ul>
+    </div>
   </div>
+  <p>Nach der Installation sind 30 Tage Pro geschenkt. Sie enden von selbst. Danach
+    gibt es Pro als Monats- oder Jahresabo über Apple, den Preis zeigt der App Store.
+    Endet Pro, wird nichts gelöscht.</p>
 
-  <h2>8. Änderungen</h2>
-  <p>
-    Diese Erklärung wird angepasst, wenn sich die App, die Website oder die
-    Rechtslage ändern. Es gilt jeweils die hier veröffentlichte Fassung.
-  </p>
+  <h2>Häufige Fragen zur Auswertung</h2>
+  <h3>Zählt Satzwerk Aufwärmsätze mit?</h3>
+  <p>Nein. Aufwärmsätze sind eigene Zeilen und zählen in keiner Auswertung.</p>
+  <h3>Wie weit reicht die Auswertung zurück?</h3>
+  <p>Die Daten haben keine Zeitgrenze. Jedes Training bleibt im Archiv, auch ohne
+    Pro.</p>
+  <h3>Gibt Satzwerk Gewichtsempfehlungen?</h3>
+  <p>Nein. Satzwerk sagt, ob die Wiederholungen im Ziel lagen, zum Beispiel „zu
+    leicht“. Welches Gewicht du als Nächstes nimmst, entscheidest du.</p>
+  <h3>Kann ich meine Daten aus Hevy oder Strong übernehmen?</h3>
+  <p>Nein. Satzwerk liest keine Exporte aus anderen Apps. Eigene Pläne lassen sich
+    als Text teilen und wieder einlesen.</p>
+
+  <p><a class="store fuellen" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span>Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></p>
+
+  <h2>Quellen</h2>
+  <ul class="quellen">
+    <li>Schoenfeld, Ogborn, Krieger (2017), Journal of Sports Sciences: Sätze je Muskel und Woche</li>
+    <li>Jackson und Pollock (1978); Jackson, Pollock und Ward (1980): 3 Hautfalten</li>
+    <li>Durnin und Womersley (1974): 4 Hautfalten</li>
+    <li>Siri (1961): Körperdichte zu Körperfett</li>
+    <li>Katch-McArdle: Grundumsatz aus fettfreier Masse</li>
+    <li>Helms, Aragon, Fitschen (2014): Tempo im Cut</li>
+  </ul>
 
 </div>
 
 <!-- ================= ENGLISH ================= -->
 <div lang="en">
 
-  <h1>Privacy</h1>
-  <p class="stand">Last updated: 28 September 2026</p>
+  <h1>What Satzwerk analyzes</h1>
+  <p class="stand">As of version 2.0, September 28, 2026</p>
 
   <div class="kurz">
-    <p>The Satzwerk app collects no personal data.</p>
-    <p>There is no account, no server and no advertising. All training and body data
-      stays on your device.</p>
-    <p>Satzwerk Pro (from version 2.0) is bought through Apple. I do not learn who
-      you are.</p>
+    <p>Satzwerk is a training log for the iPhone. It records strength training set by
+      set and analyzes it: per exercise, per muscle group and per week. There is also a
+      body section with weight, body fat and circumferences.</p>
+    <p>The app shows findings. It gives no instructions, no weight recommendations and
+      no ready-made plans.</p>
   </div>
 
-  <h2>1. Controller</h2>
+  <h2>At a glance</h2>
   <div class="karte">
-    <address>
-      Kevin Schropp<br>
-      Satzwerk<br>
-      Veilchenweg 10<br>
-      84186 Vilsheim<br>
-      Germany
-    </address>
-    <p>Email: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a></p>
-    <p class="klein">A data protection officer is not legally required and has
-      therefore not been appointed.</p>
+    <dl class="blick">
+      <dt>Device</dt><dd>iPhone with iOS 16 or later. No app for Android, iPad or Apple Watch.</dd>
+      <dt>Languages</dt><dd>German and English. Metric or imperial, independent of the language.</dd>
+      <dt>Account</dt><dd>No account needed. No sign-up, no email address.</dd>
+      <dt>Data</dt><dd>Stays on the iPhone. No server, no sync between devices.</dd>
+      <dt>Model</dt><dd>Logging is free. The analysis is Satzwerk Pro, a monthly or yearly subscription through Apple. After installing, you get 30 days of Pro as a gift.</dd>
+      <dt>For whom</dt><dd>For people who already have a training plan and want to know whether it works.</dd>
+    </dl>
   </div>
 
-  <h2>2. The app</h2>
+  <h2>What you log</h2>
+  <p>Weight and reps per set, or the duration for timed exercises. Every exercise has
+    a rep target, for example 8 to 12, and a muscle group. Warm-up sets are their own
+    rows and never count in any analysis.</p>
+  <p>With Pro you enter the RIR, the reps in reserve, on the last set of an exercise.
+    And every session belongs to a gym, because the same exercise on a different
+    machine has different numbers.</p>
 
-  <h3>No collection, no transmission</h3>
-  <p>
-    Satzwerk processes all entries locally on your device only. There is no user
-    account, no sign-in and no identifier assigned by Satzwerk. There is no server that data is sent to.
-    The app contains no advertising, no analytics tools and no third-party tracking
-    libraries.
-  </p>
-  <p>
-    This covers workouts, exercises, sets, weights, reps, notes, gyms, body weight,
-    body fat and measurements. This data does not leave your device unless you export
-    it yourself.
-  </p>
+  <h2>Training</h2>
 
-  <h3>Export and backup</h3>
-  <p>
-    Using the system share sheet you can export your data and plans as text and read
-    them back in. Where that data goes is entirely your decision. Export only happens
-    on your explicit action.
-  </p>
+  <h3>Progression per exercise <span class="tag tag-pro">Pro</span></h3>
+  <p>For each exercise, Satzwerk checks whether the reps of the last session are
+    within the rep target. Only working sets count. The finding is: on target, at the
+    top end, too light, too heavy, or above and below.</p>
+  <p>Next to it is the heaviest weight of the exercise in this calendar week against
+    the week before, each Monday to Sunday. Plus a curve across the weeks, kept apart
+    per gym.</p>
 
-  <h3>Apple Health</h3>
-  <p>
-    If you enable it, Satzwerk writes workouts, body weight and body fat to Apple
-    Health. The feature is off by default and requires your consent in the iOS
-    system dialog.
-  </p>
-  <p>
-    <strong>Satzwerk does not read any data from Apple Health.</strong> Values from
-    other apps or from a scale are not imported. The transfer takes place on the
-    device only; Apple Health is local storage provided by the operating system.
-  </p>
-  <p>
-    You can withdraw access at any time in the iOS settings under “Privacy &amp; Security” &gt; “Health”.
-    Values already written can be deleted in the Health app.
-  </p>
-  <p class="klein">Body data may be health data. The legal basis is therefore your consent
-    under Art. 6 (1) (a) and Art. 9 (2) (a) GDPR.</p>
+  <h3>Sets per muscle group <span class="tag tag-pro">Pro</span></h3>
+  <p>Satzwerk counts the working sets of the week per muscle group, without warm-up
+    sets, and shows last week next to it. Eight groups: chest, back, shoulders, biceps,
+    triceps, quadriceps, hamstrings and glutes, calves.</p>
+  <p>A line marks the range of 10 to 20 sets per muscle per week, from the
+    meta-analysis by Schoenfeld, Ogborn and Krieger (2017). The app shows whether a
+    week is below, within or above it. It does not tell you how many sets to do.</p>
 
-  <h3>Live Activity</h3>
-  <p>
-    While a workout is running, Satzwerk shows a Live Activity on the lock screen
-    and, if your iPhone has one, in the Dynamic Island. It shows the name of the
-    training day, the current exercise, weight and reps of the next set, the set
-    count, the workout duration and a running countdown. A button there lets you
-    check off a set.
-  </p>
-  <p>
-    <strong>This information is visible without unlocking</strong>, so to anyone who
-    can see your iPhone. It is generated on the device and not transmitted. You can
-    turn Live Activities off in the iOS settings under “Satzwerk”.
-  </p>
+  <h3>Intensity <span class="tag tag-pro">Pro</span></h3>
+  <p>Intensity is the share of hard sets among all working sets of a week, compared
+    with the weeks before. Hard means RIR 0 to 2 in Satzwerk. For the sets before the
+    last one, Satzwerk estimates the RIR, one more rep in reserve per set.</p>
 
-  <h3>Review prompt</h3>
-  <p>
-    Satzwerk uses Apple's review prompt (SKStoreReviewController). Whether and when it
-    appears is controlled by the operating system. No data is transmitted to me and I
-    do not learn whether or how you rated the app.
-  </p>
+  <h3>Week grid and archive <span class="tag">Free</span></h3>
+  <p>The week grid shows about half a year on one screen, one dot per day. The archive
+    keeps every session with all sets, with no time limit. Deleting or renaming a plan
+    does not change the archive.</p>
 
-  <h3>Satzwerk Pro</h3>
-  <p>
-    From version 2.0 there is Satzwerk Pro, a monthly or yearly subscription. Purchase, payment,
-    renewal, cancellation and refunds are handled entirely by Apple through your
-    Apple ID. In the EU the purchase is processed by Apple Distribution International
-    Ltd., Hollyhill Industrial Estate, Hollyhill, Cork, Ireland. Apple processes your
-    data as an independent controller, see
-    <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>.
-    I receive no names, no Apple ID, no email address and no payment details from
-    Apple.
-  </p>
-  <p>
-    On your device, the app asks Apple via iOS whether your subscription is active and
-    which version of Satzwerk you first downloaded. The second answer decides whether
-    you receive Pro as a gift as an existing user. Both answers come from Apple to your
-    device and stay there. Satzwerk sends nothing to me.
-  </p>
-  <p>
-    For the trial month, the app stores in the iOS keychain when it started, and
-    whether there was already data in the app the first time a version with Pro was
-    launched. Only a point in time and a yes/no value are stored, no workout or body
-    values. These entries stay on this device only. They are not synced via iCloud and
-    are not part of your backup file. Under current iOS behavior they remain when you
-    delete the app.
-  </p>
-  <p>
-    You can cancel in the iPhone settings under your name &gt; “Subscriptions”. You
-    can request a refund from Apple at
-    <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.
-  </p>
-  <p class="klein">Legal basis: Art. 6 (1) (b) GDPR, to provide the features you
-    bought or were given. Storing and reading this information on your device is
-    strictly necessary for that (Section 25 (2) no. 2 TDDDG).</p>
+  <h2>Body</h2>
 
-  <h3>App Store</h3>
-  <p>
-    The app is distributed through the App Store. Apple collects and processes its own
-    data in that context, over which I have no influence. From Apple I receive
-    statistics such as the number of downloads, and reports on subscription
-    purchases. For each purchase, renewal or refund these reports contain a random
-    identifier assigned by Apple, together with country, device type, date and price.
-    I receive no names, Apple IDs, email addresses or payment details. I cannot link
-    the identifier to a person. Apple is the controller for that processing.
-  </p>
+  <h3>Weight <span class="tag">Free</span></h3>
+  <p>The weekly average against last week, the measured pace per week and the trend
+    as a chart.</p>
 
-  <h2>3. This website</h2>
+  <h3>Goal per phase <span class="tag tag-pro">Pro</span></h3>
+  <p>A phase is a bulk, maintenance or cut, with a planned pace and a target weight.
+    Satzwerk puts planned and measured pace side by side and calculates daily calories
+    from the basal rate of lean mass (Katch-McArdle). A cut faster than 1 % of body
+    weight per week cannot be set up (Helms, Aragon and Fitschen 2014). The
+    calculation is not medical advice.</p>
 
-  <h3>Hosting and access data</h3>
-  <p>
-    These pages are served via GitHub Pages, a service of GitHub Inc., 88 Colin P.
-    Kelly Jr. Street, San Francisco, CA 94107, USA.
-  </p>
-  <p>
-    When a page is accessed, the hosting provider processes technically necessary
-    access data, in particular IP address, time of access, page requested, volume of
-    data transferred and browser and operating system type. This processing is
-    necessary to deliver the page and ensure its secure operation. A transfer to the
-    USA may take place in the process.
-  </p>
-  <p>
-    According to GitHub, every visitor's IP address is logged and stored for security
-    purposes. GitHub decides how long. I have no access to this data.
-  </p>
-  <p>
-    GitHub is certified under the EU-US Data Privacy Framework. Further information
-    can be found in GitHub's privacy statement at
-    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">docs.github.com</a>.
-  </p>
-  <p class="klein">Legal basis: legitimate interest under Art. 6 (1) (f) GDPR.</p>
+  <h3>Body fat <span class="tag tag-pro">Pro</span></h3>
+  <p>Three methods: 3 skinfolds after Jackson and Pollock, 4 skinfolds after Durnin
+    and Womersley, or the value of a bioimpedance scale. From skinfolds, Satzwerk
+    calculates body fat with the Siri formula. For the scale, the app asks for time of
+    day and last workout, because both shift the value a lot.</p>
+  <p>Changing the method is a break. The curve stops, nothing is converted. From
+    weight and body fat, Satzwerk shows whether a change came from fat or from lean
+    mass.</p>
 
-  <h3>No cookies</h3>
-  <p>
-    These pages set no cookies. Your language choice is stored locally in your
-    browser and is not transmitted. A previously stored light or dark preference is
-    deleted on your next visit.
-  </p>
+  <h3>Circumferences <span class="tag tag-pro">Pro</span></h3>
+  <p>Waist, chest, hips, arm and leg. The waist comes first and is the only one with a
+    chart. The others fluctuate more than they change.</p>
 
-  <h3>No external content</h3>
-  <p>
-    No fonts, maps, videos or scripts are loaded from third-party servers. All parts
-    of this page are served from my own hosting. No connection to Google, Meta or
-    comparable providers is established when you open it.
-  </p>
-
-  <h3>Links to other providers</h3>
-  <p>
-    These pages link to the App Store (Apple), Instagram (Meta) and LinkedIn. As long
-    as you do not tap one of these links, no connection to these providers is made
-    and no data is transmitted. Once you open a link, that provider's privacy policy
-    applies.
-  </p>
-
-  <h2>4. Contact by email</h2>
-  <p>
-    If you write to me, I process your email address and the content of your message
-    in order to reply. The message is kept for as long as necessary to handle it and
-    within statutory retention periods.
-  </p>
-  <p>
-    Emails to this address are delivered to a Google (Gmail) mailbox. For users in the
-    European Economic Area the provider is Google Ireland Limited, Gordon House,
-    Barrow Street, Dublin 4, Ireland. A transfer to Google LLC in the USA is possible.
-    Google LLC is certified under the EU-US Data Privacy Framework.
-  </p>
-  <p class="klein">
-    Legal basis: Art. 6 (1) (b) GDPR for contract-related enquiries, otherwise
-    Art. 6 (1) (f) GDPR.
-  </p>
-
-  <h2>5. Recipients and third countries</h2>
-  <p>
-    Your data is not passed on for advertising or analytics purposes. A transfer to
-    the USA may occur as part of the hosting of this website by GitHub and, for email
-    contact, by Google, see above.
-    Processing by Apple in connection with the App Store, purchases and Apple Health is governed
-    by Apple's own terms. The data inside the app itself never leaves your device.
-  </p>
-
-  <h2>6. Your rights</h2>
-  <p>You have the following rights in relation to me:</p>
+  <h2>What Satzwerk deliberately does not calculate</h2>
   <ul>
-    <li>Access to the data processed about you (Art. 15 GDPR)</li>
-    <li>Rectification of inaccurate data (Art. 16 GDPR)</li>
-    <li>Erasure (Art. 17 GDPR)</li>
-    <li>Restriction of processing (Art. 18 GDPR)</li>
-    <li>Data portability (Art. 20 GDPR)</li>
-    <li>Objection to processing based on legitimate interests (Art. 21 GDPR)</li>
-    <li>Withdrawal of consent with effect for the future (Art. 7 (3) GDPR)</li>
+    <li><strong>No tonnage.</strong> Total weight moved grows with body weight, number
+      of sets and exercise choice and says nothing about any of them.</li>
+    <li><strong>No estimated one-rep max.</strong> The app compares the weight you
+      actually moved.</li>
+    <li><strong>No recommendations.</strong> No “add weight”, no number of kilograms.</li>
+    <li><strong>No ready-made plans.</strong> Plans come from people who know you.</li>
+    <li><strong>No food logging.</strong> Satzwerk calculates a daily requirement but
+      does not log meals.</li>
+    <li><strong>No feed.</strong> No followers, no likes.</li>
   </ul>
-  <p>
-    For data held in the app: since I have neither access to it nor any knowledge that
-    you exist, I cannot exercise these rights on your behalf. You have full access at
-    all times, can export everything, and can remove it by deleting the app, except
-    for the two trial entries described under “Satzwerk Pro”. For purchase and payment
-    data, please contact Apple:
-    <a href="https://www.apple.com/legal/privacy/contact/">apple.com/legal/privacy/contact</a>.
-  </p>
 
-  <h3>Right to object</h3>
-  <p>
-    <strong>Where I process data on the basis of legitimate interests (Art. 6 (1) (f)
-    GDPR), you may object to this processing at any time on grounds relating to your
-    particular situation (Art. 21 (1) GDPR). An informal email to info@satzwerk.app is
-    sufficient.</strong>
-  </p>
-
-  <h2>7. Right to complain</h2>
-  <p>
-    You may lodge a complaint with a data protection supervisory authority. The
-    authority responsible for me is:
-  </p>
-  <div class="karte">
-    <address>
-      Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)<br>
-      Promenade 27<br>
-      91522 Ansbach<br>
-      Germany
-    </address>
+  <h2>Free and Pro</h2>
+  <div class="zwei">
+    <div class="karte">
+      <h3>Free</h3>
+      <ul>
+        <li>Your own plans, unlimited</li>
+        <li>Workouts with suggestions from your last session</li>
+        <li>Live Activity on the lock screen</li>
+        <li>Library with 170 exercises</li>
+        <li>Archive and week grid</li>
+        <li>Weight with trend and measured pace</li>
+        <li>Backup, restore, CSV export</li>
+        <li>Apple Health</li>
+      </ul>
+    </div>
+    <div class="karte">
+      <h3 class="ist-pro">Pro</h3>
+      <ul>
+        <li>Progression per exercise</li>
+        <li>Sets per muscle group</li>
+        <li>Intensity and RIR logging</li>
+        <li>Gyms, values kept apart per gym</li>
+        <li>Goal per phase with daily calories</li>
+        <li>Body fat and circumferences</li>
+      </ul>
+    </div>
   </div>
+  <p>After installing, you get 30 days of Pro as a gift. They end on their own. After
+    that, Pro is a monthly or yearly subscription through Apple, and the App Store
+    shows you the price. When Pro ends, nothing is deleted.</p>
 
-  <h2>8. Changes</h2>
-  <p>
-    This notice will be updated if the app, the website or the legal situation
-    changes. The version published here applies.
-  </p>
+  <h2>Common questions about the analysis</h2>
+  <h3>Does Satzwerk count warm-up sets?</h3>
+  <p>No. Warm-up sets are their own rows and never count in any analysis.</p>
+  <h3>How far back does the analysis go?</h3>
+  <p>The data has no time limit. Every workout stays in the archive, also without
+    Pro.</p>
+  <h3>Does Satzwerk recommend weights?</h3>
+  <p>No. Satzwerk tells you whether your reps were on target, for example “too
+    light”. Which weight you pick next is your decision.</p>
+  <h3>Can I import my data from Hevy or Strong?</h3>
+  <p>No. Satzwerk does not read exports from other apps. Your own plans can be shared
+    as text and read back in.</p>
+
+  <p><a class="store fuellen" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span>On the App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></p>
+
+  <h2>Sources</h2>
+  <ul class="quellen">
+    <li>Schoenfeld, Ogborn, Krieger (2017), Journal of Sports Sciences: sets per muscle per week</li>
+    <li>Jackson and Pollock (1978); Jackson, Pollock and Ward (1980): 3 skinfolds</li>
+    <li>Durnin and Womersley (1974): 4 skinfolds</li>
+    <li>Siri (1961): body density to body fat</li>
+    <li>Katch-McArdle: basal rate from lean mass</li>
+    <li>Helms, Aragon, Fitschen (2014): pace in a cut</li>
+  </ul>
 
 </div>
 

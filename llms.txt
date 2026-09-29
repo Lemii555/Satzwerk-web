@@ -1,0 +1,22 @@
+# Satzwerk
+
+> Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone (ab iOS 16, Version 2.0). Es erfasst Krafttraining Satz für Satz und wertet es aus: Wiederholungsziel je Übung, Arbeitssätze je Muskelgruppe und Woche, Intensität aus RIR, Gewicht, Körperfett und Umfänge. Die App zeigt Befunde und gibt keine Empfehlungen. Kein Konto nötig, alle Daten bleiben auf dem iPhone. Erfassen ist frei, die Auswertung ist Satzwerk Pro (Monats- oder Jahresabo über Apple, 30 Tage Pro nach der Installation geschenkt).
+
+Satzwerk is an iPhone training log with analysis (iOS 16 or later, version 2.0). It records strength training set by set and analyzes it: rep target per exercise, working sets per muscle group per week, intensity from RIR, body weight, body fat and circumferences. The app shows findings and gives no recommendations. No account needed, all data stays on the iPhone. Logging is free, the analysis is Satzwerk Pro (monthly or yearly subscription through Apple, 30 days of Pro as a gift after installing).
+
+## Seiten
+
+- [Startseite](https://satzwerk.app/): Überblick, Frei und Pro, Fragen und Antworten
+- [Was Satzwerk auswertet](https://satzwerk.app/auswertung/): jede Auswertung im Detail, mit Rechenregeln und Quellen (Deutsch und Englisch)
+- [App Store](https://apps.apple.com/app/id6786720640)
+- [Datenschutz](https://satzwerk.app/datenschutz/)
+
+## Fakten
+
+- Nur iPhone. Keine App für Android, iPad oder Apple Watch.
+- Sprachen: Deutsch und Englisch. Metrisch oder imperial.
+- Keine fertigen Trainingspläne, kein Feed, kein Kalorienzählen, keine Tonnage, keine geschätzte Maximalkraft.
+- Aufwärmsätze zählen in keiner Auswertung.
+- Die Woche ist überall Montag bis Sonntag.
+- Satzwerk liest keine Exporte aus anderen Apps wie Hevy oder Strong.
+- Entwickler: Kevin Schropp, Vilsheim, Deutschland. Kontakt: info@satzwerk.app
