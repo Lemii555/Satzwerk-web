@@ -3,8 +3,48 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Datenschutz — Satzwerk</title>
-<meta name="description" content="Satzwerk erhebt keine Nutzungsdaten. Alle Trainingsdaten bleiben auf dem Gerät. Apple Health nur auf Wunsch.">
+<title>Über Satzwerk – wer die App baut und warum</title>
+<meta name="description" content="Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone, gebaut von Kevin Schropp in Vilsheim. Wie es angefangen hat, warum es nicht mehr gymLog heißt und wie die App gebaut ist.">
+<link rel="canonical" href="https://satzwerk.app/ueber/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Satzwerk">
+<meta property="og:title" content="Über Satzwerk">
+<meta property="og:description" content="Wie Satzwerk angefangen hat, warum es nicht mehr gymLog heißt und wie die App gebaut ist.">
+<meta property="og:url" content="https://satzwerk.app/ueber/">
+<meta property="og:image" content="https://satzwerk.app/img/og.jpg">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "AboutPage",
+ "name": "Über Satzwerk",
+ "alternateName": "About Satzwerk",
+ "url": "https://satzwerk.app/ueber/",
+ "inLanguage": ["de", "en"],
+ "dateModified": "2026-09-30",
+ "mainEntity": {
+  "@type": "Organization",
+  "name": "Satzwerk",
+  "alternateName": "gymLog",
+  "url": "https://satzwerk.app/",
+  "email": "info@satzwerk.app",
+  "slogan": "Handwerk am eigenen Körper.",
+  "founder": { "@type": "Person", "name": "Kevin Schropp" },
+  "foundingLocation": { "@type": "Place", "name": "Vilsheim, Deutschland" },
+  "sameAs": ["https://www.instagram.com/satzwerktraining", "https://www.linkedin.com/company/satzwerk-app"],
+  "owns": {
+   "@type": "MobileApplication",
+   "name": "Satzwerk",
+   "operatingSystem": "iOS 16 oder neuer",
+   "applicationCategory": "HealthApplication",
+   "datePublished": "2026-07-04",
+   "installUrl": "https://apps.apple.com/app/id6786720640"
+  }
+ }
+}
+</script>
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#F4F2EE">
 <meta name="color-scheme" content="light">
@@ -258,6 +298,28 @@ main [lang="en"]{ display:none }
 html[data-lang="en"] main [lang="de"]{ display:none }
 html[data-lang="en"] main>[lang="en"]{ display:block }
 html[data-lang="en"] main [lang="en"].klein{ display:inline }
+
+/* ---------- Karten, Blick-Tabelle (wie Auswertung) ----------
+   Baut auf main.recht auf. Dazu: die Kennzeichnung Frei/Pro an jeder
+   Ueberschrift ("Pro" immer in der Markenfarbe, ENTSCHEIDUNG_PRO.md 2),
+   die Tabelle "Auf einen Blick" und zwei Karten nebeneinander. */
+main.recht .tag{ display:inline-block; vertical-align:middle; margin-left:8px; padding:2px 10px;
+  border-radius:980px; border:1px solid var(--kante); font-size:13px; font-weight:600;
+  line-height:1.5; color:var(--leise) }
+main.recht .tag-pro{ color:var(--akzent); border-color:var(--akzent) }
+main.recht h3.ist-pro{ color:var(--akzent) }
+main.recht .blick{ display:grid; grid-template-columns:1fr; gap:4px 24px; margin:0 }
+main.recht .blick dt{ font-weight:600 }
+main.recht .blick dd{ margin:0 0 12px; max-width:62ch }
+@media (min-width:768px){
+  main.recht .blick{ grid-template-columns:140px 1fr }
+  main.recht .blick dd{ margin:0 0 8px }
+}
+main.recht .zwei{ display:grid; gap:8px; grid-template-columns:1fr; margin:0 0 16px }
+@media (min-width:768px){ main.recht .zwei{ grid-template-columns:1fr 1fr } }
+main.recht .zwei h3{ margin-top:0 }
+main.recht .quellen{ font-size:16px }
+main.recht .store{ margin:24px 0 8px }
 </style>
 </head>
 <body>
@@ -268,7 +330,7 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
     <nav class="leiste" aria-label="Hauptnavigation" data-t-aria="nav_name">
       <a class="segment segment-marke" href="/"><img src="../img/logo-dunkel.svg" alt="Satzwerk" width="142" height="24"></a>
       <a class="segment nur-breit" href="/auswertung/"><span data-t="nav_auswertung">Auswertung</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></a>
-      <a class="segment nur-breit" href="/ueber/"><span data-t="nav_ueber">Über uns</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></a>
+      <a class="segment nur-breit" href="/ueber/" aria-current="page"><span data-t="nav_ueber">Über uns</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></a>
       <button class="segment nur-breit" id="folgen" type="button" aria-expanded="false" aria-controls="folgen-menue"><span data-t="folgen">Folge uns</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg></button>
       <button class="segment nur-breit" id="sprache" type="button" data-sprachknopf data-t-aria="lang_aria" aria-label="Switch to English"><span data-t="lang">EN</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg></button>
       <a class="store fuellen nur-breit" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
@@ -296,7 +358,7 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
         <p class="menue-kopf" data-t="seiten">Seiten</p>
         <a class="menue-zeile" href="/" data-t="start">Start</a>
         <a class="menue-zeile" href="/auswertung/" data-t="nav_auswertung">Auswertung</a>
-        <a class="menue-zeile" href="/ueber/" data-t="nav_ueber">Über uns</a>
+        <a class="menue-zeile" href="/ueber/" aria-current="page" data-t="nav_ueber">Über uns</a>
       </div>
       <div class="menue-gruppe">
         <p class="menue-kopf" data-t="folgen">Folge uns</p>
@@ -314,7 +376,7 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
       <div class="menue-gruppe">
         <p class="menue-kopf" data-t="rechtliches">Rechtliches</p>
         <a class="menue-zeile" href="/impressum/" data-t="impressum">Impressum</a>
-        <a class="menue-zeile" href="/datenschutz/" aria-current="page" data-t="datenschutz">Datenschutz</a>
+        <a class="menue-zeile" href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
       </div>
     </div>
   </nav>
@@ -325,523 +387,139 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
 <!-- ================= DEUTSCH ================= -->
 <div lang="de">
 
-  <h1>Datenschutz</h1>
-  <p class="stand">Stand: 28. September 2026</p>
+  <h1>Über Satzwerk</h1>
+  <p class="stand">Kevin Schropp, Vilsheim. Stand: 30. September 2026</p>
 
   <div class="kurz">
-    <p>Die App Satzwerk erhebt keine personenbezogenen Daten.</p>
-    <p>Es gibt kein Konto, keinen Server und keine Werbung. Alle Trainings- und
-      Körperdaten bleiben auf deinem Gerät.</p>
-    <p>Satzwerk Pro (ab Version 2.0) kaufst du über Apple. Ich erfahre dabei nicht,
-      wer du bist.</p>
+    <p>Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone. Gebaut von
+      einer Person, für Leute, die ihren Trainingsplan schon haben und wissen wollen,
+      ob er wirkt.</p>
   </div>
 
-  <h2>1. Verantwortlicher</h2>
-  <div class="karte">
-    <address>
-      Kevin Schropp<br>
-      Satzwerk<br>
-      Veilchenweg 10<br>
-      84186 Vilsheim<br>
-      Deutschland
-    </address>
-    <p>E-Mail: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a></p>
-    <p class="klein">Ein Datenschutzbeauftragter ist gesetzlich nicht erforderlich
-      und daher nicht bestellt.</p>
-  </div>
+  <h2>Wie es angefangen hat</h2>
+  <p>Angefangen hat es mit einer Notiz. Sätze und Gewichte, sonst nichts. Dann kamen
+    meine Körperwerte dazu, weil ich die ohnehin irgendwo stehen hatte. Dann die
+    Auswertung, weil ich sonst jedes Mal alles in eine Tabelle kopieren musste, um zu
+    sehen, ob es überhaupt vorwärtsgeht.</p>
+  <p>Eine App, die genau das macht und sonst nichts, habe ich nicht gefunden. Also habe
+    ich sie gebaut. Erst nur für mich. Irgendwann wollte ich sie nicht mehr nur für mich
+    gut haben, sondern für andere.</p>
 
-  <h2>2. Die App</h2>
+  <h2>Von gymLog zu Satzwerk</h2>
+  <p>Im Juli 2026 kam die App in den App Store, damals unter dem Namen gymLog. Der Name
+    hatte ein Problem: So heißen viele Trainings-Apps. Wer im App Store nach gymLog
+    suchte, konnte leicht bei einer anderen landen.</p>
+  <p>Im August 2026 habe ich sie deshalb umbenannt. Satzwerk setzt sich aus Satz und
+    Werk zusammen. Satz ist der Trainingssatz, die kleinste Einheit im Krafttraining.
+    Werk steht für Handwerk, für die Arbeit am eigenen Körper. Daher der Satz, der
+    überall steht: Handwerk am eigenen Körper.</p>
 
-  <h3>Keine Erhebung, keine Übertragung</h3>
-  <p>
-    Satzwerk verarbeitet alle Eingaben ausschließlich lokal auf dem Gerät. Es
-    existiert kein Nutzerkonto, keine Anmeldung und keine Kennung, die Satzwerk vergibt. Es gibt keinen
-    Server, an den Daten übermittelt werden. Die App enthält keine Werbung, keine
-    Analysewerkzeuge und keine Tracking-Bibliotheken Dritter.
-  </p>
-  <p>
-    Betroffen sind damit unter anderem Trainingseinheiten, Übungen, Sätze, Gewichte,
-    Wiederholungen, Notizen, Studios, Körpergewicht, Körperfett und Maße. Diese Daten
-    verlassen das Gerät nicht, außer du exportierst sie selbst.
-  </p>
-
-  <h3>Export und Sicherung</h3>
-  <p>
-    Über die Teilen-Funktion des Systems kannst du deine Daten und Pläne als Text
-    ausgeben und wieder einlesen. Wohin die Daten dabei gehen, entscheidest du. Der
-    Export erfolgt ausschließlich auf deine ausdrückliche Handlung hin.
-  </p>
-
-  <h3>Apple Health</h3>
-  <p>
-    Wenn du es aktivierst, schreibt Satzwerk Trainingseinheiten, Körpergewicht und
-    Körperfett nach Apple Health. Die Funktion ist standardmäßig ausgeschaltet und
-    erfordert deine Zustimmung im Systemdialog von iOS.
-  </p>
-  <p>
-    <strong>Satzwerk liest keine Daten aus Apple Health.</strong> Werte aus anderen
-    Apps oder von einer Waage werden nicht übernommen. Die Übertragung findet
-    ausschließlich auf dem Gerät statt, Apple Health ist ein lokaler Speicher des
-    Betriebssystems.
-  </p>
-  <p>
-    Du kannst die Freigabe jederzeit in den iOS-Einstellungen unter „Datenschutz &amp;
-    Sicherheit“ &gt; „Health“ widerrufen. Bereits geschriebene Werte kannst du in der Health-App löschen.
-  </p>
-  <p class="klein">Körperdaten können Gesundheitsdaten sein. Rechtsgrundlage ist deshalb
-    deine Einwilligung nach Art. 6 Abs. 1 lit. a und Art. 9 Abs. 2 lit. a DSGVO.</p>
-
-  <h3>Live Activity</h3>
-  <p>
-    Während ein Training läuft, zeigt Satzwerk eine Live Activity auf dem
-    Sperrbildschirm und, falls dein iPhone eine hat, in der Dynamic Island. Zu sehen
-    sind der Name des Trainingstags, die aktuelle Übung, Gewicht und Wiederholungen
-    des nächsten Satzes, der Satzstand, die Trainingsdauer und ein laufender
-    Countdown. Über einen Knopf kannst du dort einen Satz abhaken.
-  </p>
-  <p>
-    <strong>Diese Angaben sind auch ohne Entsperren sichtbar</strong>, also für jede
-    Person, die dein iPhone sieht. Sie werden auf dem Gerät erzeugt und nicht
-    übertragen. Du kannst Live Activities in den iOS-Einstellungen unter „Satzwerk“
-    ausschalten.
-  </p>
-
-  <h3>Bewertungsdialog</h3>
-  <p>
-    Satzwerk verwendet den Bewertungsdialog von Apple (SKStoreReviewController). Ob
-    und wann er erscheint, steuert das Betriebssystem. Es werden dabei keine Daten an
-    mich übermittelt, ich erfahre nicht, ob oder wie du bewertet hast.
-  </p>
-
-  <h3>Satzwerk Pro</h3>
-  <p>
-    Ab Version 2.0 gibt es Satzwerk Pro, ein Abo im Monat oder im Jahr. Kauf, Zahlung, Verlängerung,
-    Kündigung und Erstattung laufen ausschließlich über Apple und deine Apple-ID. In
-    der EU wickelt die Apple Distribution International Ltd., Hollyhill Industrial
-    Estate, Hollyhill, Cork, Irland, den Kauf ab. Apple verarbeitet dabei deine Daten
-    in eigener Verantwortung, siehe die
-    <a href="https://www.apple.com/de/legal/privacy/">Datenschutzrichtlinie von Apple</a>.
-    Ich erhalte von Apple keine Namen, keine Apple-ID, keine E-Mail-Adresse und keine
-    Zahlungsdaten.
-  </p>
-  <p>
-    Auf deinem Gerät fragt die App über iOS bei Apple ab, ob dein Abo aktiv ist und
-    mit welcher Version du Satzwerk zuerst geladen hast. Die zweite Angabe entscheidet,
-    ob du als bisheriger Nutzer Pro geschenkt bekommst. Beide Antworten kommen von
-    Apple auf dein Gerät und bleiben dort. Satzwerk sendet nichts an mich.
-  </p>
-  <p>
-    Für den Testmonat speichert die App im Schlüsselbund von iOS, wann er begonnen
-    hat, und ob beim ersten Start einer Version mit Pro schon Daten in der App waren.
-    Gespeichert werden nur ein Zeitpunkt und eine Ja-Nein-Angabe, keine Trainings-
-    oder Körperwerte. Die Einträge liegen nur auf diesem Gerät. Sie werden nicht über
-    iCloud abgeglichen und stehen nicht in deiner Sicherungsdatei. Nach heutigem
-    Verhalten von iOS bleiben sie erhalten, wenn du die App löschst.
-  </p>
-  <p>
-    Kündigen kannst du in den iPhone-Einstellungen unter deinem Namen &gt;
-    „Abonnements“. Eine Erstattung beantragst du bei Apple unter
-    <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.
-  </p>
-  <p class="klein">Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO: Ich stelle dir die
-    gekauften oder geschenkten Funktionen bereit. Das Speichern und Auslesen auf deinem
-    Gerät ist dafür unbedingt erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG).</p>
-
-  <h3>App Store</h3>
-  <p>
-    Der Bezug der App läuft über den App Store. Apple erhebt und verarbeitet dabei
-    eigene Daten, auf die ich keinen Einfluss habe. Von Apple erhalte ich
-    Statistiken, etwa die Anzahl der Downloads, und Berichte zu Abo-Käufen. Diese
-    Berichte enthalten je Kauf, Verlängerung oder Erstattung eine zufällige Kennung,
-    die Apple vergibt, dazu Land, Gerätetyp, Datum und Preis. Namen, Apple-ID,
-    E-Mail-Adresse oder Zahlungsdaten erhalte ich nicht. Ich kann die Kennung keiner
-    Person zuordnen. Verantwortlich für diese Verarbeitung ist Apple.
-  </p>
-
-  <h2>3. Diese Website</h2>
-
-  <h3>Hosting und Zugriffsdaten</h3>
-  <p>
-    Diese Seiten werden über GitHub Pages bereitgestellt, einen Dienst der GitHub
-    Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.
-  </p>
-  <p>
-    Beim Aufruf werden durch den Hostinganbieter technisch notwendige Zugriffsdaten
-    verarbeitet, insbesondere IP-Adresse, Zeitpunkt des Zugriffs, aufgerufene Seite,
-    übertragene Datenmenge sowie Browser- und Betriebssystemtyp. Diese Verarbeitung
-    ist erforderlich, um die Seite auszuliefern und ihren sicheren Betrieb zu
-    gewährleisten. Dabei kann eine Übermittlung in die USA stattfinden.
-  </p>
-  <p>
-    Nach Angaben von GitHub wird die IP-Adresse jedes Besuchers zu Sicherheitszwecken
-    gespeichert. Wie lange, bestimmt GitHub. Ich habe auf diese Daten keinen Zugriff.
-  </p>
-  <p>
-    GitHub ist unter dem EU-US Data Privacy Framework zertifiziert. Weitere
-    Informationen finden sich in der Datenschutzerklärung von GitHub unter
-    <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">docs.github.com</a>.
-  </p>
-  <p class="klein">
-    Rechtsgrundlage: berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO.
-  </p>
-
-  <h3>Keine Cookies</h3>
-  <p>
-    Diese Seiten setzen keine Cookies. Deine Sprachwahl wird lokal in deinem Browser
-    gespeichert und nicht übertragen. Eine früher gespeicherte Einstellung für hell
-    und dunkel wird beim nächsten Aufruf gelöscht.
-  </p>
-
-  <h3>Keine externen Inhalte</h3>
-  <p>
-    Es werden keine Schriften, Karten, Videos oder Skripte von Servern Dritter
-    nachgeladen. Alle Bestandteile dieser Seite werden vom eigenen Hosting
-    ausgeliefert. Damit entsteht beim Aufruf keine Verbindung zu Google, Meta oder
-    vergleichbaren Anbietern.
-  </p>
-
-  <h3>Links zu anderen Anbietern</h3>
-  <p>
-    Diese Seiten verlinken auf den App Store (Apple), Instagram (Meta) und LinkedIn.
-    Solange du keinen dieser Links antippst, entsteht keine Verbindung zu diesen
-    Anbietern und es werden keine Daten übertragen. Öffnest du einen Link, gelten die
-    Datenschutzbestimmungen des jeweiligen Anbieters.
-  </p>
-
-  <h2>4. Kontakt per E-Mail</h2>
-  <p>
-    Wenn du mir schreibst, verarbeite ich deine E-Mail-Adresse und den Inhalt deiner
-    Nachricht, um sie zu beantworten. Die Nachricht bleibt so lange gespeichert, wie
-    es für die Bearbeitung erforderlich ist, sowie im Rahmen gesetzlicher
-    Aufbewahrungsfristen.
-  </p>
-  <p>
-    E-Mails an diese Adresse landen in einem Postfach bei Google (Gmail). Anbieter
-    ist für Nutzer im Europäischen Wirtschaftsraum die Google Ireland Limited, Gordon
-    House, Barrow Street, Dublin 4, Irland. Eine Übermittlung an die Google LLC in
-    den USA ist möglich. Google LLC ist unter dem EU-US Data Privacy Framework
-    zertifiziert.
-  </p>
-  <p class="klein">
-    Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO bei vertragsbezogenen Anfragen,
-    sonst Art. 6 Abs. 1 lit. f DSGVO.
-  </p>
-
-  <h2>5. Empfänger und Drittländer</h2>
-  <p>
-    Es findet keine Weitergabe deiner Daten zu Werbe- oder Analysezwecken statt.
-    Eine Übermittlung in die USA kann im Rahmen des Hostings dieser Website durch
-    GitHub und beim E-Mail-Kontakt durch Google stattfinden, siehe oben. Die Verarbeitung durch Apple im Zusammenhang mit
-    dem App Store, Käufen und Apple Health richtet sich nach den Bestimmungen von Apple.
-    Die Daten in der App selbst verlassen dein Gerät nicht.
-  </p>
-
-  <h2>6. Deine Rechte</h2>
-  <p>Dir stehen gegenüber mir folgende Rechte zu:</p>
+  <h2>Wie Satzwerk gebaut ist</h2>
   <ul>
-    <li>Auskunft über die zu deiner Person verarbeiteten Daten (Art. 15 DSGVO)</li>
-    <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
-    <li>Löschung (Art. 17 DSGVO)</li>
-    <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
-    <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
-    <li>Widerspruch gegen eine Verarbeitung auf Grundlage berechtigter Interessen
-      (Art. 21 DSGVO)</li>
-    <li>Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft
-      (Art. 7 Abs. 3 DSGVO)</li>
+    <li><strong>Keine fertigen Pläne.</strong> Ein Onboarding kennt deinen
+      Bandscheibenvorfall nicht, deinen Blutdruck nicht und dein Sprunggelenk nicht.
+      Pläne kommen von Menschen, die dich kennen.</li>
+    <li><strong>Befunde, keine Anweisungen.</strong> Satzwerk sagt „im Ziel“ oder „zu
+      leicht“. Welches Gewicht als Nächstes kommt, entscheidest du.</li>
+    <li><strong>Deine Daten liegen auf deinem iPhone.</strong> Kein Konto nötig, kein
+      Server, Export als Datei jederzeit.</li>
+    <li><strong>Nur Zahlen, die etwas bedeuten.</strong> Keine Tonnage, keine geschätzte
+      Maximalkraft, kein Feed. Aufwärmsätze zählen nie mit.</li>
+    <li><strong>Eine Woche ist Montag bis Sonntag.</strong> Überall in der App, für
+      Training wie für Körper.</li>
   </ul>
-  <p>
-    Für die Daten in der App gilt: Da ich weder Zugriff darauf habe noch weiß, dass
-    es dich gibt, kann ich diese Rechte für die App-Daten nicht ausüben. Du hast
-    jederzeit vollständigen Zugriff, kannst alles exportieren und durch Löschen der
-    App entfernen. Ausgenommen sind die beiden Einträge zum Testmonat, siehe
-    „Satzwerk Pro“. Für Kauf- und Zahlungsdaten wende dich an Apple:
-    <a href="https://www.apple.com/de/legal/privacy/contact/">apple.com/legal/privacy/contact</a>.
-  </p>
+  <p>Wie jede Auswertung rechnet, steht auf der Seite
+    <a href="/auswertung/">Was Satzwerk auswertet</a>.</p>
 
-  <h3>Widerspruchsrecht</h3>
-  <p>
-    <strong>Soweit ich Daten auf Grundlage berechtigter Interessen (Art. 6 Abs. 1
-    lit. f DSGVO) verarbeite, kannst du dieser Verarbeitung jederzeit aus Gründen, die
-    sich aus deiner besonderen Situation ergeben, widersprechen (Art. 21 Abs. 1
-    DSGVO). Eine formlose E-Mail an info@satzwerk.app genügt.</strong>
-  </p>
+  <h2>Wer dahintersteht</h2>
+  <p>Satzwerk ist ein Ein-Personen-Projekt von Kevin Schropp aus Vilsheim in
+    Niederbayern. Ich trainiere selbst mit Satzwerk, mehrmals die Woche. Was in der App
+    fehlt, fällt mir meistens im Studio auf.</p>
+  <p>Rückmeldungen lese ich selbst: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a></p>
 
-  <h2>7. Beschwerderecht</h2>
-  <p>
-    Du kannst dich bei einer Datenschutzaufsichtsbehörde beschweren. Für mich
-    zuständig ist:
-  </p>
+  <h2>Auf einen Blick</h2>
   <div class="karte">
-    <address>
-      Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)<br>
-      Promenade 27<br>
-      91522 Ansbach<br>
-      Deutschland
-    </address>
+    <dl class="blick">
+      <dt>Name</dt><dd>Satzwerk, bis August 2026 gymLog</dd>
+      <dt>Seit</dt><dd>Juli 2026 im App Store</dd>
+      <dt>Von</dt><dd>Kevin Schropp, Vilsheim, Deutschland</dd>
+      <dt>Gerät</dt><dd>iPhone ab iOS 16</dd>
+      <dt>Sprachen</dt><dd>Deutsch und Englisch, metrisch oder imperial</dd>
+      <dt>Modell</dt><dd>Erfassen ist frei. Die Auswertung ist Satzwerk Pro, als Monats- oder Jahresabo über Apple.</dd>
+      <dt>Kontakt</dt><dd>info@satzwerk.app</dd>
+    </dl>
   </div>
 
-  <h2>8. Änderungen</h2>
-  <p>
-    Diese Erklärung wird angepasst, wenn sich die App, die Website oder die
-    Rechtslage ändern. Es gilt jeweils die hier veröffentlichte Fassung.
-  </p>
+  <p><a class="store fuellen" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span>Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></p>
 
 </div>
 
 <!-- ================= ENGLISH ================= -->
 <div lang="en">
 
-  <h1>Privacy</h1>
-  <p class="stand">Last updated: 28 September 2026</p>
+  <h1>About Satzwerk</h1>
+  <p class="stand">Kevin Schropp, Vilsheim. As of September 30, 2026</p>
 
   <div class="kurz">
-    <p>The Satzwerk app collects no personal data.</p>
-    <p>There is no account, no server and no advertising. All training and body data
-      stays on your device.</p>
-    <p>Satzwerk Pro (from version 2.0) is bought through Apple. I do not learn who
-      you are.</p>
+    <p>Satzwerk is a training log with analysis for the iPhone. Built by one person, for
+      people who already have their training plan and want to know whether it works.</p>
   </div>
 
-  <h2>1. Controller</h2>
-  <div class="karte">
-    <address>
-      Kevin Schropp<br>
-      Satzwerk<br>
-      Veilchenweg 10<br>
-      84186 Vilsheim<br>
-      Germany
-    </address>
-    <p>Email: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a></p>
-    <p class="klein">A data protection officer is not legally required and has
-      therefore not been appointed.</p>
-  </div>
+  <h2>How it started</h2>
+  <p>It started with a note. Sets and weights, nothing else. Then my body values came
+    in, because I had them written down somewhere anyway. Then the analysis, because
+    otherwise I had to copy everything into a spreadsheet every time to see whether I
+    was making progress at all.</p>
+  <p>I could not find an app that did exactly that and nothing else. So I built it.
+    First only for myself. At some point I no longer wanted it to be good just for me,
+    but for others too.</p>
 
-  <h2>2. The app</h2>
+  <h2>From gymLog to Satzwerk</h2>
+  <p>In July 2026 the app went live on the App Store, back then under the name gymLog.
+    The name had a problem: many training apps are called that. Anyone searching the
+    App Store for gymLog could easily end up with a different app.</p>
+  <p>So in August 2026 I renamed it. Satzwerk is made of the German words Satz and
+    Werk. Satz means set, the smallest unit in strength training. Werk means craft, the
+    work you do on your own body. Hence the line you see everywhere: Handwerk am eigenen
+    Körper, craft on your own body.</p>
 
-  <h3>No collection, no transmission</h3>
-  <p>
-    Satzwerk processes all entries locally on your device only. There is no user
-    account, no sign-in and no identifier assigned by Satzwerk. There is no server that data is sent to.
-    The app contains no advertising, no analytics tools and no third-party tracking
-    libraries.
-  </p>
-  <p>
-    This covers workouts, exercises, sets, weights, reps, notes, gyms, body weight,
-    body fat and measurements. This data does not leave your device unless you export
-    it yourself.
-  </p>
-
-  <h3>Export and backup</h3>
-  <p>
-    Using the system share sheet you can export your data and plans as text and read
-    them back in. Where that data goes is entirely your decision. Export only happens
-    on your explicit action.
-  </p>
-
-  <h3>Apple Health</h3>
-  <p>
-    If you enable it, Satzwerk writes workouts, body weight and body fat to Apple
-    Health. The feature is off by default and requires your consent in the iOS
-    system dialog.
-  </p>
-  <p>
-    <strong>Satzwerk does not read any data from Apple Health.</strong> Values from
-    other apps or from a scale are not imported. The transfer takes place on the
-    device only; Apple Health is local storage provided by the operating system.
-  </p>
-  <p>
-    You can withdraw access at any time in the iOS settings under “Privacy &amp; Security” &gt; “Health”.
-    Values already written can be deleted in the Health app.
-  </p>
-  <p class="klein">Body data may be health data. The legal basis is therefore your consent
-    under Art. 6 (1) (a) and Art. 9 (2) (a) GDPR.</p>
-
-  <h3>Live Activity</h3>
-  <p>
-    While a workout is running, Satzwerk shows a Live Activity on the lock screen
-    and, if your iPhone has one, in the Dynamic Island. It shows the name of the
-    training day, the current exercise, weight and reps of the next set, the set
-    count, the workout duration and a running countdown. A button there lets you
-    check off a set.
-  </p>
-  <p>
-    <strong>This information is visible without unlocking</strong>, so to anyone who
-    can see your iPhone. It is generated on the device and not transmitted. You can
-    turn Live Activities off in the iOS settings under “Satzwerk”.
-  </p>
-
-  <h3>Review prompt</h3>
-  <p>
-    Satzwerk uses Apple's review prompt (SKStoreReviewController). Whether and when it
-    appears is controlled by the operating system. No data is transmitted to me and I
-    do not learn whether or how you rated the app.
-  </p>
-
-  <h3>Satzwerk Pro</h3>
-  <p>
-    From version 2.0 there is Satzwerk Pro, a monthly or yearly subscription. Purchase, payment,
-    renewal, cancellation and refunds are handled entirely by Apple through your
-    Apple ID. In the EU the purchase is processed by Apple Distribution International
-    Ltd., Hollyhill Industrial Estate, Hollyhill, Cork, Ireland. Apple processes your
-    data as an independent controller, see
-    <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>.
-    I receive no names, no Apple ID, no email address and no payment details from
-    Apple.
-  </p>
-  <p>
-    On your device, the app asks Apple via iOS whether your subscription is active and
-    which version of Satzwerk you first downloaded. The second answer decides whether
-    you receive Pro as a gift as an existing user. Both answers come from Apple to your
-    device and stay there. Satzwerk sends nothing to me.
-  </p>
-  <p>
-    For the trial month, the app stores in the iOS keychain when it started, and
-    whether there was already data in the app the first time a version with Pro was
-    launched. Only a point in time and a yes/no value are stored, no workout or body
-    values. These entries stay on this device only. They are not synced via iCloud and
-    are not part of your backup file. Under current iOS behavior they remain when you
-    delete the app.
-  </p>
-  <p>
-    You can cancel in the iPhone settings under your name &gt; “Subscriptions”. You
-    can request a refund from Apple at
-    <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.
-  </p>
-  <p class="klein">Legal basis: Art. 6 (1) (b) GDPR, to provide the features you
-    bought or were given. Storing and reading this information on your device is
-    strictly necessary for that (Section 25 (2) no. 2 TDDDG).</p>
-
-  <h3>App Store</h3>
-  <p>
-    The app is distributed through the App Store. Apple collects and processes its own
-    data in that context, over which I have no influence. From Apple I receive
-    statistics such as the number of downloads, and reports on subscription
-    purchases. For each purchase, renewal or refund these reports contain a random
-    identifier assigned by Apple, together with country, device type, date and price.
-    I receive no names, Apple IDs, email addresses or payment details. I cannot link
-    the identifier to a person. Apple is the controller for that processing.
-  </p>
-
-  <h2>3. This website</h2>
-
-  <h3>Hosting and access data</h3>
-  <p>
-    These pages are served via GitHub Pages, a service of GitHub Inc., 88 Colin P.
-    Kelly Jr. Street, San Francisco, CA 94107, USA.
-  </p>
-  <p>
-    When a page is accessed, the hosting provider processes technically necessary
-    access data, in particular IP address, time of access, page requested, volume of
-    data transferred and browser and operating system type. This processing is
-    necessary to deliver the page and ensure its secure operation. A transfer to the
-    USA may take place in the process.
-  </p>
-  <p>
-    According to GitHub, every visitor's IP address is logged and stored for security
-    purposes. GitHub decides how long. I have no access to this data.
-  </p>
-  <p>
-    GitHub is certified under the EU-US Data Privacy Framework. Further information
-    can be found in GitHub's privacy statement at
-    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">docs.github.com</a>.
-  </p>
-  <p class="klein">Legal basis: legitimate interest under Art. 6 (1) (f) GDPR.</p>
-
-  <h3>No cookies</h3>
-  <p>
-    These pages set no cookies. Your language choice is stored locally in your
-    browser and is not transmitted. A previously stored light or dark preference is
-    deleted on your next visit.
-  </p>
-
-  <h3>No external content</h3>
-  <p>
-    No fonts, maps, videos or scripts are loaded from third-party servers. All parts
-    of this page are served from my own hosting. No connection to Google, Meta or
-    comparable providers is established when you open it.
-  </p>
-
-  <h3>Links to other providers</h3>
-  <p>
-    These pages link to the App Store (Apple), Instagram (Meta) and LinkedIn. As long
-    as you do not tap one of these links, no connection to these providers is made
-    and no data is transmitted. Once you open a link, that provider's privacy policy
-    applies.
-  </p>
-
-  <h2>4. Contact by email</h2>
-  <p>
-    If you write to me, I process your email address and the content of your message
-    in order to reply. The message is kept for as long as necessary to handle it and
-    within statutory retention periods.
-  </p>
-  <p>
-    Emails to this address are delivered to a Google (Gmail) mailbox. For users in the
-    European Economic Area the provider is Google Ireland Limited, Gordon House,
-    Barrow Street, Dublin 4, Ireland. A transfer to Google LLC in the USA is possible.
-    Google LLC is certified under the EU-US Data Privacy Framework.
-  </p>
-  <p class="klein">
-    Legal basis: Art. 6 (1) (b) GDPR for contract-related enquiries, otherwise
-    Art. 6 (1) (f) GDPR.
-  </p>
-
-  <h2>5. Recipients and third countries</h2>
-  <p>
-    Your data is not passed on for advertising or analytics purposes. A transfer to
-    the USA may occur as part of the hosting of this website by GitHub and, for email
-    contact, by Google, see above.
-    Processing by Apple in connection with the App Store, purchases and Apple Health is governed
-    by Apple's own terms. The data inside the app itself never leaves your device.
-  </p>
-
-  <h2>6. Your rights</h2>
-  <p>You have the following rights in relation to me:</p>
+  <h2>How Satzwerk is built</h2>
   <ul>
-    <li>Access to the data processed about you (Art. 15 GDPR)</li>
-    <li>Rectification of inaccurate data (Art. 16 GDPR)</li>
-    <li>Erasure (Art. 17 GDPR)</li>
-    <li>Restriction of processing (Art. 18 GDPR)</li>
-    <li>Data portability (Art. 20 GDPR)</li>
-    <li>Objection to processing based on legitimate interests (Art. 21 GDPR)</li>
-    <li>Withdrawal of consent with effect for the future (Art. 7 (3) GDPR)</li>
+    <li><strong>No ready-made plans.</strong> An onboarding does not know about your
+      herniated disc, your blood pressure or your ankle. Plans come from people who
+      know you.</li>
+    <li><strong>Findings, not instructions.</strong> Satzwerk says “on target” or “too
+      light”. You decide which weight comes next.</li>
+    <li><strong>Your data stays on your iPhone.</strong> No account needed, no server,
+      export as a file at any time.</li>
+    <li><strong>Only numbers that mean something.</strong> No tonnage, no estimated
+      one-rep max, no feed. Warm-up sets never count.</li>
+    <li><strong>A week runs Monday to Sunday.</strong> Everywhere in the app, for
+      training and for body values.</li>
   </ul>
-  <p>
-    For data held in the app: since I have neither access to it nor any knowledge that
-    you exist, I cannot exercise these rights on your behalf. You have full access at
-    all times, can export everything, and can remove it by deleting the app, except
-    for the two trial entries described under “Satzwerk Pro”. For purchase and payment
-    data, please contact Apple:
-    <a href="https://www.apple.com/legal/privacy/contact/">apple.com/legal/privacy/contact</a>.
-  </p>
+  <p>How each analysis is calculated is on the page
+    <a href="/auswertung/">What Satzwerk analyzes</a>.</p>
 
-  <h3>Right to object</h3>
-  <p>
-    <strong>Where I process data on the basis of legitimate interests (Art. 6 (1) (f)
-    GDPR), you may object to this processing at any time on grounds relating to your
-    particular situation (Art. 21 (1) GDPR). An informal email to info@satzwerk.app is
-    sufficient.</strong>
-  </p>
+  <h2>Who is behind it</h2>
+  <p>Satzwerk is a one-person project by Kevin Schropp from Vilsheim in Lower Bavaria,
+    Germany. I train with Satzwerk myself, several times a week. What the app is
+    missing usually shows up at the gym.</p>
+  <p>I read feedback myself: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a></p>
 
-  <h2>7. Right to complain</h2>
-  <p>
-    You may lodge a complaint with a data protection supervisory authority. The
-    authority responsible for me is:
-  </p>
+  <h2>At a glance</h2>
   <div class="karte">
-    <address>
-      Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)<br>
-      Promenade 27<br>
-      91522 Ansbach<br>
-      Germany
-    </address>
+    <dl class="blick">
+      <dt>Name</dt><dd>Satzwerk, gymLog until August 2026</dd>
+      <dt>Since</dt><dd>July 2026 on the App Store</dd>
+      <dt>By</dt><dd>Kevin Schropp, Vilsheim, Germany</dd>
+      <dt>Device</dt><dd>iPhone with iOS 16 or later</dd>
+      <dt>Languages</dt><dd>German and English, metric or imperial</dd>
+      <dt>Model</dt><dd>Logging is free. The analysis is Satzwerk Pro, a monthly or yearly subscription through Apple.</dd>
+      <dt>Contact</dt><dd>info@satzwerk.app</dd>
+    </dl>
   </div>
 
-  <h2>8. Changes</h2>
-  <p>
-    This notice will be updated if the app, the website or the legal situation
-    changes. The version published here applies.
-  </p>
+  <p><a class="store fuellen" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span>On the App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></p>
 
 </div>
 
@@ -886,7 +564,7 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
     <div class="fuss-unten">
       <nav class="fuss-recht" aria-label="Rechtliches" data-t-aria="rechtliches">
         <a href="/impressum/" data-t="impressum">Impressum</a>
-        <a href="/datenschutz/" aria-current="page" data-t="datenschutz">Datenschutz</a>
+        <a href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
       </nav>
       <p class="klein">© 2026 Satzwerk, Kevin Schropp. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
     </div>

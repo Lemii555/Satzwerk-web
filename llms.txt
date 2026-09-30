@@ -8,6 +8,7 @@ Satzwerk is an iPhone training log with analysis (iOS 16 or later, version 2.0).
 
 - [Startseite](https://satzwerk.app/): Überblick, Frei und Pro, Fragen und Antworten
 - [Was Satzwerk auswertet](https://satzwerk.app/auswertung/): jede Auswertung im Detail, mit Rechenregeln und Quellen (Deutsch und Englisch)
+- [Über Satzwerk](https://satzwerk.app/ueber/): wie die App entstanden ist, warum sie nicht mehr gymLog heißt, wer sie baut (Deutsch und Englisch)
 - [App Store](https://apps.apple.com/app/id6786720640)
 - [Datenschutz](https://satzwerk.app/datenschutz/)
 
