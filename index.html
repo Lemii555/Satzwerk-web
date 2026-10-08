@@ -59,10 +59,7 @@
  ],
  "subjectOf": { "@type": "TechArticle", "url": "https://satzwerk.app/auswertung/" },
  "sameAs": ["https://www.instagram.com/satzwerktraining", "https://www.linkedin.com/company/satzwerk-app"],
- "author": {
-  "@type": "Person",
-  "name": "Kevin Schropp"
- }
+ "author": { "@type": "Organization", "name": "Satzwerk", "url": "https://satzwerk.app/" }
 }
 </script>
 <script type="application/ld+json">
@@ -187,7 +184,7 @@
 </script>
 
 <script>
-/* Die Website gibt es nur hell (Kevin, 30.9.2026): die Mockups muessten sonst
+/* Die Website gibt es nur hell (30.9.2026): die Mockups muessten sonst
    in jeder Sprache zweimal gepflegt werden. Eine frueher gespeicherte Wahl
    wird geloescht. */
 (function(){ try{ localStorage.removeItem("satzwerk-modus"); }catch(err){} })();
@@ -207,7 +204,7 @@
 }
 
 /* ---------- Farben: alle Werte hier, sonst nirgends ----------
-   Nur hell (Kevin, 30.9.2026). Werte aus der App: src/stil.js, --bg /
+   Nur hell (30.9.2026). Werte aus der App: src/stil.js, --bg /
    --surface-2 / --surface / --ink / --ink-faint / --line / --akzent. */
 :root{
   --grund:#F4F2EE;
@@ -296,7 +293,7 @@ section[id]{ scroll-margin-top:80px }
 .fuellen:active .nur-dunkel,.fuellen:focus-visible .nur-dunkel{ display:block }
 
 /* ---------- Kopf: eine Segmentleiste ----------
-   Kevins Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
+   Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
    Apple, so breit wie ihr Inhalt, mittig. Kein Glas, keine Milch: feste
    Flaeche. Das gewaehlte Segment ist die Seite, auf der man steht
    (aria-current). Symbole: Lucide, rechts neben dem Wort wie in der Vorlage.
@@ -322,7 +319,7 @@ section[id]{ scroll-margin-top:80px }
 .segment-marke{ padding:0 16px 0 14px }
 .segment-marke img{ height:18px; width:auto }
 /* Die Wortmarke steht frei, ohne Pille, auch auf der Startseite und beim
-   Zeigen (Kevin, 30.9.2026). aria-current bleibt fuer Screenreader. */
+   Zeigen (30.9.2026). aria-current bleibt fuer Screenreader. */
 .segment-marke,.segment-marke[aria-current="page"],.segment-marke:hover{
   background:none !important; box-shadow:none !important }
 .leiste .store{ height:40px; padding:0 14px 0 18px; font-size:14px; margin-left:4px }
@@ -360,7 +357,7 @@ section[id]{ scroll-margin-top:80px }
 html.menue-offen{ overflow:hidden }
 
 /* ---------- Fuss ----------
-   Klassisch wie Kevins Vorlage (Hevy): links Marke und Kreise, rechts
+   Klassisch wie Vorlage (Hevy): links Marke und Kreise, rechts
    Spalten, darunter eine Zeile Rechtliches. Die grosse Wortmarke bleibt,
    von der Kartenkante angeschnitten: sie ist die Wiedererkennung aus dem
    Profil der App. */
@@ -626,7 +623,7 @@ footer{ padding:0 0 32px }
           <h3 data-t="h3_frei">Frei</h3>
           <ul>
         <li data-t="liste_frei.0">Eigene Pläne, unbegrenzt</li>
-        <li data-t="liste_frei.1">Über 200 Übungen, eigene frei anlegbar</li>
+        <li data-t="liste_frei.1">171 Übungen, eigene frei anlegbar</li>
         <li data-t="liste_frei.2">Die Werte vom letzten Mal grau im Feld</li>
         <li data-t="liste_frei.3">Live Activity am Sperrbildschirm</li>
         <li data-t="liste_frei.4">Archiv und Wochenraster</li>
@@ -783,7 +780,7 @@ footer{ padding:0 0 32px }
         <a href="/impressum/" data-t="impressum">Impressum</a>
         <a href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
       </nav>
-      <p class="klein">© 2026 Satzwerk, Kevin Schropp. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
+      <p class="klein">© 2026 Satzwerk. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
     </div>
   </div>
 </footer>
@@ -807,7 +804,7 @@ var TEXTE = {
   "h3_frei": "Frei",
   "liste_frei": [
    "Eigene Pläne, unbegrenzt",
-   "Über 200 Übungen, eigene frei anlegbar",
+   "171 Übungen, eigene frei anlegbar",
    "Die Werte vom letzten Mal grau im Feld",
    "Live Activity am Sperrbildschirm",
    "Archiv und Wochenraster",
@@ -974,7 +971,7 @@ var TEXTE = {
   "h3_frei": "Free",
   "liste_frei": [
    "Your own plans, unlimited",
-   "Over 200 exercises, add your own",
+   "171 exercises, add your own",
    "Last time's numbers already there, in grey",
    "Live Activity on the lock screen",
    "Archive and week grid",
@@ -1154,7 +1151,7 @@ var TEXTE = {
     try{ localStorage.setItem("satzwerk-sprache", sprache); }catch(err){}
   }
 
-  /* Ein Mockup je Sprache, nur hell (Kevin, 30.9.2026). */
+  /* Ein Mockup je Sprache, nur hell (30.9.2026). */
   function setzeMockups(){
     var sprache = html.getAttribute("lang") === "en" ? "en" : "de";
     document.querySelectorAll("[data-mockup]").forEach(function(el){

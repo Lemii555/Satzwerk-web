@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Über Satzwerk – wer die App baut und warum</title>
-<meta name="description" content="Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone, gebaut von Kevin Schropp in Vilsheim. Wie es angefangen hat, warum aus gymLog Satzwerk wird und wie die App gebaut ist.">
+<meta name="description" content="Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone, Wie es angefangen hat, warum aus gymLog Satzwerk wird und wie die App gebaut ist.">
 <link rel="canonical" href="https://satzwerk.app/ueber/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Satzwerk">
@@ -23,7 +23,7 @@
  "alternateName": "About Satzwerk",
  "url": "https://satzwerk.app/ueber/",
  "inLanguage": ["de", "en"],
- "dateModified": "2026-09-30",
+ "dateModified": "2026-10-08",
  "mainEntity": {
   "@type": "Organization",
   "name": "Satzwerk",
@@ -31,8 +31,6 @@
   "url": "https://satzwerk.app/",
   "email": "info@satzwerk.app",
   "slogan": "Handwerk am eigenen Körper.",
-  "founder": { "@type": "Person", "name": "Kevin Schropp" },
-  "foundingLocation": { "@type": "Place", "name": "Vilsheim, Deutschland" },
   "sameAs": ["https://www.instagram.com/satzwerktraining", "https://www.linkedin.com/company/satzwerk-app"],
   "owns": {
    "@type": "MobileApplication",
@@ -53,7 +51,7 @@
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/publicsans.woff2" as="font" type="font/woff2" crossorigin>
 <script>
-/* Die Website gibt es nur hell (Kevin, 30.9.2026): die Mockups muessten sonst
+/* Die Website gibt es nur hell (30.9.2026): die Mockups muessten sonst
    in jeder Sprache zweimal gepflegt werden. Eine frueher gespeicherte Wahl
    wird geloescht. */
 (function(){ try{ localStorage.removeItem("satzwerk-modus"); }catch(err){} })();
@@ -72,7 +70,7 @@
 }
 
 /* ---------- Farben: alle Werte hier, sonst nirgends ----------
-   Nur hell (Kevin, 30.9.2026). Werte aus der App: src/stil.js, --bg /
+   Nur hell (30.9.2026). Werte aus der App: src/stil.js, --bg /
    --surface-2 / --surface / --ink / --ink-faint / --line / --akzent. */
 :root{
   --grund:#F4F2EE;
@@ -161,7 +159,7 @@ section[id]{ scroll-margin-top:80px }
 .fuellen:active .nur-dunkel,.fuellen:focus-visible .nur-dunkel{ display:block }
 
 /* ---------- Kopf: eine Segmentleiste ----------
-   Kevins Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
+   Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
    Apple, so breit wie ihr Inhalt, mittig. Kein Glas, keine Milch: feste
    Flaeche. Das gewaehlte Segment ist die Seite, auf der man steht
    (aria-current). Symbole: Lucide, rechts neben dem Wort wie in der Vorlage.
@@ -187,7 +185,7 @@ section[id]{ scroll-margin-top:80px }
 .segment-marke{ padding:0 16px 0 14px }
 .segment-marke img{ height:18px; width:auto }
 /* Die Wortmarke steht frei, ohne Pille, auch auf der Startseite und beim
-   Zeigen (Kevin, 30.9.2026). aria-current bleibt fuer Screenreader. */
+   Zeigen (30.9.2026). aria-current bleibt fuer Screenreader. */
 .segment-marke,.segment-marke[aria-current="page"],.segment-marke:hover{
   background:none !important; box-shadow:none !important }
 .leiste .store{ height:40px; padding:0 14px 0 18px; font-size:14px; margin-left:4px }
@@ -225,7 +223,7 @@ section[id]{ scroll-margin-top:80px }
 html.menue-offen{ overflow:hidden }
 
 /* ---------- Fuss ----------
-   Klassisch wie Kevins Vorlage (Hevy): links Marke und Kreise, rechts
+   Klassisch wie Vorlage (Hevy): links Marke und Kreise, rechts
    Spalten, darunter eine Zeile Rechtliches. Die grosse Wortmarke bleibt,
    von der Kartenkante angeschnitten: sie ist die Wiedererkennung aus dem
    Profil der App. */
@@ -269,7 +267,7 @@ footer{ padding:0 0 32px }
    Die Regeln der bisherigen Seite, auf main.recht begrenzt: die Startseite
    setzt h1, h2, p und .klein fuer ihren Aufbau, der Rechtstext braucht
    seine eigene, ruhigere Leiter. */
-/* Rahmen so breit wie Kopfleiste und Fusszeile (1120, Kevin 27.9.2026).
+/* Rahmen so breit wie Kopfleiste und Fusszeile (1120, 27.9.2026).
    Der Fliesstext bleibt bei 62ch, sonst werden die Zeilen zu lang. */
 main.recht{ max-width:1120px; margin:0 auto; padding:40px 24px 96px }
 main.recht h1{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:700;
@@ -388,22 +386,20 @@ main.recht .store{ margin:24px 0 8px }
 <div lang="de">
 
   <h1>Über Satzwerk</h1>
-  <p class="stand">Kevin Schropp, Vilsheim. Stand: 30. September 2026</p>
+  <p class="stand">Stand: 8. Oktober 2026</p>
 
   <div class="kurz">
-    <p>Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone. Gebaut von
-      einer Person, für Leute, die ihren Trainingsplan schon haben und wissen wollen,
-      ob er wirkt.</p>
+    <p>Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone. Für Leute,
+      die ihren Trainingsplan schon haben und wissen wollen, ob er wirkt.</p>
   </div>
 
   <h2>Wie es angefangen hat</h2>
-  <p>Angefangen hat es mit einer Notiz. Sätze und Gewichte, sonst nichts. Dann kamen
-    meine Körperwerte dazu, weil ich die ohnehin irgendwo stehen hatte. Dann die
-    Auswertung, weil ich sonst jedes Mal alles in eine Tabelle kopieren musste, um zu
-    sehen, ob es überhaupt vorwärtsgeht.</p>
-  <p>Eine App, die genau das macht und sonst nichts, habe ich nicht gefunden. Also habe
-    ich sie gebaut. Erst nur für mich. Irgendwann wollte ich sie nicht mehr nur für mich
-    gut haben, sondern für andere.</p>
+  <p>Angefangen hat Satzwerk mit einer Notiz. Sätze und Gewichte, sonst nichts. Dann
+    kamen die Körperwerte dazu. Dann die Auswertung, weil sonst jedes Mal alles in eine
+    Tabelle kopiert werden musste, um zu sehen, ob es überhaupt vorwärtsgeht.</p>
+  <p>Eine App, die genau das macht und sonst nichts, gab es nicht. Also entstand
+    Satzwerk. Erst als Werkzeug für das eigene Training, dann für alle, die so
+    trainieren.</p>
 
   <h2>Von gymLog zu Satzwerk</h2>
   <p>Im Juli 2026 kam die App in den App Store, unter dem Namen gymLog. Der Name hat
@@ -433,18 +429,14 @@ main.recht .store{ margin:24px 0 8px }
   <p>Wie jede Auswertung rechnet, steht auf der Seite
     <a href="/auswertung/">Was Satzwerk auswertet</a>.</p>
 
-  <h2>Wer dahintersteht</h2>
-  <p>Satzwerk ist ein Ein-Personen-Projekt von Kevin Schropp aus Vilsheim in
-    Niederbayern. Ich trainiere selbst mit Satzwerk, mehrmals die Woche. Was in der App
-    fehlt, fällt mir meistens im Studio auf.</p>
-  <p>Rückmeldungen lese ich selbst: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a></p>
+  <h2>Kontakt</h2>
+  <p>Fragen und Rückmeldungen an <a href="mailto:info@satzwerk.app">info@satzwerk.app</a>.</p>
 
   <h2>Auf einen Blick</h2>
   <div class="karte">
     <dl class="blick">
       <dt>Name</dt><dd>Satzwerk. Im App Store bis Version 1.4.3 als gymLog.</dd>
       <dt>Seit</dt><dd>Juli 2026 im App Store</dd>
-      <dt>Von</dt><dd>Kevin Schropp, Vilsheim, Deutschland</dd>
       <dt>Gerät</dt><dd>iPhone ab iOS 16</dd>
       <dt>Sprachen</dt><dd>Deutsch und Englisch, metrisch oder imperial</dd>
       <dt>Modell</dt><dd>Erfassen ist frei. Die Auswertung ist Satzwerk Pro, als Monats- oder Jahresabo über Apple.</dd>
@@ -460,27 +452,26 @@ main.recht .store{ margin:24px 0 8px }
 <div lang="en">
 
   <h1>About Satzwerk</h1>
-  <p class="stand">Kevin Schropp, Vilsheim. As of September 30, 2026</p>
+  <p class="stand">As of October 8, 2026</p>
 
   <div class="kurz">
-    <p>Satzwerk is a training log with analysis for the iPhone. Built by one person, for
-      people who already have their training plan and want to know whether it works.</p>
+    <p>Satzwerk is a training log with analysis for the iPhone. For people who already
+      have their training plan and want to know whether it works.</p>
   </div>
 
   <h2>How it started</h2>
-  <p>It started with a note. Sets and weights, nothing else. Then my body values came
-    in, because I had them written down somewhere anyway. Then the analysis, because
-    otherwise I had to copy everything into a spreadsheet every time to see whether I
-    was making progress at all.</p>
-  <p>I could not find an app that did exactly that and nothing else. So I built it.
-    First only for myself. At some point I no longer wanted it to be good just for me,
-    but for others too.</p>
+  <p>Satzwerk started as a note. Sets and weights, nothing else. Then body values came
+    in. Then the analysis, because otherwise everything had to be copied into a
+    spreadsheet every time to see whether there was any progress at all.</p>
+  <p>There was no app that did exactly that and nothing else. So Satzwerk was built.
+    First as a tool for its maker's own training, then for everyone who trains this
+    way.</p>
 
   <h2>From gymLog to Satzwerk</h2>
   <p>In July 2026 the app went live on the App Store under the name gymLog. The name
     has a problem: many training apps are called that. Anyone searching the App Store
     for gymLog easily ends up with a different app.</p>
-  <p>So in August 2026 I decided on a new name. The website and the brand have been
+  <p>So in August 2026 the decision for a new name was made. The website and the brand have been
     called Satzwerk since then, and on the App Store the app carries it from version
     2.0. Satzwerk is made of the German words Satz and
     Werk. Satz means set, the smallest unit in strength training. Werk means craft, the
@@ -504,18 +495,14 @@ main.recht .store{ margin:24px 0 8px }
   <p>How each analysis is calculated is on the page
     <a href="/auswertung/">What Satzwerk analyzes</a>.</p>
 
-  <h2>Who is behind it</h2>
-  <p>Satzwerk is a one-person project by Kevin Schropp from Vilsheim in Lower Bavaria,
-    Germany. I train with Satzwerk myself, several times a week. What the app is
-    missing usually shows up at the gym.</p>
-  <p>I read feedback myself: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a></p>
+  <h2>Contact</h2>
+  <p>Questions and feedback to <a href="mailto:info@satzwerk.app">info@satzwerk.app</a>.</p>
 
   <h2>At a glance</h2>
   <div class="karte">
     <dl class="blick">
       <dt>Name</dt><dd>Satzwerk. On the App Store as gymLog up to version 1.4.3.</dd>
       <dt>Since</dt><dd>July 2026 on the App Store</dd>
-      <dt>By</dt><dd>Kevin Schropp, Vilsheim, Germany</dd>
       <dt>Device</dt><dd>iPhone with iOS 16 or later</dd>
       <dt>Languages</dt><dd>German and English, metric or imperial</dd>
       <dt>Model</dt><dd>Logging is free. The analysis is Satzwerk Pro, a monthly or yearly subscription through Apple.</dd>
@@ -570,7 +557,7 @@ main.recht .store{ margin:24px 0 8px }
         <a href="/impressum/" data-t="impressum">Impressum</a>
         <a href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
       </nav>
-      <p class="klein">© 2026 Satzwerk, Kevin Schropp. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
+      <p class="klein">© 2026 Satzwerk. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
     </div>
   </div>
 </footer>

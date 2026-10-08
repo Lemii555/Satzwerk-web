@@ -8,7 +8,7 @@ Satzwerk is an iPhone training log with analysis (iOS 16 or later, version 2.0).
 
 - [Startseite](https://satzwerk.app/): Überblick, Frei und Pro, Fragen und Antworten
 - [Was Satzwerk auswertet](https://satzwerk.app/auswertung/): jede Auswertung im Detail, mit Rechenregeln und Quellen (Deutsch und Englisch)
-- [Über Satzwerk](https://satzwerk.app/ueber/): wie die App entstanden ist, warum aus gymLog Satzwerk wird (im App Store bis Version 1.4.3 noch gymLog), wer sie baut (Deutsch und Englisch)
+- [Über Satzwerk](https://satzwerk.app/ueber/): wie die App entstanden ist, warum aus gymLog Satzwerk wurde (im App Store bis Version 1.4.3 gymLog), wie sie gebaut ist (Deutsch und Englisch)
 - [App Store](https://apps.apple.com/app/id6786720640)
 - [Datenschutz](https://satzwerk.app/datenschutz/)
 
@@ -20,4 +20,4 @@ Satzwerk is an iPhone training log with analysis (iOS 16 or later, version 2.0).
 - Aufwärmsätze zählen in keiner Auswertung.
 - Die Woche ist überall Montag bis Sonntag.
 - Satzwerk liest keine Exporte aus anderen Apps wie Hevy oder Strong.
-- Entwickler: Kevin Schropp, Vilsheim, Deutschland. Kontakt: info@satzwerk.app
+- Kontakt: info@satzwerk.app
