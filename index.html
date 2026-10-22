@@ -222,9 +222,12 @@ document.documentElement.classList.add("js");
   --marke-voll:#8116E0;
   --auf-marke:#FFFFFF;
   --store-voll:#000000;
-  --schatten:none;
-  --leiste-schatten:none;
-  --segment-schatten:none;
+  --schatten:none;        /* Karten ohne Schatten (684c) */
+  /* Die Segmentleiste wie in 5d382dd (Korrektur 684c, 22.10.2026): Spur = Band,
+     das gewaehlte Segment = weisse Pille mit dem Schatten des iOS-Segmented-
+     Control. Schatten und Zustaende, keine Creme: benannte Ausnahme in farben.py. */
+  --leiste-schatten:0 4px 16px rgba(0,0,0,.08);
+  --segment-schatten:0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04);
   /* Bewegung: die eine Kurve und die Dauern der App (tokens.css, Ticket 298) */
   --kurve-bewegung:cubic-bezier(.33, 1, .68, 1);
   --dauer-auftritt:1.5s;
@@ -284,14 +287,21 @@ section[id]{ scroll-margin-top:80px }
   stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
 .store-gross{ height:64px; padding:0 28px 0 32px }
 
-/* Zeigen und Druecken: wie in 684 nur die Deckkraft, mit der Kurve der App.
-   Der Fuelleffekt von links faellt weg (684c: ein Bewegungsmuster). Die
-   leeren .fuell-Spannen im HTML bleiben stehen und tun nichts. :hover nur mit
-   Zeiger, am iPhone bliebe er sonst nach dem Tippen haengen. */
-.fuellen{ transition:opacity var(--dauer-bewegung) var(--kurve-bewegung) }
-.fuell{ display:none }
-@media (hover:hover){ .fuellen:hover{ opacity:.8 } }
-.fuellen:active{ opacity:.8 }
+/* Die Marke laeuft von links hinein, ueberall gleich. :hover nur mit Zeiger,
+   am iPhone bliebe er sonst nach dem Tippen haengen. */
+.fuellen{ position:relative; isolation:isolate; overflow:hidden; transition:color .475s ease }
+.fuell{ position:absolute; inset:0; z-index:-1; border-radius:inherit; pointer-events:none;
+  background:var(--marke-voll); clip-path:inset(0 100% 0 0); transition:clip-path .475s ease }
+@media (hover:hover){
+  .fuellen:hover{ color:var(--auf-marke) }
+  .fuellen:hover .fuell{ clip-path:inset(0 0 0 0) }
+  .fuellen:hover .nur-hell{ display:none }
+  .fuellen:hover .nur-dunkel{ display:block }
+}
+.fuellen:active,.fuellen:focus-visible{ color:var(--auf-marke) }
+.fuellen:active .fuell,.fuellen:focus-visible .fuell{ clip-path:inset(0 0 0 0) }
+.fuellen:active .nur-hell,.fuellen:focus-visible .nur-hell{ display:none }
+.fuellen:active .nur-dunkel,.fuellen:focus-visible .nur-dunkel{ display:block }
 
 /* ---------- Kopf: eine Segmentleiste ----------
    Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
@@ -299,22 +309,30 @@ section[id]{ scroll-margin-top:80px }
    Flaeche. Das gewaehlte Segment ist die Seite, auf der man steht
    (aria-current). Symbole: Lucide, rechts neben dem Wort wie in der Vorlage.
    Der Kopf selbst ist durchsichtig und laesst Klicks durch, nur die Leiste
-   nimmt sie an. */
+   nimmt sie an. Ab 900 px ist die Leiste so breit wie die Fusskarte (Korrektur
+   684c, 22.10.2026): Rand 24 px wie .rahmen, hoechstens 1120 minus 48 px.
+   Wortmarke links, App Store rechts, die Segmente dazwischen. */
 @media (max-width:899px){ .nur-breit{ display:none !important } }
 @media (min-width:900px){ .nur-schmal{ display:none !important } }
 .kopf{ position:sticky; top:0; z-index:10; padding:12px 16px; pointer-events:none }
 .kopf-innen{ position:relative; z-index:1; width:max-content; max-width:100%; margin:0 auto;
   pointer-events:auto }
+@media (min-width:900px){
+  .kopf{ padding:12px 24px }
+  .kopf-innen{ width:100%; max-width:1072px }
+  .segment-marke{ margin-right:auto }
+  .kopf-innen .leiste .store{ margin-left:auto }   /* schlaegt .leiste .store{ margin-left:4px } weiter unten */
+}
 .leiste{ display:flex; align-items:center; gap:2px; padding:4px; border-radius:980px;
   background:var(--band); border:1px solid var(--kante); box-shadow:var(--leiste-schatten) }
 .segment{ display:inline-flex; align-items:center; justify-content:center; gap:8px;
   height:40px; padding:0 16px; border-radius:980px;
   color:var(--leise); text-decoration:none; white-space:nowrap;
   font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
-  transition:color var(--dauer-bewegung) var(--kurve-bewegung) }
+  transition:background-color .2s ease, color .2s ease }
 .segment svg{ flex:none; width:16px; height:16px; stroke:currentColor; fill:none;
   stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
-@media (hover:hover){ .segment:hover{ color:var(--tinte) } }
+@media (hover:hover){ .segment:hover{ color:var(--tinte); background:rgba(0,0,0,.05) } }
 .segment[aria-current="page"],.segment[aria-expanded="true"]{
   background:var(--karte); color:var(--tinte); box-shadow:var(--segment-schatten) }
 .segment-marke{ padding:0 16px 0 14px }

@@ -26,9 +26,9 @@ Jede Farbe steht in jeder Seite nur einmal, im `:root`-Block. Alle Werte stehen 
 | `--auf-marke` | #FFFFFF | #FFFFFF | `--weiss` | Schrift auf dem Store-Knopf |
 | `--store-voll` | #000000 | #000000 | `--tinte` | Store-Knopf |
 | `--schatten` | 0 1px 3px rgba(0,0,0,.06) | **none** | – | Karten (Frei/Pro-Listen, Pro-Karten, FAQ, Rechtstext-Karten, Sprunglink) |
-| `--leiste-schatten` | 0 4px 16px rgba(0,0,0,.08) | **none** | – | Segmentleiste, „Folge uns“-Karte |
-| `--segment-schatten` | 0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04) | **none** | – | gewähltes Segment |
-| `.segment:hover` | background rgba(0,0,0,.05) | **weg** (nur noch Farbe → Tinte) | – | Segmente beim Zeigen |
+| `--leiste-schatten` | 0 4px 16px rgba(0,0,0,.08) | ~~none~~ **wieder 0 4px 16px rgba(0,0,0,.08)** (Nachtrag) | Ausnahme | Segmentleiste, „Folge uns“-Karte |
+| `--segment-schatten` | 0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04) | ~~none~~ **wieder wie vorher** (Nachtrag) | Ausnahme | gewähltes Segment |
+| `.segment:hover` | background rgba(0,0,0,.05) | ~~weg~~ **wieder rgba(0,0,0,.05)** (Nachtrag) | Ausnahme | Segmente beim Zeigen |
 | `theme-color` (meta) | #F4F2EE | **#F2F2F7** | `--grund` | alle sechs Seiten |
 | 404: `--grund` | #F4F2EE | **#F2F2F7** | `--grund` | Grund der 404 |
 
@@ -58,8 +58,8 @@ Animation und jeden Übergang ab und setzt `.auftritt` auf den Endzustand. Ohne 
 | Start | die zwei Mockups (`.mockups`) | Einblenden beim Laden + **Endlosschleife** `schweben` (6,0 s und 7,4 s, auf und ab) | `.auftritt` wie der Kopf; kein Schweben mehr, die Mockups stehen |
 | Start | h2 „Erfassen und auswerten“, „Befunde, keine Anweisungen.“, „Was drin ist“, Wortmarke „Satzwerk Pro“, „Fragen und Antworten“ | keine | `.auftritt`, einmal beim Reinscrollen |
 | Start | FAQ-Pfeil (`summary::after`) | transform 200 ms ease | transform 0,5 s, Kurve der App |
-| alle fünf | Store-Knopf, Kreise, „Folge uns“-Links, Menüzeilen (`.fuellen`) | Marke läuft von links hinein (clip-path, 475 ms ease), Farbe wechselt auf Weiß, weiße Logos erscheinen | nur Deckkraft 0,8 beim Zeigen und Drücken, 0,5 s, Kurve der App (wie `.store:hover` in 684). Die leeren `.fuell`-Spannen im HTML bleiben stehen (`display:none`), der Text bleibt |
-| alle fünf | Segmente der Leiste | background-color und color 0,2 s ease, Grau beim Zeigen | nur color, 0,5 s, Kurve der App |
+| alle fünf | Store-Knopf, Kreise, „Folge uns“-Links, Menüzeilen (`.fuellen`) | Marke läuft von links hinein (clip-path, 475 ms ease), Farbe wechselt auf Weiß, weiße Logos erscheinen | ~~nur Deckkraft 0,8~~ **wieder wie vorher, byte-gleich mit 5d382dd** (Nachtrag) |
+| alle fünf | Segmente der Leiste | background-color und color 0,2 s ease, Grau beim Zeigen | ~~nur color~~ **wieder wie vorher** (Nachtrag) |
 | Auswertung, Über, Datenschutz, Impressum | h1 (DE- und EN-Block) | keine | `.auftritt` |
 | alle fünf | `prefers-reduced-motion: reduce` | `*{animation:none; transition:none}`, `.blende` sichtbar | Ruhe-Block aus 684: auch `::before`/`::after`, `.auftritt` auf Deckkraft 1 ohne Filter |
 | 404 | – | keine | keine (die 404 hat kein Skript; nur Farben) |
@@ -155,7 +155,79 @@ Geprüft per grep über die sechs Seiten und über die 21 geladenen Adressen in 
    `python3 _bericht-684c/pruefung/mockups.py`, Alt-Texte aus Abschnitt 3 einsetzen, Prüfungen wiederholen.
 2. **Band #E5E5EA** (Abschnitt 1, Entscheidung 1): wenn Kevin das Band lieber weiß will, müssen Pro-Karten und Fußkreise
    einen Rand (`--kante`) bekommen; sonst nichts.
-3. **`.fuell`-Spannen** stehen leer im HTML (46 Stellen über fünf Seiten). Sie zu entfernen wäre ein reiner Aufräumschritt
-   ohne sichtbare Wirkung; nicht gemacht, weil das Ticket nur drei Dinge ändert.
+3. ~~`.fuell`-Spannen stehen leer im HTML~~ Erledigt durch den Nachtrag: der Fülleffekt ist zurück, die Spannen tragen ihn wieder.
 4. **Chromium ohne SF Pro:** die Bilder zeigen Fraunces und Public Sans aus `fonts/`, die Systemschrift-Rückfälle greifen
    nicht. Am iPhone unverändert gegenüber heute.
+
+---
+
+# Nachtrag (Korrektur 684c, Kevin 22.10.2026, 09:19)
+
+Kevin: Pillen in der Navigation, Hover und Violett der CTAs und der Instagram-/LinkedIn-Kreise fehlen; die Leiste soll so
+breit sein wie die Fußzeile. Skript `pruefung/korrektur.py`, jede Ersetzung genau einmal je Seite.
+
+## N1 · Zurück wie in 5d382dd (fünf Seiten; die 404 hat weder Leiste noch Knöpfe)
+
+| Stelle | Stand nach 684c | jetzt |
+|---|---|---|
+| `.fuellen` / `.fuell` (App-Store-Knöpfe, Menüzeilen, „Folge uns“, Instagram- und LinkedIn-Kreise) | nur Deckkraft 0,8 | der Block aus 5d382dd, byte-gleich (Prüfung `fuell.py`): die Marke läuft von links hinein (clip-path, 475 ms ease), Schrift weiß, weiße Logos erscheinen; mit Zeiger bei `:hover`, sonst bei `:active` und `:focus-visible` |
+| `--leiste-schatten` | none | `0 4px 16px rgba(0,0,0,.08)` |
+| `--segment-schatten` | none | `0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04)`: das gewählte Segment ist wieder die weiße Pille |
+| `.segment:hover` | nur Farbe | `color:var(--tinte); background:rgba(0,0,0,.05)`, Übergang wie vorher (`background-color .2s ease, color .2s ease`) |
+| `--schatten` (Karten) | none | **bleibt none** (dazu hat Kevin nichts gesagt) |
+| Auftritt beim Reinscrollen | aus 684 | **bleibt** |
+
+**Ausnahmen in der Farbprüfung** (`farben.py`, `AUSNAHMEN`, mit Namen): `rgba(0,0,0,.08)` = `--leiste-schatten`,
+`rgba(0,0,0,.12)` und `rgba(0,0,0,.04)` = `--segment-schatten`, `rgba(0,0,0,.05)` = `.segment:hover`. Schatten und
+Zustände, keine Creme. Sonst nichts; die Gegenprobe mit `--grund:#F4F2EE` bleibt ROT.
+
+## N2 · Neu: die Leiste so breit wie die Fußkarte (ab 900 px)
+
+Block `@media (min-width:900px)` im Kopf jeder der fünf Seiten: `.kopf{ padding:12px 24px }`, `.kopf-innen{ width:100%;
+max-width:1072px }` (1120 minus zweimal 24 wie `.rahmen`), `.segment-marke{ margin-right:auto }`,
+`.kopf-innen .leiste .store{ margin-left:auto }` (schlägt `.leiste .store{ margin-left:4px }`). Wortmarke links, App Store
+rechts, die Segmente dazwischen, mittig im Zwischenraum. Unter 900 px (Handy) alles wie vorher: Kapsel so breit wie ihr
+Inhalt, mittig, das Handymenü unverändert.
+
+Gemessen in Chromium (`browser.mjs`, Spalte „Leiste / Fusskarte“), DE und EN, Bewegung an und aus:
+
+| Breite | Leiste | Fußkarte | Abweichung |
+|---|---|---|---|
+| 1280 | 104–1176 | 104–1176 | 0 px |
+| 1440 | 184–1256 | 184–1256 | 0 px |
+
+Gleich auf allen fünf Seiten (die 404 hat keine Leiste). Toleranz 1 px, Exit 0.
+
+## N3 · Prüfungen (alle grün, Stand nach der Korrektur)
+
+| Prüfung | Ergebnis |
+|---|---|
+| `fuell.py`: `.fuellen`-Block, Leisten-Schatten und `.segment:hover` byte-gleich mit 5d382dd, fünf Seiten | GRÜN. **Gegenprobe:** Kopie der Startseite mit Deckkraft statt Fülleffekt → ROT, Exit 1 |
+| `farben.py` (mit den vier Ausnahmen) | GRÜN, 15 Farbstellen je Seite (404: 5); Gegenprobe Creme → ROT |
+| Creme-grep (#F4F2EE, #EDEAE5, #DCD8D2, #E6E3DD) | kein Treffer |
+| `texte.py` gegen 5d382dd | GRÜN, alle sechs Seiten Wort für Wort gleich, Alt-Texte und `TEXTE` gleich |
+| `woerter.py` | GRÜN, Exit 0 |
+| `browser.mjs`: 120 Lagen, kein waagerechtes Scrollen, nichts über der Kante, keine Endlosschleife, reduced motion = Endzustand, Kanten der Leiste | GRÜN, 21 Adressen 200 |
+
+**Bilder** (`bilder/`, 1440, echter Zeiger per Playwright `hover`):
+
+```
+hover-store-1440.jpg                   App-Store-Knopf in der Leiste beim Zeigen: violett gefüllt, Schrift weiß
+hover-store-gross-1440.jpg             der große Knopf im Kopf der Startseite beim Zeigen
+hover-segment-1440.jpg                 Segment „Auswertung“ beim Zeigen: grau, Schrift Tinte
+gewaehltes-segment-auswertung-1440.jpg Seite Auswertung: das gewählte Segment als weiße Pille mit Schatten
+hover-instagram-kreis-1440.jpg         Instagram-Kreis im Fuß beim Zeigen: violett, weißes Logo
+leiste-1440.jpg, leiste-1280.jpg       die Leiste in voller Breite der Fußkarte
+```
+Dazu die 43 Bilder der Lagen wie vorher, neu aufgenommen (50 JPEG, 8,6 MB).
+
+## N4 · Seitengrößen nach der Korrektur (Bytes)
+
+| Seite | 5d382dd | nach 684c | jetzt |
+|---|---|---|---|
+| index.html | 76 600 | 77 738 | 78 951 |
+| auswertung/index.html | 52 948 | 54 532 | 55 745 |
+| ueber/index.html | 37 975 | 39 559 | 40 772 |
+| datenschutz/index.html | 59 996 | 61 580 | 62 793 |
+| impressum/index.html | 33 579 | 35 163 | 36 376 |
+| 404.html | 2 123 | 2 194 | 2 172 |
