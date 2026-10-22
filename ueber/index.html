@@ -44,7 +44,7 @@
 }
 </script>
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#F4F2EE">
+<meta name="theme-color" content="#F2F2F7">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="../img/bildmarke.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
@@ -55,6 +55,8 @@
    in jeder Sprache zweimal gepflegt werden. Eine frueher gespeicherte Wahl
    wird geloescht. */
 (function(){ try{ localStorage.removeItem("satzwerk-modus"); }catch(err){} })();
+/* .js vor dem ersten Zeichnen: nur mit Skript gibt es den Auftritt (684c). */
+document.documentElement.classList.add("js");
 </script>
 <style>
 /* ---------- Schriften: zwei, selbst gehostet ---------- */
@@ -70,24 +72,29 @@
 }
 
 /* ---------- Farben: alle Werte hier, sonst nirgends ----------
-   Nur hell (30.9.2026). Werte aus der App: src/stil.js, --bg /
-   --surface-2 / --surface / --ink / --ink-faint / --line / --akzent. */
+   Nur hell. Die Werte sind die der App (_vorlage-684/website-684/tokens.css,
+   dort steht zu jedem Wert der Name in src/stil.js); keine Farbe, die
+   tokens.css nicht hat (Ticket 684c, 22.10.2026). Kein Schatten: die App
+   traegt auf Karten keinen. */
 :root{
-  --grund:#F4F2EE;
-  --band:#EDEAE5;
-  --karte:#FFFFFF;
-  --tinte:#000000;
-  --leise:#5C5C5E;
-  --kante:#DCD8D2;
-  --akzent:#8116E0;
+  --grund:#F2F2F7;        /* --grund, systemGray6 */
+  --band:#E5E5EA;         /* --linie-leise, systemGray5: Spur, Band, Fuss */
+  --karte:#FFFFFF;        /* --weiss */
+  --tinte:#000000;        /* --tinte */
+  --leise:#5C5C5E;        /* --tinte-leiser */
+  --kante:#D1D1D6;        /* --linie, systemGray4 */
+  --akzent:#8116E0;       /* --marke */
   --marke-voll:#8116E0;
   --auf-marke:#FFFFFF;
   --store-voll:#000000;
-  --schatten:0 1px 3px rgba(0,0,0,.06);
-  /* Die Segmentleiste. Spur = Band, das gewaehlte Segment = weisse Karte mit
-     dem Schatten des iOS-Segmented-Control. Grau auf der Spur 5,6:1. */
-  --leiste-schatten:0 4px 16px rgba(0,0,0,.08);
-  --segment-schatten:0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04);
+  --schatten:none;
+  --leiste-schatten:none;
+  --segment-schatten:none;
+  /* Bewegung: die eine Kurve und die Dauern der App (tokens.css, Ticket 298) */
+  --kurve-bewegung:cubic-bezier(.33, 1, .68, 1);
+  --dauer-auftritt:1.5s;
+  --dauer-bewegung:.5s;
+  --auftritt-blur:6px;
   color-scheme:light;
 }
 
@@ -142,21 +149,14 @@ section[id]{ scroll-margin-top:80px }
   stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
 .store-gross{ height:64px; padding:0 28px 0 32px }
 
-/* Die Marke laeuft von links hinein, ueberall gleich. :hover nur mit Zeiger,
-   am iPhone bliebe er sonst nach dem Tippen haengen. */
-.fuellen{ position:relative; isolation:isolate; overflow:hidden; transition:color .475s ease }
-.fuell{ position:absolute; inset:0; z-index:-1; border-radius:inherit; pointer-events:none;
-  background:var(--marke-voll); clip-path:inset(0 100% 0 0); transition:clip-path .475s ease }
-@media (hover:hover){
-  .fuellen:hover{ color:var(--auf-marke) }
-  .fuellen:hover .fuell{ clip-path:inset(0 0 0 0) }
-  .fuellen:hover .nur-hell{ display:none }
-  .fuellen:hover .nur-dunkel{ display:block }
-}
-.fuellen:active,.fuellen:focus-visible{ color:var(--auf-marke) }
-.fuellen:active .fuell,.fuellen:focus-visible .fuell{ clip-path:inset(0 0 0 0) }
-.fuellen:active .nur-hell,.fuellen:focus-visible .nur-hell{ display:none }
-.fuellen:active .nur-dunkel,.fuellen:focus-visible .nur-dunkel{ display:block }
+/* Zeigen und Druecken: wie in 684 nur die Deckkraft, mit der Kurve der App.
+   Der Fuelleffekt von links faellt weg (684c: ein Bewegungsmuster). Die
+   leeren .fuell-Spannen im HTML bleiben stehen und tun nichts. :hover nur mit
+   Zeiger, am iPhone bliebe er sonst nach dem Tippen haengen. */
+.fuellen{ transition:opacity var(--dauer-bewegung) var(--kurve-bewegung) }
+.fuell{ display:none }
+@media (hover:hover){ .fuellen:hover{ opacity:.8 } }
+.fuellen:active{ opacity:.8 }
 
 /* ---------- Kopf: eine Segmentleiste ----------
    Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
@@ -176,10 +176,10 @@ section[id]{ scroll-margin-top:80px }
   height:40px; padding:0 16px; border-radius:980px;
   color:var(--leise); text-decoration:none; white-space:nowrap;
   font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
-  transition:background-color .2s ease, color .2s ease }
+  transition:color var(--dauer-bewegung) var(--kurve-bewegung) }
 .segment svg{ flex:none; width:16px; height:16px; stroke:currentColor; fill:none;
   stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
-@media (hover:hover){ .segment:hover{ color:var(--tinte); background:rgba(0,0,0,.05) } }
+@media (hover:hover){ .segment:hover{ color:var(--tinte) } }
 .segment[aria-current="page"],.segment[aria-expanded="true"]{
   background:var(--karte); color:var(--tinte); box-shadow:var(--segment-schatten) }
 .segment-marke{ padding:0 16px 0 14px }
@@ -257,10 +257,21 @@ footer{ padding:0 0 32px }
 .fuss-unten p{ max-width:none }
 .fuss-recht a[aria-current="page"]{ color:var(--tinte); font-weight:600 }
 
-/* Pflicht: alles still, wenn der Nutzer es so eingestellt hat */
+/* ---------- Bewegung: ein Muster, einmal (aus 684) ----------
+   tlTitelAuftritt der App: aus der Unschaerfe, ohne Weg. Was .auftritt traegt,
+   tritt einmal auf, wenn es ins Bild kommt (das Skript setzt .da), mit der
+   Kurve der App. Ohne Skript und bei reduzierter Bewegung gibt es keinen
+   versteckten Anfangszustand: die Animation steht nur unter no-preference,
+   und der Ruhe-Block schaltet jede Bewegung ab. */
+@keyframes tritt{ from{ opacity:0; filter:blur(var(--auftritt-blur)) } to{ opacity:1; filter:blur(0) } }
+@media (prefers-reduced-motion: no-preference){
+  .js .auftritt{ animation:tritt var(--dauer-auftritt) var(--kurve-bewegung) both; animation-play-state:paused }
+  .js .auftritt.da{ animation-play-state:running }
+}
+/* RUHE-BLOCK: reduzierte Bewegung heisst Endzustand, sofort */
 @media (prefers-reduced-motion: reduce){
-  *{ animation:none !important; transition:none !important }
-  .blende{ opacity:1; transform:none }
+  *, *::before, *::after{ animation:none !important; transition:none !important }
+  .auftritt{ opacity:1 !important; filter:none !important }
 }
 
 /* ---------- Rechtstext ----------
@@ -385,7 +396,7 @@ main.recht .store{ margin:24px 0 8px }
 <!-- ================= DEUTSCH ================= -->
 <div lang="de">
 
-  <h1>Über Satzwerk</h1>
+  <h1 class="auftritt">Über Satzwerk</h1>
   <p class="stand">Stand: 21. Oktober 2026</p>
 
   <div class="kurz">
@@ -452,7 +463,7 @@ main.recht .store{ margin:24px 0 8px }
 <!-- ================= ENGLISH ================= -->
 <div lang="en">
 
-  <h1>About Satzwerk</h1>
+  <h1 class="auftritt">About Satzwerk</h1>
   <p class="stand">As of October 21, 2026</p>
 
   <div class="kurz">
@@ -647,6 +658,23 @@ var TEXTE = {
       setzeSprache(h.getAttribute("data-lang") === "en" ? "de" : "en");
     });
   });
+
+  /* Auftritt (aus 684, seite.js): einmal, beim Reinscrollen. Das Skript setzt
+     nur die Klasse .da, die Bewegung selbst steht im CSS. Ohne
+     IntersectionObserver steht alles sofort. */
+  (function beobachte(auswahl, schwelle){
+    var ziele = Array.prototype.slice.call(document.querySelectorAll(auswahl));
+    if (!("IntersectionObserver" in window)) { ziele.forEach(function(el){ el.classList.add("da"); }); return; }
+    var io = new IntersectionObserver(function(eintraege){
+      eintraege.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.classList.add("da");
+        io.unobserve(e.target);
+      });
+    }, { threshold: schwelle });
+    ziele.forEach(function(el){ io.observe(el); });
+  })(".auftritt", 0);
+
 })();
 </script>
 <script>

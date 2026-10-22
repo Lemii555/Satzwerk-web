@@ -21,7 +21,7 @@
 
 <link rel="icon" href="img/bildmarke.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<meta name="theme-color" content="#F4F2EE">
+<meta name="theme-color" content="#F2F2F7">
 <meta name="color-scheme" content="light">
 
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
@@ -189,6 +189,8 @@
    in jeder Sprache zweimal gepflegt werden. Eine frueher gespeicherte Wahl
    wird geloescht. */
 (function(){ try{ localStorage.removeItem("satzwerk-modus"); }catch(err){} })();
+/* .js vor dem ersten Zeichnen: nur mit Skript gibt es den Auftritt (684c). */
+document.documentElement.classList.add("js");
 </script>
 
 <style>
@@ -205,24 +207,29 @@
 }
 
 /* ---------- Farben: alle Werte hier, sonst nirgends ----------
-   Nur hell (30.9.2026). Werte aus der App: src/stil.js, --bg /
-   --surface-2 / --surface / --ink / --ink-faint / --line / --akzent. */
+   Nur hell. Die Werte sind die der App (_vorlage-684/website-684/tokens.css,
+   dort steht zu jedem Wert der Name in src/stil.js); keine Farbe, die
+   tokens.css nicht hat (Ticket 684c, 22.10.2026). Kein Schatten: die App
+   traegt auf Karten keinen. */
 :root{
-  --grund:#F4F2EE;
-  --band:#EDEAE5;
-  --karte:#FFFFFF;
-  --tinte:#000000;
-  --leise:#5C5C5E;
-  --kante:#DCD8D2;
-  --akzent:#8116E0;
+  --grund:#F2F2F7;        /* --grund, systemGray6 */
+  --band:#E5E5EA;         /* --linie-leise, systemGray5: Spur, Band, Fuss */
+  --karte:#FFFFFF;        /* --weiss */
+  --tinte:#000000;        /* --tinte */
+  --leise:#5C5C5E;        /* --tinte-leiser */
+  --kante:#D1D1D6;        /* --linie, systemGray4 */
+  --akzent:#8116E0;       /* --marke */
   --marke-voll:#8116E0;
   --auf-marke:#FFFFFF;
   --store-voll:#000000;
-  --schatten:0 1px 3px rgba(0,0,0,.06);
-  /* Die Segmentleiste. Spur = Band, das gewaehlte Segment = weisse Karte mit
-     dem Schatten des iOS-Segmented-Control. Grau auf der Spur 5,6:1. */
-  --leiste-schatten:0 4px 16px rgba(0,0,0,.08);
-  --segment-schatten:0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04);
+  --schatten:none;
+  --leiste-schatten:none;
+  --segment-schatten:none;
+  /* Bewegung: die eine Kurve und die Dauern der App (tokens.css, Ticket 298) */
+  --kurve-bewegung:cubic-bezier(.33, 1, .68, 1);
+  --dauer-auftritt:1.5s;
+  --dauer-bewegung:.5s;
+  --auftritt-blur:6px;
   color-scheme:light;
 }
 
@@ -277,21 +284,14 @@ section[id]{ scroll-margin-top:80px }
   stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
 .store-gross{ height:64px; padding:0 28px 0 32px }
 
-/* Die Marke laeuft von links hinein, ueberall gleich. :hover nur mit Zeiger,
-   am iPhone bliebe er sonst nach dem Tippen haengen. */
-.fuellen{ position:relative; isolation:isolate; overflow:hidden; transition:color .475s ease }
-.fuell{ position:absolute; inset:0; z-index:-1; border-radius:inherit; pointer-events:none;
-  background:var(--marke-voll); clip-path:inset(0 100% 0 0); transition:clip-path .475s ease }
-@media (hover:hover){
-  .fuellen:hover{ color:var(--auf-marke) }
-  .fuellen:hover .fuell{ clip-path:inset(0 0 0 0) }
-  .fuellen:hover .nur-hell{ display:none }
-  .fuellen:hover .nur-dunkel{ display:block }
-}
-.fuellen:active,.fuellen:focus-visible{ color:var(--auf-marke) }
-.fuellen:active .fuell,.fuellen:focus-visible .fuell{ clip-path:inset(0 0 0 0) }
-.fuellen:active .nur-hell,.fuellen:focus-visible .nur-hell{ display:none }
-.fuellen:active .nur-dunkel,.fuellen:focus-visible .nur-dunkel{ display:block }
+/* Zeigen und Druecken: wie in 684 nur die Deckkraft, mit der Kurve der App.
+   Der Fuelleffekt von links faellt weg (684c: ein Bewegungsmuster). Die
+   leeren .fuell-Spannen im HTML bleiben stehen und tun nichts. :hover nur mit
+   Zeiger, am iPhone bliebe er sonst nach dem Tippen haengen. */
+.fuellen{ transition:opacity var(--dauer-bewegung) var(--kurve-bewegung) }
+.fuell{ display:none }
+@media (hover:hover){ .fuellen:hover{ opacity:.8 } }
+.fuellen:active{ opacity:.8 }
 
 /* ---------- Kopf: eine Segmentleiste ----------
    Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
@@ -311,10 +311,10 @@ section[id]{ scroll-margin-top:80px }
   height:40px; padding:0 16px; border-radius:980px;
   color:var(--leise); text-decoration:none; white-space:nowrap;
   font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
-  transition:background-color .2s ease, color .2s ease }
+  transition:color var(--dauer-bewegung) var(--kurve-bewegung) }
 .segment svg{ flex:none; width:16px; height:16px; stroke:currentColor; fill:none;
   stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
-@media (hover:hover){ .segment:hover{ color:var(--tinte); background:rgba(0,0,0,.05) } }
+@media (hover:hover){ .segment:hover{ color:var(--tinte) } }
 .segment[aria-current="page"],.segment[aria-expanded="true"]{
   background:var(--karte); color:var(--tinte); box-shadow:var(--segment-schatten) }
 .segment-marke{ padding:0 16px 0 14px }
@@ -392,10 +392,21 @@ footer{ padding:0 0 32px }
 .fuss-unten p{ max-width:none }
 .fuss-recht a[aria-current="page"]{ color:var(--tinte); font-weight:600 }
 
-/* Pflicht: alles still, wenn der Nutzer es so eingestellt hat */
+/* ---------- Bewegung: ein Muster, einmal (aus 684) ----------
+   tlTitelAuftritt der App: aus der Unschaerfe, ohne Weg. Was .auftritt traegt,
+   tritt einmal auf, wenn es ins Bild kommt (das Skript setzt .da), mit der
+   Kurve der App. Ohne Skript und bei reduzierter Bewegung gibt es keinen
+   versteckten Anfangszustand: die Animation steht nur unter no-preference,
+   und der Ruhe-Block schaltet jede Bewegung ab. */
+@keyframes tritt{ from{ opacity:0; filter:blur(var(--auftritt-blur)) } to{ opacity:1; filter:blur(0) } }
+@media (prefers-reduced-motion: no-preference){
+  .js .auftritt{ animation:tritt var(--dauer-auftritt) var(--kurve-bewegung) both; animation-play-state:paused }
+  .js .auftritt.da{ animation-play-state:running }
+}
+/* RUHE-BLOCK: reduzierte Bewegung heisst Endzustand, sofort */
 @media (prefers-reduced-motion: reduce){
-  *{ animation:none !important; transition:none !important }
-  .blende{ opacity:1; transform:none }
+  *, *::before, *::after{ animation:none !important; transition:none !important }
+  .auftritt{ opacity:1 !important; filter:none !important }
 }
 
 /* ---------- Heldenbereich: Text links, Mockups rechts ---------- */
@@ -407,13 +418,6 @@ footer{ padding:0 0 32px }
 }
 .held-text{ display:flex; flex-direction:column; gap:24px; align-items:flex-start }
 
-/* Einmal einblenden beim Laden, gestaffelt 0 / 120 / 240 ms. Danach nichts mehr. */
-.blende{ opacity:0; transform:translateY(12px);
-  animation:einblenden 600ms cubic-bezier(0.16,1,0.3,1) forwards }
-.blende-2{ animation-delay:120ms }
-.blende-3{ animation-delay:240ms }
-@keyframes einblenden{ to{ opacity:1; transform:none } }
-
 /* Zwei Mockups, versetzt. Der hintere kleiner (88 %) und hoeher. */
 .mockups{ position:relative; width:100%; max-width:440px; margin:0 auto; aspect-ratio:1024 / 1420 }
 .huelle{ position:absolute; bottom:0; width:58% }
@@ -421,9 +425,7 @@ footer{ padding:0 0 32px }
 .huelle-hinten{ right:2%; bottom:12%; z-index:1; transform:scale(.88); transform-origin:bottom right }
 .mockup img{ width:100%; height:auto }
 @media (max-width:767px){ .mockups{ max-width:360px; aspect-ratio:1024 / 1300 } }
-@keyframes schweben{ from{ transform:translateY(-9px) } to{ transform:translateY(9px) } }
-.mockup-vorn{ animation:schweben 6.0s ease-in-out infinite alternate }
-.mockup-hinten{ animation:schweben 7.4s ease-in-out infinite alternate; animation-delay:-2.1s }
+/* Kein Schweben mehr (684c): die Mockups stehen, sie treten mit dem Kopf auf. */
 
 /* ---------- Erfassen und auswerten: vier kleine Mockups ----------
    Kleiner als die im Heldenbereich (hoechstens 200 px breit gegen 255),
@@ -487,7 +489,7 @@ footer{ padding:0 0 32px }
 .faq summary::-webkit-details-marker{ display:none }
 .faq summary::after{ content:""; flex:none; width:10px; height:10px; margin-right:4px;
   border-right:2px solid var(--leise); border-bottom:2px solid var(--leise);
-  transform:rotate(45deg); transition:transform 200ms ease }
+  transform:rotate(45deg); transition:transform var(--dauer-bewegung) var(--kurve-bewegung) }
 .faq[open] summary::after{ transform:rotate(225deg) }
 .faq p{ padding:0 0 20px; max-width:none }
 </style>
@@ -557,12 +559,12 @@ footer{ padding:0 0 32px }
   <section class="held" aria-labelledby="titel">
     <div class="rahmen">
       <div class="held-text">
-        <h1 id="titel" class="blende" data-t="h1">Tracken. Nicht scrollen.</h1>
-        <p class="blende blende-2" data-t="lead">Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.</p>
-        <div class="blende blende-3"><a class="store fuellen" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></div>
-        <p class="klein blende blende-3" data-t="hinweis">Für iPhone. Keine Werbung, kein Konto nötig, deine Daten liegen auf deinem iPhone und, wenn du willst, in deiner eigenen iCloud.</p>
+        <h1 id="titel" class="auftritt" data-t="h1">Tracken. Nicht scrollen.</h1>
+        <p class="auftritt" data-t="lead">Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.</p>
+        <div class="auftritt"><a class="store fuellen" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></div>
+        <p class="klein auftritt" data-t="hinweis">Für iPhone. Keine Werbung, kein Konto nötig, deine Daten liegen auf deinem iPhone und, wenn du willst, in deiner eigenen iCloud.</p>
       </div>
-      <div class="mockups blende blende-2">
+      <div class="mockups auftritt">
         <div class="huelle huelle-hinten">
           <div class="mockup mockup-hinten">
             <img src="img/mockup-start-de.webp" alt="Startbildschirm von Satzwerk: Wochenkalender, Plan und ein beendeter Trainingstag mit dem Vergleich gegen die Vorwoche" width="800" height="1659" loading="eager" data-t-alt="alt_hinten" data-mockup="start" data-mockup-typ="webp">
@@ -579,7 +581,7 @@ footer{ padding:0 0 32px }
 
   <section class="zeigen" aria-labelledby="zeigen-titel">
     <div class="rahmen">
-      <h2 id="zeigen-titel" data-t="h2_zeigen">Erfassen und auswerten</h2>
+      <h2 id="zeigen-titel" class="auftritt" data-t="h2_zeigen">Erfassen und auswerten</h2>
       <div class="zeigen-raster">
         <div class="zeig">
           <img src="img/mockup-live-de.webp" alt="Sperrbildschirm mit der Live Activity von Satzwerk: die nächste Übung mit Gewicht und Wiederholungen" data-t-alt="alt_live" data-mockup="live" data-mockup-typ="webp" width="640" height="1327" loading="lazy">
@@ -611,14 +613,14 @@ footer{ padding:0 0 32px }
 
   <section class="haltung" aria-labelledby="haltung-titel">
     <div class="rahmen">
-      <h2 id="haltung-titel" data-t="h2_haltung">Befunde, keine Anweisungen.</h2>
+      <h2 id="haltung-titel" class="auftritt" data-t="h2_haltung">Befunde, keine Anweisungen.</h2>
       <p data-t="p3">Satzwerk zeigt, wo du stehst. Es sagt dir nicht, was du tun sollst. Keine Handlungsempfehlungen, keine Gewichtsvorgabe, kein Urteil über eine Entlastungswoche. Ein Onboarding kennt deinen Bandscheibenvorfall nicht, deinen Blutdruck nicht und dein Sprunggelenk nicht. Ein persönlicher Plan kommt von Menschen, die dich kennen. Die Zahlen kommen von hier.</p>
     </div>
   </section>
 
   <section class="drin" aria-labelledby="drin-titel">
     <div class="rahmen">
-      <h2 id="drin-titel" data-t="h2_drin">Was drin ist</h2>
+      <h2 id="drin-titel" class="auftritt" data-t="h2_drin">Was drin ist</h2>
       <div class="drin-zwei">
         <div>
           <h3 data-t="h3_frei">Frei</h3>
@@ -658,7 +660,7 @@ footer{ padding:0 0 32px }
 
   <section class="pro" id="pro" aria-labelledby="pro-titel">
     <div class="rahmen">
-      <h2 id="pro-titel"><img src="img/logo-pro-dunkel.svg" alt="Satzwerk Pro" data-t-alt="pro_alt" width="2388" height="296" loading="lazy"></h2>
+      <h2 id="pro-titel" class="auftritt"><img src="img/logo-pro-dunkel.svg" alt="Satzwerk Pro" data-t-alt="pro_alt" width="2388" height="296" loading="lazy"></h2>
       <p class="pro-unter" data-t="pro_unter">Die Auswertung deiner Daten.</p>
       <p data-t="pro_p1">Training und Gewicht erfassen ist frei. Satzwerk Pro wertet aus: ob deine Wiederholungen im Ziel liegen, wie viele Arbeitssätze jede Muskelgruppe bekommt, ob du an jeder Übung stärker, gleich stark oder schwächer bist und wo dein Körper gegenüber deinem Ziel steht.</p>
       <ul>
@@ -672,7 +674,7 @@ footer{ padding:0 0 32px }
 
   <section class="fragen" id="fragen" aria-labelledby="faq-titel">
     <div class="rahmen">
-      <h2 id="faq-titel" data-t="h2_faq">Fragen und Antworten</h2>
+      <h2 id="faq-titel" class="auftritt" data-t="h2_faq">Fragen und Antworten</h2>
       <div class="faq-liste">
     <div class="faq-spalte">
       <details class="faq">
@@ -1170,6 +1172,22 @@ var TEXTE = {
       setzeSprache(html.getAttribute("lang") === "de" ? "en" : "de");
     });
   });
+
+  /* Auftritt (aus 684, seite.js): einmal, beim Reinscrollen. Das Skript setzt
+     nur die Klasse .da, die Bewegung selbst steht im CSS. Ohne
+     IntersectionObserver steht alles sofort. */
+  (function beobachte(auswahl, schwelle){
+    var ziele = Array.prototype.slice.call(document.querySelectorAll(auswahl));
+    if (!("IntersectionObserver" in window)) { ziele.forEach(function(el){ el.classList.add("da"); }); return; }
+    var io = new IntersectionObserver(function(eintraege){
+      eintraege.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.classList.add("da");
+        io.unobserve(e.target);
+      });
+    }, { threshold: schwelle });
+    ziele.forEach(function(el){ io.observe(el); });
+  })(".auftritt", 0);
 
 })();
 </script>
