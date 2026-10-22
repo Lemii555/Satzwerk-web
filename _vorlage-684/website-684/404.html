@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de" data-sprachwahl="browser">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seite nicht gefunden – Satzwerk</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/img/bildmarke.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/seite.css">
+</head>
+<body>
+<a class="sprung" href="#inhalt" data-t="skip">Zum Inhalt</a>
+
+<header class="kopf">
+  <nav class="leiste" aria-label="Hauptnavigation" data-t-aria="nav_name">
+    <a class="segment segment-marke" href="/"><img src="/img/logo-dunkel.svg" alt="Satzwerk" width="142" height="24"></a>
+    <a class="segment nur-breit" href="/auswertung/" data-t="nav_auswertung">Auswertung</a>
+    <a class="segment nur-breit" href="/ueber/" data-t="nav_ueber">Über uns</a>
+    <button class="segment sprachknopf" type="button" data-sprachknopf data-t="lang" data-t-aria="lang_aria" aria-label="Switch to English">EN</button>
+    <a class="store" href="https://apps.apple.com/app/id6786720640" data-t-aria="store_aria" aria-label="Satzwerk im App Store"><span data-t="store_kurz">App Store</span><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+  </nav>
+</header>
+
+<main id="inhalt">
+  <div class="rahmen nichtda">
+    <h1 data-t="nichtda">Diese Seite gibt es nicht.</h1>
+    <p class="klein" data-t="nichtda_satz">Der Link ist alt oder hat einen Tippfehler.</p>
+    <a class="store" href="/" data-t="zur_start">Zur Startseite</a>
+  </div>
+</main>
+
+<footer class="fuss">
+  <div class="rahmen">
+    <div class="fuss-oben">
+      <div class="fuss-marke">
+        <p class="claim" data-t="claim">Handwerk am eigenen Körper.</p>
+        <p class="klein" data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</p>
+        <p class="fuss-kopf fuss-folgen" data-t="folgen">Folge uns</p>
+        <div class="kreise">
+          <a class="kreis" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener" aria-label="Satzwerk auf Instagram" data-t-aria="ig_label"><img src="/img/ig-weiss.png" alt="" width="20" height="20" loading="lazy"></a>
+          <a class="kreis" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener" aria-label="Satzwerk auf LinkedIn" data-t-aria="li_label"><img src="/img/li-weiss.png" alt="" width="20" height="18" loading="lazy"></a>
+        </div>
+      </div>
+      <nav class="fuss-spalte" aria-labelledby="fuss-produkt">
+        <p class="fuss-kopf" id="fuss-produkt" data-t="fuss_produkt">Produkt</p>
+        <a class="fuss-link" href="/auswertung/" data-t="fuss_auswertung">Was Satzwerk auswertet</a>
+        <a class="fuss-link" href="/#pro" data-t="fuss_pro">Satzwerk Pro</a>
+        <a class="fuss-link" href="/#fragen" data-t="fuss_faq">Fragen und Antworten</a>
+        <a class="fuss-link" href="https://apps.apple.com/app/id6786720640">App Store</a>
+      </nav>
+      <nav class="fuss-spalte" aria-labelledby="fuss-satzwerk">
+        <p class="fuss-kopf" id="fuss-satzwerk">Satzwerk</p>
+        <a class="fuss-link" href="/ueber/" data-t="nav_ueber">Über uns</a>
+        <a class="fuss-link" href="mailto:info@satzwerk.app" data-t="fuss_kontakt">Kontakt</a>
+        <button class="fuss-link sprachknopf" type="button" data-sprachknopf data-t="sprache_voll">English</button>
+      </nav>
+    </div>
+    <div class="fuss-riese" aria-hidden="true">
+      <img src="/img/logo-hell.svg" alt="" data-auf-dunkel width="1841" height="312" loading="lazy">
+    </div>
+    <div class="fuss-unten">
+      <nav class="fuss-recht" aria-label="Rechtliches" data-t-aria="rechtliches">
+        <a href="/impressum/" data-t="impressum">Impressum</a>
+        <a href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
+      </nav>
+      <p class="klein">© 2026 Satzwerk. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Kopf, Fuss und Meldung in beiden Sprachen. */
+var TEXTE = {
+ "de": {
+  "skip": "Zum Inhalt",
+  "lang": "EN",
+  "lang_aria": "Switch to English",
+  "store_kurz": "App Store",
+  "store_aria": "Satzwerk im App Store",
+  "nav_name": "Hauptnavigation",
+  "nav_auswertung": "Auswertung",
+  "nav_ueber": "Über uns",
+  "claim": "Handwerk am eigenen Körper.",
+  "fuss2": "Satz für den Trainingssatz, Werk für Handwerk.",
+  "folgen": "Folge uns",
+  "sprache_voll": "English",
+  "fuss_produkt": "Produkt",
+  "fuss_auswertung": "Was Satzwerk auswertet",
+  "fuss_pro": "Satzwerk Pro",
+  "fuss_faq": "Fragen und Antworten",
+  "fuss_kontakt": "Kontakt",
+  "rechtliches": "Rechtliches",
+  "impressum": "Impressum",
+  "datenschutz": "Datenschutz",
+  "marken": "Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.",
+  "ig_label": "Satzwerk auf Instagram",
+  "li_label": "Satzwerk auf LinkedIn",
+  "nichtda": "Diese Seite gibt es nicht.",
+  "nichtda_satz": "Der Link ist alt oder hat einen Tippfehler.",
+  "zur_start": "Zur Startseite"
+ },
+ "en": {
+  "skip": "Skip to content",
+  "lang": "DE",
+  "lang_aria": "Auf Deutsch wechseln",
+  "store_kurz": "App Store",
+  "store_aria": "Satzwerk on the App Store",
+  "nav_name": "Main navigation",
+  "nav_auswertung": "Analysis",
+  "nav_ueber": "About",
+  "claim": "Handwerk am eigenen Körper.",
+  "fuss2": "Satz for the training set, Werk for craft.",
+  "folgen": "Follow us",
+  "sprache_voll": "Deutsch",
+  "fuss_produkt": "Product",
+  "fuss_auswertung": "What Satzwerk analyzes",
+  "fuss_pro": "Satzwerk Pro",
+  "fuss_faq": "Questions and answers",
+  "fuss_kontakt": "Contact",
+  "rechtliches": "Legal",
+  "impressum": "Legal notice",
+  "datenschutz": "Privacy",
+  "marken": "Apple, App Store, Apple Watch and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries.",
+  "ig_label": "Satzwerk on Instagram",
+  "li_label": "Satzwerk on LinkedIn",
+  "nichtda": "This page does not exist.",
+  "nichtda_satz": "The link is old or has a typo.",
+  "zur_start": "To the home page"
+ }
+};
+</script>
+<script src="/seite.js"></script>
+</body>
+</html>

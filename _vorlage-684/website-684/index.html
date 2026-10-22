@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satzwerk – Trainingstagebuch und Auswertung für iPhone</title>
+<meta name="description" content="Satzwerk ist ein Trainingstagebuch für das iPhone mit Auswertung: Wiederholungsziel, Arbeitssätze je Muskelgruppe, RIR, Progression je Übung und Körperwerte. Kein Konto nötig.">
+<link rel="canonical" href="https://satzwerk.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Satzwerk">
+<meta property="og:title" content="Satzwerk – Trainingstagebuch und Auswertung für iPhone">
+<meta property="og:description" content="Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.">
+<meta property="og:url" content="https://satzwerk.app/">
+<meta property="og:image" content="https://satzwerk.app/img/og.jpg">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Satzwerk – Trainingstagebuch und Auswertung für iPhone">
+<meta name="twitter:description" content="Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.">
+<meta name="twitter:image" content="https://satzwerk.app/img/og.jpg">
+
+
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "SoftwareApplication",
+ "name": "Satzwerk",
+ "applicationCategory": "HealthApplication",
+ "operatingSystem": "iOS",
+ "url": "https://apps.apple.com/app/id6786720640",
+ "description": "Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.",
+ "softwareRequirements": "iOS 16.0 oder neuer, nur iPhone",
+ "inLanguage": ["de", "en"],
+ "installUrl": "https://apps.apple.com/app/id6786720640",
+ "featureList": [
+  "Wiederholungsziel je Übung mit Befund: im Ziel, am oberen Rand, zu leicht, zu schwer, gemischt",
+  "Ein Urteil je Übung: stärker, gleich oder schwächer, ab der zweiten Trainingswoche",
+  "Arbeitssätze je Muskelgruppe und Woche (Montag bis Sonntag) mit dem Bereich 10 bis 20 nach Schoenfeld 2017",
+  "Intensität: Anteil der Sätze mit RIR 0 bis 2",
+  "Aufwärmsätze zählen in keiner Auswertung",
+  "Werte je Studio getrennt",
+  "Gewicht als Wochenschnitt mit gemessenem Tempo",
+  "Körperfett aus 3 Hautfalten (Jackson & Pollock), 4 Hautfalten (Durnin & Womersley) oder Waage",
+  "Umfänge: Taille, Brust, Hüfte, Arm, Bein",
+  "Ziel je Phase (Aufbau, Erhalt, Cut) mit Kalorien am Tag",
+  "Live Activity am Sperrbildschirm",
+  "Planbibliothek mit zwölf Vorlagen als Startpunkt",
+  "Sicherung in iCloud und als Datei, CSV-Export, Apple Health schreibend und lesend"
+ ],
+ "subjectOf": { "@type": "TechArticle", "url": "https://satzwerk.app/auswertung/" },
+ "sameAs": ["https://www.instagram.com/satzwerktraining", "https://www.linkedin.com/company/satzwerk-app"],
+ "author": { "@type": "Organization", "name": "Satzwerk", "url": "https://satzwerk.app/" }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Was ist Satzwerk?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Satzwerk ist ein Trainingstagebuch für das iPhone. Du trägst Gewicht und Wiederholungen je Satz ein. Satzwerk Pro wertet daraus aus, ob deine Wiederholungen im Ziel liegen, wie viele Arbeitssätze jede Muskelgruppe bekommt und wie sich jede Übung entwickelt. Mit Pro trägst du am letzten Satz einer Übung auch den RIR ein, daraus kommt die Intensität. Dazu kommt ein Körperbereich mit Gewicht, Ziel je Phase, Kalorien am Tag, Körperfett aus Hautfalten und Umfängen."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Für wen ist die App gedacht?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Satzwerk ist für Leute gedacht, die ihren Trainingsplan schon haben und ihn erfassen und auswerten wollen. Die App gibt keine Handlungsempfehlungen. Die Planbibliothek bietet Vorlagen als Startpunkt, keine Empfehlung. Einen persönlichen Plan bekommst du von einem Trainer oder einer Trainerin."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Was ist frei, was ist Pro?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Frei sind Pläne und die Planbibliothek, das Training mit den Werten vom letzten Mal und der Live Activity, die Bibliothek, das Archiv, das Gewicht mit Verlauf und gemessenem Tempo, Sicherung in iCloud und als Datei, Export und Apple Health. Satzwerk Pro ist die Auswertung: Progression je Übung, Sätze je Muskelgruppe, Intensität und RIR, Studios, dein Ziel je Phase mit Kalorien, dazu Körperfett und Umfänge. Pro gibt es als Jahres- oder Monatsabo über Apple, den Preis zeigt dir der App Store."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Wie funktioniert der Testmonat?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Satzwerk schenkt dir 30 Tage Pro. Sie beginnen mit deinem ersten abgeschlossenen Training und enden von selbst. Du schließt dabei nichts ab, zahlst nichts und musst nichts kündigen. Danach entscheidest du, ob du Pro abonnierst."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Wie kündige ich Satzwerk Pro?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Satzwerk Pro läuft über deine Apple-ID. Kündigen kannst du jederzeit in den iPhone-Einstellungen unter deinem Namen > Abonnements, dort wechselst du auch zwischen Jahr und Monat. Das Abo verlängert sich um denselben Zeitraum, wenn du nicht mindestens 24 Stunden vor dessen Ende kündigst. Endet Pro, wird nichts gelöscht: deine Trainings, das Archiv, Sicherung und Export bleiben. Die Auswertung ist wieder gesperrt, und Körperfett und Umfänge lassen sich nicht neu eintragen."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Ich nutze gymLog schon. Was ändert sich?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Wer die App vor Version 2.0 geladen hat, also als gymLog, bekommt Satzwerk Pro bis zum 31. Oktober 2027 geschenkt. Danach gilt die freie Version, oder du abonnierst Pro. Deine Daten bleiben in jedem Fall, wie sie sind."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Brauche ich ein Konto?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Nein, für Satzwerk ist kein Konto nötig. Die App läuft ohne Anmeldung, ohne E-Mail-Adresse und ohne Passwort. Auch Satzwerk Pro braucht keins: das Abo hängt an deiner Apple-ID, und auf einem neuen iPhone holst du es mit „Käufe wiederherstellen“ zurück."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Wo liegen meine Daten?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Deine Daten liegen auf deinem iPhone, auch mit Pro. Satzwerk fragt einmal, ob es sie zusätzlich als Sicherungsdatei in deiner eigenen iCloud ablegen soll. Ohne dein Ja entsteht keine Datei, und im Profil schaltest du es jederzeit um. Satzwerk hat keinen eigenen Server, an den Trainings oder Körperwerte übertragen werden. Ein Export als Datei ist jederzeit möglich, und die Historie hat keine Zeitgrenze."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Gibt es Vorlagen für Trainingspläne?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Ja. Die Planbibliothek hat zwölf Vorlagen für das Studio, für zu Hause mit Hanteln und für zu Hause ohne Geräte, jeweils als Einstieg und für Fortgeschrittene. Sie sind ein Startpunkt, keine Empfehlung: du übernimmst eine Kopie und änderst sie, wie du willst. Eigene Pläne legst du selbst an oder fügst sie als Text ein."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Was ist RIR und wie wird er erfasst?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "RIR steht für Reps in Reserve, also die Wiederholungen, die am Ende eines Satzes noch möglich gewesen wären. Mit Satzwerk Pro trägst du den RIR am letzten Satz einer Übung ein, mit einem Tipp auf einen Wert von 0 bis 3. Daraus berechnet Satzwerk, welcher Anteil deiner Sätze nahe am Limit lag."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Was zählt als Satz je Muskelgruppe?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Satzwerk zählt je Muskelgruppe jeden Arbeitssatz der Woche, von Montag bis Sonntag, und stellt die Vorwoche daneben. Aufwärmsätze zählen nie mit, der RIR spielt dabei keine Rolle. Als hart zählt ein Satz nur bei der Intensität: dort gelten Sätze mit RIR 0 bis 2 als hart."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Kann ich meine Daten exportieren?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Ja, mit und ohne Pro. Satzwerk exportiert alle Trainings und Körperwerte als Datei, die du sichern oder auf ein neues iPhone übertragen kannst. Dieselbe Datei liest Satzwerk auch wieder ein. Trainings und Körperwerte lassen sich zusätzlich als CSV ausgeben."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Gibt es die App für Android oder die Apple Watch?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Nein. Satzwerk gibt es nur für das iPhone, nicht für Android und nicht für die Apple Watch. Die Live Activity am Sperrbildschirm läuft auf dem iPhone."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Warum heißt die App Satzwerk?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Der Name setzt sich aus Satz und Werk zusammen. Satz steht für den Trainingssatz, die kleinste Einheit im Krafttraining. Werk steht für Handwerk, für die eigene Arbeit am eigenen Körper."
+   }
+  }
+ ]
+}
+</script>
+
+<link rel="icon" href="img/bildmarke.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light">
+<link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="seite.css">
+</head>
+<body>
+<a class="sprung" href="#inhalt" data-t="skip">Zum Inhalt</a>
+
+<header class="kopf">
+  <nav class="leiste" aria-label="Hauptnavigation" data-t-aria="nav_name">
+    <a class="segment segment-marke" href="/" aria-current="page"><img src="img/logo-dunkel.svg" alt="Satzwerk" width="142" height="24"></a>
+    <a class="segment nur-breit" href="/auswertung/" data-t="nav_auswertung">Auswertung</a>
+    <a class="segment nur-breit" href="/ueber/" data-t="nav_ueber">Über uns</a>
+    <button class="segment sprachknopf" type="button" data-sprachknopf data-t="lang" data-t-aria="lang_aria" aria-label="Switch to English">EN</button>
+    <a class="store" href="https://apps.apple.com/app/id6786720640" data-t-aria="store_aria" aria-label="Satzwerk im App Store"><span data-t="store_kurz">App Store</span><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+  </nav>
+</header>
+
+<main id="inhalt">
+
+  <section class="held" aria-labelledby="titel">
+    <div class="rahmen held-innen">
+      <div class="held-text">
+        <h1 class="kopfzeile auftritt" data-t="h1" id="titel">Tracken. Nicht scrollen.</h1>
+        <p class="lead" data-t="lead">Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.</p>
+        <a class="store" href="https://apps.apple.com/app/id6786720640"><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        <p class="klein" data-t="hinweis">Für iPhone. Keine Werbung, kein Konto nötig, deine Daten liegen auf deinem iPhone und, wenn du willst, in deiner eigenen iCloud.</p>
+      </div>
+      <!-- Die Bildmarke der App, gross, als einzige Grafik im Kopf (684b: ohne Foto). Dekorativ: der Name steht in der Leiste. -->
+      <img class="held-marke" src="img/bildmarke.svg" alt="" width="1024" height="1024">
+    </div>
+  </section>
+
+  <section class="abschnitt" aria-labelledby="tut-titel">
+    <div class="rahmen">
+      <h2 class="auftritt" data-t="h2_tut" id="tut-titel">Erfassen und auswerten</h2>
+      <div class="drei">
+        <div class="punkt">
+          <div class="tags"><span class="tag" data-t="tag_frei">Frei</span></div>
+          <h3 data-t="tut.0.0">Eintragen, ohne den Satz zu unterbrechen</h3>
+          <p data-t="tut.0.1">Gewicht und Wiederholungen tippen, abhaken, weiter. Was du letztes Mal gemacht hast, steht grau schon im Feld. Am Sperrbildschirm steht die nächste Übung mit Gewicht und Wiederholungen.</p>
+        </div>
+        <div class="punkt">
+          <div class="tags"><span class="tag tag-pro" data-t="tag_pro">Pro</span></div>
+          <h3 data-t="tut.1.0">Progression je Übung</h3>
+          <p data-t="tut.1.1">Je Übung ein Urteil: stärker, gleich oder schwächer, ab der zweiten Trainingswoche. Dazu, ob deine Wiederholungen im Ziel liegen: im Ziel, am oberen Rand, zu leicht oder zu schwer.</p>
+        </div>
+        <div class="punkt">
+          <div class="tags"><span class="tag" data-t="tag_frei">Frei</span><span class="tag tag-pro" data-t="tag_pro">Pro</span></div>
+          <h3 data-t="tut.2.0">Körper und Ziel</h3>
+          <p data-t="tut.2.1">Das Gewicht als Wochenschnitt mit gemessenem Tempo ist frei. Mit Pro kommen dein Ziel je Phase, Kalorien am Tag, Körperfett aus Hautfalten und Umfänge dazu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt auf-grund" aria-labelledby="werk-titel">
+    <div class="rahmen">
+      <div class="werk-kopf">
+        <div>
+          <h2 class="auftritt" data-t="h2_werk" id="werk-titel">Satz für Satz.</h2>
+          <p class="vorspann" data-t="werk_vorspann">Ein Training aus den Beispieldaten der App: Gewicht und Wiederholungen je Satz, am letzten Satz der RIR. Darunter drei Bildschirme aus Satzwerk Pro mit denselben Daten.</p>
+        </div>
+        <!-- Satz-Protokoll: demodaten/satzwerk-demo-de.json, exportiert 2026-10-21, Einheit s-d-legs-1 vom 2026-10-15; EN demodaten/satzwerk-demo-en.json, exportiert 2026-10-21, Einheit s-d-lo-a-0 vom 2026-10-20.
+             Namen ueber anzeigeName, Zahlen ueber zahlText, RIR-Woerter und Kuerzel aus texte.js. -->
+        <div class="karte-dunkel protokoll" style="--n:12">
+          <ol>
+          <li class="zeile zeile-kopf" style="--i:0"><span data-t="protokoll.kopf">BEINE · Kraftwerk Nord</span><span data-t="protokoll.dauer">67 min</span></li>
+          <li class="zeile zeile-uebung" style="--i:1" data-t="protokoll.uebung.0">Langhantel-Kniebeuge</li>
+          <li class="zeile zeile-warm" style="--i:2"><span class="nr" data-t="protokoll.saetze.0.0.0">A</span><span class="wert" data-t="protokoll.saetze.0.0.1">77,5 kg × 10</span></li>
+          <li class="zeile" style="--i:3"><span class="nr" data-t="protokoll.saetze.0.1.0">1</span><span class="wert" data-t="protokoll.saetze.0.1.1">142,5 kg × 8</span></li>
+          <li class="zeile" style="--i:4"><span class="nr" data-t="protokoll.saetze.0.2.0">2</span><span class="wert" data-t="protokoll.saetze.0.2.1">137,5 kg × 8</span></li>
+          <li class="zeile" style="--i:5"><span class="nr" data-t="protokoll.saetze.0.3.0">3</span><span class="wert" data-t="protokoll.saetze.0.3.1">137,5 kg × 8</span></li>
+          <li class="zeile" style="--i:6"><span class="nr" data-t="protokoll.saetze.0.4.0">4</span><span class="wert" data-t="protokoll.saetze.0.4.1">135 kg × 8</span><span class="rir" data-t="protokoll.saetze.0.4.2">Versagen</span></li>
+          <li class="zeile zeile-uebung" style="--i:7" data-t="protokoll.uebung.1">Rumänisches Kreuzheben</li>
+          <li class="zeile" style="--i:8"><span class="nr" data-t="protokoll.saetze.1.0.0">1</span><span class="wert" data-t="protokoll.saetze.1.0.1">125 kg × 9</span></li>
+          <li class="zeile" style="--i:9"><span class="nr" data-t="protokoll.saetze.1.1.0">2</span><span class="wert" data-t="protokoll.saetze.1.1.1">120 kg × 9</span></li>
+          <li class="zeile" style="--i:10"><span class="nr" data-t="protokoll.saetze.1.2.0">3</span><span class="wert" data-t="protokoll.saetze.1.2.1">120 kg × 9</span></li>
+          <li class="zeile" style="--i:11"><span class="nr" data-t="protokoll.saetze.1.3.0">4</span><span class="wert" data-t="protokoll.saetze.1.3.1">117,5 kg × 9</span><span class="rir" data-t="protokoll.saetze.1.3.2">Versagen</span></li>
+          </ol>
+        </div>
+      </div>
+      <!-- Bildschirme: tools/audit-vermessung.cjs --bild S8,S12,R3 --dunkel [--en], 393 pt, Demodaten vom 21.10.2026,
+           von y 55 bis 605 pt geschnitten (unter den Kopfknoepfen, ueber der Tableiste). -->
+      <div class="werk">
+        <figure class="karte-dunkel bildschirm">
+          <img data-bildschirm="progression" src="img/app-progression-de.jpg" alt="Satzwerk Pro, Seite Progression im Dunkelmodus: je Übung ein Urteil wie Gleich oder Stärker, darunter die Werte, die verglichen werden" data-t-alt="werk_alt.0" width="786" height="1100" loading="lazy">
+          <figcaption><span class="tag tag-pro" data-t="tag_pro">Pro</span><span data-t="werk_titel.0">Progression</span></figcaption>
+        </figure>
+        <figure class="karte-dunkel bildschirm">
+          <img data-bildschirm="muskeln" src="img/app-muskeln-de.jpg" alt="Satzwerk Pro, Sätze je Muskel im Dunkelmodus: ein Balken je Muskelgruppe für die letzte Woche, mit dem Bereich von 10 bis 20 Sätzen" data-t-alt="werk_alt.1" width="786" height="1100" loading="lazy">
+          <figcaption><span class="tag tag-pro" data-t="tag_pro">Pro</span><span data-t="werk_titel.1">Sätze je Muskel</span></figcaption>
+        </figure>
+        <figure class="karte-dunkel bildschirm">
+          <img data-bildschirm="koerper" src="img/app-koerper-de.jpg" alt="Körperbereich von Satzwerk im Dunkelmodus: Befundsätze, das Ziel der Phase mit Kalorien am Tag und das Gewicht mit kleinem Verlauf" data-t-alt="werk_alt.2" width="786" height="1100" loading="lazy">
+          <figcaption><span class="tag tag-pro" data-t="tag_pro">Pro</span><span data-t="werk_titel.2">Körper</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt atem" aria-labelledby="atem-titel">
+    <div class="rahmen">
+      <h2 class="atem-satz auftritt" data-t="h2_haltung" id="atem-titel">Befunde, keine Anweisungen.</h2>
+      <p data-t="p3">Satzwerk zeigt, wo du stehst. Es sagt dir nicht, was du tun sollst. Keine Handlungsempfehlungen, keine Gewichtsvorgabe, kein Urteil über eine Entlastungswoche. Ein Onboarding kennt deinen Bandscheibenvorfall nicht, deinen Blutdruck nicht und dein Sprunggelenk nicht. Ein persönlicher Plan kommt von Menschen, die dich kennen. Die Zahlen kommen von hier.</p>
+    </div>
+  </section>
+
+  <section class="abschnitt auf-grund" id="pro" aria-labelledby="drin-titel">
+    <div class="rahmen">
+      <h2 class="auftritt" data-t="h2_drin" id="drin-titel">Was drin ist</h2>
+      <p class="vorspann" data-t="pro_p1">Training und Gewicht erfassen ist frei. Satzwerk Pro wertet aus: ob deine Wiederholungen im Ziel liegen, wie viele Arbeitssätze jede Muskelgruppe bekommt, ob du an jeder Übung stärker, gleich stark oder schwächer bist und wo dein Körper gegenüber deinem Ziel steht.</p>
+      <div class="tarife">
+        <div class="karte-hell">
+          <h3 class="tarif-titel" data-t="h3_frei">Frei</h3>
+          <ul class="liste">
+          <li data-t="liste_frei.0">Eigene Pläne, unbegrenzt, dazu zwölf Vorlagen</li>
+          <li data-t="liste_frei.1">223 Übungen, eigene frei anlegbar</li>
+          <li data-t="liste_frei.2">Die Werte vom letzten Mal grau im Feld</li>
+          <li data-t="liste_frei.3">Live Activity am Sperrbildschirm</li>
+          <li data-t="liste_frei.4">Archiv und Wochenraster</li>
+          <li data-t="liste_frei.5">Gewicht eintragen, Verlauf mit gemessenem Tempo</li>
+          <li data-t="liste_frei.6">Sicherung in iCloud und als Datei, Wiederherstellen und CSV-Export</li>
+          <li data-t="liste_frei.7">Apple Health, schreibend und lesend</li>
+          <li data-t="liste_frei.8">Deutsch und Englisch, metrisch und imperial</li>
+          <li data-t="liste_frei.9">Hell, dunkel oder automatisch</li>
+          </ul>
+        </div>
+        <div class="karte-pro">
+          <h3 class="pro-marke"><img src="img/logo-pro-hell.svg" alt="Satzwerk Pro" data-t-alt="pro_alt" data-auf-dunkel width="2388" height="296" loading="lazy"></h3>
+          <p class="pro-unter" data-t="pro_unter">Die Auswertung deiner Daten.</p>
+          <ul class="liste">
+          <li data-t="liste_pro.0">Progression je Übung: stärker, gleich oder schwächer, dazu das Wiederholungsziel</li>
+          <li data-t="liste_pro.1">Arbeitssätze je Muskelgruppe, Woche gegen Vorwoche</li>
+          <li data-t="liste_pro.2">Intensität: RIR nach dem letzten Satz und Anteil harter Sätze</li>
+          <li data-t="liste_pro.3">Mehrere Studios, Werte je Studio getrennt</li>
+          <li data-t="liste_pro.4">Ziel je Phase: Zielgewicht und Ziel-Körperfett</li>
+          <li data-t="liste_pro.5">Kalorien am Tag, geplantes gegen gemessenes Tempo</li>
+          <li data-t="liste_pro.6">Körperfett aus Hautfalten oder Waage eintragen</li>
+          <li data-t="liste_pro.7">Umfänge eintragen und auswerten, die Taille mit eigener Kurve</li>
+          <li data-t="liste_pro.8">Fett und fettfreie Masse getrennt</li>
+          <li data-t="liste_pro.9">Verläufe seit Phasenbeginn</li>
+          </ul>
+          <div class="pro-fakten">
+          <p><strong data-t="pro_karten.0.0">30 Tage geschenkt</strong><span data-t="pro_karten.0.1">Sie beginnen mit deinem ersten abgeschlossenen Training und enden von selbst. Du schließt dabei nichts ab und musst nichts kündigen.</span></p>
+          <p><strong data-t="pro_karten.1.0">Danach im Jahr oder Monat</strong><span data-t="pro_karten.1.1">Ein Jahres- oder Monatsabo über Apple. Kündigen kannst du jederzeit in den Einstellungen deiner Apple-ID.</span></p>
+          <p><strong data-t="pro_karten.2.0">Deine Daten gehören dir</strong><span data-t="pro_karten.2.1">Archiv, Sicherung und Export gehören zur freien Version. Endet Pro, wird nichts gelöscht.</span></p>
+          </div>
+          <a class="store store-hell" href="https://apps.apple.com/app/id6786720640"><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        </div>
+      </div>
+      <div class="nach-tarifen">
+        <p class="klein" data-t="nicht">Kein Feed, keine Tonnage, kein Essensprotokoll.</p>
+        <p class="klein"><a href="/auswertung/" data-t="mehr">Jede Auswertung im Detail</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="fragen" aria-labelledby="faq-titel">
+    <div class="rahmen">
+      <h2 class="auftritt" data-t="h2_faq" id="faq-titel">Fragen und Antworten</h2>
+      <div class="faq-liste">
+      <div class="faq-spalte">
+        <details class="faq">
+          <summary><span data-t="faq.0.0">Was ist Satzwerk?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.0.1">Satzwerk ist ein Trainingstagebuch für das iPhone. Du trägst Gewicht und Wiederholungen je Satz ein. Satzwerk Pro wertet daraus aus, ob deine Wiederholungen im Ziel liegen, wie viele Arbeitssätze jede Muskelgruppe bekommt und wie sich jede Übung entwickelt. Mit Pro trägst du am letzten Satz einer Übung auch den RIR ein, daraus kommt die Intensität. Dazu kommt ein Körperbereich mit Gewicht, Ziel je Phase, Kalorien am Tag, Körperfett aus Hautfalten und Umfängen.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.1.0">Für wen ist die App gedacht?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.1.1">Satzwerk ist für Leute gedacht, die ihren Trainingsplan schon haben und ihn erfassen und auswerten wollen. Die App gibt keine Handlungsempfehlungen. Die Planbibliothek bietet Vorlagen als Startpunkt, keine Empfehlung. Einen persönlichen Plan bekommst du von einem Trainer oder einer Trainerin.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.2.0">Was ist frei, was ist Pro?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.2.1">Frei sind Pläne und die Planbibliothek, das Training mit den Werten vom letzten Mal und der Live Activity, die Bibliothek, das Archiv, das Gewicht mit Verlauf und gemessenem Tempo, Sicherung in iCloud und als Datei, Export und Apple Health. Satzwerk Pro ist die Auswertung: Progression je Übung, Sätze je Muskelgruppe, Intensität und RIR, Studios, dein Ziel je Phase mit Kalorien, dazu Körperfett und Umfänge. Pro gibt es als Jahres- oder Monatsabo über Apple, den Preis zeigt dir der App Store.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.3.0">Wie funktioniert der Testmonat?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.3.1">Satzwerk schenkt dir 30 Tage Pro. Sie beginnen mit deinem ersten abgeschlossenen Training und enden von selbst. Du schließt dabei nichts ab, zahlst nichts und musst nichts kündigen. Danach entscheidest du, ob du Pro abonnierst.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.4.0">Wie kündige ich Satzwerk Pro?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.4.1">Satzwerk Pro läuft über deine Apple-ID. Kündigen kannst du jederzeit in den iPhone-Einstellungen unter deinem Namen &gt; Abonnements, dort wechselst du auch zwischen Jahr und Monat. Das Abo verlängert sich um denselben Zeitraum, wenn du nicht mindestens 24 Stunden vor dessen Ende kündigst. Endet Pro, wird nichts gelöscht: deine Trainings, das Archiv, Sicherung und Export bleiben. Die Auswertung ist wieder gesperrt, und Körperfett und Umfänge lassen sich nicht neu eintragen.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.5.0">Ich nutze gymLog schon. Was ändert sich?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.5.1">Wer die App vor Version 2.0 geladen hat, also als gymLog, bekommt Satzwerk Pro bis zum 31. Oktober 2027 geschenkt. Danach gilt die freie Version, oder du abonnierst Pro. Deine Daten bleiben in jedem Fall, wie sie sind.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.6.0">Brauche ich ein Konto?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.6.1">Nein, für Satzwerk ist kein Konto nötig. Die App läuft ohne Anmeldung, ohne E-Mail-Adresse und ohne Passwort. Auch Satzwerk Pro braucht keins: das Abo hängt an deiner Apple-ID, und auf einem neuen iPhone holst du es mit „Käufe wiederherstellen“ zurück.</p>
+        </details>
+      </div>
+      <div class="faq-spalte">
+        <details class="faq">
+          <summary><span data-t="faq.7.0">Wo liegen meine Daten?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.7.1">Deine Daten liegen auf deinem iPhone, auch mit Pro. Satzwerk fragt einmal, ob es sie zusätzlich als Sicherungsdatei in deiner eigenen iCloud ablegen soll. Ohne dein Ja entsteht keine Datei, und im Profil schaltest du es jederzeit um. Satzwerk hat keinen eigenen Server, an den Trainings oder Körperwerte übertragen werden. Ein Export als Datei ist jederzeit möglich, und die Historie hat keine Zeitgrenze.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.8.0">Gibt es Vorlagen für Trainingspläne?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.8.1">Ja. Die Planbibliothek hat zwölf Vorlagen für das Studio, für zu Hause mit Hanteln und für zu Hause ohne Geräte, jeweils als Einstieg und für Fortgeschrittene. Sie sind ein Startpunkt, keine Empfehlung: du übernimmst eine Kopie und änderst sie, wie du willst. Eigene Pläne legst du selbst an oder fügst sie als Text ein.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.9.0">Was ist RIR und wie wird er erfasst?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.9.1">RIR steht für Reps in Reserve, also die Wiederholungen, die am Ende eines Satzes noch möglich gewesen wären. Mit Satzwerk Pro trägst du den RIR am letzten Satz einer Übung ein, mit einem Tipp auf einen Wert von 0 bis 3. Daraus berechnet Satzwerk, welcher Anteil deiner Sätze nahe am Limit lag.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.10.0">Was zählt als Satz je Muskelgruppe?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.10.1">Satzwerk zählt je Muskelgruppe jeden Arbeitssatz der Woche, von Montag bis Sonntag, und stellt die Vorwoche daneben. Aufwärmsätze zählen nie mit, der RIR spielt dabei keine Rolle. Als hart zählt ein Satz nur bei der Intensität: dort gelten Sätze mit RIR 0 bis 2 als hart.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.11.0">Kann ich meine Daten exportieren?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.11.1">Ja, mit und ohne Pro. Satzwerk exportiert alle Trainings und Körperwerte als Datei, die du sichern oder auf ein neues iPhone übertragen kannst. Dieselbe Datei liest Satzwerk auch wieder ein. Trainings und Körperwerte lassen sich zusätzlich als CSV ausgeben.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.12.0">Gibt es die App für Android oder die Apple Watch?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.12.1">Nein. Satzwerk gibt es nur für das iPhone, nicht für Android und nicht für die Apple Watch. Die Live Activity am Sperrbildschirm läuft auf dem iPhone.</p>
+        </details>
+        <details class="faq">
+          <summary><span data-t="faq.13.0">Warum heißt die App Satzwerk?</span><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p data-t="faq.13.1">Der Name setzt sich aus Satz und Werk zusammen. Satz steht für den Trainingssatz, die kleinste Einheit im Krafttraining. Werk steht für Handwerk, für die eigene Arbeit am eigenen Körper.</p>
+        </details>
+      </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="fuss">
+  <div class="rahmen">
+    <div class="fuss-oben">
+      <div class="fuss-marke">
+        <p class="claim" data-t="claim">Handwerk am eigenen Körper.</p>
+        <p class="klein" data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</p>
+        <p class="fuss-kopf fuss-folgen" data-t="folgen">Folge uns</p>
+        <div class="kreise">
+          <a class="kreis" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener" aria-label="Satzwerk auf Instagram" data-t-aria="ig_label"><img src="img/ig-weiss.png" alt="" width="20" height="20" loading="lazy"></a>
+          <a class="kreis" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener" aria-label="Satzwerk auf LinkedIn" data-t-aria="li_label"><img src="img/li-weiss.png" alt="" width="20" height="18" loading="lazy"></a>
+        </div>
+      </div>
+      <nav class="fuss-spalte" aria-labelledby="fuss-produkt">
+        <p class="fuss-kopf" id="fuss-produkt" data-t="fuss_produkt">Produkt</p>
+        <a class="fuss-link" href="/auswertung/" data-t="fuss_auswertung">Was Satzwerk auswertet</a>
+        <a class="fuss-link" href="/#pro" data-t="fuss_pro">Satzwerk Pro</a>
+        <a class="fuss-link" href="/#fragen" data-t="fuss_faq">Fragen und Antworten</a>
+        <a class="fuss-link" href="https://apps.apple.com/app/id6786720640">App Store</a>
+      </nav>
+      <nav class="fuss-spalte" aria-labelledby="fuss-satzwerk">
+        <p class="fuss-kopf" id="fuss-satzwerk">Satzwerk</p>
+        <a class="fuss-link" href="/ueber/" data-t="nav_ueber">Über uns</a>
+        <a class="fuss-link" href="mailto:info@satzwerk.app" data-t="fuss_kontakt">Kontakt</a>
+        <button class="fuss-link sprachknopf" type="button" data-sprachknopf data-t="sprache_voll">English</button>
+      </nav>
+    </div>
+    <div class="fuss-riese" aria-hidden="true">
+      <img src="img/logo-hell.svg" alt="" data-auf-dunkel width="1841" height="312" loading="lazy">
+    </div>
+    <div class="fuss-unten">
+      <nav class="fuss-recht" aria-label="Rechtliches" data-t-aria="rechtliches">
+        <a href="/impressum/" data-t="impressum">Impressum</a>
+        <a href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
+      </nav>
+      <p class="klein">© 2026 Satzwerk. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Alle sichtbaren Texte in beiden Sprachen. Deutsch steht ausserdem im HTML; seite.js setzt Englisch ein, wenn der Nutzer es waehlt. */
+var TEXTE = {
+ "de": {
+  "skip": "Zum Inhalt",
+  "lang": "EN",
+  "lang_aria": "Switch to English",
+  "store": "Im App Store",
+  "h1": "Tracken. Nicht scrollen.",
+  "lead": "Satzwerk erfasst dein Training und wertet es aus. Für Leute, die ihren Plan schon haben.",
+  "hinweis": "Für iPhone. Keine Werbung, kein Konto nötig, deine Daten liegen auf deinem iPhone und, wenn du willst, in deiner eigenen iCloud.",
+  "p3": "Satzwerk zeigt, wo du stehst. Es sagt dir nicht, was du tun sollst. Keine Handlungsempfehlungen, keine Gewichtsvorgabe, kein Urteil über eine Entlastungswoche. Ein Onboarding kennt deinen Bandscheibenvorfall nicht, deinen Blutdruck nicht und dein Sprunggelenk nicht. Ein persönlicher Plan kommt von Menschen, die dich kennen. Die Zahlen kommen von hier.",
+  "h2_drin": "Was drin ist",
+  "h3_frei": "Frei",
+  "liste_frei": [
+   "Eigene Pläne, unbegrenzt, dazu zwölf Vorlagen",
+   "223 Übungen, eigene frei anlegbar",
+   "Die Werte vom letzten Mal grau im Feld",
+   "Live Activity am Sperrbildschirm",
+   "Archiv und Wochenraster",
+   "Gewicht eintragen, Verlauf mit gemessenem Tempo",
+   "Sicherung in iCloud und als Datei, Wiederherstellen und CSV-Export",
+   "Apple Health, schreibend und lesend",
+   "Deutsch und Englisch, metrisch und imperial",
+   "Hell, dunkel oder automatisch"
+  ],
+  "liste_pro": [
+   "Progression je Übung: stärker, gleich oder schwächer, dazu das Wiederholungsziel",
+   "Arbeitssätze je Muskelgruppe, Woche gegen Vorwoche",
+   "Intensität: RIR nach dem letzten Satz und Anteil harter Sätze",
+   "Mehrere Studios, Werte je Studio getrennt",
+   "Ziel je Phase: Zielgewicht und Ziel-Körperfett",
+   "Kalorien am Tag, geplantes gegen gemessenes Tempo",
+   "Körperfett aus Hautfalten oder Waage eintragen",
+   "Umfänge eintragen und auswerten, die Taille mit eigener Kurve",
+   "Fett und fettfreie Masse getrennt",
+   "Verläufe seit Phasenbeginn"
+  ],
+  "pro_alt": "Satzwerk Pro",
+  "pro_unter": "Die Auswertung deiner Daten.",
+  "pro_p1": "Training und Gewicht erfassen ist frei. Satzwerk Pro wertet aus: ob deine Wiederholungen im Ziel liegen, wie viele Arbeitssätze jede Muskelgruppe bekommt, ob du an jeder Übung stärker, gleich stark oder schwächer bist und wo dein Körper gegenüber deinem Ziel steht.",
+  "pro_karten": [
+   [
+    "30 Tage geschenkt",
+    "Sie beginnen mit deinem ersten abgeschlossenen Training und enden von selbst. Du schließt dabei nichts ab und musst nichts kündigen."
+   ],
+   [
+    "Danach im Jahr oder Monat",
+    "Ein Jahres- oder Monatsabo über Apple. Kündigen kannst du jederzeit in den Einstellungen deiner Apple-ID."
+   ],
+   [
+    "Deine Daten gehören dir",
+    "Archiv, Sicherung und Export gehören zur freien Version. Endet Pro, wird nichts gelöscht."
+   ]
+  ],
+  "nicht": "Kein Feed, keine Tonnage, kein Essensprotokoll.",
+  "mehr": "Jede Auswertung im Detail",
+  "h2_faq": "Fragen und Antworten",
+  "faq": [
+   [
+    "Was ist Satzwerk?",
+    "Satzwerk ist ein Trainingstagebuch für das iPhone. Du trägst Gewicht und Wiederholungen je Satz ein. Satzwerk Pro wertet daraus aus, ob deine Wiederholungen im Ziel liegen, wie viele Arbeitssätze jede Muskelgruppe bekommt und wie sich jede Übung entwickelt. Mit Pro trägst du am letzten Satz einer Übung auch den RIR ein, daraus kommt die Intensität. Dazu kommt ein Körperbereich mit Gewicht, Ziel je Phase, Kalorien am Tag, Körperfett aus Hautfalten und Umfängen."
+   ],
+   [
+    "Für wen ist die App gedacht?",
+    "Satzwerk ist für Leute gedacht, die ihren Trainingsplan schon haben und ihn erfassen und auswerten wollen. Die App gibt keine Handlungsempfehlungen. Die Planbibliothek bietet Vorlagen als Startpunkt, keine Empfehlung. Einen persönlichen Plan bekommst du von einem Trainer oder einer Trainerin."
+   ],
+   [
+    "Was ist frei, was ist Pro?",
+    "Frei sind Pläne und die Planbibliothek, das Training mit den Werten vom letzten Mal und der Live Activity, die Bibliothek, das Archiv, das Gewicht mit Verlauf und gemessenem Tempo, Sicherung in iCloud und als Datei, Export und Apple Health. Satzwerk Pro ist die Auswertung: Progression je Übung, Sätze je Muskelgruppe, Intensität und RIR, Studios, dein Ziel je Phase mit Kalorien, dazu Körperfett und Umfänge. Pro gibt es als Jahres- oder Monatsabo über Apple, den Preis zeigt dir der App Store."
+   ],
+   [
+    "Wie funktioniert der Testmonat?",
+    "Satzwerk schenkt dir 30 Tage Pro. Sie beginnen mit deinem ersten abgeschlossenen Training und enden von selbst. Du schließt dabei nichts ab, zahlst nichts und musst nichts kündigen. Danach entscheidest du, ob du Pro abonnierst."
+   ],
+   [
+    "Wie kündige ich Satzwerk Pro?",
+    "Satzwerk Pro läuft über deine Apple-ID. Kündigen kannst du jederzeit in den iPhone-Einstellungen unter deinem Namen > Abonnements, dort wechselst du auch zwischen Jahr und Monat. Das Abo verlängert sich um denselben Zeitraum, wenn du nicht mindestens 24 Stunden vor dessen Ende kündigst. Endet Pro, wird nichts gelöscht: deine Trainings, das Archiv, Sicherung und Export bleiben. Die Auswertung ist wieder gesperrt, und Körperfett und Umfänge lassen sich nicht neu eintragen."
+   ],
+   [
+    "Ich nutze gymLog schon. Was ändert sich?",
+    "Wer die App vor Version 2.0 geladen hat, also als gymLog, bekommt Satzwerk Pro bis zum 31. Oktober 2027 geschenkt. Danach gilt die freie Version, oder du abonnierst Pro. Deine Daten bleiben in jedem Fall, wie sie sind."
+   ],
+   [
+    "Brauche ich ein Konto?",
+    "Nein, für Satzwerk ist kein Konto nötig. Die App läuft ohne Anmeldung, ohne E-Mail-Adresse und ohne Passwort. Auch Satzwerk Pro braucht keins: das Abo hängt an deiner Apple-ID, und auf einem neuen iPhone holst du es mit „Käufe wiederherstellen“ zurück."
+   ],
+   [
+    "Wo liegen meine Daten?",
+    "Deine Daten liegen auf deinem iPhone, auch mit Pro. Satzwerk fragt einmal, ob es sie zusätzlich als Sicherungsdatei in deiner eigenen iCloud ablegen soll. Ohne dein Ja entsteht keine Datei, und im Profil schaltest du es jederzeit um. Satzwerk hat keinen eigenen Server, an den Trainings oder Körperwerte übertragen werden. Ein Export als Datei ist jederzeit möglich, und die Historie hat keine Zeitgrenze."
+   ],
+   [
+    "Gibt es Vorlagen für Trainingspläne?",
+    "Ja. Die Planbibliothek hat zwölf Vorlagen für das Studio, für zu Hause mit Hanteln und für zu Hause ohne Geräte, jeweils als Einstieg und für Fortgeschrittene. Sie sind ein Startpunkt, keine Empfehlung: du übernimmst eine Kopie und änderst sie, wie du willst. Eigene Pläne legst du selbst an oder fügst sie als Text ein."
+   ],
+   [
+    "Was ist RIR und wie wird er erfasst?",
+    "RIR steht für Reps in Reserve, also die Wiederholungen, die am Ende eines Satzes noch möglich gewesen wären. Mit Satzwerk Pro trägst du den RIR am letzten Satz einer Übung ein, mit einem Tipp auf einen Wert von 0 bis 3. Daraus berechnet Satzwerk, welcher Anteil deiner Sätze nahe am Limit lag."
+   ],
+   [
+    "Was zählt als Satz je Muskelgruppe?",
+    "Satzwerk zählt je Muskelgruppe jeden Arbeitssatz der Woche, von Montag bis Sonntag, und stellt die Vorwoche daneben. Aufwärmsätze zählen nie mit, der RIR spielt dabei keine Rolle. Als hart zählt ein Satz nur bei der Intensität: dort gelten Sätze mit RIR 0 bis 2 als hart."
+   ],
+   [
+    "Kann ich meine Daten exportieren?",
+    "Ja, mit und ohne Pro. Satzwerk exportiert alle Trainings und Körperwerte als Datei, die du sichern oder auf ein neues iPhone übertragen kannst. Dieselbe Datei liest Satzwerk auch wieder ein. Trainings und Körperwerte lassen sich zusätzlich als CSV ausgeben."
+   ],
+   [
+    "Gibt es die App für Android oder die Apple Watch?",
+    "Nein. Satzwerk gibt es nur für das iPhone, nicht für Android und nicht für die Apple Watch. Die Live Activity am Sperrbildschirm läuft auf dem iPhone."
+   ],
+   [
+    "Warum heißt die App Satzwerk?",
+    "Der Name setzt sich aus Satz und Werk zusammen. Satz steht für den Trainingssatz, die kleinste Einheit im Krafttraining. Werk steht für Handwerk, für die eigene Arbeit am eigenen Körper."
+   ]
+  ],
+  "claim": "Handwerk am eigenen Körper.",
+  "fuss2": "Satz für den Trainingssatz, Werk für Handwerk.",
+  "folgen": "Folge uns",
+  "sprache_voll": "English",
+  "rechtliches": "Rechtliches",
+  "fuss_auswertung": "Was Satzwerk auswertet",
+  "marken": "Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.",
+  "ig_label": "Satzwerk auf Instagram",
+  "li_label": "Satzwerk auf LinkedIn",
+  "impressum": "Impressum",
+  "datenschutz": "Datenschutz",
+  "tag_frei": "Frei",
+  "tag_pro": "Pro",
+  "h2_haltung": "Befunde, keine Anweisungen.",
+  "nav_name": "Hauptnavigation",
+  "nav_auswertung": "Auswertung",
+  "nav_ueber": "Über uns",
+  "fuss_produkt": "Produkt",
+  "fuss_pro": "Satzwerk Pro",
+  "fuss_faq": "Fragen und Antworten",
+  "fuss_kontakt": "Kontakt",
+  "store_kurz": "App Store",
+  "store_aria": "Satzwerk im App Store",
+  "h2_tut": "Erfassen und auswerten",
+  "tut": [
+   [
+    "Eintragen, ohne den Satz zu unterbrechen",
+    "Gewicht und Wiederholungen tippen, abhaken, weiter. Was du letztes Mal gemacht hast, steht grau schon im Feld. Am Sperrbildschirm steht die nächste Übung mit Gewicht und Wiederholungen."
+   ],
+   [
+    "Progression je Übung",
+    "Je Übung ein Urteil: stärker, gleich oder schwächer, ab der zweiten Trainingswoche. Dazu, ob deine Wiederholungen im Ziel liegen: im Ziel, am oberen Rand, zu leicht oder zu schwer."
+   ],
+   [
+    "Körper und Ziel",
+    "Das Gewicht als Wochenschnitt mit gemessenem Tempo ist frei. Mit Pro kommen dein Ziel je Phase, Kalorien am Tag, Körperfett aus Hautfalten und Umfänge dazu."
+   ]
+  ],
+  "h2_werk": "Satz für Satz.",
+  "werk_vorspann": "Ein Training aus den Beispieldaten der App: Gewicht und Wiederholungen je Satz, am letzten Satz der RIR. Darunter drei Bildschirme aus Satzwerk Pro mit denselben Daten.",
+  "werk_titel": [
+   "Progression",
+   "Sätze je Muskel",
+   "Körper"
+  ],
+  "werk_alt": [
+   "Satzwerk Pro, Seite Progression im Dunkelmodus: je Übung ein Urteil wie Gleich oder Stärker, darunter die Werte, die verglichen werden",
+   "Satzwerk Pro, Sätze je Muskel im Dunkelmodus: ein Balken je Muskelgruppe für die letzte Woche, mit dem Bereich von 10 bis 20 Sätzen",
+   "Körperbereich von Satzwerk im Dunkelmodus: Befundsätze, das Ziel der Phase mit Kalorien am Tag und das Gewicht mit kleinem Verlauf"
+  ],
+  "protokoll": {
+   "kopf": "BEINE · Kraftwerk Nord",
+   "dauer": "67 min",
+   "uebung": [
+    "Langhantel-Kniebeuge",
+    "Rumänisches Kreuzheben"
+   ],
+   "saetze": [
+    [
+     [
+      "A",
+      "77,5 kg × 10",
+      ""
+     ],
+     [
+      "1",
+      "142,5 kg × 8",
+      ""
+     ],
+     [
+      "2",
+      "137,5 kg × 8",
+      ""
+     ],
+     [
+      "3",
+      "137,5 kg × 8",
+      ""
+     ],
+     [
+      "4",
+      "135 kg × 8",
+      "Versagen"
+     ]
+    ],
+    [
+     [
+      "1",
+      "125 kg × 9",
+      ""
+     ],
+     [
+      "2",
+      "120 kg × 9",
+      ""
+     ],
+     [
+      "3",
+      "120 kg × 9",
+      ""
+     ],
+     [
+      "4",
+      "117,5 kg × 9",
+      "Versagen"
+     ]
+    ]
+   ]
+  }
+ },
+ "en": {
+  "skip": "Skip to content",
+  "lang": "DE",
+  "lang_aria": "Auf Deutsch wechseln",
+  "store": "On the App Store",
+  "h1": "Track. Don’t scroll.",
+  "lead": "Satzwerk records your training and evaluates it. For people who already have their plan.",
+  "hinweis": "For iPhone. No ads, no account needed, your data lives on your iPhone and, if you want, in your own iCloud.",
+  "p3": "Satzwerk shows you where you stand. It does not tell you what to do. No recommendations, no weight targets, no verdict on a lighter week. An onboarding does not know about your herniated disc, your blood pressure or your ankle. A personal plan comes from people who know you. The numbers come from here.",
+  "h2_drin": "What is in it",
+  "h3_frei": "Free",
+  "liste_frei": [
+   "Your own plans, unlimited, plus twelve templates",
+   "223 exercises, add your own",
+   "Last time's numbers already there, in grey",
+   "Live Activity on the lock screen",
+   "Archive and week grid",
+   "Log your weight, chart with measured pace",
+   "Backup to iCloud and as a file, restore and CSV export",
+   "Apple Health, writing and reading",
+   "German and English, metric and imperial",
+   "Light, dark or automatic"
+  ],
+  "liste_pro": [
+   "Progression per exercise: stronger, same or weaker, plus the rep target",
+   "Working sets per muscle group, week against last week",
+   "Intensity: RIR after the last set and the share of hard sets",
+   "Several gyms, values kept apart per gym",
+   "Goal per phase: target weight and target body fat",
+   "Calories per day, planned against measured pace",
+   "Log body fat from skinfolds or a scale",
+   "Log and analyse circumferences, with a curve of its own for the waist",
+   "Fat and lean mass kept apart",
+   "Trends since the start of the phase"
+  ],
+  "pro_alt": "Satzwerk Pro",
+  "pro_unter": "The analysis of your data.",
+  "pro_p1": "Logging workouts and weight needs no Pro. Satzwerk Pro does the analysis: whether your reps are on target, how many working sets each muscle group gets, whether you are stronger, the same or weaker at each exercise and where your body stands against your goal.",
+  "pro_karten": [
+   [
+    "30 days on us",
+    "They start with your first finished workout and end on their own. Nothing is taken out, and there is nothing to cancel."
+   ],
+   [
+    "Then yearly or monthly",
+    "A yearly or monthly subscription through Apple. You can cancel at any time in your Apple ID settings."
+   ],
+   [
+    "Your data is yours",
+    "Archive, backup and export are part of Free. When Pro ends, nothing is deleted."
+   ]
+  ],
+  "nicht": "No feed, no tonnage, no food log.",
+  "mehr": "Every analysis in detail",
+  "h2_faq": "Questions and answers",
+  "faq": [
+   [
+    "What is Satzwerk?",
+    "Satzwerk is a training log for the iPhone. You enter weight and reps per set. Satzwerk Pro turns that into whether your reps are on target, how many working sets each muscle group gets and how each exercise develops. With Pro you also enter the RIR on the last set of an exercise, which gives the intensity. There is also a body section with weight, a goal per phase, calories per day, body fat from skinfolds and circumferences."
+   ],
+   [
+    "Who is the app for?",
+    "Satzwerk is for people who already have a training plan and want to record and evaluate it. The app gives no recommendations. The plan library offers templates as a starting point, not as a recommendation. A personal plan comes from a coach."
+   ],
+   [
+    "What is in Free, what is in Pro?",
+    "Free: plans and the plan library, workouts with last time's numbers and the Live Activity, the exercise library, the archive, your weight with chart and measured pace, backup to iCloud and as a file, export and Apple Health. Satzwerk Pro is the analysis: progression per exercise, sets per muscle group, intensity and RIR, gyms, your goal per phase with calories, plus body fat and circumferences. Pro is a yearly or monthly subscription through Apple, and the App Store shows you the price."
+   ],
+   [
+    "How does the trial month work?",
+    "Satzwerk gives you 30 days of Pro. They start with your first finished workout and end on their own. Nothing is taken out, you pay nothing and have nothing to cancel. After that you decide whether to subscribe to Pro."
+   ],
+   [
+    "How do I cancel Satzwerk Pro?",
+    "Satzwerk Pro runs through your Apple ID. You can cancel at any time in the iPhone settings under your name > Subscriptions, and switch between yearly and monthly there too. The subscription renews for the same period unless you cancel at least 24 hours before it ends. When Pro ends, nothing is deleted: your workouts, the archive, backup and export stay. The analysis is locked again, and body fat and circumferences can no longer be logged."
+   ],
+   [
+    "I already use gymLog. What changes?",
+    "If you downloaded the app before version 2.0, as gymLog, Satzwerk Pro is on us until 31 October 2027. After that, Free applies, or you subscribe to Pro. Your data stays as it is either way."
+   ],
+   [
+    "Do I need an account?",
+    "No, Satzwerk needs no account. The app runs without sign-up, without an e-mail address and without a password. Satzwerk Pro needs none either: the subscription is tied to your Apple ID, and on a new iPhone you get it back with “Restore Purchases”."
+   ],
+   [
+    "Where is my data stored?",
+    "Your data lives on your iPhone, with Pro as well. Satzwerk asks once whether to also keep a backup file in your own iCloud. Without your yes there is no file, and you can switch it in your profile at any time. Satzwerk has no server of its own that workouts or body values are sent to. You can export a file at any time, and the history has no time limit."
+   ],
+   [
+    "Are there templates for training plans?",
+    "Yes. The plan library has twelve templates for the gym, for home with dumbbells and for home without equipment, each as an entry-level and an advanced version. They are a starting point, not a recommendation: you take over a copy and change it as you like. You create your own plans yourself or paste them in as text."
+   ],
+   [
+    "What is RIR and how is it recorded?",
+    "RIR stands for reps in reserve, the repetitions you could still have done at the end of a set. With Satzwerk Pro you enter the RIR on the last set of an exercise with one tap on a value from 0 to 3. From that, Satzwerk calculates the share of your sets that were close to the limit."
+   ],
+   [
+    "What counts as a set per muscle group?",
+    "Satzwerk counts every working set of the week per muscle group, Monday to Sunday, and shows last week next to it. Warm-up sets never count, and RIR plays no part here. A set only counts as hard for intensity: there, sets with RIR 0 to 2 count as hard."
+   ],
+   [
+    "Can I export my data?",
+    "Yes, with or without Pro. Satzwerk exports all workouts and body values as a file that you can back up or move to a new iPhone. Satzwerk reads the same file back in. Workouts and body values can also be exported as CSV."
+   ],
+   [
+    "Is there an Android or Apple Watch version?",
+    "No. Satzwerk is available for the iPhone only, not for Android and not for the Apple Watch. The Live Activity on the lock screen runs on the iPhone."
+   ],
+   [
+    "Why is the app called Satzwerk?",
+    "The name is made of the German words Satz and Werk. Satz means set, the smallest unit in strength training. Werk means craft, the work you do on your own body."
+   ]
+  ],
+  "claim": "Handwerk am eigenen Körper.",
+  "fuss2": "Satz for the training set, Werk for craft.",
+  "folgen": "Follow us",
+  "sprache_voll": "Deutsch",
+  "rechtliches": "Legal",
+  "fuss_auswertung": "What Satzwerk analyzes",
+  "marken": "Apple, App Store, Apple Watch and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries.",
+  "ig_label": "Satzwerk on Instagram",
+  "li_label": "Satzwerk on LinkedIn",
+  "impressum": "Legal notice",
+  "datenschutz": "Privacy",
+  "tag_frei": "Free",
+  "tag_pro": "Pro",
+  "h2_haltung": "Findings, not instructions.",
+  "nav_name": "Main navigation",
+  "nav_auswertung": "Analysis",
+  "nav_ueber": "About",
+  "fuss_produkt": "Product",
+  "fuss_pro": "Satzwerk Pro",
+  "fuss_faq": "Questions and answers",
+  "fuss_kontakt": "Contact",
+  "store_kurz": "App Store",
+  "store_aria": "Satzwerk on the App Store",
+  "h2_tut": "Log and analyze",
+  "tut": [
+   [
+    "Log without breaking the set",
+    "Type weight and reps, check it off, move on. What you did last time is already there, in grey. The lock screen shows the next exercise with weight and reps."
+   ],
+   [
+    "Progression per exercise",
+    "One verdict per exercise: stronger, same or weaker, from your second training week. Plus whether your reps are on target: on target, at the top, too light or too heavy."
+   ],
+   [
+    "Body and goal",
+    "Your weight as a weekly average with measured pace is part of Free. Pro adds your goal per phase, calories per day, body fat from skinfolds and circumferences."
+   ]
+  ],
+  "h2_werk": "Set by set.",
+  "werk_vorspann": "A workout from the app’s sample data: weight and reps per set, the RIR on the last set. Below it, three Satzwerk Pro screens with the same data.",
+  "werk_titel": [
+   "Progression",
+   "Sets per muscle",
+   "Body"
+  ],
+  "werk_alt": [
+   "Satzwerk Pro, Progression page in dark mode: one verdict per exercise such as Same or Stronger, with the values being compared below it",
+   "Satzwerk Pro, sets per muscle in dark mode: one bar per muscle group for last week, with the range of 10 to 20 sets",
+   "Satzwerk body section in dark mode: findings, the phase goal with calories per day and the weight with a small chart"
+  ],
+  "protokoll": {
+   "kopf": "LOWER A · Harbor Strength",
+   "dauer": "68 min",
+   "uebung": [
+    "Barbell Back Squat",
+    "Romanian Deadlift"
+   ],
+   "saetze": [
+    [
+     [
+      "W",
+      "85 lb × 10",
+      ""
+     ],
+     [
+      "1",
+      "150 lb × 7",
+      ""
+     ],
+     [
+      "2",
+      "145 lb × 7",
+      ""
+     ],
+     [
+      "3",
+      "145 lb × 7",
+      ""
+     ],
+     [
+      "4",
+      "140 lb × 7",
+      "Failure"
+     ]
+    ],
+    [
+     [
+      "1",
+      "145 lb × 10",
+      ""
+     ],
+     [
+      "2",
+      "140 lb × 10",
+      ""
+     ],
+     [
+      "3",
+      "140 lb × 10",
+      ""
+     ],
+     [
+      "4",
+      "135 lb × 10",
+      "2 left"
+     ]
+    ]
+   ]
+  }
+ }
+};
+</script>
+<script src="seite.js"></script>
+</body>
+</html>

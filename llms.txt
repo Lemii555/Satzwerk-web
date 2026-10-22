@@ -1,8 +1,8 @@
 # Satzwerk
 
-> Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone (ab iOS 16, Version 2.0). Es erfasst Krafttraining Satz für Satz und wertet es aus: Wiederholungsziel je Übung, Arbeitssätze je Muskelgruppe und Woche, Intensität aus RIR, Gewicht, Körperfett und Umfänge. Die App zeigt Befunde und gibt keine Empfehlungen. Kein Konto nötig, alle Daten bleiben auf dem iPhone. Erfassen ist frei, die Auswertung ist Satzwerk Pro (Monats- oder Jahresabo über Apple, 30 Tage Pro nach der Installation geschenkt).
+> Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone (ab iOS 16, Version 2.3). Es erfasst Krafttraining Satz für Satz und wertet es aus: Wiederholungsziel je Übung, ein Urteil je Übung (stärker, gleich, schwächer), Arbeitssätze je Muskelgruppe und Woche, Intensität aus RIR, Gewicht, Körperfett und Umfänge. Die App zeigt Befunde und gibt keine Empfehlungen. Kein Konto nötig, die Daten liegen auf dem iPhone und, wenn der Nutzer zustimmt, in der eigenen iCloud. Erfassen ist frei, die Auswertung ist Satzwerk Pro (Monats- oder Jahresabo über Apple, 30 Tage Pro geschenkt ab dem ersten abgeschlossenen Training).
 
-Satzwerk is an iPhone training log with analysis (iOS 16 or later, version 2.0). It records strength training set by set and analyzes it: rep target per exercise, working sets per muscle group per week, intensity from RIR, body weight, body fat and circumferences. The app shows findings and gives no recommendations. No account needed, all data stays on the iPhone. Logging is free, the analysis is Satzwerk Pro (monthly or yearly subscription through Apple, 30 days of Pro as a gift after installing).
+Satzwerk is an iPhone training log with analysis (iOS 16 or later, version 2.3). It records strength training set by set and analyzes it: rep target per exercise, one verdict per exercise (stronger, same, weaker), working sets per muscle group per week, intensity from RIR, body weight, body fat and circumferences. The app shows findings and gives no recommendations. No account needed, the data lives on the iPhone and, if the user agrees, in their own iCloud. Logging needs no Pro, the analysis is Satzwerk Pro (monthly or yearly subscription through Apple, 30 days of Pro on us, starting with the first finished workout).
 
 ## Seiten
 
@@ -10,13 +10,18 @@ Satzwerk is an iPhone training log with analysis (iOS 16 or later, version 2.0).
 - [Was Satzwerk auswertet](https://satzwerk.app/auswertung/): jede Auswertung im Detail, mit Rechenregeln und Quellen (Deutsch und Englisch)
 - [Über Satzwerk](https://satzwerk.app/ueber/): wie die App entstanden ist, warum aus gymLog Satzwerk wurde (im App Store bis Version 1.4.3 gymLog), wie sie gebaut ist (Deutsch und Englisch)
 - [App Store](https://apps.apple.com/app/id6786720640)
-- [Datenschutz](https://satzwerk.app/datenschutz/)
+- [Datenschutz](https://satzwerk.app/datenschutz/): was die App speichert, Apple Health, iCloud-Sicherung (Deutsch und Englisch)
 
 ## Fakten
 
 - Nur iPhone. Keine App für Android, iPad oder Apple Watch.
 - Sprachen: Deutsch und Englisch. Metrisch oder imperial.
-- Keine fertigen Trainingspläne, kein Feed, kein Kalorienzählen, keine Tonnage, keine geschätzte Maximalkraft.
+- Planbibliothek: zwölf Vorlagen für Studio, zu Hause mit Hanteln und zu Hause ohne Geräte, jeweils Einstieg und Fortgeschritten. Ein Startpunkt zum Kopieren, keine Empfehlung. Eigene Pläne legt man selbst an oder fügt sie als Text ein.
+- Bibliothek mit 223 Übungen, eigene lassen sich anlegen.
+- Progression: je Übung ein Urteil, stärker, gleich oder schwächer, ab der zweiten Trainingswoche; ab vier Trainingswochen die letzten zwei gegen die zwei davor. Gerechnet mit der Kraft (geschätzt) nach Epley, um den gemessenen RIR ergänzt; über 12 Wiederholungen samt RIR und bei reinem Körpergewicht Satz gegen Satz. Dazu der Befund zum Wiederholungsziel: im Ziel, am oberen Rand, zu leicht, zu schwer.
+- Apple Health: schreibt Trainings, Gewicht und Körperfett und liest Gewicht und gegessene Kalorien, je Datenart mit eigenem Schalter, ab Werk aus. Gelesene Kalorien werden nicht gespeichert.
+- iCloud-Sicherung: eine Sicherungsdatei in der eigenen iCloud des Nutzers, die letzten sieben Tage, nur mit Zustimmung. Satzwerk fragt einmal, ohne Ja entsteht keine Datei; im Profil umschaltbar. Kein Server von Satzwerk, keine Synchronisation zwischen Geräten. Aus Apple Health gelesene Werte stehen nicht darin.
+- Kein Feed, keine Tonnage, kein Essensprotokoll, keine Werbung.
 - Aufwärmsätze zählen in keiner Auswertung.
 - Die Woche ist überall Montag bis Sonntag.
 - Satzwerk liest keine Exporte aus anderen Apps wie Hevy oder Strong.

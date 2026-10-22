@@ -1,0 +1,55 @@
+/* website-684/tokens.css — die Werte der App fuer die Website (Ticket 684, 21.10.2026)
+
+   JEDER WERT HIER STEHT IN src/stil.js, und zwar unter dem Namen in der Klammer.
+   Keine Farbe, die die App nicht hat (Ticket 684). tools/website_regelcheck.py
+   haelt das: jede Farbe in einer CSS-Datei oder einem style-Block dieser Website
+   muss woertlich in src/stil.js stehen.
+
+   Hell ist die Seite, dunkel sind die Karten mit dem Produkt (Ticket 684,
+   Entscheidung 1 vom 21.10.2026). Die dunklen Werte sind deshalb keine Dunkelmodus-Werte der
+   Website, sondern die Farben der Karten auf der hellen Seite. */
+:root{
+  /* ── Hell: Apples Grautoene, wie die App seit Ticket 701 ──────────────── */
+  --weiss:#FFFFFF;            /* --surface hell (Karte) */
+  --grund:#F2F2F7;            /* --bg hell, systemGray6 (Ticket 701) */
+  --linie:#D1D1D6;            /* --line hell, systemGray4 (Ticket 701) */
+  --linie-leise:#E5E5EA;      /* --line-soft hell, systemGray5 (Ticket 701) */
+  --tinte:#000000;            /* --ink hell */
+  --tinte-leise:#48484A;      /* --ink-soft hell, secondaryLabel increased (Ticket 273/274) */
+  --tinte-leiser:#5C5C5E;     /* --ink-faint hell, tertiaryLabel increased (Ticket 273/274) */
+  --marke:#8116E0;            /* --akzent hell, die Marke */
+  --leiste-glas:rgba(255,255,255,.72);   /* --nav-glass hell */
+
+  /* ── Dunkel: die Karten, Ebene 3 der Tonleiter ─────────────────────────── */
+  --dunkel-grund:#000000;     /* --bg dunkel, systemGroupedBackground (Ticket 110) */
+  --dunkel-flaeche-2:#2C2C2E; /* --surface-2 dunkel, systemGray5 dunkel (Ticket 110) */
+  --dunkel-linie:#3A3A3C;     /* --line dunkel, systemGray4 dunkel (Ticket 110) */
+  --dunkel-tinte:#FFFFFF;     /* --ink dunkel */
+  --dunkel-tinte-leise:#C7C7CC;   /* --ink-soft dunkel (Ticket 273/274) */
+  --dunkel-tinte-leiser:#AEAEB2;  /* --ink-faint dunkel (Ticket 273/274) */
+  --dunkel-marke:#B07CFF;     /* --akzent dunkel: Raender, Punkte, Schrift auf dunklem Grund */
+
+  /* ── Pro: die Pro-Karte im Dunkeln nach 679c ──────────────────────────────
+     PROMPT_ANLEITUNG „Bewegung und Pro-Grafik“: Pro sieht ueberall aus wie die
+     Pro-Karte nach 679c (Scheibe deckend, Ring, Schein). Die Werte sind die des
+     Dunkelblocks, weil die Pro-Karte hier dunkel ist (Entscheidung 1). */
+  --pro-toenung:#31293E;      /* --tint-pro dunkel (628 C) */
+  --pro-toenung-ende:#483962; /* --tint-pro-ende dunkel */
+  --pro-form:#8F35F0;         /* --pro-form dunkel (679c), Scheibe */
+  --pro-ring:#C9A8FF;         /* --pro-ring dunkel (679c) */
+  --pro-schein:rgba(176,124,255,.45);   /* --pro-schein dunkel (679c) */
+
+  /* ── Form: drei Formtypen (CLAUDE.md Regel 6, WWDC25-356) ─────────────── */
+  --r-karte:26px;             /* --r-karte (Ticket 253 A) */
+  --rand:clamp(16px, 4.5vw, 24px);   /* .tl-wrap, seitlicher Rand der App */
+  --glas:blur(9px) saturate(1.4);    /* backdrop-filter von .tl-topbar::before, der Kopfleiste der App */
+
+  /* ── Bewegung: UI_SYSTEM 7.1, eine Kurve, zwei Dauern (Ticket 298) ──────── */
+  --kurve-bewegung:cubic-bezier(.33, 1, .68, 1);   /* die EINE Kurve (Ticket 298, 18.10.2026) */
+  --dauer-auftritt:1.5s;      /* das erste Erscheinen */
+  --dauer-bewegung:.5s;       /* Bedienung: Aufklappen, Wechsel */
+  --auftritt-blur:6px;        /* der Schrift-Auftritt (tlTitelAuftritt, 687/688) */
+  --auftritt-zelle:.5s;       /* eine Rasterzelle tritt auf (298): je Zeile des Protokolls */
+
+  color-scheme:light;
+}

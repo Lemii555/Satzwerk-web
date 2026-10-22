@@ -1,0 +1,305 @@
+/* website-684/seite.css — der Rahmen aller Seiten (Ticket 684, 21.10.2026)
+
+   Vorbild: doku/gestaltung/VORBILD_WEBSITE_LOGBOT.md. Ruhig durch Weglassen:
+   die Klammer als Ton (oben hell, unten dunkel, ohne Foto), eine Akzentfarbe,
+   Bewegung nur beim ersten Erscheinen, Rhythmus ueber die Flaeche.
+
+   TONLEITER (Ticket 684, Entscheidung 1 vom 21.10.2026)
+     Ebene 1  weisse Karte         --weiss    Frei
+     Ebene 2  graue Flaeche        --grund    jeder zweite Abschnitt
+     Ebene 3  dunkle Karte         --dunkel-grund, das Produkt und Pro
+
+   SCHRIFT (Entscheidung 2): Fraunces nur fuer die eine Kopfzeile (.kopfzeile,
+   Startseite). Die Wortmarke ist ein Bild. Alles andere ist Systemschrift wie
+   in der App; Zahlen stehen in tabular-nums.
+
+   FORM: drei Formtypen (CLAUDE.md Regel 6). Fest --r-karte, Kapsel fuer
+   Knoepfe, konzentrisch fuer alles, was in einer Karte liegt.
+
+   BEWEGUNG: ein Muster (der Schrift-Auftritt der App, tlTitelAuftritt), einmal,
+   mit der Kurve der App. Das Protokoll baut sich einmal Zeile fuer Zeile auf.
+   Keine Schleife, kein Laufband, keine Kapselreihe, keine schraegen Handys.
+   Bei reduzierter Bewegung steht alles im Endzustand: der versteckte
+   Anfangszustand gilt nur unter prefers-reduced-motion: no-preference, und der
+   Ruhe-Block am Ende schaltet jede Bewegung ab. */
+
+@font-face{
+  font-family:"Fraunces";
+  src:url("fonts/fraunces.woff2") format("woff2");   /* relativ zu dieser Datei: online und per Doppelklick */
+  font-weight:100 900; font-display:swap; font-style:normal;
+}
+
+/* ── Grundlage ───────────────────────────────────────────────────────────── */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0 }
+html{ -webkit-text-size-adjust:100%; scroll-padding-top:72px }
+body{
+  background:var(--weiss); color:var(--tinte);
+  font-family:-apple-system, system-ui, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  font-size:17px; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+@media (min-width:900px){ body{ font-size:19px } }
+img{ display:block; max-width:100% }
+a{ color:var(--marke); text-underline-offset:3px }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer }
+:focus-visible{ outline:3px solid var(--marke); outline-offset:3px; border-radius:6px }
+p{ max-width:62ch }
+.klein{ font-size:15px; line-height:1.45; color:var(--tinte-leise) }
+
+.rahmen{ width:100%; max-width:1120px; margin:0 auto; padding:0 var(--rand) }
+.abschnitt{ padding:72px 0 }
+@media (min-width:900px){ .abschnitt{ padding:120px 0 } }
+.auf-grund{ background:var(--grund) }
+
+h2{ font-size:clamp(28px, 5vw, 44px); line-height:1.1; font-weight:600; letter-spacing:-.02em }
+h3{ font-size:19px; line-height:1.3; font-weight:600 }
+@media (min-width:900px){ h3{ font-size:21px } }
+.vorspann{ margin-top:16px; color:var(--tinte-leise) }
+
+.sprung{ position:absolute; left:-999px; top:8px; z-index:20; padding:8px 16px;
+  border-radius:999px; background:var(--weiss); color:var(--tinte) }
+.sprung:focus{ left:8px }
+
+/* Frei und Pro als Wort, wie in der App: Pro in der Marke. Kein Kasten. */
+.tag{ font-size:13px; line-height:18px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--tinte-leiser) }
+.tag-pro{ color:var(--marke) }
+.tags{ display:flex; gap:12px }
+
+/* ── App-Store-Knopf: eine Kapsel, kein nachgebautes Abzeichen ──────────────
+   Apple: „Use only the badge artwork provided“. „App Store“ bleibt englisch. */
+.store{ display:inline-flex; align-items:center; gap:8px; height:48px; padding:0 20px 0 24px;
+  border-radius:24px; background:var(--tinte); color:var(--weiss); font-size:17px; font-weight:600;
+  white-space:nowrap; text-decoration:none;
+  transition:opacity var(--dauer-bewegung) var(--kurve-bewegung) }
+.store svg{ width:18px; height:18px; flex:none; stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+@media (hover:hover){ .store:hover{ opacity:.8 } }
+.store-hell{ background:var(--weiss); color:var(--tinte) }
+
+/* ── Kopf: Wortmarke links, rechts Sprache und App Store ────────────────────
+   Glas nur hier, in der Navigationsebene (CLAUDE.md Regel 6, Punkt 3). Am
+   Handy nur Wortmarke, Sprache und App Store (Vorbild 4, Handy zuerst); die
+   Seiten stehen im Fuss. */
+.kopf{ position:sticky; top:0; z-index:10; background:var(--leiste-glas);
+  -webkit-backdrop-filter:var(--glas); backdrop-filter:var(--glas) }
+.leiste{ display:flex; align-items:center; gap:8px; height:56px; max-width:1120px; margin:0 auto; padding:0 var(--rand) }
+.segment{ display:inline-flex; align-items:center; height:44px; padding:0 8px;
+  font-size:15px; font-weight:500; color:var(--tinte-leise); text-decoration:none; white-space:nowrap;
+  transition:color var(--dauer-bewegung) var(--kurve-bewegung) }
+.segment[aria-current="page"]{ color:var(--tinte); font-weight:600 }
+@media (hover:hover){ .segment:hover{ color:var(--tinte) } }
+.segment-marke{ padding:0; margin-right:auto }
+.segment-marke img{ height:22px; width:auto }
+.sprachknopf{ min-width:44px; justify-content:center }
+.leiste .store{ height:36px; padding:0 12px 0 16px; font-size:15px; border-radius:18px; margin-left:4px }
+.leiste .store svg{ width:16px; height:16px }
+@media (max-width:899px){ .nur-breit{ display:none !important } }
+@media (min-width:900px){ .leiste{ gap:16px } }
+
+/* ── Kopf der Startseite: Text und die Bildmarke auf dem hellen Grund ───────
+   Ohne Foto (684b, 21.10.2026): die Klammer bleibt als Ton, oben hell
+   (--grund), unten dunkel (der Fuss). Die einzige Grafik ist die Bildmarke der
+   App, gross; das Produkt zeigen die dunklen Karten weiter unten. Am Handy
+   steht der Text oben und die Marke darunter (Vorbild 4), ab 900 px die Marke
+   rechts neben dem Text. Unten derselbe Abstand wie .abschnitt. */
+.held{ background:var(--grund); padding:40px 0 72px }
+@media (min-width:900px){ .held{ padding:96px 0 120px } }
+.held-innen{ display:flex; flex-direction:column; align-items:flex-start; gap:48px }
+@media (min-width:900px){ .held-innen{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:64px } }
+.held-marke{ width:clamp(160px, 48vw, 240px); height:auto }
+@media (min-width:900px){ .held-marke{ width:min(30vw, 360px) } }
+.held-text{ display:flex; flex-direction:column; align-items:flex-start; gap:20px }
+@media (min-width:900px){ .held-text{ gap:24px } }
+.kopfzeile{ font-family:"Fraunces", "Iowan Old Style", Georgia, serif; font-weight:600;
+  font-size:clamp(40px, 9vw, 76px); line-height:1.04; letter-spacing:-.02em; max-width:14ch }
+.held .lead{ font-size:19px; line-height:1.4; color:var(--tinte-leise); max-width:34ch }
+@media (min-width:900px){ .held .lead{ font-size:23px } }
+.held .klein{ max-width:46ch }
+
+/* ── Was es tut: drei Punkte ───────────────────────────────────────────────── */
+.drei{ display:grid; gap:40px; margin-top:48px }
+@media (min-width:900px){ .drei{ grid-template-columns:repeat(3, 1fr); gap:40px; margin-top:64px } }
+.punkt{ display:flex; flex-direction:column; gap:12px; padding-top:20px; border-top:1px solid var(--linie) }
+.punkt p{ color:var(--tinte-leise) }
+
+/* ── Das Produkt: dunkle Karten ────────────────────────────────────────────
+   Der Grund der Karte ist der Grund der App im Dunkeln (--bg dunkel, #000):
+   die Bildschirme liegen nahtlos darin, ohne Rahmen im Rahmen. */
+.karte-dunkel{ background:var(--dunkel-grund); color:var(--dunkel-tinte); border-radius:var(--r-karte); overflow:hidden }
+.werk-kopf{ display:grid; gap:32px }
+@media (min-width:1024px){ .werk-kopf{ grid-template-columns:1fr 1.15fr; gap:48px; align-items:start } }
+.werk{ display:grid; gap:16px; margin-top:16px }
+@media (min-width:640px){ .werk{ grid-template-columns:repeat(2, 1fr) } }
+@media (min-width:1024px){ .werk{ grid-template-columns:repeat(3, 1fr); gap:24px; margin-top:64px } }
+
+/* Das Satz-Protokoll. Ein Training aus den Demodaten der App, Zeile fuer Zeile.
+   Zahlen in tabular-nums, damit die Spalten stehen. */
+.protokoll{ padding:24px 24px 28px }
+@media (min-width:1024px){ .protokoll{ padding:40px 48px 44px } }
+.protokoll ol{ list-style:none; display:grid }
+.zeile{ display:grid; grid-template-columns:32px 1fr auto; align-items:baseline; column-gap:8px;
+  font-variant-numeric:tabular-nums; font-size:17px; line-height:24px; padding:6px 0 }
+.zeile.zeile-kopf{ display:flex; justify-content:space-between; gap:16px; font-size:13px; line-height:18px; font-weight:600;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--dunkel-tinte-leiser); padding:0 0 12px }
+.zeile.zeile-uebung{ display:block; font-weight:600; padding-top:16px; border-top:1px solid var(--dunkel-linie); margin-top:8px }
+.zeile.zeile-kopf + .zeile.zeile-uebung{ border-top:0; margin-top:0; padding-top:4px }
+.zeile .nr{ color:var(--dunkel-tinte-leiser) }
+.zeile .rir{ color:var(--dunkel-marke); font-size:15px }
+.zeile-warm .wert{ color:var(--dunkel-tinte-leiser) }
+@media (min-width:1024px){ .zeile{ font-size:19px; line-height:26px } }
+
+/* Echte Bildschirme der App, dunkel, 393 pt, mit Demodaten
+   (tools/audit-vermessung.cjs --bild). Oben unter den Kopfknoepfen
+   geschnitten, unten laeuft das Bild in den Grund aus. */
+.bildschirm{ display:flex; flex-direction:column }
+.bildschirm img{ width:100%; height:auto;
+  -webkit-mask-image:linear-gradient(to bottom, var(--dunkel-grund) 78%, transparent 100%);
+  mask-image:linear-gradient(to bottom, var(--dunkel-grund) 78%, transparent 100%) }
+.bildschirm figcaption{ display:flex; align-items:baseline; gap:12px; padding:4px 24px 24px; font-size:17px; font-weight:600 }
+.bildschirm .tag-pro{ color:var(--dunkel-marke) }
+
+/* ── Atempause: ein Satz ─────────────────────────────────────────────────── */
+.atem{ text-align:center }
+.atem .rahmen{ display:flex; flex-direction:column; align-items:center; gap:24px }
+.atem-satz{ font-size:clamp(34px, 7vw, 64px); line-height:1.08; font-weight:600; letter-spacing:-.02em; max-width:16ch }
+.atem p{ color:var(--tinte-leise); max-width:52ch }
+
+/* ── Frei und Pro: helle Karte gegen dunkle Karte ─────────────────────────── */
+.tarife{ display:grid; gap:16px; margin-top:48px; align-items:start }
+@media (min-width:900px){ .tarife{ grid-template-columns:1fr 1fr; gap:24px; margin-top:64px } }
+.karte-hell{ background:var(--weiss); border-radius:var(--r-karte); padding:28px 24px }
+@media (min-width:900px){ .karte-hell, .karte-pro{ padding:40px } }
+.liste{ list-style:none; margin-top:16px }
+.liste li{ padding:12px 0; border-top:1px solid var(--linie-leise) }
+.liste li:first-child{ border-top:0 }
+
+/* Pro sieht aus wie die Pro-Karte der App nach 679c, im Dunkeln: Verlauf
+   --tint-pro bis --tint-pro-ende, Schein von unten, Scheibe deckend oben
+   rechts, Ring unten (stil.js, .tl-bcard.tl-prokarte.getoent). */
+.karte-pro{ position:relative; overflow:hidden; border-radius:var(--r-karte); padding:28px 24px; color:var(--dunkel-tinte);
+  background:radial-gradient(ellipse at 50% 100%, var(--pro-schein) 0%, transparent 70%),
+             linear-gradient(135deg, var(--pro-toenung) 0%, var(--pro-toenung-ende) 100%) }
+.karte-pro::before{ content:""; position:absolute; z-index:0; pointer-events:none;
+  width:160px; height:160px; right:-40px; top:-56px; border-radius:50%; background:var(--pro-form) }
+.karte-pro::after{ content:""; position:absolute; z-index:0; pointer-events:none;
+  width:96px; height:96px; right:40px; bottom:-40px; border-radius:50%; box-shadow:inset 0 0 0 2px var(--pro-ring) }
+.karte-pro > *{ position:relative; z-index:1 }
+/* Die Wortmarke endet vor der Scheibe: 24 px hoch sind 194 px breit, die Scheibe beginnt auf 375
+   bei 223 (Karte 343 minus 120). Ab 640 ist die Karte breit genug fuer 30 px. */
+.karte-pro .pro-marke img{ height:24px; width:auto }
+@media (min-width:640px){ .karte-pro .pro-marke img{ height:30px } }
+.karte-pro .pro-unter{ margin-top:8px; color:var(--dunkel-tinte-leise); padding-right:96px }
+.karte-pro .liste li{ border-top-color:var(--pro-toenung-ende); color:var(--dunkel-tinte-leise) }
+.karte-pro .liste li:first-child{ border-top:0 }
+.pro-fakten{ display:grid; gap:16px; margin:24px 0 28px }
+.pro-fakten strong{ display:block; font-weight:600; color:var(--dunkel-tinte) }
+.pro-fakten span{ color:var(--dunkel-tinte-leise); font-size:15px; line-height:1.45 }
+.tarif-titel{ font-size:13px; line-height:18px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--tinte-leiser) }
+.nach-tarifen{ margin-top:32px; display:flex; flex-direction:column; gap:8px }
+
+/* ── Fragen: Zeilen mit Linie, kein Kasten ─────────────────────────────────── */
+.faq-liste{ display:grid; margin-top:40px; border-top:1px solid var(--linie) }
+@media (min-width:900px){ .faq-liste{ grid-template-columns:1fr 1fr; column-gap:48px; align-items:start; margin-top:56px; border-top:0 }
+  .faq-spalte{ border-top:1px solid var(--linie) } }
+.faq{ border-bottom:1px solid var(--linie) }
+.faq summary{ list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:16px;
+  padding:18px 0; font-weight:600 }
+.faq summary::-webkit-details-marker{ display:none }
+.faq summary svg{ flex:none; width:20px; height:20px; stroke:var(--tinte-leiser); fill:none; stroke-width:2;
+  stroke-linecap:round; stroke-linejoin:round; transition:transform var(--dauer-bewegung) var(--kurve-bewegung) }
+.faq[open] summary svg{ transform:scaleY(-1) }
+.faq p{ padding:0 0 20px; color:var(--tinte-leise) }
+
+/* ── Fuss: der dunkle Abschnitt, darin Claim, Seiten und die Wortmarke ────────
+   Ohne Foto (684b, 21.10.2026): die Flaeche der dunklen Karten, oben derselbe
+   Abstand wie .abschnitt. Die grosse Wortmarke ist die aus dem Profil der App. */
+.fuss{ background:var(--dunkel-grund); color:var(--dunkel-tinte) }
+.fuss-oben{ display:grid; gap:40px; grid-template-columns:1fr 1fr; padding-top:72px }
+@media (min-width:900px){ .fuss-oben{ padding-top:120px } }
+.fuss-marke{ grid-column:1 / -1; display:flex; flex-direction:column; align-items:flex-start; gap:8px }
+@media (min-width:768px){ .fuss-oben{ grid-template-columns:2fr 1fr 1fr; gap:32px } .fuss-marke{ grid-column:auto } }
+.claim{ font-size:clamp(24px, 4vw, 32px); line-height:1.15; font-weight:600; letter-spacing:-.02em }
+.fuss .klein{ color:var(--dunkel-tinte-leiser) }
+.fuss-kopf{ font-size:13px; line-height:18px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--dunkel-tinte-leiser) }
+.fuss-spalte{ display:flex; flex-direction:column; align-items:flex-start; gap:4px }
+.fuss-spalte .fuss-kopf{ margin-bottom:8px }
+.fuss-link{ display:inline-flex; align-items:center; min-height:32px; font-size:15px; color:var(--dunkel-tinte-leise); text-decoration:none;
+  transition:color var(--dauer-bewegung) var(--kurve-bewegung) }
+.sprachknopf.fuss-link{ padding:0 }
+@media (hover:hover){ .fuss-link:hover{ color:var(--dunkel-tinte) } }
+.fuss-folgen{ margin-top:16px }
+.kreise{ display:flex; gap:8px; margin-top:4px }
+.kreis{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:var(--dunkel-flaeche-2) }
+.kreis img{ width:20px; height:20px; object-fit:contain }
+/* Die Wortmarke: 1841 x 312, sichtbar sind die oberen 74 %. Rein dekorativ. */
+.fuss-riese{ margin-top:56px; aspect-ratio:1841 / 230; overflow:hidden }
+.fuss-riese img{ width:100%; height:auto }
+.fuss-unten{ display:flex; flex-direction:column; gap:8px; padding:20px 0 40px; border-top:1px solid var(--dunkel-linie) }
+.fuss-recht{ display:flex; flex-wrap:wrap; gap:4px 24px }
+.fuss-recht a{ font-size:15px; color:var(--dunkel-tinte-leise); text-decoration:none; min-height:32px; display:inline-flex; align-items:center }
+.fuss-recht a[aria-current="page"]{ color:var(--dunkel-tinte); font-weight:600 }
+.fuss-unten p{ max-width:none }
+
+/* ── Rechtstext und Unterseiten ─────────────────────────────────────────────
+   Die Leiter der bisherigen Seiten, nur in Systemschrift (Entscheidung 2). */
+main.recht{ max-width:1120px; margin:0 auto; padding:40px var(--rand) 96px }
+main.recht h1{ font-size:clamp(32px, 6vw, 48px); font-weight:700; line-height:1.1; letter-spacing:-.02em; margin:0 0 8px }
+main.recht .stand{ color:var(--tinte-leise); font-size:15px; margin:0 0 40px }
+main.recht h2{ font-size:21px; font-weight:600; line-height:1.3; margin:44px 0 12px; letter-spacing:-.01em }
+main.recht h3{ font-size:17px; font-weight:600; margin:28px 0 8px }
+main.recht p{ margin:0 0 14px; max-width:62ch }
+main.recht ul{ margin:0 0 14px; padding-left:20px; max-width:62ch }
+main.recht li{ margin:0 0 6px }
+main.recht address{ font-style:normal; margin:0 0 14px }
+main.recht a:not(.store){ text-decoration:none }
+@media (hover:hover){ main.recht a:not(.store):hover{ text-decoration:underline } }
+main.recht .klein{ font-size:15px; color:var(--tinte-leise) }
+main.recht .karte{ background:var(--grund); border-radius:var(--r-karte); padding:24px; margin:0 0 8px }
+main.recht .karte p:last-child, main.recht .karte ul:last-child{ margin-bottom:0 }
+main.recht .kurz{ border-left:3px solid var(--marke); padding:4px 0 4px 20px; margin:0 0 40px }
+main.recht .kurz p{ font-size:19px; margin-bottom:8px }
+main.recht .kurz p:last-child{ margin-bottom:0 }
+main.recht hr{ border:0; border-top:1px solid var(--linie); margin:56px 0 }
+main.recht .tag{ display:inline-block; vertical-align:middle; margin-left:8px; font-size:13px }
+main.recht h3.ist-pro{ color:var(--marke) }
+main.recht .blick{ display:grid; grid-template-columns:1fr; gap:4px 24px; margin:0 }
+main.recht .blick dt{ font-weight:600 }
+main.recht .blick dd{ margin:0 0 12px; max-width:62ch }
+@media (min-width:768px){ main.recht .blick{ grid-template-columns:140px 1fr } main.recht .blick dd{ margin:0 0 8px } }
+main.recht .zwei{ display:grid; gap:8px; grid-template-columns:1fr; margin:0 0 16px }
+@media (min-width:768px){ main.recht .zwei{ grid-template-columns:1fr 1fr } }
+main.recht .zwei h3{ margin-top:0 }
+main.recht .quellen{ font-size:16px }
+main.recht .store{ margin:24px 0 8px }
+/* Sprachumschaltung im Rechtstext: DE- und EN-Block stehen beide im Dokument,
+   data-lang am html waehlt. Kopf und Fuss uebersetzt das Skript. */
+main [lang="en"]{ display:none }
+html[data-lang="en"] main [lang="de"]{ display:none }
+html[data-lang="en"] main > [lang="en"]{ display:block }
+html[data-lang="en"] main [lang="en"].klein{ display:inline }
+
+/* ── 404 ───────────────────────────────────────────────────────────────────── */
+/* nur oben und unten: links und rechts gibt .rahmen den Rand */
+.rahmen.nichtda{ min-height:60svh; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:16px;
+  padding-top:72px; padding-bottom:72px }
+.nichtda h1{ font-size:clamp(28px, 5vw, 44px); line-height:1.1; font-weight:600; letter-spacing:-.02em }
+
+/* ── Bewegung: ein Muster, einmal ──────────────────────────────────────────
+   tlTitelAuftritt der App (stil.js, 687/688): aus der Unschaerfe, ohne Weg.
+   .auftritt tritt beim Reinscrollen auf (seite.js setzt .da), das Protokoll
+   Zeile fuer Zeile. Jeder Versatz ist auf --dauer-auftritt begrenzt
+   (UI_SYSTEM 7.1, 685): die letzte Zeile beginnt nach 1,5 s. Ohne Skript und
+   bei reduzierter Bewegung gibt es keinen versteckten Anfangszustand. */
+@keyframes tritt{ from{ opacity:0; filter:blur(var(--auftritt-blur)) } to{ opacity:1; filter:blur(0) } }
+@media (prefers-reduced-motion: no-preference){
+  .js .auftritt{ animation:tritt var(--dauer-auftritt) var(--kurve-bewegung) both; animation-play-state:paused }
+  .js .auftritt.da{ animation-play-state:running }
+  .js .protokoll .zeile{ animation:tritt var(--auftritt-zelle) var(--kurve-bewegung) both; animation-play-state:paused;
+    animation-delay:calc(var(--i) * var(--dauer-auftritt) / (var(--n) - 1)) }
+  .js .protokoll.da .zeile{ animation-play-state:running }
+}
+
+/* ── RUHE-BLOCK: reduzierte Bewegung heisst Endzustand, sofort ─────────────── */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation:none !important; transition:none !important }
+  .auftritt, .protokoll .zeile{ opacity:1 !important; filter:none !important }
+}

@@ -24,7 +24,7 @@
  "inLanguage": ["de", "en"],
  "url": "https://satzwerk.app/auswertung/",
  "datePublished": "2026-09-28",
- "dateModified": "2026-09-28",
+ "dateModified": "2026-10-21",
  "author": { "@type": "Organization", "name": "Satzwerk", "url": "https://satzwerk.app/" },
  "about": {
   "@type": "MobileApplication",
@@ -451,14 +451,15 @@ main.recht .store{ margin:24px 0 8px }
 <div lang="de">
 
   <h1>Was Satzwerk auswertet</h1>
-  <p class="stand">Stand: Version 2.0, 28. September 2026</p>
+  <p class="stand">Stand: Version 2.3, 21. Oktober 2026</p>
 
   <div class="kurz">
     <p>Satzwerk ist ein Trainingstagebuch für das iPhone. Es erfasst Krafttraining
       Satz für Satz und wertet es aus: je Übung, je Muskelgruppe und je Woche. Dazu
       kommt ein Körperbereich mit Gewicht, Körperfett und Umfängen.</p>
-    <p>Die App zeigt Befunde. Sie gibt keine Anweisungen, keine Gewichtsempfehlung
-      und keinen fertigen Plan.</p>
+    <p>Die App zeigt Befunde. Sie gibt keine Anweisungen und keine
+      Gewichtsempfehlung. Die Planbibliothek bietet Vorlagen als Startpunkt, keine
+      Empfehlung.</p>
   </div>
 
   <h2>Auf einen Blick</h2>
@@ -467,8 +468,8 @@ main.recht .store{ margin:24px 0 8px }
       <dt>Gerät</dt><dd>iPhone ab iOS 16. Keine App für Android, iPad oder Apple Watch.</dd>
       <dt>Sprachen</dt><dd>Deutsch und Englisch. Metrisch oder imperial, unabhängig von der Sprache.</dd>
       <dt>Konto</dt><dd>Kein Konto nötig. Keine Anmeldung, keine E-Mail-Adresse.</dd>
-      <dt>Daten</dt><dd>Liegen auf dem iPhone. Kein Server, keine Synchronisation zwischen Geräten.</dd>
-      <dt>Modell</dt><dd>Erfassen ist frei. Die Auswertung ist Satzwerk Pro, als Monats- oder Jahresabo über Apple. Nach der Installation sind 30 Tage Pro geschenkt.</dd>
+      <dt>Daten</dt><dd>Liegen auf dem iPhone und, wenn du es erlaubst, als Sicherungsdatei in der eigenen iCloud. Satzwerk fragt einmal, umschalten lässt es sich im Profil. Kein Server von Satzwerk, keine Synchronisation zwischen Geräten.</dd>
+      <dt>Modell</dt><dd>Erfassen ist frei. Die Auswertung ist Satzwerk Pro, als Monats- oder Jahresabo über Apple. 30 Tage Pro sind geschenkt, ab dem ersten abgeschlossenen Training.</dd>
       <dt>Für wen</dt><dd>Für Leute, die ihren Trainingsplan schon haben und wissen wollen, ob er wirkt.</dd>
     </dl>
   </div>
@@ -487,9 +488,24 @@ main.recht .store{ margin:24px 0 8px }
   <p>Satzwerk prüft je Übung, ob die Wiederholungen der letzten Einheit im
     Wiederholungsziel liegen. Gezählt werden nur Arbeitssätze. Der Befund lautet:
     im Ziel, am oberen Rand, zu leicht, zu schwer oder mal drüber, mal drunter.</p>
-  <p>Daneben steht das schwerste Gewicht der Übung in der letzten Trainingswoche gegen die
-    Woche davor, jeweils Montag bis Sonntag. Dazu eine Kurve über die Wochen, je
-    Studio getrennt.</p>
+  <p>Dazu steht je Übung ein Urteil: stärker, gleich oder schwächer. Verglichen wird je
+    Trainingswoche der höchste Wert, ab vier Trainingswochen die letzten zwei gegen die zwei davor, in den
+    ersten Wochen die jüngste gegen die davor, jeweils Montag bis Sonntag. Ein Urteil
+    gibt es ab der zweiten Trainingswoche.</p>
+  <p>Bewertet wird mit der Kraft der Übung, geschätzt nach der Formel von Epley, um den
+    gemessenen RIR ergänzt: Gewicht × (1 + (Wiederholungen + RIR) / 30), je Einheit der
+    höchste Wert der abgehakten Arbeitssätze. Weniger als eine Wiederholung
+    Unterschied gilt als gleich. Tragen nicht beide Sätze einen eingetragenen RIR, gilt
+    vorher eine feste Ordnung: eine höhere Last bei gleich vielen oder mehr Wiederholungen
+    ist stärker, weniger Wiederholungen bei gleicher oder geringerer Last schwächer. Ein
+    schwererer Satz mit weniger Wiederholungen zeigt dann nur stärker oder gleich, sonst
+    kein Urteil.</p>
+  <p>Über 12 Wiederholungen samt RIR und bei reinem Körpergewicht gilt die Formel
+    nicht. Dort vergleicht Satzwerk die Sätze direkt: mehr Last oder mehr
+    Wiederholungen, ohne im anderen weniger zu haben, ist stärker, das Spiegelbild
+    schwächer, beides gleich ist gleich. Ist jeder Satz in einem besser, gibt es kein
+    Urteil. Dazu eine Kurve über die letzten 35 Trainingswochen, für das gewählte
+    Studio.</p>
 
   <h3>Sätze je Muskelgruppe <span class="tag tag-pro">Pro</span></h3>
   <p>Satzwerk zählt je Muskelgruppe die Arbeitssätze der Woche, ohne Aufwärmsätze,
@@ -515,14 +531,17 @@ main.recht .store{ margin:24px 0 8px }
 
   <h3>Gewicht <span class="tag">Frei</span></h3>
   <p>Der Schnitt der Woche gegen die Vorwoche, das gemessene Tempo pro Woche und der
-    Verlauf als Kurve.</p>
+    Verlauf als Kurve. Auf Wunsch kommt das Gewicht einer Waage über Apple Health dazu;
+    ein Eintrag in Satzwerk geht vor.</p>
 
   <h3>Ziel je Phase <span class="tag tag-pro">Pro</span></h3>
   <p>Eine Phase ist Aufbau, Erhalt oder Cut, mit geplantem Tempo und Zielgewicht.
     Satzwerk stellt geplantes und gemessenes Tempo nebeneinander und rechnet die
     Kalorien am Tag aus dem Grundumsatz der fettfreien Masse (Katch-McArdle). Ein Cut
     mit mehr als 1 % des Körpergewichts pro Woche lässt sich nicht anlegen (Helms,
-    Aragon und Fitschen 2014). Die Rechnung ersetzt keine ärztliche Beratung.</p>
+    Aragon und Fitschen 2014). Die Rechnung ersetzt keine ärztliche Beratung. Auf
+    Wunsch liest Satzwerk die gegessenen Kalorien aus Apple Health und zeigt sie gegen
+    dein Kalorienziel; gespeichert werden sie nicht.</p>
 
   <h3>Körperfett <span class="tag tag-pro">Pro</span></h3>
   <p>Drei Messarten: 3 Hautfalten nach Jackson und Pollock, 4 Hautfalten nach Durnin
@@ -541,13 +560,12 @@ main.recht .store{ margin:24px 0 8px }
   <ul>
     <li><strong>Keine Tonnage.</strong> Das bewegte Gesamtgewicht wächst mit
       Körpergewicht, Satzzahl und Übungswahl und sagt über keins davon etwas.</li>
-    <li><strong>Keine geschätzte Maximalkraft.</strong> Verglichen wird das Gewicht,
-      das du wirklich bewegt hast.</li>
-    <li><strong>Keine Empfehlungen.</strong> Kein „mehr Gewicht“, keine Kilozahl.</li>
-    <li><strong>Keine fertigen Pläne.</strong> Pläne kommen von Menschen, die dich
-      kennen.</li>
-    <li><strong>Kein Kalorienzählen.</strong> Satzwerk rechnet einen Tagesbedarf,
-      protokolliert aber kein Essen.</li>
+    <li><strong>Keine Empfehlungen.</strong> Keine Gewichtsvorgabe, keine Kilozahl.</li>
+    <li><strong>Keine Planempfehlung.</strong> Die Planbibliothek bietet Vorlagen zum
+      Kopieren. Welche zu dir passt, sagt die App nicht.</li>
+    <li><strong>Kein Essensprotokoll.</strong> Satzwerk rechnet einen Tagesbedarf und
+      liest auf Wunsch die gegessenen Kalorien aus Apple Health, protokolliert aber kein
+      Essen.</li>
     <li><strong>Kein Feed.</strong> Keine Follower, keine Likes.</li>
   </ul>
 
@@ -557,13 +575,14 @@ main.recht .store{ margin:24px 0 8px }
       <h3>Frei</h3>
       <ul>
         <li>Eigene Pläne, unbegrenzt</li>
+        <li>Planbibliothek mit zwölf Vorlagen</li>
         <li>Training mit den Werten vom letzten Mal</li>
         <li>Live Activity am Sperrbildschirm</li>
-        <li>Bibliothek mit 171 Übungen</li>
+        <li>Bibliothek mit 223 Übungen</li>
         <li>Archiv und Wochenraster</li>
         <li>Gewicht mit Verlauf und gemessenem Tempo</li>
-        <li>Sicherung, Wiederherstellen, CSV-Export</li>
-        <li>Apple Health</li>
+        <li>Sicherung in iCloud und als Datei, Wiederherstellen, CSV-Export</li>
+        <li>Apple Health, schreibend und lesend</li>
       </ul>
     </div>
     <div class="karte">
@@ -578,7 +597,8 @@ main.recht .store{ margin:24px 0 8px }
       </ul>
     </div>
   </div>
-  <p>Nach der Installation sind 30 Tage Pro geschenkt. Sie enden von selbst. Danach
+  <p>30 Tage Pro sind geschenkt. Sie beginnen mit dem ersten abgeschlossenen Training
+    und enden von selbst. Danach
     gibt es Pro als Monats- oder Jahresabo über Apple, den Preis zeigt der App Store.
     Endet Pro, wird nichts gelöscht.</p>
 
@@ -613,14 +633,15 @@ main.recht .store{ margin:24px 0 8px }
 <div lang="en">
 
   <h1>What Satzwerk analyzes</h1>
-  <p class="stand">As of version 2.0, September 28, 2026</p>
+  <p class="stand">As of version 2.3, October 21, 2026</p>
 
   <div class="kurz">
     <p>Satzwerk is a training log for the iPhone. It records strength training set by
       set and analyzes it: per exercise, per muscle group and per week. There is also a
       body section with weight, body fat and circumferences.</p>
-    <p>The app shows findings. It gives no instructions, no weight recommendations and
-      no ready-made plans.</p>
+    <p>The app shows findings. It gives no instructions and no weight
+      recommendations. The plan library offers templates as a starting point, not as a
+      recommendation.</p>
   </div>
 
   <h2>At a glance</h2>
@@ -629,8 +650,8 @@ main.recht .store{ margin:24px 0 8px }
       <dt>Device</dt><dd>iPhone with iOS 16 or later. No app for Android, iPad or Apple Watch.</dd>
       <dt>Languages</dt><dd>German and English. Metric or imperial, independent of the language.</dd>
       <dt>Account</dt><dd>No account needed. No sign-up, no email address.</dd>
-      <dt>Data</dt><dd>Stays on the iPhone. No server, no sync between devices.</dd>
-      <dt>Model</dt><dd>Logging is free. The analysis is Satzwerk Pro, a monthly or yearly subscription through Apple. After installing, you get 30 days of Pro as a gift.</dd>
+      <dt>Data</dt><dd>Lives on the iPhone and, if you allow it, as a backup file in your own iCloud. Satzwerk asks once; you can switch it in your profile. No Satzwerk server, no sync between devices.</dd>
+      <dt>Model</dt><dd>Logging needs no Pro. The analysis is Satzwerk Pro, a monthly or yearly subscription through Apple. 30 days of Pro are on us, starting with your first finished workout.</dd>
       <dt>For whom</dt><dd>For people who already have a training plan and want to know whether it works.</dd>
     </dl>
   </div>
@@ -649,9 +670,22 @@ main.recht .store{ margin:24px 0 8px }
   <p>For each exercise, Satzwerk checks whether the reps of the last session are
     within the rep target. Only working sets count. The finding is: on target, at the
     top end, too light, too heavy, or above and below.</p>
-  <p>Next to it is the heaviest weight of the exercise in the latest training week against
-    the week before, each Monday to Sunday. Plus a curve across the weeks, kept apart
-    per gym.</p>
+  <p>On top of that, each exercise gets one verdict: stronger, same or weaker. Each training
+    week's highest value is compared: from four training weeks on, the last two against the two before;
+    in the first weeks, the latest against the one before, each Monday to Sunday. A
+    verdict is possible from the second training week.</p>
+  <p>The verdict uses the strength of the exercise, estimated with the Epley formula
+    extended by the measured RIR: weight × (1 + (reps + RIR) / 30), per session the
+    highest value of the checked working sets. Less than one rep of difference counts
+    as the same. Unless both sets carry a logged RIR, a fixed order comes first: a
+    heavier load with as many or more reps is stronger, fewer reps with the same or a
+    lighter load is weaker. A heavier set with fewer reps then only shows stronger or same,
+    otherwise no verdict.</p>
+  <p>Above 12 reps including RIR and for pure bodyweight the formula does not apply.
+    There Satzwerk compares the sets directly: more load or more reps, without less of
+    the other, is stronger, the mirror image is weaker, both equal is the same. If each
+    set is better in one of the two, there is no verdict. Plus a curve across the last
+    35 training weeks, for the selected gym.</p>
 
   <h3>Sets per muscle group <span class="tag tag-pro">Pro</span></h3>
   <p>Satzwerk counts the working sets of the week per muscle group, without warm-up
@@ -675,14 +709,16 @@ main.recht .store{ margin:24px 0 8px }
 
   <h3>Weight <span class="tag">Free</span></h3>
   <p>The weekly average against last week, the measured pace per week and the trend
-    as a chart.</p>
+    as a chart. If you want, the weight from a scale comes in through Apple Health; an
+    entry in Satzwerk takes precedence.</p>
 
   <h3>Goal per phase <span class="tag tag-pro">Pro</span></h3>
   <p>A phase is a bulk, maintenance or cut, with a planned pace and a target weight.
     Satzwerk puts planned and measured pace side by side and calculates daily calories
     from the basal rate of lean mass (Katch-McArdle). A cut faster than 1 % of body
     weight per week cannot be set up (Helms, Aragon and Fitschen 2014). The
-    calculation is not medical advice.</p>
+    calculation is not medical advice. If you want, Satzwerk reads the calories you ate
+    from Apple Health and shows them against your calorie target; they are not stored.</p>
 
   <h3>Body fat <span class="tag tag-pro">Pro</span></h3>
   <p>Three methods: 3 skinfolds after Jackson and Pollock, 4 skinfolds after Durnin
@@ -701,12 +737,12 @@ main.recht .store{ margin:24px 0 8px }
   <ul>
     <li><strong>No tonnage.</strong> Total weight moved grows with body weight, number
       of sets and exercise choice and says nothing about any of them.</li>
-    <li><strong>No estimated one-rep max.</strong> The app compares the weight you
-      actually moved.</li>
-    <li><strong>No recommendations.</strong> No “add weight”, no number of kilograms.</li>
-    <li><strong>No ready-made plans.</strong> Plans come from people who know you.</li>
-    <li><strong>No food logging.</strong> Satzwerk calculates a daily requirement but
-      does not log meals.</li>
+    <li><strong>No recommendations.</strong> No weight target, no number of kilograms.</li>
+    <li><strong>No plan recommendation.</strong> The plan library offers templates to
+      copy. Which one suits you, the app does not say.</li>
+    <li><strong>No food logging.</strong> Satzwerk calculates a daily requirement and,
+      if you want, reads the calories you ate from Apple Health, but does not log
+      meals.</li>
     <li><strong>No feed.</strong> No followers, no likes.</li>
   </ul>
 
@@ -716,13 +752,14 @@ main.recht .store{ margin:24px 0 8px }
       <h3>Free</h3>
       <ul>
         <li>Your own plans, unlimited</li>
+        <li>Plan library with twelve templates</li>
         <li>Workouts with last time's numbers</li>
         <li>Live Activity on the lock screen</li>
-        <li>Library with 171 exercises</li>
+        <li>Library with 223 exercises</li>
         <li>Archive and week grid</li>
-        <li>Weight with trend and measured pace</li>
-        <li>Backup, restore, CSV export</li>
-        <li>Apple Health</li>
+        <li>Weight with chart and measured pace</li>
+        <li>Backup to iCloud and as a file, restore, CSV export</li>
+        <li>Apple Health, writing and reading</li>
       </ul>
     </div>
     <div class="karte">
@@ -737,7 +774,8 @@ main.recht .store{ margin:24px 0 8px }
       </ul>
     </div>
   </div>
-  <p>After installing, you get 30 days of Pro as a gift. They end on their own. After
+  <p>30 days of Pro are on us. They start with your first finished workout
+    and end on their own. After
     that, Pro is a monthly or yearly subscription through Apple, and the App Store
     shows you the price. When Pro ends, nothing is deleted.</p>
 
