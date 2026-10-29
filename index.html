@@ -55,6 +55,9 @@
    in jeder Sprache zweimal gepflegt werden. Eine frueher gespeicherte Wahl
    wird geloescht. */
 (function(){ try{ localStorage.removeItem("satzwerk-modus"); }catch(err){} })();
+/* Ticket 798b: .js vor dem ersten Zeichnen. Mit Skript faehrt die Notch auf gemessene
+   Breiten (Feder); ohne Skript oeffnet sie ueber CSS. */
+document.documentElement.classList.add("js");
 </script>
 <style>
 /* ---------- Schriften: zwei, selbst gehostet ---------- */
@@ -88,10 +91,31 @@
   --auf-marke:#FFFFFF;
   --store-voll:#000000;
   --schatten:0 1px 3px rgba(0,0,0,.06);
-  /* Die Segmentleiste. Spur = Band, das gewaehlte Segment = weisse Karte mit
-     dem Schatten des iOS-Segmented-Control. Grau auf der Spur 5,3:1. */
-  --leiste-schatten:0 4px 16px rgba(0,0,0,.08);
-  --segment-schatten:0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04);
+  /* Notch und Fuss (Ticket 798b, Entscheidung 29.10.2026, Vorbild supaste.com). Farben aus src/stil.js.
+     Die Wortmarke im Fuss steht Ton in Ton auf Schwarz: #111113 ist der App-Ton, der dem gemessenen
+     Vorbild (#121212) am naechsten liegt. */
+  --notch:#000000;
+  --auf-notch:#FFFFFF;
+  --notch-leise:rgba(255,255,255,.6);
+  --notch-zeichen:#1C1C1E;
+  --notch-knopf:#2C2C2E;
+  --notch-knopf-zeigen:#3A3A3C;
+  --notch-druck:rgba(255,255,255,.12);
+  --fuss-leise:#8E8E93;
+  --fuss-marke:#111113;
+  /* Bewegung der Notch, aus dem Prototyp: eine Feder mit rund 2 % Ueberschwingen, auf .52 s, zu
+     .42 s. Gilt NUR in Notch und Lasche (Ausnahme von UI_SYSTEM 7.1, Entscheidung 29.10.2026);
+     ueberall sonst bleibt --kurve-bewegung. */
+  --kurve-notch:linear(0, .0175, .0657 4.5%, .2386 9.4%, .4823 15.2%, .7092 21.7%, .8655 28.4%, .9536 35.1%, 1.0029 42.5%, 1.0198 50.1%, 1.0178 58.7%, 1.0072 70.3%, 1.0005 85.3%, 1);
+  --dauer-notch-auf:.52s;
+  --dauer-notch-zu:.42s;
+  --dauer-notch-blende:.18s;
+  --dauer-notch-versatz:.1s;
+  --dauer-notch-heben:.3s;
+  --dauer-notch-schimmer:.35s;
+  --dauer-notch-zeichen:.6s;
+  --dauer-notch-balken:.55s;
+  --dauer-notch-punkt:.45s;
   color-scheme:light;
 }
 
@@ -117,22 +141,21 @@ h1{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-wei
     font-size:clamp(38px,7vw,60px); line-height:1.05; letter-spacing:-0.02em }
 h2,.claim{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:600;
     font-size:clamp(24px,4vw,34px); line-height:1.15 }
-.klein{ font-size:14px; color:var(--leise); line-height:1.5 }
 p{ max-width:65ch }
 
 /* Raum: 8er-Raster. Eine Flucht: alles steht linksbuendig am Rahmen. */
 .rahmen{ width:100%; max-width:1120px; margin:0 auto; padding:0 24px }
 section{ padding:56px 0 }
 @media (min-width:768px){ section{ padding:80px 0 } }
-section[id]{ scroll-margin-top:80px }
+/* Die Notch liegt fest ueber dem Inhalt: ein Sprung an einen Abschnitt (/#pro, /#fragen) haelt
+   oben so viel frei wie der Kopf (74, Ticket 798b). */
+html{ scroll-padding-top:74px }
 
 /* Sprunglink: erst bei Tastaturfokus sichtbar */
 .sprung{ position:absolute; left:-999px; top:8px; background:var(--karte); color:var(--tinte);
   padding:8px 16px; border-radius:980px; z-index:20; box-shadow:var(--schatten) }
 .sprung:focus{ left:8px }
 
-/* Die weissen Logodateien liegen nur fuer die Fuellung beim Zeigen bereit. */
-.nur-dunkel{ display:none }
 
 /* ---------- App-Store-Knopf ----------
    Eine volle Kapsel. KEIN Apple-Logo und kein nachgebautes Abzeichen (Apple:
@@ -144,7 +167,6 @@ section[id]{ scroll-margin-top:80px }
 .store:hover{ text-decoration:none }
 .store svg{ width:18px; height:18px; stroke:currentColor; fill:none;
   stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
-.store-gross{ height:64px; padding:0 28px 0 32px }
 
 /* Die Marke laeuft von links hinein, ueberall gleich. :hover nur mit Zeiger,
    am iPhone bliebe er sonst nach dem Tippen haengen. */
@@ -154,115 +176,243 @@ section[id]{ scroll-margin-top:80px }
 @media (hover:hover){
   .fuellen:hover{ color:var(--auf-marke) }
   .fuellen:hover .fuell{ clip-path:inset(0 0 0 0) }
-  .fuellen:hover .nur-hell{ display:none }
-  .fuellen:hover .nur-dunkel{ display:block }
 }
 .fuellen:active,.fuellen:focus-visible{ color:var(--auf-marke) }
 .fuellen:active .fuell,.fuellen:focus-visible .fuell{ clip-path:inset(0 0 0 0) }
-.fuellen:active .nur-hell,.fuellen:focus-visible .nur-hell{ display:none }
-.fuellen:active .nur-dunkel,.fuellen:focus-visible .nur-dunkel{ display:block }
 
-/* ---------- Kopf: eine Segmentleiste ----------
-   Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
-   Apple, so breit wie ihr Inhalt, mittig. SEIT TICKET 684d (23.10.2026,
-   Entscheidung: die Navigationsleiste in der Breite der Fusszeile) ist die Kapsel
-   so breit wie die Fusskarte: Rand 24 wie .rahmen, hoechstens 1120 minus 48,
-   Wortmarke links, App Store rechts, die Segmente dazwischen (wie 684c). Kein Glas, keine Milch: feste
-   Flaeche. Das gewaehlte Segment ist die Seite, auf der man steht
-   (aria-current). Symbole: Lucide, rechts neben dem Wort wie in der Vorlage.
-   Der Kopf selbst ist durchsichtig und laesst Klicks durch, nur die Leiste
-   nimmt sie an. */
-@media (max-width:899px){ .nur-breit{ display:none !important } }
-@media (min-width:900px){ .nur-schmal{ display:none !important } }
-.kopf{ position:sticky; top:0; z-index:10; padding:12px 24px; pointer-events:none }
-.kopf-innen{ position:relative; z-index:1; width:100%; max-width:1072px; margin:0 auto;
-  pointer-events:auto }
-.leiste{ display:flex; align-items:center; gap:2px; padding:4px; border-radius:980px;
-  background:var(--band); border:1px solid var(--kante); box-shadow:var(--leiste-schatten) }
-.segment{ display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  height:40px; padding:0 16px; border-radius:980px;
-  color:var(--leise); text-decoration:none; white-space:nowrap;
-  font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
-  transition:background-color .2s ease, color .2s ease }
-.segment svg{ flex:none; width:16px; height:16px; stroke:currentColor; fill:none;
+/* ---------- Kopf: die Notch (Ticket 798b, Entscheidung 29.10.2026) ----------
+   Vorbild supaste.com, gemessen 29.10.2026; Prototyp, Bilder und Entscheidungen in
+   doku/gestaltung/skizzen-798b. Fest oben an der Kante, schwarz, unten Radius 18, seitlich zwei
+   20-px-Rundungen in die Kante (zwei Hilfselemente mit radial-gradient). Desktop in Ruhe 53 hoch,
+   Handy 50, Handy offen hoechstens 350 breit.
+   IN RUHE steht die Seite: auf der Startseite die Wortmarke, sonst Zeichen und Seitenname; das
+   Zeichen bewegt sich einmal beim Laden (nur unter no-preference, nie in Schleife).
+   OFFEN: Wortmarke, die Seiten, die Sprache. Keine Icons an den Texten, kein Hintergrund beim
+   Zeigen: der Link unter dem Zeiger wird weiss und hebt sich 2 px, darunter ein Kreisschimmer in
+   der Markenfarbe, der dem Zeiger folgt. Rechts in jedem Zustand der eigene Knopf Im App Store,
+   dunkel und ohne Apple-Logo (Apple erlaubt kein alleinstehendes Apple-Logo, Marketing Guidelines).
+   OHNE SKRIPT oeffnet die Notch ueber :hover und :focus-within, ohne Uebergang, Breite max-content.
+   MIT SKRIPT (.js) setzt das Skript unten data-offen (Zeiger 120 ms, Verlassen 300 ms, Klick, Tab,
+   Escape, Tippen), misst Breite und Hoehe, aus denen die Feder faehrt, und fuehrt den Schimmer.
+   Kurve und Dauern der Notch (--kurve-notch, --dauer-notch-*) gelten nur hier und an der Lasche
+   (Ausnahme von UI_SYSTEM 7.1, website_regelcheck haelt sie dort).
+   UMSCHALTBREITE: unter 776 px klappt am Handy eine Liste nach unten, ab 776 px die Reihe.
+   Gemessen (Playwright-WebKit, 29.10.2026): die offene Notch ist in DE 704 px und in EN
+   694 px breit, dazu zweimal 20 Rundung und zweimal 16 Rand. Die Zahl steht hier zweimal,
+   im Fuss einmal und in website_webkit (Block 9). Der Kopf haelt oben 74 px frei: so viel nahm die Kopfleiste
+   vorher ein (gemessen bis 1059 px), die Notch ist 53 hoch. */
+.kopf{ height:74px }
+.notch{ position:fixed; z-index:10; top:0; left:50%; transform:translateX(-50%);
+  width:max-content; padding-top:env(safe-area-inset-top, 0px);
+  background:var(--notch); color:var(--auf-notch);
+  border-radius:0 0 18px 18px; view-transition-name:notch }
+.notch::before,.notch::after{ content:""; position:absolute; top:0; width:20px; height:20px; pointer-events:none }
+.notch::before{ right:100%; background:radial-gradient(circle at 0 100%, rgba(0,0,0,0) 19.5px, var(--notch) 20px) }
+.notch::after{ left:100%; background:radial-gradient(circle at 100% 100%, rgba(0,0,0,0) 19.5px, var(--notch) 20px) }
+.notch .notch-innen{ position:relative; height:100%; overflow:hidden; border-radius:inherit }
+.notch .notch-kopf{ position:relative; z-index:1; display:flex; align-items:center; gap:20px; height:53px; padding:0 10px }
+.notch .notch-stapel{ position:relative; display:flex; align-items:center; align-self:stretch; min-width:0 }
+.notch .notch-ruhe,.notch .notch-reihe{ display:flex; align-items:center; height:100%; white-space:nowrap }
+
+/* Ruhe: Zeichen und Seitenname als ein Knopf */
+.notch .notch-ausloeser{ display:flex; align-items:center; gap:10px; height:37px; padding:0 10px 0 2px; border-radius:10px;
+  color:var(--auf-notch); font-size:15px; font-weight:600; line-height:1; letter-spacing:-.01em; white-space:nowrap }
+.notch .notch-ausloeser .notch-wort{ margin-left:8px }
+/* Schmale Fenster: der Seitenname kuerzt sich, die Notch bleibt samt Rundungen im Fenster. */
+.notch .notch-ruhe,.notch .notch-ausloeser{ min-width:0 }
+.notch .notch-ausloeser > span{ min-width:0; overflow:hidden; text-overflow:ellipsis }
+.js .notch .notch-ausloeser{ max-width:var(--ruhe-max, none) }
+/* Auf der Startseite steht in Ruhe die Wortmarke: sie wird dann verhaeltnisgleich kleiner (20 = Polster und Abstand). */
+.js .notch .notch-ausloeser .notch-wort{ max-width:calc(var(--ruhe-max) - 20px) }
+html:not(.js) .notch{ max-width:calc(100vw - 40px) }
+.notch .notch-zeichen{ flex:none; display:grid; place-items:center; width:30px; height:30px; border-radius:8px; background:var(--notch-zeichen) }
+.notch .notch-zeichen svg{ width:20px; height:20px; stroke:currentColor; fill:none;
   stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
-@media (hover:hover){ .segment:hover{ color:var(--tinte); background:rgba(0,0,0,.05) } }
-.segment[aria-current="page"],.segment[aria-expanded="true"]{
-  background:var(--karte); color:var(--tinte); box-shadow:var(--segment-schatten) }
-.segment-marke{ padding:0 16px 0 14px; margin-right:auto }
-.segment-marke img{ height:18px; width:auto }
-/* Die Wortmarke steht frei, ohne Pille, auch auf der Startseite und beim
-   Zeigen (30.9.2026). aria-current bleibt fuer Screenreader. */
-.segment-marke,.segment-marke[aria-current="page"],.segment-marke:hover{
-  background:none !important; box-shadow:none !important }
-.leiste .store{ height:40px; padding:0 14px 0 18px; font-size:14px; margin-left:auto }
-.leiste .store svg{ width:16px; height:16px }
-.menue-knopf{ width:40px; padding:0 }
-.menue-knopf svg{ width:22px; height:22px }
-.menue-knopf[aria-expanded="true"] .sym-auf,
-.menue-knopf:not([aria-expanded="true"]) .sym-zu{ display:none }
+/* max-width:none gegen img{ max-width:100% } der Seite: in den schrumpfenden Behaeltern der Notch
+   fiele die Wortmarke sonst auf einen Strich zusammen (gemessen in WebKit, 29.10.2026). */
+.notch .notch-wort{ display:block; flex:none; width:100px; height:auto; max-width:none }
 
-/* „Folge uns“ oeffnet eine feste Karte unter dem Segment.
-   Radius konzentrisch: 24 aussen, 8 Polster, 16 innen. */
-.folgen-menue{ position:absolute; top:calc(100% + 8px); left:0; min-width:220px;
-  background:var(--karte); border:1px solid var(--kante); border-radius:24px;
-  box-shadow:var(--leiste-schatten) }
-.folgen-menue[hidden],.menue[hidden]{ display:none }
-.folgen-menue ul{ list-style:none; margin:0; padding:8px }
-.folgen-menue a{ display:flex; align-items:center; gap:12px; height:44px; padding:0 12px;
-  border-radius:16px; color:var(--tinte); text-decoration:none; font-size:16px; font-weight:600 }
-.folgen-menue img,.menue-zeile img{ object-fit:contain }
-.folgen-menue img{ width:20px; height:20px }
+/* Offen: Wortmarke und Textlinks */
+.notch .notch-marke{ display:flex; align-items:center; margin:0 26px 0 8px; line-height:0; border-radius:4px }
+.notch .notch-links{ display:flex; align-items:center; gap:4px; list-style:none }
+.notch .notch-link{ display:block; padding:8px 12px; border-radius:8px; text-decoration:none;
+  font-size:14px; font-weight:500; line-height:1; letter-spacing:-.01em; color:var(--notch-leise);
+  transition:color var(--dauer-notch-blende) var(--kurve-bewegung), transform var(--dauer-notch-heben) var(--kurve-notch) }
+.notch .notch-link[aria-current="page"]{ color:var(--auf-notch) }
+@media (hover:hover){ .notch .notch-link:hover{ color:var(--auf-notch); transform:translateY(-2px) } }
+.notch .notch-link:focus-visible{ color:var(--auf-notch); transform:translateY(-2px) }
+.notch :focus-visible{ outline:2px solid var(--auf-notch); outline-offset:0 }
 
-/* Das Handymenue: ueber den ganzen Bildschirm, fester Grund. Die Leiste mit
-   dem Schliessen-Symbol bleibt darueber (z-index 1 gegen 0). */
-.menue{ position:fixed; inset:0; z-index:0; background:var(--grund); pointer-events:auto;
-  overflow-y:auto; padding:96px 0 48px }
-.menue-inhalt{ display:flex; flex-direction:column; gap:32px; align-items:flex-start }
-.menue-gruppe{ display:flex; flex-direction:column; align-self:stretch }
-.menue-kopf{ font-size:14px; font-weight:600; color:var(--leise); margin:0 0 4px }
-.menue-zeile{ display:flex; align-items:center; gap:12px; min-height:52px; padding:0;
-  border:0; background:none; font:inherit; font-size:20px; font-weight:600;
-  color:var(--tinte); text-decoration:none; text-align:left; cursor:pointer }
-.menue-zeile[aria-current="page"]{ color:var(--akzent) }
-.menue-zeile img{ width:24px; height:24px }
-.menue-kapsel{ margin-left:-16px; padding:0 20px 0 16px; border-radius:980px }
-html.menue-offen{ overflow:hidden }
+/* Der Schimmer: ein Kreis in der Markenfarbe, von unten, folgt dem Zeiger (--mx setzt das Skript am Schimmer).
+   Die eine Stelle der Website mit einer Wirkung am Zeiger (website_regelcheck, ZEIGER). Er folgt ohne Uebergang und
+   per transform auf eigener Ebene: mit .28 s Uebergang auf --mx und left an einem Element mit blur hing er sichtbar
+   hinterher und ruckelte (Safari am Mac, 29.10.2026). */
+.notch .notch-schimmer{ position:absolute; inset:0; overflow:hidden; pointer-events:none; opacity:0;
+  transition:opacity var(--dauer-notch-schimmer) var(--kurve-bewegung) }
+.notch .notch-schimmer::before{ content:""; position:absolute; width:260px; height:150px; left:-130px; bottom:-112px;
+  transform:translateX(var(--mx, 0px)); will-change:transform;
+  border-radius:50%; filter:blur(18px); background:radial-gradient(closest-side, var(--akzent), var(--akzent) 30%, transparent) }
+.notch[data-zeiger="true"] .notch-schimmer{ opacity:.75 }
+.notch[data-zeiger="true"][data-ueberlink="true"] .notch-schimmer{ opacity:1 }
 
-/* ---------- Fuss ----------
-   Klassisch wie Vorlage (Hevy): links Marke und Kreise, rechts
-   Spalten, darunter eine Zeile Rechtliches. Die grosse Wortmarke bleibt,
-   von der Kartenkante angeschnitten: sie ist die Wiedererkennung aus dem
-   Profil der App. */
-footer{ padding:0 0 32px }
-.fuss-karte{ background:var(--band); border-radius:32px; overflow:hidden; padding:48px 24px 0 }
-.fuss-oben{ display:grid; gap:40px; grid-template-columns:1fr 1fr }
-.fuss-marke{ grid-column:1 / -1; display:flex; flex-direction:column; align-items:flex-start; gap:8px }
-@media (min-width:768px){
-  .fuss-karte{ padding:64px 56px 0 }
-  .fuss-oben{ grid-template-columns:2fr 1fr 1fr; gap:32px }
-  .fuss-marke{ grid-column:auto }
+/* Der eigene Store-Knopf */
+.notch .notch-store{ flex:none; margin-left:auto; display:inline-flex; align-items:center; gap:6px; height:33px; padding:0 12px 0 14px;
+  border-radius:980px; background:var(--notch-knopf); color:var(--auf-notch); text-decoration:none; white-space:nowrap;
+  font-size:13px; font-weight:600; line-height:1; letter-spacing:-.01em }
+@media (hover:hover){ .notch .notch-store:hover{ background:var(--notch-knopf-zeigen) } }
+.notch .notch-store svg{ flex:none; width:14px; height:14px; stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+.notch .notch-store-kurz,.notch .notch-store-form{ display:none }
+/* Ab 776 (Reihe statt Liste): der Knopf heisst kurz „App Store“, und beim Zeigen waechst aus der Unterkante
+   der Notch eine umgedrehte Notch in der Markenfarbe herauf (entschieden 29.10.2026, eine Neuerfindung:
+   im Prototyp steht sie nicht). Oben rund wie der Knopf (Kapsel: halbe Hoehe 33 = 16,5), unten flach auf
+   der Kante, zwei Schultern je 10 nach aussen (10 = Abstand Knopf bis Kante in Ruhe). Die rechte Schulter
+   muss auf der geraden Kante enden, vor der Rundung der Notch (offen 22): offen steht der Knopf 10 + 22 vom
+   Rand. Die Form erscheint nur offen (der Zeiger oeffnet die Notch), in Ruhe bleibt er bei 10.
+   Am Handy (darunter) bleibt der Knopf, wie er ist. */
+@media (min-width:776px){
+  .notch .notch-store{ position:relative; isolation:isolate; --store-rand:22px;
+    transition:margin-right var(--dauer-notch-zu) var(--kurve-notch) }
+  .js .notch[data-offen="true"] .notch-store{ margin-right:var(--store-rand); transition-duration:var(--dauer-notch-auf) }
+  html:not(.js) .notch:hover .notch-store,html:not(.js) .notch:focus-within .notch-store{ margin-right:var(--store-rand) }
+  .notch .notch-store-lang{ display:none }
+  .notch .notch-store-kurz{ display:inline }
+  .notch .notch-store-form{ display:block; position:absolute; z-index:-1; top:0; left:-10px; right:-10px;
+    bottom:calc((33px - var(--notch-kopf, 53px)) / 2); pointer-events:none;
+    transform:translateY(101%); transition:transform var(--dauer-notch-heben) var(--kurve-notch) }
+  .notch .notch-store-form::before{ content:""; position:absolute; inset:0 10px; border-radius:16.5px 16.5px 0 0; background:var(--akzent) }
+  .notch .notch-store-form::after{ content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 0 0, rgba(0,0,0,0) 9.5px, var(--akzent) 10px) left bottom / 10px 10px no-repeat,
+      radial-gradient(circle at 100% 0, rgba(0,0,0,0) 9.5px, var(--akzent) 10px) right bottom / 10px 10px no-repeat }
+  .notch .notch-store:focus-visible .notch-store-form{ transform:none }
 }
-.fuss-marke .klein{ margin-bottom:16px }
-.fuss-spalte{ display:flex; flex-direction:column; align-items:flex-start; gap:12px }
-.fuss-kopf{ font-size:14px; font-weight:600 }
-.fuss-link{ font-size:15px; color:var(--leise); text-decoration:none }
-@media (hover:hover){ .fuss-link:hover,.fuss-recht a:hover{ color:var(--tinte) } }
-/* „Folge uns“ ist Instagrams Bedingung dafuer, dass ein anderes Netzwerk an
-   derselben Stelle stehen darf. DIE LOGOS WERDEN NIE NACHGEZEICHNET: die
-   Dateien in img/ sind dieselben wie in der App (Ticket 425). */
-.kreise{ display:flex; gap:8px }
-.kreis{ display:inline-flex; align-items:center; justify-content:center;
-  width:44px; height:44px; border-radius:50%; background:var(--karte) }
-.kreis img{ width:20px; height:20px; object-fit:contain }
-/* Die Wortmarke: 1841 x 312, sichtbar sind die oberen 74 %. Rein dekorativ. */
-.fuss-riese{ margin-top:56px; aspect-ratio:1841 / 230; overflow:hidden }
-.fuss-riese img{ width:100%; height:auto }
-.fuss-unten{ display:flex; flex-direction:column; gap:8px; padding:20px 8px 0 }
-.fuss-recht{ display:flex; flex-wrap:wrap; gap:8px 24px }
-.fuss-recht a{ font-size:14px; color:var(--leise); text-decoration:none }
-.fuss-unten p{ max-width:none }
-.fuss-recht a[aria-current="page"]{ color:var(--tinte); font-weight:600 }
+@media (min-width:776px) and (hover:hover){
+  .notch .notch-store:hover .notch-store-form{ transform:none }
+}
+
+/* Die Handy-Liste */
+.notch .notch-liste{ display:none; position:relative; z-index:1; flex-direction:column; list-style:none; padding:0 8px 10px }
+.notch .notch-zeile{ display:block; width:100%; padding:12px 10px; border-radius:12px; text-align:left; text-decoration:none;
+  font-size:17px; font-weight:500; line-height:1.2; color:var(--notch-leise) }
+.notch .notch-zeile[aria-current="page"]{ color:var(--auf-notch) }
+.notch .notch-zeile:active{ background:var(--notch-druck) }
+
+/* Ohne Skript: :hover und :focus-within oeffnen, sofort. Zugeklappt ist die Reihe 0 breit, aber im
+   Tab-Weg: der erste Link, der den Fokus bekommt, klappt sie auf. */
+html:not(.js) .notch .notch-reihe{ max-width:0; overflow:hidden; opacity:0 }
+html:not(.js) .notch:hover .notch-reihe,
+html:not(.js) .notch:focus-within .notch-reihe{ max-width:none; overflow:visible; opacity:1 }
+
+/* Mit Skript: beide Zustaende uebereinander, die Notch faehrt auf die gemessene Breite. */
+.js .notch{ width:var(--notch-breite, max-content); height:calc(var(--notch-hoehe, 53px) + env(safe-area-inset-top, 0px));
+  border-radius:0 0 var(--notch-radius, 18px) var(--notch-radius, 18px) }
+.js .notch.bereit{ transition:width var(--dauer-notch-zu) var(--kurve-notch), height var(--dauer-notch-zu) var(--kurve-notch),
+  border-radius var(--dauer-notch-zu) var(--kurve-notch) }
+.js .notch.bereit[data-offen="true"]{ transition-duration:var(--dauer-notch-auf) }
+.js .notch .notch-kopf{ height:var(--notch-kopf, 53px) }
+.js .notch .notch-stapel{ flex:1 }
+.js .notch .notch-ruhe,.js .notch .notch-reihe{ position:absolute; left:0; top:0;
+  transition:opacity var(--dauer-notch-blende) var(--kurve-bewegung), filter var(--dauer-notch-blende) var(--kurve-bewegung) }
+.js .notch .notch-reihe{ opacity:0; filter:blur(4px); visibility:hidden;
+  transition:opacity var(--dauer-notch-blende) var(--kurve-bewegung), filter var(--dauer-notch-blende) var(--kurve-bewegung),
+    visibility 0s var(--kurve-bewegung) var(--dauer-notch-blende) }
+.js .notch .notch-liste{ opacity:0; visibility:hidden;
+  transition:opacity var(--dauer-notch-blende) var(--kurve-bewegung), visibility 0s var(--kurve-bewegung) var(--dauer-notch-blende) }
+.js .notch[data-offen="true"] .notch-liste{ opacity:1; visibility:visible;
+  transition:opacity var(--dauer-notch-blende) var(--kurve-bewegung) var(--dauer-notch-versatz) }
+
+@media (min-width:776px){
+  html:not(.js) .notch:hover .notch-ruhe,
+  html:not(.js) .notch:focus-within .notch-ruhe{ max-width:0; overflow:hidden; opacity:0 }
+  /* Die Ruhe bleibt im Baum, nur unsichtbar: steht der Fokus auf dem Ausloeser, bleibt er dort. */
+  .js .notch[data-offen="true"] .notch-ruhe{ opacity:0; filter:blur(4px); pointer-events:none }
+  .js .notch[data-offen="true"] .notch-reihe{ opacity:1; filter:none; visibility:visible;
+    transition:opacity var(--dauer-notch-blende) var(--kurve-bewegung) var(--dauer-notch-versatz),
+      filter var(--dauer-notch-blende) var(--kurve-bewegung) var(--dauer-notch-versatz) }
+}
+@media (max-width:775px){
+  .notch .notch-kopf{ height:50px }
+  .notch .notch-store{ height:30px }
+  .notch .notch-reihe{ display:none }
+  .notch .notch-liste{ display:flex }
+  html:not(.js) .notch .notch-liste{ max-height:0; overflow:hidden; opacity:0; padding-bottom:0 }
+  html:not(.js) .notch:hover,
+  html:not(.js) .notch:focus-within{ width:min(350px, calc(100vw - 40px)) }
+  html:not(.js) .notch:hover .notch-liste,
+  html:not(.js) .notch:focus-within .notch-liste{ max-height:none; overflow:visible; opacity:1; padding-bottom:10px }
+}
+
+/* Die Zeichen in Ruhe bewegen sich einmal beim Laden, wie im Prototyp: die Balken wachsen von unten,
+   der Punkt der Info faellt ein, der Funke dreht sich auf, die Hand winkt einmal. */
+@keyframes notch-balken{ from{ transform:scaleY(.15) } to{ transform:scaleY(1) } }
+@keyframes notch-punkt{ from{ transform:translateY(-6px); opacity:0 } to{ transform:none; opacity:1 } }
+@keyframes notch-funke{ 0%{ transform:scale(.4) rotate(-30deg); opacity:0 } 70%{ transform:scale(1.1) rotate(6deg); opacity:1 } 100%{ transform:none } }
+@keyframes notch-winken{ from{ transform:rotate(-14deg); opacity:0 } to{ transform:none; opacity:1 } }
+@media (prefers-reduced-motion: no-preference){
+  .notch .z-balken .b{ transform-box:fill-box; transform-origin:50% 100%; animation:notch-balken var(--dauer-notch-balken) var(--kurve-notch) both }
+  .notch .z-balken .b2{ animation-delay:.08s }
+  .notch .z-balken .b3{ animation-delay:.16s }
+  .notch .z-info .p{ animation:notch-punkt var(--dauer-notch-punkt) var(--kurve-notch) .1s both }
+  .notch .z-funke{ transform-origin:center; animation:notch-funke var(--dauer-notch-zeichen) var(--kurve-notch) both }
+  .notch .z-hand{ transform-origin:50% 90%; animation:notch-winken var(--dauer-notch-zeichen) var(--kurve-notch) both }
+}
+/* Weniger Bewegung: kein Schimmer, kein Anheben (Uebergaenge und Zeichen haelt der Ruhe-Block an). */
+@media (prefers-reduced-motion: reduce){
+  .notch .notch-schimmer{ display:none }
+  .notch .notch-link:hover,.notch .notch-link:focus-visible{ transform:none }
+}
+
+/* Seitenwechsel: View Transitions zwischen Dokumenten (CSS View Transitions Module Level 2,
+   @view-transition navigation: auto, aus Ticket 798). Die Notch traegt view-transition-name und
+   faehrt von der alten Seite zur neuen; ohne Unterstuetzung laedt die Seite normal. Nur bei
+   no-preference: bei reduzierter Bewegung schaltet sie sofort. */
+@media (prefers-reduced-motion: no-preference){
+  @view-transition{ navigation:auto }
+  ::view-transition-group(notch){ animation-duration:var(--dauer-bewegung); animation-timing-function:var(--kurve-bewegung) }
+}
+
+/* ---------- Fuss (Ticket 798b, Entscheidung 29.10.2026) ----------
+   Schwarz wie die Notch. Oben endet die helle Seite als umgedrehte Lasche: die Mitte (so breit wie
+   der Rahmen, 1120) ist hell und unten mit 18 gerundet, links und rechts steigt das Schwarz mit
+   18 gerundet an. 36 hoch = 18 + 18: nur so laufen beide Rundungen an der Kante in eine Kurve; bei 24 (Prototyp)
+   endete das Hell an der Kante bei 18, das Schwarz der Mitte begann bei 6, dazwischen stand eine Spitze. Spalten: Marke (Claim, Satz, Store-Knopf weiss, Markenzeile), Produkt, Satzwerk
+   (mit Instagram und LinkedIn als Text), Rechtliches. Unten die Wortmarke riesig, Ton in Ton,
+   von der Kante angeschnitten: 1841 x 312, sichtbar die oberen 76 %, die SVG als Maske. */
+footer{ margin-top:40px; color:var(--auf-notch) }
+.lasche{ display:grid; grid-template-columns:1fr minmax(0, 1120px) 1fr; height:36px }
+.lasche .lasche-seite{ background:var(--grund) }
+.lasche .lasche-seite i,.lasche .lasche-mitte i{ display:block; height:100% }
+.lasche .lasche-seite i{ background:var(--notch) }
+.lasche .lasche-links i{ border-top-right-radius:18px }
+.lasche .lasche-rechts i{ border-top-left-radius:18px }
+.lasche .lasche-mitte{ background:var(--notch) }
+.lasche .lasche-mitte i{ background:var(--grund); border-radius:0 0 18px 18px }
+@media (max-width:775px){ .lasche{ grid-template-columns:16px minmax(0, 1fr) 16px } }
+.fuss-koerper{ background:var(--notch); padding-top:72px; overflow:hidden }
+.fuss-raster{ display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px }
+.fuss-raster > *{ min-width:0 }
+@media (max-width:860px){
+  .fuss-raster{ grid-template-columns:1fr 1fr }
+  .fuss-raster > .fuss-marke{ grid-column:1 / -1 }
+}
+.fuss-wort{ display:block; height:24px; width:auto; max-width:none }
+footer .claim{ margin:26px 0 10px; max-width:none }
+.fuss-satz{ font-size:15px; line-height:1.5; color:var(--fuss-leise); margin:0 0 22px; max-width:36ch }
+.fuss-store{ display:inline-flex; align-items:center; gap:6px; height:40px; padding:0 16px 0 18px; border-radius:980px;
+  background:var(--auf-notch); color:var(--tinte); text-decoration:none; white-space:nowrap;
+  font-size:15px; font-weight:600; line-height:1 }
+.fuss-store svg{ flex:none; width:14px; height:14px; stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+.fuss-rechte{ margin-top:22px; max-width:40ch; font-size:13px; line-height:1.5; color:var(--fuss-leise) }
+.fuss-kopf{ margin:6px 0 20px; font-size:15px; font-weight:500; line-height:1; color:var(--fuss-leise) }
+.fuss-spalte ul{ list-style:none; display:flex; flex-direction:column; gap:14px }
+.fuss-link{ font-size:15px; color:var(--auf-notch); text-decoration:none }
+@media (hover:hover){ .fuss-link:hover{ text-decoration:underline; text-underline-offset:3px } }
+.fuss-link[aria-current="page"]{ font-weight:600 }
+footer :focus-visible{ outline-color:var(--auf-notch) }
+.fuss-riese{ margin-top:64px; aspect-ratio:1841 / 236; overflow:hidden }
+.fuss-riese-marke{ display:block; width:100%; aspect-ratio:1841 / 312; background:var(--fuss-marke);
+  -webkit-mask:url(../img/logo-dunkel.svg) left top / 100% auto no-repeat; mask:url(../img/logo-dunkel.svg) left top / 100% auto no-repeat }
 
 /* Pflicht: alles still, wenn der Nutzer es so eingestellt hat */
 @media (prefers-reduced-motion: reduce){
@@ -331,60 +481,82 @@ main.recht .store{ margin:24px 0 8px }
 <a class="sprung" href="#inhalt" data-t="skip">Zum Inhalt</a>
 
 <header class="kopf">
-  <div class="kopf-innen">
-    <nav class="leiste" aria-label="Hauptnavigation" data-t-aria="nav_name">
-      <a class="segment segment-marke" href="/"><img src="../img/logo-dunkel.svg" alt="Satzwerk" width="142" height="24"></a>
-      <a class="segment nur-breit" href="/auswertung/"><span data-t="nav_auswertung">Auswertung</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></a>
-      <a class="segment nur-breit" href="/ueber/" aria-current="page"><span data-t="nav_ueber">Über uns</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></a>
-      <button class="segment nur-breit" id="folgen" type="button" aria-expanded="false" aria-controls="folgen-menue"><span data-t="folgen">Folge uns</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg></button>
-      <button class="segment nur-breit" id="sprache" type="button" data-sprachknopf data-t-aria="lang_aria" aria-label="Switch to English"><span data-t="lang">EN</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg></button>
-      <a class="store fuellen nur-breit" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-      <button class="segment menue-knopf nur-schmal" id="menue-knopf" type="button" aria-expanded="false" aria-controls="menue" data-t-aria="menue" aria-label="Menü öffnen">
-        <svg class="sym-auf" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
-        <svg class="sym-zu" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-    </nav>
-    <!-- Symbole: lucide-static 1.44.0 (ISC), chart-column, info, at-sign, languages, arrow-up-right, menu, x -->
-    <div class="folgen-menue nur-breit" id="folgen-menue" hidden>
-      <ul>
-        <li><a class="fuellen" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener" data-t-aria="ig_label" aria-label="Satzwerk auf Instagram"><span class="fuell"></span>
-          <img class="nur-hell" src="../img/ig-schwarz.png" alt="" width="20" height="20">
-          <img class="nur-dunkel" src="../img/ig-weiss.png" alt="" width="20" height="20">Instagram</a></li>
-        <li><a class="fuellen" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener" data-t-aria="li_label" aria-label="Satzwerk auf LinkedIn"><span class="fuell"></span>
-          <img class="nur-hell" src="../img/li-schwarz.png" alt="" width="20" height="20">
-          <img class="nur-dunkel" src="../img/li-weiss.png" alt="" width="20" height="20">LinkedIn</a></li>
+  <nav class="notch" id="notch" data-offen="false" aria-label="Hauptnavigation" data-t-aria="nav_name">
+    <div class="notch-innen">
+      <div class="notch-schimmer" aria-hidden="true"></div>
+      <div class="notch-kopf">
+        <div class="notch-stapel">
+          <div class="notch-ruhe">
+            <button class="notch-ausloeser" id="notch-ausloeser" type="button" aria-expanded="false" aria-controls="notch-reihe notch-liste" data-t-aria="insel" aria-label="Navigation öffnen"><span class="notch-zeichen" aria-hidden="true"><svg class="z-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path class="p" d="M12 8h.01"/></svg></span><span data-t="nav_ueber">Über uns</span></button>
+          </div>
+          <div class="notch-reihe" id="notch-reihe">
+            <a class="notch-marke" href="/"><img data-auf-dunkel class="notch-wort" src="../img/logo-hell.svg" alt="Satzwerk" width="100" height="17"></a>
+            <ul class="notch-links">
+              <li><a class="notch-link" href="/" data-t="start">Start</a></li>
+              <li><a class="notch-link" href="/auswertung/" data-t="nav_auswertung">Auswertung</a></li>
+              <li><a class="notch-link" href="/ueber/" aria-current="page" data-t="nav_ueber">Über uns</a></li>
+              <li><a class="notch-link" href="/neu/" data-t="fuss_neu">Was ist neu</a></li>
+              <li><button class="notch-link" type="button" data-sprachknopf data-t-aria="lang_aria" aria-label="Switch to English"><span data-t="lang">EN</span></button></li>
+            </ul>
+          </div>
+        </div>
+        <a class="notch-store" href="https://apps.apple.com/app/id6786720640"><span class="notch-store-form" aria-hidden="true"></span><span class="notch-store-lang" data-t="store">Im App Store</span><span class="notch-store-kurz" data-t="store_kurz">App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+      </div>
+      <ul class="notch-liste" id="notch-liste">
+        <li><a class="notch-zeile" href="/" data-t="start">Start</a></li>
+        <li><a class="notch-zeile" href="/auswertung/" data-t="nav_auswertung">Auswertung</a></li>
+        <li><a class="notch-zeile" href="/ueber/" aria-current="page" data-t="nav_ueber">Über uns</a></li>
+        <li><a class="notch-zeile" href="/neu/" data-t="fuss_neu">Was ist neu</a></li>
+        <li><button class="notch-zeile" type="button" data-sprachknopf data-t="sprache_voll">English</button></li>
       </ul>
     </div>
-  </div>
-  <nav class="menue nur-schmal" id="menue" data-t-aria="menue_name" aria-label="Menü" hidden>
-    <div class="rahmen menue-inhalt">
-      <a class="store fuellen store-gross" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-      <div class="menue-gruppe">
-        <p class="menue-kopf" data-t="seiten">Seiten</p>
-        <a class="menue-zeile" href="/" data-t="start">Start</a>
-        <a class="menue-zeile" href="/auswertung/" data-t="nav_auswertung">Auswertung</a>
-        <a class="menue-zeile" href="/ueber/" aria-current="page" data-t="nav_ueber">Über uns</a>
-      </div>
-      <div class="menue-gruppe">
-        <p class="menue-kopf" data-t="folgen">Folge uns</p>
-        <a class="menue-zeile menue-kapsel fuellen" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener" data-t-aria="ig_label" aria-label="Satzwerk auf Instagram"><span class="fuell"></span>
-          <img class="nur-hell" src="../img/ig-schwarz.png" alt="" width="24" height="24">
-          <img class="nur-dunkel" src="../img/ig-weiss.png" alt="" width="24" height="24">Instagram</a>
-        <a class="menue-zeile menue-kapsel fuellen" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener" data-t-aria="li_label" aria-label="Satzwerk auf LinkedIn"><span class="fuell"></span>
-          <img class="nur-hell" src="../img/li-schwarz.png" alt="" width="24" height="24">
-          <img class="nur-dunkel" src="../img/li-weiss.png" alt="" width="24" height="24">LinkedIn</a>
-      </div>
-      <div class="menue-gruppe">
-        <p class="menue-kopf" data-t="sprache_kopf">Sprache</p>
-        <button class="menue-zeile" type="button" data-sprachknopf data-t="sprache_voll">English</button>
-      </div>
-      <div class="menue-gruppe">
-        <p class="menue-kopf" data-t="rechtliches">Rechtliches</p>
-        <a class="menue-zeile" href="/impressum/" data-t="impressum">Impressum</a>
-        <a class="menue-zeile" href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
-      </div>
-    </div>
   </nav>
+    <!-- Symbole: lucide-static 1.44.0 (ISC), chart-column, info, hand, sparkles (Zeichen in Ruhe), arrow-up-right (Store) -->
+<!-- Zeichen: nachgezeichnet nach Lucide (lucide-static 1.44.0), https://lucide.dev
+ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+- - -
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
 </header>
 
 <main class="recht" id="inhalt">
@@ -525,48 +697,44 @@ main.recht .store{ margin:24px 0 8px }
 </main>
 
 <footer>
-  <div class="rahmen">
-    <div class="fuss-karte">
-      <div class="fuss-oben">
+  <div class="lasche" aria-hidden="true"><div class="lasche-seite lasche-links"><i></i></div><div class="lasche-mitte"><i></i></div><div class="lasche-seite lasche-rechts"><i></i></div></div>
+  <div class="fuss-koerper">
+    <div class="rahmen">
+      <div class="fuss-raster">
         <div class="fuss-marke">
+          <img data-auf-dunkel class="fuss-wort" src="../img/logo-hell.svg" alt="Satzwerk" width="142" height="24" loading="lazy">
           <p class="claim" data-t="claim">Handwerk am eigenen Körper.</p>
-          <p class="klein" data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</p>
-          <p class="fuss-kopf" data-t="folgen">Folge uns</p>
-          <div class="kreise">
-            <a class="kreis fuellen" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener" aria-label="Satzwerk auf Instagram" data-t-aria="ig_label"><span class="fuell"></span>
-              <img class="nur-hell" src="../img/ig-schwarz.png" alt="" width="20" height="20" loading="lazy">
-              <img class="nur-dunkel" src="../img/ig-weiss.png" alt="" width="20" height="20" loading="lazy"></a>
-            <a class="kreis fuellen" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener" aria-label="Satzwerk auf LinkedIn" data-t-aria="li_label"><span class="fuell"></span>
-              <img class="nur-hell" src="../img/li-schwarz.png" alt="" width="20" height="18" loading="lazy">
-              <img class="nur-dunkel" src="../img/li-weiss.png" alt="" width="20" height="18" loading="lazy"></a>
-          </div>
+          <p class="fuss-satz" data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</p>
+          <a class="fuss-store fuellen" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+          <p class="fuss-rechte">© 2026 Satzwerk. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
         </div>
         <nav class="fuss-spalte" aria-labelledby="fuss-produkt">
           <p class="fuss-kopf" id="fuss-produkt" data-t="fuss_produkt">Produkt</p>
-          <a class="fuss-link" href="/auswertung/" data-t="fuss_auswertung">Was Satzwerk auswertet</a>
-          <a class="fuss-link" href="/neu/" data-t="fuss_neu">Was ist neu</a>
-          <a class="fuss-link" href="/#pro" data-t="fuss_pro">Satzwerk Pro</a>
-          <a class="fuss-link" href="/#fragen" data-t="fuss_faq">Fragen und Antworten</a>
-          <a class="fuss-link" href="https://apps.apple.com/app/id6786720640">App Store</a>
+          <ul>
+            <li><a class="fuss-link" href="/auswertung/" data-t="fuss_auswertung">Was Satzwerk auswertet</a></li>
+            <li><a class="fuss-link" href="/neu/" data-t="fuss_neu">Was ist neu</a></li>
+            <li><a class="fuss-link" href="/#pro" data-t="fuss_pro">Satzwerk Pro</a></li>
+            <li><a class="fuss-link" href="/#fragen" data-t="fuss_faq">Fragen und Antworten</a></li>
+          </ul>
         </nav>
         <nav class="fuss-spalte" aria-labelledby="fuss-satzwerk">
           <p class="fuss-kopf" id="fuss-satzwerk">Satzwerk</p>
-          <a class="fuss-link" href="/ueber/" data-t="nav_ueber">Über uns</a>
-          <a class="fuss-link" href="mailto:info@satzwerk.app" data-t="fuss_kontakt">Kontakt</a>
-          <a class="fuss-link" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener">Instagram</a>
-          <a class="fuss-link" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener">LinkedIn</a>
+          <ul>
+            <li><a class="fuss-link" href="/ueber/" data-t="nav_ueber">Über uns</a></li>
+            <li><a class="fuss-link" href="mailto:info@satzwerk.app" data-t="fuss_kontakt">Kontakt</a></li>
+            <li><a class="fuss-link" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a class="fuss-link" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener">LinkedIn</a></li>
+          </ul>
+        </nav>
+        <nav class="fuss-spalte" aria-labelledby="fuss-recht">
+          <p class="fuss-kopf" id="fuss-recht" data-t="rechtliches">Rechtliches</p>
+          <ul>
+            <li><a class="fuss-link" href="/impressum/" data-t="impressum">Impressum</a></li>
+            <li><a class="fuss-link" href="/datenschutz/" data-t="datenschutz">Datenschutz</a></li>
+          </ul>
         </nav>
       </div>
-      <div class="fuss-riese" aria-hidden="true">
-        <img src="../img/logo-dunkel.svg" alt="" width="1841" height="312" loading="lazy">
-      </div>
-    </div>
-    <div class="fuss-unten">
-      <nav class="fuss-recht" aria-label="Rechtliches" data-t-aria="rechtliches">
-        <a href="/impressum/" data-t="impressum">Impressum</a>
-        <a href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
-      </nav>
-      <p class="klein">© 2026 Satzwerk. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
+      <div class="fuss-riese" aria-hidden="true"><span class="fuss-riese-marke"></span></div>
     </div>
   </div>
 </footer>
@@ -580,14 +748,13 @@ var TEXTE = {
   "lang": "EN",
   "lang_aria": "Switch to English",
   "store": "Im App Store",
+  "store_kurz": "App Store",
   "nav_name": "Hauptnavigation",
   "nav_auswertung": "Auswertung",
   "nav_ueber": "Über uns",
   "start": "Start",
-  "seiten": "Seiten",
   "claim": "Handwerk am eigenen Körper.",
   "fuss2": "Satz für den Trainingssatz, Werk für Handwerk.",
-  "folgen": "Folge uns",
   "fuss_produkt": "Produkt",
   "fuss_auswertung": "Was Satzwerk auswertet",
   "fuss_neu": "Was ist neu",
@@ -598,12 +765,8 @@ var TEXTE = {
   "impressum": "Impressum",
   "datenschutz": "Datenschutz",
   "marken": "Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.",
-  "ig_label": "Satzwerk auf Instagram",
-  "li_label": "Satzwerk auf LinkedIn",
-  "menue": "Menü öffnen",
-  "menue_zu": "Menü schließen",
-  "menue_name": "Menü",
-  "sprache_kopf": "Sprache",
+  "insel": "Navigation öffnen",
+  "insel_zu": "Navigation schließen",
   "sprache_voll": "English"
  },
  "en": {
@@ -611,14 +774,13 @@ var TEXTE = {
   "lang": "DE",
   "lang_aria": "Auf Deutsch wechseln",
   "store": "On the App Store",
+  "store_kurz": "App Store",
   "nav_name": "Main navigation",
   "nav_auswertung": "Analysis",
   "nav_ueber": "About",
   "start": "Home",
-  "seiten": "Pages",
   "claim": "Handwerk am eigenen Körper.",
   "fuss2": "Satz for the training set, Werk for craft.",
-  "folgen": "Follow us",
   "fuss_produkt": "Product",
   "fuss_auswertung": "What Satzwerk analyzes",
   "fuss_neu": "What’s New",
@@ -629,12 +791,8 @@ var TEXTE = {
   "impressum": "Legal notice",
   "datenschutz": "Privacy",
   "marken": "Apple, App Store, Apple Watch and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries.",
-  "ig_label": "Satzwerk on Instagram",
-  "li_label": "Satzwerk on LinkedIn",
-  "menue": "Open menu",
-  "menue_zu": "Close menu",
-  "menue_name": "Menu",
-  "sprache_kopf": "Language",
+  "insel": "Open navigation",
+  "insel_zu": "Close navigation",
   "sprache_voll": "Deutsch"
  }
 };
@@ -660,62 +818,114 @@ var TEXTE = {
 })();
 </script>
 <script>
-/* Navigation: „Folge uns“ als kleine Karte ab 900 px, darunter das
-   Vollbildmenue. Beide schliessen mit Escape, der Fokus geht an ihren Knopf
-   zurueck. Die Karte schliesst auch beim Tipp daneben. Beim Wechsel der
-   Breite schliesst, was es auf der neuen Breite nicht gibt. */
+/* Die Notch (Ticket 798b, Prototyp doku/gestaltung/skizzen-798b). Ohne Skript oeffnet sie ueber
+   :hover und :focus-within (CSS). Hier, was CSS nicht kann: data-offen, aria-expanded und die
+   Beschriftung des Ausloesers; Zeiger 120 ms bis auf, 300 ms nach dem Verlassen zu; ein Klick mit
+   der Maus oeffnet, Tippen und Tastatur schalten um; Fokus mit der Tastatur oeffnet, Escape schliesst
+   und gibt den Fokus an den Ausloeser; Tippen daneben schliesst. Dazu die Masse (Breite, Hoehe,
+   Radius), aus denen die Feder im CSS faehrt, und der Schimmer (--mx folgt dem Zeiger). Ob die
+   Handy-Liste gilt, sagt das CSS (die Liste steht dann im Layout), keine zweite Zahl hier. */
 (function(){
+  var notch = document.getElementById("notch");
+  if (!notch) return;
   var html = document.documentElement;
-  var fk = document.getElementById("folgen"), fm = document.getElementById("folgen-menue");
-  var mk = document.getElementById("menue-knopf"), mm = document.getElementById("menue");
-  var hinten = document.querySelectorAll("main, footer");
+  var knopf = document.getElementById("notch-ausloeser");
+  var ruhe = notch.querySelector(".notch-ruhe"), reihe = document.getElementById("notch-reihe");
+  var liste = document.getElementById("notch-liste"), store = notch.querySelector(".notch-store");
+  var offen = false, tAuf = 0, tZu = 0, zeiger = "mouse", keinFokusAuf = false;
 
-  function folgenZu(fokus){
-    if (fm.hidden) return;
-    fm.hidden = true; fk.setAttribute("aria-expanded", "false");
-    if (fokus) fk.focus();
-  }
-  function folgenAuf(){
-    fm.hidden = false; fk.setAttribute("aria-expanded", "true");
-    /* Linke Kante unter dem Segment, rechts nie ueber die Leiste hinaus */
-    var r = fk.getBoundingClientRect(), p = fm.parentNode.getBoundingClientRect();
-    var links = Math.min(r.left - p.left, p.width - fm.offsetWidth);
-    fm.style.left = Math.max(0, links) + "px";
-  }
-  function beschrifte(offen){
-    var k = offen ? "menue_zu" : "menue";
+  function handy(){ return getComputedStyle(liste).display !== "none"; }
+  var warHandy = handy();
+  function beschrifte(){
+    var k = offen ? "insel_zu" : "insel";
     var t = TEXTE[html.getAttribute("lang") === "en" ? "en" : "de"];
-    mk.setAttribute("data-t-aria", k);
-    if (t && typeof t[k] === "string") mk.setAttribute("aria-label", t[k]);
+    knopf.setAttribute("data-t-aria", k);
+    if (t && typeof t[k] === "string") knopf.setAttribute("aria-label", t[k]);
   }
-  function menueZu(fokus){
-    if (mm.hidden) return;
-    mm.hidden = true; mk.setAttribute("aria-expanded", "false"); beschrifte(false);
-    html.classList.remove("menue-offen");
-    hinten.forEach(function(el){ el.inert = false; });
-    if (fokus) mk.focus();
+  /* Masse wie im Prototyp: 10 Rand, Inhalt, 20 (Ruhe) oder 28 (Reihe) bis zum Store-Knopf, 10 Rand.
+     Am Handy offen hoechstens 350. Die Rundungen (je 20) bleiben immer im Fenster: reicht der Platz
+     fuer den Seitennamen nicht (gemessen: unter 367 px, Impressum in EN), endet er mit Auslassungspunkten,
+     die Wortmarke der Startseite wird verhaeltnisgleich kleiner (unter 350 px in EN). */
+  function masse(){
+    var h = handy(), kopf = h ? 50 : 53, s = store.getBoundingClientRect().width + (offen && !h ? parseFloat(getComputedStyle(store).getPropertyValue("--store-rand")) || 0 : 0), b, hoehe;
+    var platz = html.clientWidth - 40, rand = 10 + 20 + s + 10;
+    notch.style.setProperty("--ruhe-max", "none");
+    var natur = ruhe.scrollWidth;
+    notch.style.setProperty("--ruhe-max", natur > platz - rand ? Math.floor(platz - rand) + "px" : "none");
+    if (!offen) { b = Math.min(natur + rand, platz); hoehe = kopf; }
+    else if (h) { b = Math.min(350, platz); hoehe = kopf + liste.scrollHeight; }
+    else { b = Math.min(10 + reihe.scrollWidth + 28 + s + 10, platz); hoehe = kopf + 5; }
+    notch.style.setProperty("--notch-breite", Math.ceil(b) + "px");
+    notch.style.setProperty("--notch-hoehe", Math.ceil(hoehe) + "px");
+    notch.style.setProperty("--notch-kopf", (offen && !h ? kopf + 5 : kopf) + "px");
+    notch.style.setProperty("--notch-radius", (offen ? (h ? 24 : 22) : 18) + "px");
   }
-  function menueAuf(){
-    mm.hidden = false; mk.setAttribute("aria-expanded", "true"); beschrifte(true);
-    html.classList.add("menue-offen");
-    hinten.forEach(function(el){ el.inert = true; });
+  function setze(auf){
+    if (auf === offen) return;
+    offen = auf;
+    notch.setAttribute("data-offen", auf ? "true" : "false");
+    knopf.setAttribute("aria-expanded", auf ? "true" : "false");
+    beschrifte();
+    masse();
   }
+  function zeigerDa(){ try { return notch.matches(":hover"); } catch (err) { return false; } }
 
-  fk.addEventListener("click", function(){ fm.hidden ? folgenAuf() : folgenZu(false); });
-  mk.addEventListener("click", function(){ mm.hidden ? menueAuf() : menueZu(false); });
-  fm.addEventListener("click", function(e){ if (e.target.closest("a")) folgenZu(false); });
-  mm.addEventListener("click", function(e){ if (e.target.closest("a")) menueZu(false); });
-  document.addEventListener("click", function(e){
-    if (!fm.hidden && !fm.contains(e.target) && !fk.contains(e.target)) folgenZu(false);
+  notch.addEventListener("pointerenter", function(e){
+    zeiger = e.pointerType;
+    if (e.pointerType !== "mouse") return;
+    clearTimeout(tZu);
+    tAuf = setTimeout(function(){ setze(true); }, 120);
+  });
+  notch.addEventListener("pointerleave", function(e){
+    notch.setAttribute("data-zeiger", "false"); notch.setAttribute("data-ueberlink", "false");
+    if (e.pointerType !== "mouse") return;
+    clearTimeout(tAuf);
+    var f = document.activeElement;
+    if (f && notch.contains(f) && f.matches(":focus-visible")) return;
+    tZu = setTimeout(function(){ setze(false); }, 300);
+  });
+  notch.addEventListener("pointerdown", function(e){ zeiger = e.pointerType; });
+  /* Der Schimmer folgt direkt: --mx nur am Schimmer (nicht an der ganzen Notch), die Attribute nur bei Wechsel. */
+  var schimmer = notch.querySelector(".notch-schimmer");
+  function merke(name, wert){ if (notch.getAttribute(name) !== wert) notch.setAttribute(name, wert); }
+  notch.addEventListener("pointermove", function(e){
+    if (e.pointerType !== "mouse") return;
+    schimmer.style.setProperty("--mx", (e.clientX - notch.getBoundingClientRect().left) + "px");
+    merke("data-zeiger", "true");
+    merke("data-ueberlink", e.target.closest(".notch-link, .notch-marke") ? "true" : "false");
+  });
+  knopf.addEventListener("click", function(e){
+    clearTimeout(tAuf); clearTimeout(tZu);
+    /* Die Maus hat die Notch beim Zeigen schon geoeffnet, ihr Klick schliesst sie nicht wieder. */
+    if (e.detail > 0 && zeiger === "mouse") setze(true); else setze(!offen);
+  });
+  notch.addEventListener("focusin", function(e){
+    if (keinFokusAuf) return;
+    if (e.target.matches(":focus-visible")) setze(true);
+  });
+  notch.addEventListener("focusout", function(e){
+    if (!notch.contains(e.relatedTarget) && !zeigerDa()) setze(false);
   });
   document.addEventListener("keydown", function(e){
-    if (e.key !== "Escape") return;
-    if (!fm.hidden) folgenZu(true);
-    if (!mm.hidden) menueZu(true);
+    if (e.key !== "Escape" || !offen) return;
+    clearTimeout(tAuf); clearTimeout(tZu);
+    setze(false); keinFokusAuf = true; knopf.focus(); keinFokusAuf = false;
   });
-  var breit = window.matchMedia("(min-width:900px)");
-  function wechsel(){ if (breit.matches) menueZu(false); else folgenZu(false); }
-  if (breit.addEventListener) breit.addEventListener("change", wechsel);
+  document.addEventListener("pointerdown", function(e){ if (offen && !notch.contains(e.target)) setze(false); });
+  window.addEventListener("resize", function(){
+    var h = handy();
+    if (h !== warHandy) { warHandy = h; clearTimeout(tAuf); clearTimeout(tZu); setze(false); }
+    masse();
+  });
+  window.addEventListener("pageshow", function(e){ if (e.persisted) setze(false); });
+  /* Die Sprache tauscht die Texte (Skript oben, dessen Klick zuerst laeuft): neu messen. */
+  document.querySelectorAll("[data-sprachknopf]").forEach(function(k){
+    k.addEventListener("click", function(){ beschrifte(); masse(); });
+  });
+  beschrifte(); masse();
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){
+    masse(); notch.classList.add("bereit");
+  });
 })();
 </script>
 </body>
