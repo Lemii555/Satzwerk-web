@@ -1,23 +1,51 @@
 # Satzwerk
 
-> Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone (ab iOS 16, Version 2.0). Es erfasst Krafttraining Satz für Satz und wertet es aus: Wiederholungsziel je Übung, Arbeitssätze je Muskelgruppe und Woche, Intensität aus RIR, Gewicht, Körperfett und Umfänge. Die App zeigt Befunde und gibt keine Empfehlungen. Kein Konto nötig, alle Daten bleiben auf dem iPhone. Erfassen ist frei, die Auswertung ist Satzwerk Pro (Monats- oder Jahresabo über Apple, 30 Tage Pro nach der Installation geschenkt).
+> Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone (ab iOS 16, Version 3.0). Überschrift: „Sieh, ob du stärker wirst.“ Für alle, die ernsthaft trainieren, vom ersten eigenen Plan bis zum zehnten Trainingsjahr. Die Woche steht als Stapel aus Karten da, vorn das Training von heute. Satzwerk erfasst Krafttraining Satz für Satz und wertet es aus: Wiederholungsziel je Übung, ein Urteil je Übung (stärker, gleich, schwächer), Arbeitssätze je Muskelgruppe und Woche, Intensität aus RIR, Gewicht, Körperfett und Umfänge. Die App zeigt Befunde und gibt keine Empfehlungen. Kein Konto nötig, keine Werbung, kein Social Feed. Die Daten liegen auf dem iPhone und, wenn der Nutzer zustimmt, in der eigenen iCloud. Erfassen ist frei, die Auswertung ist Satzwerk Pro, ein Abo über Apple: im deutschen App Store 4,99 EUR im Monat oder 29,99 EUR im Jahr (Stand Oktober 2026), 30 Tage Pro geschenkt ab dem ersten abgeschlossenen Training.
 
-Satzwerk is an iPhone training log with analysis (iOS 16 or later, version 2.0). It records strength training set by set and analyzes it: rep target per exercise, working sets per muscle group per week, intensity from RIR, body weight, body fat and circumferences. The app shows findings and gives no recommendations. No account needed, all data stays on the iPhone. Logging is free, the analysis is Satzwerk Pro (monthly or yearly subscription through Apple, 30 days of Pro as a gift after installing).
+Satzwerk is an iPhone training log with analysis (iOS 16 or later, version 3.0). Headline: “See if you’re getting stronger.” For people who train seriously, from their first plan of their own to their tenth year of training. Your week is a stack of cards, with today's workout in front. It records strength training set by set and analyzes it: rep target per exercise, one verdict per exercise (stronger, same, weaker), working sets per muscle group per week, intensity from RIR, body weight, body fat and circumferences. The app shows findings and gives no recommendations. No account needed, no ads, no social feed. The data lives on the iPhone and, if the user agrees, in their own iCloud. Logging needs no Pro, the analysis is Satzwerk Pro, a subscription through Apple: in the German App Store EUR 4.99 a month or EUR 29.99 a year (as of October 2026), 30 days of Pro on us, starting with the first finished workout.
 
 ## Seiten
 
 - [Startseite](https://satzwerk.app/): Überblick, Frei und Pro, Fragen und Antworten
 - [Was Satzwerk auswertet](https://satzwerk.app/auswertung/): jede Auswertung im Detail, mit Rechenregeln und Quellen (Deutsch und Englisch)
 - [Über Satzwerk](https://satzwerk.app/ueber/): wie die App entstanden ist, warum aus gymLog Satzwerk wurde (im App Store bis Version 1.4.3 gymLog), wie sie gebaut ist (Deutsch und Englisch)
+- [Was ist neu](https://satzwerk.app/neu/): was jede Version von Satzwerk neu gebracht hat, neueste zuerst, wie in der App (Deutsch und Englisch). Ältere Abschnitte beschreiben die App, wie sie damals war; was heute gilt, steht in dieser Datei und auf der Startseite
 - [App Store](https://apps.apple.com/app/id6786720640)
-- [Datenschutz](https://satzwerk.app/datenschutz/)
+- [Datenschutz](https://satzwerk.app/datenschutz/): was die App speichert, Apple Health, iCloud-Sicherung (Deutsch und Englisch)
 
 ## Fakten
 
 - Nur iPhone. Keine App für Android, iPad oder Apple Watch.
 - Sprachen: Deutsch und Englisch. Metrisch oder imperial.
-- Keine fertigen Trainingspläne, kein Feed, kein Kalorienzählen, keine Tonnage, keine geschätzte Maximalkraft.
+- Für den eigenen Plan: Pläne legt man selbst an, fügt sie als Text ein oder übernimmt eine Vorlage als Kopie. Unter „Plan einfügen“ gibt es einen Prompt zum Kopieren, mit dem eine KI einen Plan so aufschreibt, dass Satzwerk ihn übernimmt.
+- Planbibliothek: zwölf Vorlagen für Studio, zu Hause mit Hanteln und zu Hause ohne Geräte, jeweils Einstieg und Fortgeschritten. Die fünf Vorlagen für den Einstieg trainieren den ganzen Körper. Ohne Plan fragt Satzwerk beim ersten Start nach Ort und Trainingsdauer und zeigt die passenden Vorlagen. Ein Startpunkt zum Kopieren, keine Empfehlung.
+- Bibliothek mit 223 Übungen, eigene lassen sich anlegen.
+- Die Woche: ein Stapel aus Karten, eine je Training, vorn das Training von heute. Ein Tipp öffnet die Karte mit den Übungen und dem Start. Diese und die nächste Woche lassen sich bearbeiten (Trainings verschieben, an einem Ruhetag eins dazulegen), ohne den Plan zu ändern. Eine Woche ohne Training lässt sich als Trainingspause markieren.
+- Kartendesigns: sieben, je Training eines, auf der Karte, im laufenden Training und im Widget. Zwei sind frei, alle sieben gibt es mit Satzwerk Pro.
+- Unter der geöffneten Karte stehen drei Zahlen: Trainings dieser Woche, Übungen im Ziel, Übungen, bei denen man stärker geworden ist. Die beiden letzten gibt es mit Satzwerk Pro.
+- Training teilen: ein beendetes Training als Story oder als Sticker für ein eigenes Foto. Im Bild stehen Name, Datum, Dauer, Übungen und Sätze, mit Satzwerk Pro auch die Progression; nie Körperwerte.
+- Widgets für den Home-Bildschirm: Heute und Training (die Karte des Tages im Kartendesign, Wechsel um Mitternacht), Wochenraster (25 Wochen Training) und Raster (Training und Wiegungen).
+- Progression: je Übung ein Urteil, stärker, gleich oder schwächer, ab der zweiten Trainingswoche; ab vier Trainingswochen die letzten zwei gegen die zwei davor. Gerechnet mit der Kraft (geschätzt) nach Epley, um den gemessenen RIR ergänzt; über 12 Wiederholungen samt RIR und bei reinem Körpergewicht Satz gegen Satz. Dazu der Befund zum Wiederholungsziel: im Ziel, am oberen Rand, zu leicht, zu schwer.
+- Apple Health: schreibt Trainings, Gewicht und Körperfett, je mit eigenem Schalter, und liest nur das Körpergewicht. Alles ab Werk aus. Die Sätze bleiben in Satzwerk.
+- iCloud-Sicherung: eine Sicherungsdatei in der eigenen iCloud des Nutzers, die letzten sieben Tage, nur mit Zustimmung. Satzwerk fragt einmal, ohne Ja entsteht keine Datei; im Profil umschaltbar. Kein Server von Satzwerk, keine Synchronisation zwischen Geräten. Aus Apple Health gelesene Werte stehen nicht darin.
+- Frei: Pläne, Planbibliothek, Training, Live Activity am Sperrbildschirm, zwei Kartendesigns, Teilen, Widgets, Archiv, Gewicht eintragen, Sicherung, Export, Apple Health. Eigene Daten sind nie gesperrt.
+- Satzwerk Pro: Auswertung (Training und Körper), Körperrechnungen, Studios, RIR, Körperfett und Umfänge eintragen, alle sieben Kartendesigns. Bestandsnutzer aus der Zeit von gymLog haben Pro bis 31. Oktober 2027.
+- Kein Social Feed: keine Follower, keine Likes, keine anderen Nutzer in der App. Kein Konto, keine Werbung, keine Tonnage, kein Essensprotokoll.
 - Aufwärmsätze zählen in keiner Auswertung.
 - Die Woche ist überall Montag bis Sonntag.
 - Satzwerk liest keine Exporte aus anderen Apps wie Hevy oder Strong.
 - Kontakt: info@satzwerk.app
+
+## Facts (English)
+
+- iPhone only. No app for Android, iPad or Apple Watch. German and English, metric or imperial.
+- For your own plan: create plans yourself, paste them in as text or take a template as a copy. Under “Paste plan” there is a prompt to copy that lets an AI write a plan so Satzwerk can take it over.
+- Plan library: twelve templates for the gym, home with dumbbells and home without equipment, entry level and advanced. The five entry-level templates train the whole body. Without a plan on first launch, Satzwerk asks where and for how long you have trained and shows the matching templates. A starting point to copy, not a recommendation. 223 exercises, add your own.
+- The week: a stack of cards, one per workout, today's workout in front. Edit this week and next (move workouts, add one on a rest day) without changing the plan; mark a week without training as a training break.
+- Card designs: seven, one per workout, on the card, during the workout and in the widget. Two come with Free, all seven with Satzwerk Pro.
+- Share a finished workout as a story or as a sticker for your own photo. The image shows name, date, duration, exercises and sets, with Satzwerk Pro also the progression; never body values.
+- Home Screen widgets: Today and Training (the day's card in its design, switching at midnight), Week grid (25 weeks of training) and Grid (workouts and weigh-ins).
+- Apple Health: writes workouts, weight and body fat, each with its own switch, and reads only body weight. All off by default. Sets stay in Satzwerk.
+- iCloud backup: one backup file in the user's own iCloud, the last seven days, only with consent. No Satzwerk server, no sync between devices.
+- No social feed: no followers, no likes, no other users in the app. No account, no ads, no tonnage, no food log.
+- Contact: info@satzwerk.app

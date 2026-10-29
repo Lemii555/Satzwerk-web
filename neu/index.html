@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Was ist neu in Satzwerk</title>
+<meta name="description" content="Was jede Version von Satzwerk neu gebracht hat, die neueste zuerst, auf Deutsch und Englisch.">
+<link rel="canonical" href="https://satzwerk.app/neu/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Satzwerk">
+<meta property="og:title" content="Was ist neu in Satzwerk">
+<meta property="og:description" content="Was jede Version von Satzwerk neu gebracht hat, die neueste zuerst.">
+<meta property="og:url" content="https://satzwerk.app/neu/">
+<meta property="og:image" content="https://satzwerk.app/img/og.jpg">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "name": "Was ist neu in Satzwerk",
+ "alternateName": "What’s New in Satzwerk",
+ "url": "https://satzwerk.app/neu/",
+ "inLanguage": [
+  "de",
+  "en"
+ ],
+ "dateModified": "2026-10-29",
+ "about": {
+  "@type": "SoftwareApplication",
+  "name": "Satzwerk",
+  "operatingSystem": "iOS",
+  "applicationCategory": "HealthApplication",
+  "softwareVersion": "3.0",
+  "releaseNotes": "https://satzwerk.app/neu/",
+  "installUrl": "https://apps.apple.com/app/id6786720640"
+ }
+}
+</script>
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#F2F2F7">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="../img/bildmarke.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/publicsans.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+/* Die Website gibt es nur hell (30.9.2026): die Mockups muessten sonst
+   in jeder Sprache zweimal gepflegt werden. Eine frueher gespeicherte Wahl
+   wird geloescht. */
+(function(){ try{ localStorage.removeItem("satzwerk-modus"); }catch(err){} })();
+</script>
+<style>
+/* ---------- Schriften: zwei, selbst gehostet ---------- */
+@font-face{
+  font-family:"Fraunces";
+  src:url("/fonts/fraunces.woff2") format("woff2");
+  font-weight:100 900; font-display:swap; font-style:normal;
+}
+@font-face{
+  font-family:"Public Sans";
+  src:url("/fonts/publicsans.woff2") format("woff2");
+  font-weight:100 900; font-display:swap; font-style:normal;
+}
+
+/* ---------- Farben: alle Werte hier, sonst nirgends ----------
+   Nur hell (30.9.2026). Werte aus der App: src/stil.js, --bg /
+   --surface-2 / --surface / --ink / --ink-faint / --line / --akzent.
+   Ticket 684d (23.10.2026, Entscheidung: die Creme muss weg, wie in der
+   echten App): die Werte des Hellmodus nach Ticket 701, Apples systemGray6/5/4
+   (--bg #F2F2F7, --surface-2 #E5E5EA, --line #D1D1D6). Marke, Schwarz und
+   Weiss bleiben; Schatten und Hover der Pillen auch (684c/684d). */
+:root{
+  --grund:#F2F2F7;
+  --band:#E5E5EA;
+  --karte:#FFFFFF;
+  --tinte:#000000;
+  --leise:#5C5C5E;
+  --kante:#D1D1D6;
+  --akzent:#8116E0;
+  --marke-voll:#8116E0;
+  --auf-marke:#FFFFFF;
+  --store-voll:#000000;
+  --schatten:0 1px 3px rgba(0,0,0,.06);
+  /* Die Segmentleiste. Spur = Band, das gewaehlte Segment = weisse Karte mit
+     dem Schatten des iOS-Segmented-Control. Grau auf der Spur 5,3:1. */
+  --leiste-schatten:0 4px 16px rgba(0,0,0,.08);
+  --segment-schatten:0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04);
+  /* Was ist neu (796 Runde 2): Kurve und Dauer der FAQ von der Startseite, die Farben der
+     Bereiche aus src/stil.js, hell; Koerper aus der Spalte Increased contrast (3:1 auf der Kachel). */
+  --kurve-bewegung:cubic-bezier(.33, 1, .68, 1);
+  --dauer-bewegung:.5s;
+  --bereich-training:#0088FF;
+  --bereich-koerper:#C55300;
+  --bereich-app:#48484A;
+  color-scheme:light;
+}
+
+/* ---------- Grundlage ---------- */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0 }
+html{ -webkit-text-size-adjust:100% }
+body{
+  background:var(--grund);
+  color:var(--tinte);
+  font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:18px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{ display:block; max-width:100% }
+a{ color:var(--akzent); text-underline-offset:3px }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer }
+
+/* Fokus: sichtbar, in der Marke, ueberall gleich */
+:focus-visible{ outline:3px solid var(--akzent); outline-offset:3px; border-radius:6px }
+
+/* Die vier Textgroessen. Fraunces nur fuer Ueberschriften, Claim und Marke. */
+h1{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:700;
+    font-size:clamp(38px,7vw,60px); line-height:1.05; letter-spacing:-0.02em }
+h2,.claim{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:600;
+    font-size:clamp(24px,4vw,34px); line-height:1.15 }
+.klein{ font-size:14px; color:var(--leise); line-height:1.5 }
+p{ max-width:65ch }
+
+/* Raum: 8er-Raster. Eine Flucht: alles steht linksbuendig am Rahmen. */
+.rahmen{ width:100%; max-width:1120px; margin:0 auto; padding:0 24px }
+section{ padding:56px 0 }
+@media (min-width:768px){ section{ padding:80px 0 } }
+section[id]{ scroll-margin-top:80px }
+
+/* Sprunglink: erst bei Tastaturfokus sichtbar */
+.sprung{ position:absolute; left:-999px; top:8px; background:var(--karte); color:var(--tinte);
+  padding:8px 16px; border-radius:980px; z-index:20; box-shadow:var(--schatten) }
+.sprung:focus{ left:8px }
+
+/* Die weissen Logodateien liegen nur fuer die Fuellung beim Zeigen bereit. */
+.nur-dunkel{ display:none }
+
+/* ---------- App-Store-Knopf ----------
+   Eine volle Kapsel. KEIN Apple-Logo und kein nachgebautes Abzeichen (Apple:
+   „Use only the badge artwork provided“). „App Store“ bleibt auch im
+   Deutschen englisch und wird nie in Grossbuchstaben gesetzt. */
+.store{ display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 20px 0 24px;
+  border-radius:980px; background:var(--store-voll); color:var(--auf-marke);
+  font-weight:600; white-space:nowrap; text-decoration:none }
+.store:hover{ text-decoration:none }
+.store svg{ width:18px; height:18px; stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+.store-gross{ height:64px; padding:0 28px 0 32px }
+
+/* Die Marke laeuft von links hinein, ueberall gleich. :hover nur mit Zeiger,
+   am iPhone bliebe er sonst nach dem Tippen haengen. */
+.fuellen{ position:relative; isolation:isolate; overflow:hidden; transition:color .475s ease }
+.fuell{ position:absolute; inset:0; z-index:-1; border-radius:inherit; pointer-events:none;
+  background:var(--marke-voll); clip-path:inset(0 100% 0 0); transition:clip-path .475s ease }
+@media (hover:hover){
+  .fuellen:hover{ color:var(--auf-marke) }
+  .fuellen:hover .fuell{ clip-path:inset(0 0 0 0) }
+  .fuellen:hover .nur-hell{ display:none }
+  .fuellen:hover .nur-dunkel{ display:block }
+}
+.fuellen:active,.fuellen:focus-visible{ color:var(--auf-marke) }
+.fuellen:active .fuell,.fuellen:focus-visible .fuell{ clip-path:inset(0 0 0 0) }
+.fuellen:active .nur-hell,.fuellen:focus-visible .nur-hell{ display:none }
+.fuellen:active .nur-dunkel,.fuellen:focus-visible .nur-dunkel{ display:block }
+
+/* ---------- Kopf: eine Segmentleiste ----------
+   Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
+   Apple, so breit wie ihr Inhalt, mittig. SEIT TICKET 684d (23.10.2026,
+   Entscheidung: die Navigationsleiste in der Breite der Fusszeile) ist die Kapsel
+   so breit wie die Fusskarte: Rand 24 wie .rahmen, hoechstens 1120 minus 48,
+   Wortmarke links, App Store rechts, die Segmente dazwischen (wie 684c). Kein Glas, keine Milch: feste
+   Flaeche. Das gewaehlte Segment ist die Seite, auf der man steht
+   (aria-current). Symbole: Lucide, rechts neben dem Wort wie in der Vorlage.
+   Der Kopf selbst ist durchsichtig und laesst Klicks durch, nur die Leiste
+   nimmt sie an. */
+@media (max-width:899px){ .nur-breit{ display:none !important } }
+@media (min-width:900px){ .nur-schmal{ display:none !important } }
+.kopf{ position:sticky; top:0; z-index:10; padding:12px 24px; pointer-events:none }
+.kopf-innen{ position:relative; z-index:1; width:100%; max-width:1072px; margin:0 auto;
+  pointer-events:auto }
+.leiste{ display:flex; align-items:center; gap:2px; padding:4px; border-radius:980px;
+  background:var(--band); border:1px solid var(--kante); box-shadow:var(--leiste-schatten) }
+.segment{ display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:40px; padding:0 16px; border-radius:980px;
+  color:var(--leise); text-decoration:none; white-space:nowrap;
+  font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  transition:background-color .2s ease, color .2s ease }
+.segment svg{ flex:none; width:16px; height:16px; stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+@media (hover:hover){ .segment:hover{ color:var(--tinte); background:rgba(0,0,0,.05) } }
+.segment[aria-current="page"],.segment[aria-expanded="true"]{
+  background:var(--karte); color:var(--tinte); box-shadow:var(--segment-schatten) }
+.segment-marke{ padding:0 16px 0 14px; margin-right:auto }
+.segment-marke img{ height:18px; width:auto }
+/* Die Wortmarke steht frei, ohne Pille, auch auf der Startseite und beim
+   Zeigen (30.9.2026). aria-current bleibt fuer Screenreader. */
+.segment-marke,.segment-marke[aria-current="page"],.segment-marke:hover{
+  background:none !important; box-shadow:none !important }
+.leiste .store{ height:40px; padding:0 14px 0 18px; font-size:14px; margin-left:auto }
+.leiste .store svg{ width:16px; height:16px }
+.menue-knopf{ width:40px; padding:0 }
+.menue-knopf svg{ width:22px; height:22px }
+.menue-knopf[aria-expanded="true"] .sym-auf,
+.menue-knopf:not([aria-expanded="true"]) .sym-zu{ display:none }
+
+/* „Folge uns“ oeffnet eine feste Karte unter dem Segment.
+   Radius konzentrisch: 24 aussen, 8 Polster, 16 innen. */
+.folgen-menue{ position:absolute; top:calc(100% + 8px); left:0; min-width:220px;
+  background:var(--karte); border:1px solid var(--kante); border-radius:24px;
+  box-shadow:var(--leiste-schatten) }
+.folgen-menue[hidden],.menue[hidden]{ display:none }
+.folgen-menue ul{ list-style:none; margin:0; padding:8px }
+.folgen-menue a{ display:flex; align-items:center; gap:12px; height:44px; padding:0 12px;
+  border-radius:16px; color:var(--tinte); text-decoration:none; font-size:16px; font-weight:600 }
+.folgen-menue img,.menue-zeile img{ object-fit:contain }
+.folgen-menue img{ width:20px; height:20px }
+
+/* Das Handymenue: ueber den ganzen Bildschirm, fester Grund. Die Leiste mit
+   dem Schliessen-Symbol bleibt darueber (z-index 1 gegen 0). */
+.menue{ position:fixed; inset:0; z-index:0; background:var(--grund); pointer-events:auto;
+  overflow-y:auto; padding:96px 0 48px }
+.menue-inhalt{ display:flex; flex-direction:column; gap:32px; align-items:flex-start }
+.menue-gruppe{ display:flex; flex-direction:column; align-self:stretch }
+.menue-kopf{ font-size:14px; font-weight:600; color:var(--leise); margin:0 0 4px }
+.menue-zeile{ display:flex; align-items:center; gap:12px; min-height:52px; padding:0;
+  border:0; background:none; font:inherit; font-size:20px; font-weight:600;
+  color:var(--tinte); text-decoration:none; text-align:left; cursor:pointer }
+.menue-zeile[aria-current="page"]{ color:var(--akzent) }
+.menue-zeile img{ width:24px; height:24px }
+.menue-kapsel{ margin-left:-16px; padding:0 20px 0 16px; border-radius:980px }
+html.menue-offen{ overflow:hidden }
+
+/* ---------- Fuss ----------
+   Klassisch wie Vorlage (Hevy): links Marke und Kreise, rechts
+   Spalten, darunter eine Zeile Rechtliches. Die grosse Wortmarke bleibt,
+   von der Kartenkante angeschnitten: sie ist die Wiedererkennung aus dem
+   Profil der App. */
+footer{ padding:0 0 32px }
+.fuss-karte{ background:var(--band); border-radius:32px; overflow:hidden; padding:48px 24px 0 }
+.fuss-oben{ display:grid; gap:40px; grid-template-columns:1fr 1fr }
+.fuss-marke{ grid-column:1 / -1; display:flex; flex-direction:column; align-items:flex-start; gap:8px }
+@media (min-width:768px){
+  .fuss-karte{ padding:64px 56px 0 }
+  .fuss-oben{ grid-template-columns:2fr 1fr 1fr; gap:32px }
+  .fuss-marke{ grid-column:auto }
+}
+.fuss-marke .klein{ margin-bottom:16px }
+.fuss-spalte{ display:flex; flex-direction:column; align-items:flex-start; gap:12px }
+.fuss-kopf{ font-size:14px; font-weight:600 }
+.fuss-link{ font-size:15px; color:var(--leise); text-decoration:none }
+@media (hover:hover){ .fuss-link:hover,.fuss-recht a:hover{ color:var(--tinte) } }
+/* „Folge uns“ ist Instagrams Bedingung dafuer, dass ein anderes Netzwerk an
+   derselben Stelle stehen darf. DIE LOGOS WERDEN NIE NACHGEZEICHNET: die
+   Dateien in img/ sind dieselben wie in der App (Ticket 425). */
+.kreise{ display:flex; gap:8px }
+.kreis{ display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:50%; background:var(--karte) }
+.kreis img{ width:20px; height:20px; object-fit:contain }
+/* Die Wortmarke: 1841 x 312, sichtbar sind die oberen 74 %. Rein dekorativ. */
+.fuss-riese{ margin-top:56px; aspect-ratio:1841 / 230; overflow:hidden }
+.fuss-riese img{ width:100%; height:auto }
+.fuss-unten{ display:flex; flex-direction:column; gap:8px; padding:20px 8px 0 }
+.fuss-recht{ display:flex; flex-wrap:wrap; gap:8px 24px }
+.fuss-recht a{ font-size:14px; color:var(--leise); text-decoration:none }
+.fuss-unten p{ max-width:none }
+.fuss-recht a[aria-current="page"]{ color:var(--tinte); font-weight:600 }
+
+/* Pflicht: alles still, wenn der Nutzer es so eingestellt hat */
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important }
+  .blende{ opacity:1; transform:none }
+}
+
+/* ---------- Rechtstext ----------
+   Die Regeln der bisherigen Seite, auf main.recht begrenzt: die Startseite
+   setzt h1, h2, p und .klein fuer ihren Aufbau, der Rechtstext braucht
+   seine eigene, ruhigere Leiter. */
+/* Rahmen so breit wie Kopfleiste und Fusszeile (1120, 27.9.2026).
+   Der Fliesstext bleibt bei 62ch, sonst werden die Zeilen zu lang. */
+main.recht{ max-width:1120px; margin:0 auto; padding:40px 24px 96px }
+main.recht h1{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:700;
+  font-size:clamp(32px,6vw,44px); line-height:1.1; letter-spacing:-.02em; margin:0 0 8px }
+main.recht .stand{ color:var(--leise); font-size:15px; margin:0 0 40px }
+main.recht h2{ font-family:"Public Sans","Helvetica Neue",Arial,sans-serif; font-size:20px; font-weight:600;
+  line-height:1.3; margin:44px 0 12px; letter-spacing:-.01em }
+main.recht h3{ font-size:17px; font-weight:600; margin:28px 0 8px }
+main.recht p{ margin:0 0 14px; max-width:62ch }
+main.recht ul{ margin:0 0 14px; padding-left:20px; max-width:62ch }
+main.recht li{ margin:0 0 6px }
+main.recht address{ font-style:normal; margin:0 0 14px }
+main.recht a{ text-decoration:none }
+main.recht a:not(.store):hover{ text-decoration:underline }
+main.recht .klein{ font-size:15px; color:var(--leise) }
+main.recht .karte{ background:var(--karte); box-shadow:var(--schatten); border-radius:20px;
+  padding:24px 28px; margin:0 0 8px }
+main.recht .karte p:last-child,main.recht .karte ul:last-child{ margin-bottom:0 }
+main.recht .kurz{ border-left:3px solid var(--akzent); padding:4px 0 4px 20px; margin:0 0 40px }
+main.recht .kurz p{ font-size:19px; margin-bottom:8px }
+main.recht .kurz p:last-child{ margin-bottom:0 }
+main.recht hr{ border:0; border-top:1px solid var(--kante); margin:56px 0 }
+/* Sprachumschaltung im Rechtstext: DE- und EN-Block stehen beide im
+   Dokument, data-lang am html waehlt. Kopf und Fuss uebersetzt das Skript. */
+main [lang="en"]{ display:none }
+html[data-lang="en"] main [lang="de"]{ display:none }
+html[data-lang="en"] main>[lang="en"]{ display:block }
+html[data-lang="en"] main [lang="en"].klein{ display:inline }
+
+/* ---------- Karten, Blick-Tabelle (wie Auswertung) ----------
+   Baut auf main.recht auf. Dazu: die Kennzeichnung Frei/Pro an jeder
+   Ueberschrift ("Pro" immer in der Markenfarbe, ENTSCHEIDUNG_PRO.md 2),
+   die Tabelle "Auf einen Blick" und zwei Karten nebeneinander. */
+main.recht .tag{ display:inline-block; vertical-align:middle; margin-left:8px; padding:2px 10px;
+  border-radius:980px; border:1px solid var(--kante); font-size:13px; font-weight:600;
+  line-height:1.5; color:var(--leise) }
+main.recht .tag-pro{ color:var(--akzent); border-color:var(--akzent) }
+main.recht h3.ist-pro{ color:var(--akzent) }
+main.recht .blick{ display:grid; grid-template-columns:1fr; gap:4px 24px; margin:0 }
+main.recht .blick dt{ font-weight:600 }
+main.recht .blick dd{ margin:0 0 12px; max-width:62ch }
+@media (min-width:768px){
+  main.recht .blick{ grid-template-columns:140px 1fr }
+  main.recht .blick dd{ margin:0 0 8px }
+}
+main.recht .zwei{ display:grid; gap:8px; grid-template-columns:1fr; margin:0 0 16px }
+@media (min-width:768px){ main.recht .zwei{ grid-template-columns:1fr 1fr } }
+main.recht .zwei h3{ margin-top:0 }
+main.recht .quellen{ font-size:16px }
+main.recht .store{ margin:24px 0 8px }
+/* ---------- Was ist neu: je Version ein Abschnitt wie die FAQ (796 Runde 2) ----------
+   Die Regeln der FAQ stehen wie auf der Startseite; dazu die Nummer als Ueberschrift im Kopf,
+   die Eintraege mit Trennlinie wie in der App, das Zeichen in der Farbe seines Bereichs. */
+.faq{ background:var(--karte); border-radius:20px; box-shadow:var(--schatten); padding:0 24px }
+.faq summary{ cursor:pointer; list-style:none; padding:16px 0; font-weight:600;
+  display:flex; justify-content:space-between; align-items:center; gap:16px }
+.faq summary::-webkit-details-marker{ display:none }
+.faq summary::after{ content:""; flex:none; width:10px; height:10px; margin-right:4px;
+  border-right:2px solid var(--leise); border-bottom:2px solid var(--leise);
+  transform:rotate(45deg); transition:transform var(--dauer-bewegung) var(--kurve-bewegung) }
+.faq[open] summary::after{ transform:rotate(225deg) }
+.faq p{ padding:0 0 20px; max-width:none }
+@media (prefers-reduced-motion: reduce){ .faq summary::after{ transition:none !important } }
+main.recht .neu-liste{ display:flex; flex-direction:column; gap:8px }
+main.recht .faq h2{ font:inherit; letter-spacing:normal; margin:0 }
+main.recht .neu-eintraege{ list-style:none; margin:0; padding:0 0 8px; max-width:none }
+main.recht .neu-eintrag{ display:flex; align-items:center; gap:16px; margin:0; padding:12px 0 }
+main.recht .neu-eintrag + .neu-eintrag{ border-top:1px solid var(--kante) }
+.neu-zeichen{ flex:none; width:40px; height:40px; display:flex; align-items:center; justify-content:center }
+.neu-zeichen svg{ width:34px; height:34px }
+.neu-eintrag[data-farbgruppe="training"] .neu-zeichen{ color:var(--bereich-training) }
+.neu-eintrag[data-farbgruppe="koerper"] .neu-zeichen{ color:var(--bereich-koerper) }
+.neu-eintrag[data-farbgruppe="app"] .neu-zeichen{ color:var(--bereich-app) }
+main.recht .neu-text{ min-width:0 }
+main.recht .neu-text h3{ font-size:18px; line-height:1.4; margin:0 }
+main.recht .neu-text p{ color:var(--leise); line-height:1.4; margin:0; padding:0 }
+</style>
+</head>
+<body>
+<a class="sprung" href="#inhalt" data-t="skip">Zum Inhalt</a>
+
+<header class="kopf">
+  <div class="kopf-innen">
+    <nav class="leiste" aria-label="Hauptnavigation" data-t-aria="nav_name">
+      <a class="segment segment-marke" href="/"><img src="../img/logo-dunkel.svg" alt="Satzwerk" width="142" height="24"></a>
+      <a class="segment nur-breit" href="/auswertung/"><span data-t="nav_auswertung">Auswertung</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></a>
+      <a class="segment nur-breit" href="/ueber/"><span data-t="nav_ueber">Über uns</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></a>
+      <button class="segment nur-breit" id="folgen" type="button" aria-expanded="false" aria-controls="folgen-menue"><span data-t="folgen">Folge uns</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg></button>
+      <button class="segment nur-breit" id="sprache" type="button" data-sprachknopf data-t-aria="lang_aria" aria-label="Switch to English"><span data-t="lang">EN</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg></button>
+      <a class="store fuellen nur-breit" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+      <button class="segment menue-knopf nur-schmal" id="menue-knopf" type="button" aria-expanded="false" aria-controls="menue" data-t-aria="menue" aria-label="Menü öffnen">
+        <svg class="sym-auf" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+        <svg class="sym-zu" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </nav>
+    <!-- Symbole: lucide-static 1.44.0 (ISC), chart-column, info, at-sign, languages, arrow-up-right, menu, x -->
+    <div class="folgen-menue nur-breit" id="folgen-menue" hidden>
+      <ul>
+        <li><a class="fuellen" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener" data-t-aria="ig_label" aria-label="Satzwerk auf Instagram"><span class="fuell"></span>
+          <img class="nur-hell" src="../img/ig-schwarz.png" alt="" width="20" height="20">
+          <img class="nur-dunkel" src="../img/ig-weiss.png" alt="" width="20" height="20">Instagram</a></li>
+        <li><a class="fuellen" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener" data-t-aria="li_label" aria-label="Satzwerk auf LinkedIn"><span class="fuell"></span>
+          <img class="nur-hell" src="../img/li-schwarz.png" alt="" width="20" height="20">
+          <img class="nur-dunkel" src="../img/li-weiss.png" alt="" width="20" height="20">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <nav class="menue nur-schmal" id="menue" data-t-aria="menue_name" aria-label="Menü" hidden>
+    <div class="rahmen menue-inhalt">
+      <a class="store fuellen store-gross" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+      <div class="menue-gruppe">
+        <p class="menue-kopf" data-t="seiten">Seiten</p>
+        <a class="menue-zeile" href="/" data-t="start">Start</a>
+        <a class="menue-zeile" href="/auswertung/" data-t="nav_auswertung">Auswertung</a>
+        <a class="menue-zeile" href="/ueber/" data-t="nav_ueber">Über uns</a>
+      </div>
+      <div class="menue-gruppe">
+        <p class="menue-kopf" data-t="folgen">Folge uns</p>
+        <a class="menue-zeile menue-kapsel fuellen" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener" data-t-aria="ig_label" aria-label="Satzwerk auf Instagram"><span class="fuell"></span>
+          <img class="nur-hell" src="../img/ig-schwarz.png" alt="" width="24" height="24">
+          <img class="nur-dunkel" src="../img/ig-weiss.png" alt="" width="24" height="24">Instagram</a>
+        <a class="menue-zeile menue-kapsel fuellen" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener" data-t-aria="li_label" aria-label="Satzwerk auf LinkedIn"><span class="fuell"></span>
+          <img class="nur-hell" src="../img/li-schwarz.png" alt="" width="24" height="24">
+          <img class="nur-dunkel" src="../img/li-weiss.png" alt="" width="24" height="24">LinkedIn</a>
+      </div>
+      <div class="menue-gruppe">
+        <p class="menue-kopf" data-t="sprache_kopf">Sprache</p>
+        <button class="menue-zeile" type="button" data-sprachknopf data-t="sprache_voll">English</button>
+      </div>
+      <div class="menue-gruppe">
+        <p class="menue-kopf" data-t="rechtliches">Rechtliches</p>
+        <a class="menue-zeile" href="/impressum/" data-t="impressum">Impressum</a>
+        <a class="menue-zeile" href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="recht" id="inhalt">
+
+<!-- Zeichen: nachgezeichnet nach Lucide (lucide-static 1.44.0), https://lucide.dev
+ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+- - -
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<!-- ================= DEUTSCH ================= -->
+<div lang="de">
+
+  <h1>Was ist neu</h1>
+
+  <div class="kurz">
+    <p>Hier steht, was jede Version von Satzwerk neu gebracht hat, die neueste zuerst. Ältere Abschnitte beschreiben die App, wie sie damals war. Was heute gilt, steht auf der <a href="/">Startseite</a>.</p>
+  </div>
+
+  <!-- aus der App: src/neuerungen.js und src/texte.js -->
+  <div class="neu-liste">
+  <details class="faq" open>
+    <summary><h2>3.0</h2></summary>
+    <ul class="neu-eintraege">
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 2h10"></path><path d="M5 6h14"></path><rect width="18" height="12" x="3" y="10" rx="2"></rect></svg></span><div class="neu-text"><h3>Die Woche als Kartenstapel</h3><p>Sieh deine Woche als Stapel aus Karten, vorn das Training von heute. Tippe auf eine Karte, um die Übungen zu sehen und das Training zu starten.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></svg></span><div class="neu-text"><h3>Kartendesigns</h3><p>Gib jedem Training ein eigenes Design, auf der Karte, im laufenden Training und im Widget. Zwei Designs sind frei, alle sieben gibt es mit Satzwerk Pro.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M12 15V3"></path><path d="m8 7 4-4 4 4"></path><path d="M9 8H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-3"></path></svg></span><div class="neu-text"><h3>Training teilen</h3><p>Teile ein beendetes Training als Story oder als Sticker für dein eigenes Foto. Mit Satzwerk Pro steht die Progression mit im Bild.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M8 2v3M16 2v3M3 9h18M9 15l2 2 4-4"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span><div class="neu-text"><h3>Drei Zahlen zu jedem Training</h3><p>Öffne eine Karte und sieh die Trainings dieser Woche, die Übungen im Ziel und die Übungen, bei denen du stärker geworden bist. „Im Ziel“ und „Stärker“ gibt es mit Satzwerk Pro.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg></span><div class="neu-text"><h3>Widgets im Kartendesign</h3><p>Leg „Heute“ oder „Training“ auf den Home-Bildschirm. Sie zeigen die Karte des Tages, auch getönt, und wechseln um Mitternacht auf den neuen Tag.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"></path><path d="m22 7l-8.5 8.5l-5-5L2 17"></path></svg></span><div class="neu-text"><h3>Progression <span class="tag tag-pro">Pro</span></h3><p>Lies für jede Übung ein Urteil, stärker, gleich oder schwächer, mit den zwei Sätzen darunter. Ab der zweiten Trainingswoche.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M8 2v3M16 2v3M3 9h18"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span><div class="neu-text"><h3>Woche bearbeiten</h3><p>Plane diese und die nächste Woche: Verschiebe Trainings oder lege an einem Ruhetag mit dem Plus eines dazu. Der Plan selbst bleibt, wie er ist. Eine Woche ohne Training markierst du im Menü der Woche als Trainingspause.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M12 5v16"></path><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"></path></svg></span><div class="neu-text"><h3>Planbibliothek</h3><p>Wähle eine Vorlage für Studio, Hanteln oder ohne Geräte, für den Einstieg oder für Fortgeschrittene, und übernimm sie als Kopie, die du frei anpasst.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></span><div class="neu-text"><h3>Prompt für deinen Plan</h3><p>Kopiere unter „Plan einfügen“ einen Prompt, mit dem eine KI deinen Plan so aufschreibt, dass Satzwerk ihn übernimmt.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="koerper"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"></circle><path d="M6.5 8a2 2 0 0 0-1.905 1.46L2.1 18.5A2 2 0 0 0 4 21h16a2 2 0 0 0 1.925-2.54L19.4 9.5A2 2 0 0 0 17.48 8Z"></path></svg></span><div class="neu-text"><h3>Gewicht aus Apple Health</h3><p>Übernimm dein Gewicht aus Apple Health, auch frühere Wiegungen, zum Beispiel von deiner Waage.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="app"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg></span><div class="neu-text"><h3>Sicherung in iCloud</h3><p>Sichere deine Daten in deiner eigenen iCloud. Satzwerk fragt einmal, im Profil änderst du es jederzeit. Ein neues iPhone holt die Sicherung beim ersten Start zurück.</p></div></li>
+    </ul>
+  </details>
+  <details class="faq">
+    <summary><h2>2.1</h2></summary>
+    <ul class="neu-eintraege">
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg></span><div class="neu-text"><h3>Widgets</h3><p>Satzwerk auf dem Homescreen: Heute, Woche, Wochenraster und Raster. Hell, dunkel oder getönt, wie dein System.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="koerper"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"></circle><path d="M6.5 8a2 2 0 0 0-1.905 1.46L2.1 18.5A2 2 0 0 0 4 21h16a2 2 0 0 0 1.925-2.54L19.4 9.5A2 2 0 0 0 17.48 8Z"></path></svg></span><div class="neu-text"><h3>Gewicht</h3><p>Die Veränderung gegen die Vorwoche hat jetzt eine Farbe, gemessen an deinem Zielgewicht. Ohne Ziel bleibt sie ohne Farbe.</p></div></li>
+    </ul>
+  </details>
+  <details class="faq">
+    <summary><h2>2.0.1</h2></summary>
+    <ul class="neu-eintraege">
+      <li class="neu-eintrag" data-farbgruppe="app"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></span><div class="neu-text"><h3>Satzwerk Pro</h3><p>Die Auswertung und der Körperbereich gehören ab dieser Version zu Satzwerk Pro, im Monat oder im Jahr. Wer gymLog schon genutzt hat, bekommt Pro bis zum 31. Oktober 2027 geschenkt. Neu dabei? Dann sind es 30 Tage.</p></div></li>
+    </ul>
+  </details>
+  <details class="faq">
+    <summary><h2>2.0</h2></summary>
+    <ul class="neu-eintraege">
+      <li class="neu-eintrag" data-farbgruppe="app"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg></span><div class="neu-text"><h3>Satzwerk</h3><p>Die App heißt jetzt Satzwerk. Deine Daten bleiben, wo sie sind.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M12 16v5"></path><path d="M16 14.639V21"></path><path d="M20 10.656V21"></path><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"></path><path d="M4 18.463V21"></path><path d="M8 14.656V21"></path></svg></span><div class="neu-text"><h3>Auswertung statt Protokoll <span class="tag tag-pro">Pro</span></h3><p>Progression, Sätze je Muskel und Intensität sagen dir, was deine Zahlen bedeuten. Ein Befund, keine Anweisung.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"></path><path d="m22 7l-8.5 8.5l-5-5L2 17"></path></svg></span><div class="neu-text"><h3>Progression <span class="tag tag-pro">Pro</span></h3><p>Je Übung: lagen die Wiederholungen im Ziel, und ist dein schwerster Satz gegenüber der Vorwoche gestiegen.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M8 2v3M16 2v3M3 9h18"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span><div class="neu-text"><h3>Woche bearbeiten</h3><p>Ein Training auf einen anderen Wochentag ziehen, nur für diese Woche. Dein Plan bleibt unangetastet.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1"></rect><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8m-10 4h4"></path></svg></span><div class="neu-text"><h3>Archiv</h3><p>Eine abgeschlossene Einheit gehört sich selbst. Pläne löschen oder umbenennen fasst deine Historie nicht mehr an.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="koerper"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" x2="5" y1="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg></span><div class="neu-text"><h3>Körper <span class="tag tag-pro">Pro</span></h3><p>Körperfett aus drei Falten nach Jackson &amp; Pollock, Gewicht als Wochenschnitt, Umfänge mit eigener Auswertung.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="app"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></span><div class="neu-text"><h3>Satzwerk Pro</h3><p>Die Auswertung ist neu und läuft über ein Abo, im Monat oder im Jahr. 30 Tage sind geschenkt. Wer gymLog schon genutzt hat, bekommt ein ganzes Jahr Pro dazu.</p></div></li>
+    </ul>
+  </details>
+  </div>
+  <!-- Ende aus der App -->
+
+</div>
+
+<!-- ================= ENGLISH ================= -->
+<div lang="en">
+
+  <h1>What’s New</h1>
+
+  <div class="kurz">
+    <p>This is what each version of Satzwerk brought, newest first. Older sections describe the app as it was then. What applies today is on the <a href="/">home page</a>.</p>
+  </div>
+
+  <!-- aus der App: src/neuerungen.js und src/texte.js -->
+  <div class="neu-liste">
+  <details class="faq" open>
+    <summary><h2>3.0</h2></summary>
+    <ul class="neu-eintraege">
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 2h10"></path><path d="M5 6h14"></path><rect width="18" height="12" x="3" y="10" rx="2"></rect></svg></span><div class="neu-text"><h3>Your week as a card stack</h3><p>See your week as a stack of cards, with today’s workout in front. Tap a card to see its exercises and start the workout.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></svg></span><div class="neu-text"><h3>Card designs</h3><p>Give every workout its own design, on the card, during the workout and in the widget. Two designs are free, all seven come with Satzwerk Pro.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M12 15V3"></path><path d="m8 7 4-4 4 4"></path><path d="M9 8H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-3"></path></svg></span><div class="neu-text"><h3>Share your workout</h3><p>Share a finished workout as a story or as a sticker for your own photo. With Satzwerk Pro, your progression is part of the image.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M8 2v3M16 2v3M3 9h18M9 15l2 2 4-4"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span><div class="neu-text"><h3>Three numbers for every workout</h3><p>Open a card to see this week’s workouts, the exercises on target and the exercises where you got stronger. “On target” and “Stronger” come with Satzwerk Pro.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg></span><div class="neu-text"><h3>Widgets in card design</h3><p>Add “Today” or “Training” to your Home Screen. They show the day’s card, tinted too, and switch to the new day at midnight.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"></path><path d="m22 7l-8.5 8.5l-5-5L2 17"></path></svg></span><div class="neu-text"><h3>Progression <span class="tag tag-pro">Pro</span></h3><p>Read one verdict per exercise, stronger, same or weaker, with the two sets below. From the second training week.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M8 2v3M16 2v3M3 9h18"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span><div class="neu-text"><h3>Edit week</h3><p>Plan this week and next: move workouts or add one on a rest day with the plus. Your plan itself stays as it is. Mark a week without training as a training break from the week’s menu.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M12 5v16"></path><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"></path></svg></span><div class="neu-text"><h3>Plan library</h3><p>Pick a template for gym, dumbbells or no equipment, for beginners or advanced, and take it as a copy you can change freely.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></span><div class="neu-text"><h3>Prompt for your plan</h3><p>Copy a prompt under “Paste plan” that lets an AI write your plan so Satzwerk can take it over.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="koerper"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"></circle><path d="M6.5 8a2 2 0 0 0-1.905 1.46L2.1 18.5A2 2 0 0 0 4 21h16a2 2 0 0 0 1.925-2.54L19.4 9.5A2 2 0 0 0 17.48 8Z"></path></svg></span><div class="neu-text"><h3>Weight from Apple Health</h3><p>Bring in your weight from Apple Health, including earlier weigh-ins, for example from your scale.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="app"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg></span><div class="neu-text"><h3>Backup in iCloud</h3><p>Back up your data to your own iCloud. Satzwerk asks once, and you can change it in your profile anytime. A new iPhone restores the backup on first launch.</p></div></li>
+    </ul>
+  </details>
+  <details class="faq">
+    <summary><h2>2.1</h2></summary>
+    <ul class="neu-eintraege">
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg></span><div class="neu-text"><h3>Widgets</h3><p>Satzwerk on your Home Screen: Today, Week, Week grid and Grid. Light, dark or tinted, just like your system.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="koerper"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"></circle><path d="M6.5 8a2 2 0 0 0-1.905 1.46L2.1 18.5A2 2 0 0 0 4 21h16a2 2 0 0 0 1.925-2.54L19.4 9.5A2 2 0 0 0 17.48 8Z"></path></svg></span><div class="neu-text"><h3>Weight</h3><p>The change against last week now has a color, based on your goal weight. Without a goal, no color.</p></div></li>
+    </ul>
+  </details>
+  <details class="faq">
+    <summary><h2>2.0.1</h2></summary>
+    <ul class="neu-eintraege">
+      <li class="neu-eintrag" data-farbgruppe="app"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></span><div class="neu-text"><h3>Satzwerk Pro</h3><p>From this version on, the analysis and the body section are part of Satzwerk Pro, monthly or yearly. If you already used gymLog, Pro is free for you until 31 October 2027. New here? Then it’s 30 days.</p></div></li>
+    </ul>
+  </details>
+  <details class="faq">
+    <summary><h2>2.0</h2></summary>
+    <ul class="neu-eintraege">
+      <li class="neu-eintrag" data-farbgruppe="app"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg></span><div class="neu-text"><h3>Satzwerk</h3><p>The app is now called Satzwerk. Your data stays exactly where it is.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M12 16v5"></path><path d="M16 14.639V21"></path><path d="M20 10.656V21"></path><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"></path><path d="M4 18.463V21"></path><path d="M8 14.656V21"></path></svg></span><div class="neu-text"><h3>Analysis, not just a log <span class="tag tag-pro">Pro</span></h3><p>Progression, sets per muscle and intensity tell you what your numbers mean. A finding, not an instruction.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"></path><path d="m22 7l-8.5 8.5l-5-5L2 17"></path></svg></span><div class="neu-text"><h3>Progression <span class="tag tag-pro">Pro</span></h3><p>Per exercise: did your reps land in the target, and is your heaviest set up against last week.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M8 2v3M16 2v3M3 9h18"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span><div class="neu-text"><h3>Edit the week</h3><p>Drag a workout to another weekday, for this week only. Your plan stays untouched.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="training"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1"></rect><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8m-10 4h4"></path></svg></span><div class="neu-text"><h3>Archive</h3><p>A finished session belongs to itself. Deleting or renaming a plan no longer touches your history.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="koerper"><span class="neu-zeichen" aria-hidden="true"><svg class="neu-sym" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" x2="5" y1="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg></span><div class="neu-text"><h3>Body <span class="tag tag-pro">Pro</span></h3><p>Body fat from three skinfolds (Jackson &amp; Pollock), weight as a weekly average, measurements with their own breakdown.</p></div></li>
+      <li class="neu-eintrag" data-farbgruppe="app"><span class="neu-zeichen" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="neu-sym"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></span><div class="neu-text"><h3>Satzwerk Pro</h3><p>The analysis is new and runs on a subscription, monthly or yearly. 30 days are free. Anyone who already used gymLog gets a whole year of Pro on top.</p></div></li>
+    </ul>
+  </details>
+  </div>
+  <!-- Ende aus der App -->
+
+</div>
+
+</main>
+
+<footer>
+  <div class="rahmen">
+    <div class="fuss-karte">
+      <div class="fuss-oben">
+        <div class="fuss-marke">
+          <p class="claim" data-t="claim">Handwerk am eigenen Körper.</p>
+          <p class="klein" data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</p>
+          <p class="fuss-kopf" data-t="folgen">Folge uns</p>
+          <div class="kreise">
+            <a class="kreis fuellen" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener" aria-label="Satzwerk auf Instagram" data-t-aria="ig_label"><span class="fuell"></span>
+              <img class="nur-hell" src="../img/ig-schwarz.png" alt="" width="20" height="20" loading="lazy">
+              <img class="nur-dunkel" src="../img/ig-weiss.png" alt="" width="20" height="20" loading="lazy"></a>
+            <a class="kreis fuellen" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener" aria-label="Satzwerk auf LinkedIn" data-t-aria="li_label"><span class="fuell"></span>
+              <img class="nur-hell" src="../img/li-schwarz.png" alt="" width="20" height="18" loading="lazy">
+              <img class="nur-dunkel" src="../img/li-weiss.png" alt="" width="20" height="18" loading="lazy"></a>
+          </div>
+        </div>
+        <nav class="fuss-spalte" aria-labelledby="fuss-produkt">
+          <p class="fuss-kopf" id="fuss-produkt" data-t="fuss_produkt">Produkt</p>
+          <a class="fuss-link" href="/auswertung/" data-t="fuss_auswertung">Was Satzwerk auswertet</a>
+          <a class="fuss-link" href="/neu/" data-t="fuss_neu">Was ist neu</a>
+          <a class="fuss-link" href="/#pro" data-t="fuss_pro">Satzwerk Pro</a>
+          <a class="fuss-link" href="/#fragen" data-t="fuss_faq">Fragen und Antworten</a>
+          <a class="fuss-link" href="https://apps.apple.com/app/id6786720640">App Store</a>
+        </nav>
+        <nav class="fuss-spalte" aria-labelledby="fuss-satzwerk">
+          <p class="fuss-kopf" id="fuss-satzwerk">Satzwerk</p>
+          <a class="fuss-link" href="/ueber/" data-t="nav_ueber">Über uns</a>
+          <a class="fuss-link" href="mailto:info@satzwerk.app" data-t="fuss_kontakt">Kontakt</a>
+          <a class="fuss-link" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener">Instagram</a>
+          <a class="fuss-link" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener">LinkedIn</a>
+        </nav>
+      </div>
+      <div class="fuss-riese" aria-hidden="true">
+        <img src="../img/logo-dunkel.svg" alt="" width="1841" height="312" loading="lazy">
+      </div>
+    </div>
+    <div class="fuss-unten">
+      <nav class="fuss-recht" aria-label="Rechtliches" data-t-aria="rechtliches">
+        <a href="/impressum/" data-t="impressum">Impressum</a>
+        <a href="/datenschutz/" data-t="datenschutz">Datenschutz</a>
+      </nav>
+      <p class="klein">© 2026 Satzwerk. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Kopf und Fuss wie auf der Startseite; der Text hat DE- und EN-Block.
+   Ohne gespeicherte Wahl entscheidet die Browsersprache. */
+var TEXTE = {
+ "de": {
+  "skip": "Zum Inhalt",
+  "lang": "EN",
+  "lang_aria": "Switch to English",
+  "store": "Im App Store",
+  "nav_name": "Hauptnavigation",
+  "nav_auswertung": "Auswertung",
+  "nav_ueber": "Über uns",
+  "start": "Start",
+  "seiten": "Seiten",
+  "claim": "Handwerk am eigenen Körper.",
+  "fuss2": "Satz für den Trainingssatz, Werk für Handwerk.",
+  "folgen": "Folge uns",
+  "fuss_produkt": "Produkt",
+  "fuss_auswertung": "Was Satzwerk auswertet",
+  "fuss_neu": "Was ist neu",
+  "fuss_pro": "Satzwerk Pro",
+  "fuss_faq": "Fragen und Antworten",
+  "fuss_kontakt": "Kontakt",
+  "rechtliches": "Rechtliches",
+  "impressum": "Impressum",
+  "datenschutz": "Datenschutz",
+  "marken": "Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.",
+  "ig_label": "Satzwerk auf Instagram",
+  "li_label": "Satzwerk auf LinkedIn",
+  "menue": "Menü öffnen",
+  "menue_zu": "Menü schließen",
+  "menue_name": "Menü",
+  "sprache_kopf": "Sprache",
+  "sprache_voll": "English"
+ },
+ "en": {
+  "skip": "Skip to content",
+  "lang": "DE",
+  "lang_aria": "Auf Deutsch wechseln",
+  "store": "On the App Store",
+  "nav_name": "Main navigation",
+  "nav_auswertung": "Analysis",
+  "nav_ueber": "About",
+  "start": "Home",
+  "seiten": "Pages",
+  "claim": "Handwerk am eigenen Körper.",
+  "fuss2": "Satz for the training set, Werk for craft.",
+  "folgen": "Follow us",
+  "fuss_produkt": "Product",
+  "fuss_auswertung": "What Satzwerk analyzes",
+  "fuss_neu": "What’s New",
+  "fuss_pro": "Satzwerk Pro",
+  "fuss_faq": "Questions and answers",
+  "fuss_kontakt": "Contact",
+  "rechtliches": "Legal",
+  "impressum": "Legal notice",
+  "datenschutz": "Privacy",
+  "marken": "Apple, App Store, Apple Watch and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries.",
+  "ig_label": "Satzwerk on Instagram",
+  "li_label": "Satzwerk on LinkedIn",
+  "menue": "Open menu",
+  "menue_zu": "Close menu",
+  "menue_name": "Menu",
+  "sprache_kopf": "Language",
+  "sprache_voll": "Deutsch"
+ }
+};
+(function(){
+  var h = document.documentElement;
+  function hole(o, k){ return o && o[k]; }
+  function setzeSprache(l){
+    var t = TEXTE[l] || TEXTE.de;
+    h.setAttribute("data-lang", l); h.setAttribute("lang", l);
+    document.querySelectorAll("[data-t]").forEach(function(el){
+      var v = hole(t, el.getAttribute("data-t")); if (typeof v === "string") el.textContent = v; });
+    document.querySelectorAll("[data-t-aria]").forEach(function(el){
+      var v = hole(t, el.getAttribute("data-t-aria")); if (typeof v === "string") el.setAttribute("aria-label", v); });
+    try{ localStorage.setItem("satzwerk-sprache", l); }catch(e){}
+  }
+  var g = null; try{ g = localStorage.getItem("satzwerk-sprache"); }catch(e){}
+  setzeSprache(g === "de" || g === "en" ? g : ((navigator.language||"de").slice(0,2) === "de" ? "de" : "en"));
+  document.querySelectorAll("[data-sprachknopf]").forEach(function(k){
+    k.addEventListener("click", function(){
+      setzeSprache(h.getAttribute("data-lang") === "en" ? "de" : "en");
+    });
+  });
+})();
+</script>
+<script>
+/* Navigation: „Folge uns“ als kleine Karte ab 900 px, darunter das
+   Vollbildmenue. Beide schliessen mit Escape, der Fokus geht an ihren Knopf
+   zurueck. Die Karte schliesst auch beim Tipp daneben. Beim Wechsel der
+   Breite schliesst, was es auf der neuen Breite nicht gibt. */
+(function(){
+  var html = document.documentElement;
+  var fk = document.getElementById("folgen"), fm = document.getElementById("folgen-menue");
+  var mk = document.getElementById("menue-knopf"), mm = document.getElementById("menue");
+  var hinten = document.querySelectorAll("main, footer");
+
+  function folgenZu(fokus){
+    if (fm.hidden) return;
+    fm.hidden = true; fk.setAttribute("aria-expanded", "false");
+    if (fokus) fk.focus();
+  }
+  function folgenAuf(){
+    fm.hidden = false; fk.setAttribute("aria-expanded", "true");
+    /* Linke Kante unter dem Segment, rechts nie ueber die Leiste hinaus */
+    var r = fk.getBoundingClientRect(), p = fm.parentNode.getBoundingClientRect();
+    var links = Math.min(r.left - p.left, p.width - fm.offsetWidth);
+    fm.style.left = Math.max(0, links) + "px";
+  }
+  function beschrifte(offen){
+    var k = offen ? "menue_zu" : "menue";
+    var t = TEXTE[html.getAttribute("lang") === "en" ? "en" : "de"];
+    mk.setAttribute("data-t-aria", k);
+    if (t && typeof t[k] === "string") mk.setAttribute("aria-label", t[k]);
+  }
+  function menueZu(fokus){
+    if (mm.hidden) return;
+    mm.hidden = true; mk.setAttribute("aria-expanded", "false"); beschrifte(false);
+    html.classList.remove("menue-offen");
+    hinten.forEach(function(el){ el.inert = false; });
+    if (fokus) mk.focus();
+  }
+  function menueAuf(){
+    mm.hidden = false; mk.setAttribute("aria-expanded", "true"); beschrifte(true);
+    html.classList.add("menue-offen");
+    hinten.forEach(function(el){ el.inert = true; });
+  }
+
+  fk.addEventListener("click", function(){ fm.hidden ? folgenAuf() : folgenZu(false); });
+  mk.addEventListener("click", function(){ mm.hidden ? menueAuf() : menueZu(false); });
+  fm.addEventListener("click", function(e){ if (e.target.closest("a")) folgenZu(false); });
+  mm.addEventListener("click", function(e){ if (e.target.closest("a")) menueZu(false); });
+  document.addEventListener("click", function(e){
+    if (!fm.hidden && !fm.contains(e.target) && !fk.contains(e.target)) folgenZu(false);
+  });
+  document.addEventListener("keydown", function(e){
+    if (e.key !== "Escape") return;
+    if (!fm.hidden) folgenZu(true);
+    if (!mm.hidden) menueZu(true);
+  });
+  var breit = window.matchMedia("(min-width:900px)");
+  function wechsel(){ if (breit.matches) menueZu(false); else folgenZu(false); }
+  if (breit.addEventListener) breit.addEventListener("change", wechsel);
+})();
+</script>
+</body>
+</html>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Seite nicht gefunden – Satzwerk</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#F4F2EE">
+<meta name="theme-color" content="#F2F2F7">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="/img/bildmarke.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
@@ -15,7 +15,7 @@
 @font-face{font-family:"Public Sans";src:url("/fonts/publicsans.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
 
 :root{
-  --grund:#F4F2EE;
+  --grund:#F2F2F7;
   --tinte:#000000;
   --leise:#5C5C5E;
   --akzent:#8116E0;
@@ -43,6 +43,9 @@ a{
   border-radius:980px;border:1px solid var(--akzent);margin-top:8px;
 }
 a:focus-visible{outline:3px solid var(--akzent);outline-offset:3px}
+/* Rechtliches (Ticket 684d): zwei leise Links, kein Knopf, wie die Zeile im Fuss der anderen Seiten */
+.recht{display:flex;gap:24px;margin-top:24px}
+.recht a{height:auto;padding:0;border:0;border-radius:0;margin:0;font-size:14px;font-weight:400;color:var(--leise)}
 </style>
 </head>
 <body>
@@ -51,6 +54,10 @@ a:focus-visible{outline:3px solid var(--akzent);outline-offset:3px}
     <h1>Diese Seite gibt es nicht.</h1>
     <p>Der Link ist alt oder hat einen Tippfehler.</p>
     <a href="/">Zur Startseite</a>
+    <nav class="recht" aria-label="Rechtliches">
+      <a href="/impressum/">Impressum</a>
+      <a href="/datenschutz/">Datenschutz</a>
+    </nav>
   </div>
 </body>
 </html>

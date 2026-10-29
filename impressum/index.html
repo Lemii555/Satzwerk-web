@@ -6,7 +6,7 @@
 <title>Impressum — Satzwerk</title>
 <meta name="description" content="Impressum und Anbieterkennzeichnung für Satzwerk.">
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#F4F2EE">
+<meta name="theme-color" content="#F2F2F7">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="../img/bildmarke.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
@@ -33,21 +33,25 @@
 
 /* ---------- Farben: alle Werte hier, sonst nirgends ----------
    Nur hell (30.9.2026). Werte aus der App: src/stil.js, --bg /
-   --surface-2 / --surface / --ink / --ink-faint / --line / --akzent. */
+   --surface-2 / --surface / --ink / --ink-faint / --line / --akzent.
+   Ticket 684d (23.10.2026, Entscheidung: die Creme muss weg, wie in der
+   echten App): die Werte des Hellmodus nach Ticket 701, Apples systemGray6/5/4
+   (--bg #F2F2F7, --surface-2 #E5E5EA, --line #D1D1D6). Marke, Schwarz und
+   Weiss bleiben; Schatten und Hover der Pillen auch (684c/684d). */
 :root{
-  --grund:#F4F2EE;
-  --band:#EDEAE5;
+  --grund:#F2F2F7;
+  --band:#E5E5EA;
   --karte:#FFFFFF;
   --tinte:#000000;
   --leise:#5C5C5E;
-  --kante:#DCD8D2;
+  --kante:#D1D1D6;
   --akzent:#8116E0;
   --marke-voll:#8116E0;
   --auf-marke:#FFFFFF;
   --store-voll:#000000;
   --schatten:0 1px 3px rgba(0,0,0,.06);
   /* Die Segmentleiste. Spur = Band, das gewaehlte Segment = weisse Karte mit
-     dem Schatten des iOS-Segmented-Control. Grau auf der Spur 5,6:1. */
+     dem Schatten des iOS-Segmented-Control. Grau auf der Spur 5,3:1. */
   --leiste-schatten:0 4px 16px rgba(0,0,0,.08);
   --segment-schatten:0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04);
   color-scheme:light;
@@ -122,15 +126,18 @@ section[id]{ scroll-margin-top:80px }
 
 /* ---------- Kopf: eine Segmentleiste ----------
    Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
-   Apple, so breit wie ihr Inhalt, mittig. Kein Glas, keine Milch: feste
+   Apple, so breit wie ihr Inhalt, mittig. SEIT TICKET 684d (23.10.2026,
+   Entscheidung: die Navigationsleiste in der Breite der Fusszeile) ist die Kapsel
+   so breit wie die Fusskarte: Rand 24 wie .rahmen, hoechstens 1120 minus 48,
+   Wortmarke links, App Store rechts, die Segmente dazwischen (wie 684c). Kein Glas, keine Milch: feste
    Flaeche. Das gewaehlte Segment ist die Seite, auf der man steht
    (aria-current). Symbole: Lucide, rechts neben dem Wort wie in der Vorlage.
    Der Kopf selbst ist durchsichtig und laesst Klicks durch, nur die Leiste
    nimmt sie an. */
 @media (max-width:899px){ .nur-breit{ display:none !important } }
 @media (min-width:900px){ .nur-schmal{ display:none !important } }
-.kopf{ position:sticky; top:0; z-index:10; padding:12px 16px; pointer-events:none }
-.kopf-innen{ position:relative; z-index:1; width:max-content; max-width:100%; margin:0 auto;
+.kopf{ position:sticky; top:0; z-index:10; padding:12px 24px; pointer-events:none }
+.kopf-innen{ position:relative; z-index:1; width:100%; max-width:1072px; margin:0 auto;
   pointer-events:auto }
 .leiste{ display:flex; align-items:center; gap:2px; padding:4px; border-radius:980px;
   background:var(--band); border:1px solid var(--kante); box-shadow:var(--leiste-schatten) }
@@ -144,13 +151,13 @@ section[id]{ scroll-margin-top:80px }
 @media (hover:hover){ .segment:hover{ color:var(--tinte); background:rgba(0,0,0,.05) } }
 .segment[aria-current="page"],.segment[aria-expanded="true"]{
   background:var(--karte); color:var(--tinte); box-shadow:var(--segment-schatten) }
-.segment-marke{ padding:0 16px 0 14px }
+.segment-marke{ padding:0 16px 0 14px; margin-right:auto }
 .segment-marke img{ height:18px; width:auto }
 /* Die Wortmarke steht frei, ohne Pille, auch auf der Startseite und beim
    Zeigen (30.9.2026). aria-current bleibt fuer Screenreader. */
 .segment-marke,.segment-marke[aria-current="page"],.segment-marke:hover{
   background:none !important; box-shadow:none !important }
-.leiste .store{ height:40px; padding:0 14px 0 18px; font-size:14px; margin-left:4px }
+.leiste .store{ height:40px; padding:0 14px 0 18px; font-size:14px; margin-left:auto }
 .leiste .store svg{ width:16px; height:16px }
 .menue-knopf{ width:40px; padding:0 }
 .menue-knopf svg{ width:22px; height:22px }
@@ -493,6 +500,7 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
         <nav class="fuss-spalte" aria-labelledby="fuss-produkt">
           <p class="fuss-kopf" id="fuss-produkt" data-t="fuss_produkt">Produkt</p>
           <a class="fuss-link" href="/auswertung/" data-t="fuss_auswertung">Was Satzwerk auswertet</a>
+          <a class="fuss-link" href="/neu/" data-t="fuss_neu">Was ist neu</a>
           <a class="fuss-link" href="/#pro" data-t="fuss_pro">Satzwerk Pro</a>
           <a class="fuss-link" href="/#fragen" data-t="fuss_faq">Fragen und Antworten</a>
           <a class="fuss-link" href="https://apps.apple.com/app/id6786720640">App Store</a>
@@ -538,6 +546,7 @@ var TEXTE = {
   "folgen": "Folge uns",
   "fuss_produkt": "Produkt",
   "fuss_auswertung": "Was Satzwerk auswertet",
+  "fuss_neu": "Was ist neu",
   "fuss_pro": "Satzwerk Pro",
   "fuss_faq": "Fragen und Antworten",
   "fuss_kontakt": "Kontakt",
@@ -568,6 +577,7 @@ var TEXTE = {
   "folgen": "Follow us",
   "fuss_produkt": "Product",
   "fuss_auswertung": "What Satzwerk analyzes",
+  "fuss_neu": "What’s New",
   "fuss_pro": "Satzwerk Pro",
   "fuss_faq": "Questions and answers",
   "fuss_kontakt": "Contact",

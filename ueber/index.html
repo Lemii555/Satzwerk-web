@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Über Satzwerk – wer die App baut und warum</title>
-<meta name="description" content="Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone, Wie es angefangen hat, warum aus gymLog Satzwerk wird und wie die App gebaut ist.">
+<meta name="description" content="Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone. Wie es angefangen hat, warum aus gymLog Satzwerk wurde und wie die App gebaut ist.">
 <link rel="canonical" href="https://satzwerk.app/ueber/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Satzwerk">
 <meta property="og:title" content="Über Satzwerk">
-<meta property="og:description" content="Wie Satzwerk angefangen hat, warum aus gymLog Satzwerk wird und wie die App gebaut ist.">
+<meta property="og:description" content="Wie Satzwerk angefangen hat, warum aus gymLog Satzwerk wurde und wie die App gebaut ist.">
 <meta property="og:url" content="https://satzwerk.app/ueber/">
 <meta property="og:image" content="https://satzwerk.app/img/og.jpg">
 <meta property="og:locale" content="de_DE">
@@ -23,7 +23,7 @@
  "alternateName": "About Satzwerk",
  "url": "https://satzwerk.app/ueber/",
  "inLanguage": ["de", "en"],
- "dateModified": "2026-10-08",
+ "dateModified": "2026-10-21",
  "mainEntity": {
   "@type": "Organization",
   "name": "Satzwerk",
@@ -44,7 +44,7 @@
 }
 </script>
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#F4F2EE">
+<meta name="theme-color" content="#F2F2F7">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="../img/bildmarke.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
@@ -71,21 +71,25 @@
 
 /* ---------- Farben: alle Werte hier, sonst nirgends ----------
    Nur hell (30.9.2026). Werte aus der App: src/stil.js, --bg /
-   --surface-2 / --surface / --ink / --ink-faint / --line / --akzent. */
+   --surface-2 / --surface / --ink / --ink-faint / --line / --akzent.
+   Ticket 684d (23.10.2026, Entscheidung: die Creme muss weg, wie in der
+   echten App): die Werte des Hellmodus nach Ticket 701, Apples systemGray6/5/4
+   (--bg #F2F2F7, --surface-2 #E5E5EA, --line #D1D1D6). Marke, Schwarz und
+   Weiss bleiben; Schatten und Hover der Pillen auch (684c/684d). */
 :root{
-  --grund:#F4F2EE;
-  --band:#EDEAE5;
+  --grund:#F2F2F7;
+  --band:#E5E5EA;
   --karte:#FFFFFF;
   --tinte:#000000;
   --leise:#5C5C5E;
-  --kante:#DCD8D2;
+  --kante:#D1D1D6;
   --akzent:#8116E0;
   --marke-voll:#8116E0;
   --auf-marke:#FFFFFF;
   --store-voll:#000000;
   --schatten:0 1px 3px rgba(0,0,0,.06);
   /* Die Segmentleiste. Spur = Band, das gewaehlte Segment = weisse Karte mit
-     dem Schatten des iOS-Segmented-Control. Grau auf der Spur 5,6:1. */
+     dem Schatten des iOS-Segmented-Control. Grau auf der Spur 5,3:1. */
   --leiste-schatten:0 4px 16px rgba(0,0,0,.08);
   --segment-schatten:0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04);
   color-scheme:light;
@@ -160,15 +164,18 @@ section[id]{ scroll-margin-top:80px }
 
 /* ---------- Kopf: eine Segmentleiste ----------
    Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
-   Apple, so breit wie ihr Inhalt, mittig. Kein Glas, keine Milch: feste
+   Apple, so breit wie ihr Inhalt, mittig. SEIT TICKET 684d (23.10.2026,
+   Entscheidung: die Navigationsleiste in der Breite der Fusszeile) ist die Kapsel
+   so breit wie die Fusskarte: Rand 24 wie .rahmen, hoechstens 1120 minus 48,
+   Wortmarke links, App Store rechts, die Segmente dazwischen (wie 684c). Kein Glas, keine Milch: feste
    Flaeche. Das gewaehlte Segment ist die Seite, auf der man steht
    (aria-current). Symbole: Lucide, rechts neben dem Wort wie in der Vorlage.
    Der Kopf selbst ist durchsichtig und laesst Klicks durch, nur die Leiste
    nimmt sie an. */
 @media (max-width:899px){ .nur-breit{ display:none !important } }
 @media (min-width:900px){ .nur-schmal{ display:none !important } }
-.kopf{ position:sticky; top:0; z-index:10; padding:12px 16px; pointer-events:none }
-.kopf-innen{ position:relative; z-index:1; width:max-content; max-width:100%; margin:0 auto;
+.kopf{ position:sticky; top:0; z-index:10; padding:12px 24px; pointer-events:none }
+.kopf-innen{ position:relative; z-index:1; width:100%; max-width:1072px; margin:0 auto;
   pointer-events:auto }
 .leiste{ display:flex; align-items:center; gap:2px; padding:4px; border-radius:980px;
   background:var(--band); border:1px solid var(--kante); box-shadow:var(--leiste-schatten) }
@@ -182,13 +189,13 @@ section[id]{ scroll-margin-top:80px }
 @media (hover:hover){ .segment:hover{ color:var(--tinte); background:rgba(0,0,0,.05) } }
 .segment[aria-current="page"],.segment[aria-expanded="true"]{
   background:var(--karte); color:var(--tinte); box-shadow:var(--segment-schatten) }
-.segment-marke{ padding:0 16px 0 14px }
+.segment-marke{ padding:0 16px 0 14px; margin-right:auto }
 .segment-marke img{ height:18px; width:auto }
 /* Die Wortmarke steht frei, ohne Pille, auch auf der Startseite und beim
    Zeigen (30.9.2026). aria-current bleibt fuer Screenreader. */
 .segment-marke,.segment-marke[aria-current="page"],.segment-marke:hover{
   background:none !important; box-shadow:none !important }
-.leiste .store{ height:40px; padding:0 14px 0 18px; font-size:14px; margin-left:4px }
+.leiste .store{ height:40px; padding:0 14px 0 18px; font-size:14px; margin-left:auto }
 .leiste .store svg{ width:16px; height:16px }
 .menue-knopf{ width:40px; padding:0 }
 .menue-knopf svg{ width:22px; height:22px }
@@ -386,11 +393,11 @@ main.recht .store{ margin:24px 0 8px }
 <div lang="de">
 
   <h1>Über Satzwerk</h1>
-  <p class="stand">Stand: 8. Oktober 2026</p>
+  <p class="stand">Stand: 21. Oktober 2026</p>
 
   <div class="kurz">
-    <p>Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone. Für Leute,
-      die ihren Trainingsplan schon haben und wissen wollen, ob er wirkt.</p>
+    <p>Satzwerk ist ein Trainingstagebuch mit Auswertung für das iPhone. Für alle, die
+      ernsthaft trainieren und wissen wollen, ob sie stärker werden.</p>
   </div>
 
   <h2>Wie es angefangen hat</h2>
@@ -398,7 +405,7 @@ main.recht .store{ margin:24px 0 8px }
     kamen die Körperwerte dazu. Dann die Auswertung, weil sonst jedes Mal alles in eine
     Tabelle kopiert werden musste, um zu sehen, ob es überhaupt vorwärtsgeht.</p>
   <p>Eine App, die genau das macht und sonst nichts, gab es nicht. Also entstand
-    Satzwerk. Erst als Werkzeug für das eigene Training, dann für alle, die so
+    Satzwerk. Erst als Werkzeug für das eigene Training, dann für Leute, die genauso
     trainieren.</p>
 
   <h2>Von gymLog zu Satzwerk</h2>
@@ -414,15 +421,16 @@ main.recht .store{ margin:24px 0 8px }
 
   <h2>Wie Satzwerk gebaut ist</h2>
   <ul>
-    <li><strong>Keine fertigen Pläne.</strong> Ein Onboarding kennt deinen
-      Bandscheibenvorfall nicht, deinen Blutdruck nicht und dein Sprunggelenk nicht.
-      Pläne kommen von Menschen, die dich kennen.</li>
+    <li><strong>Vorlagen, keine Empfehlung.</strong> Die Planbibliothek bietet Vorlagen
+      als Startpunkt. Ein Onboarding kennt deinen Bandscheibenvorfall nicht, deinen
+      Blutdruck nicht und dein Sprunggelenk nicht. Ein persönlicher Plan kommt von
+      Menschen, die dich kennen.</li>
     <li><strong>Befunde, keine Anweisungen.</strong> Satzwerk sagt „im Ziel“ oder „zu
       leicht“. Welches Gewicht als Nächstes kommt, entscheidest du.</li>
-    <li><strong>Deine Daten liegen auf deinem iPhone.</strong> Kein Konto nötig, kein
-      Server, Export als Datei jederzeit.</li>
-    <li><strong>Nur Zahlen, die etwas bedeuten.</strong> Keine Tonnage, keine geschätzte
-      Maximalkraft, kein Feed. Aufwärmsätze zählen nie mit.</li>
+    <li><strong>Deine Daten liegen auf deinem iPhone und, wenn du willst, in
+      deiner eigenen iCloud.</strong> Kein Konto nötig, kein Server von Satzwerk, Export als Datei
+      jederzeit.</li>
+    <li><strong>Nur Zahlen, die etwas bedeuten.</strong> Keine Tonnage, kein Feed. Aufwärmsätze zählen nie mit.</li>
     <li><strong>Eine Woche ist Montag bis Sonntag.</strong> Überall in der App, für
       Training wie für Körper.</li>
   </ul>
@@ -452,11 +460,11 @@ main.recht .store{ margin:24px 0 8px }
 <div lang="en">
 
   <h1>About Satzwerk</h1>
-  <p class="stand">As of October 8, 2026</p>
+  <p class="stand">As of October 21, 2026</p>
 
   <div class="kurz">
-    <p>Satzwerk is a training log with analysis for the iPhone. For people who already
-      have their training plan and want to know whether it works.</p>
+    <p>Satzwerk is a training log with analysis for the iPhone. For people who train
+      seriously and want to know whether they’re getting stronger.</p>
   </div>
 
   <h2>How it started</h2>
@@ -464,7 +472,7 @@ main.recht .store{ margin:24px 0 8px }
     in. Then the analysis, because otherwise everything had to be copied into a
     spreadsheet every time to see whether there was any progress at all.</p>
   <p>There was no app that did exactly that and nothing else. So Satzwerk was built.
-    First as a tool for its maker's own training, then for everyone who trains this
+    First as a tool for its maker's own training, then for people who train the same
     way.</p>
 
   <h2>From gymLog to Satzwerk</h2>
@@ -480,15 +488,15 @@ main.recht .store{ margin:24px 0 8px }
 
   <h2>How Satzwerk is built</h2>
   <ul>
-    <li><strong>No ready-made plans.</strong> An onboarding does not know about your
-      herniated disc, your blood pressure or your ankle. Plans come from people who
+    <li><strong>Templates, not recommendations.</strong> The plan library offers
+      templates as a starting point. An onboarding does not know about your herniated
+      disc, your blood pressure or your ankle. A personal plan comes from people who
       know you.</li>
     <li><strong>Findings, not instructions.</strong> Satzwerk says “on target” or “too
       light”. You decide which weight comes next.</li>
-    <li><strong>Your data stays on your iPhone.</strong> No account needed, no server,
-      export as a file at any time.</li>
-    <li><strong>Only numbers that mean something.</strong> No tonnage, no estimated
-      one-rep max, no feed. Warm-up sets never count.</li>
+    <li><strong>Your data lives on your iPhone and, if you want, in your own iCloud.</strong> No
+      account needed, no Satzwerk server, export as a file at any time.</li>
+    <li><strong>Only numbers that mean something.</strong> No tonnage, no feed. Warm-up sets never count.</li>
     <li><strong>A week runs Monday to Sunday.</strong> Everywhere in the app, for
       training and for body values.</li>
   </ul>
@@ -505,7 +513,7 @@ main.recht .store{ margin:24px 0 8px }
       <dt>Since</dt><dd>July 2026 on the App Store</dd>
       <dt>Device</dt><dd>iPhone with iOS 16 or later</dd>
       <dt>Languages</dt><dd>German and English, metric or imperial</dd>
-      <dt>Model</dt><dd>Logging is free. The analysis is Satzwerk Pro, a monthly or yearly subscription through Apple.</dd>
+      <dt>Model</dt><dd>Logging needs no Pro. The analysis is Satzwerk Pro, a monthly or yearly subscription through Apple.</dd>
       <dt>Contact</dt><dd>info@satzwerk.app</dd>
     </dl>
   </div>
@@ -536,6 +544,7 @@ main.recht .store{ margin:24px 0 8px }
         <nav class="fuss-spalte" aria-labelledby="fuss-produkt">
           <p class="fuss-kopf" id="fuss-produkt" data-t="fuss_produkt">Produkt</p>
           <a class="fuss-link" href="/auswertung/" data-t="fuss_auswertung">Was Satzwerk auswertet</a>
+          <a class="fuss-link" href="/neu/" data-t="fuss_neu">Was ist neu</a>
           <a class="fuss-link" href="/#pro" data-t="fuss_pro">Satzwerk Pro</a>
           <a class="fuss-link" href="/#fragen" data-t="fuss_faq">Fragen und Antworten</a>
           <a class="fuss-link" href="https://apps.apple.com/app/id6786720640">App Store</a>
@@ -581,6 +590,7 @@ var TEXTE = {
   "folgen": "Folge uns",
   "fuss_produkt": "Produkt",
   "fuss_auswertung": "Was Satzwerk auswertet",
+  "fuss_neu": "Was ist neu",
   "fuss_pro": "Satzwerk Pro",
   "fuss_faq": "Fragen und Antworten",
   "fuss_kontakt": "Kontakt",
@@ -611,6 +621,7 @@ var TEXTE = {
   "folgen": "Follow us",
   "fuss_produkt": "Product",
   "fuss_auswertung": "What Satzwerk analyzes",
+  "fuss_neu": "What’s New",
   "fuss_pro": "Satzwerk Pro",
   "fuss_faq": "Questions and answers",
   "fuss_kontakt": "Contact",

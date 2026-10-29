@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Datenschutz — Satzwerk</title>
-<meta name="description" content="Satzwerk erhebt keine Nutzungsdaten. Alle Trainingsdaten bleiben auf dem Gerät. Apple Health nur auf Wunsch.">
+<meta name="description" content="Satzwerk erhebt keine Nutzungsdaten. Die Trainingsdaten liegen auf dem iPhone und, mit der iCloud-Sicherung, in der eigenen iCloud. Apple Health nur auf Wunsch.">
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#F4F2EE">
+<meta name="theme-color" content="#F2F2F7">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="../img/bildmarke.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
@@ -33,21 +33,25 @@
 
 /* ---------- Farben: alle Werte hier, sonst nirgends ----------
    Nur hell (30.9.2026). Werte aus der App: src/stil.js, --bg /
-   --surface-2 / --surface / --ink / --ink-faint / --line / --akzent. */
+   --surface-2 / --surface / --ink / --ink-faint / --line / --akzent.
+   Ticket 684d (23.10.2026, Entscheidung: die Creme muss weg, wie in der
+   echten App): die Werte des Hellmodus nach Ticket 701, Apples systemGray6/5/4
+   (--bg #F2F2F7, --surface-2 #E5E5EA, --line #D1D1D6). Marke, Schwarz und
+   Weiss bleiben; Schatten und Hover der Pillen auch (684c/684d). */
 :root{
-  --grund:#F4F2EE;
-  --band:#EDEAE5;
+  --grund:#F2F2F7;
+  --band:#E5E5EA;
   --karte:#FFFFFF;
   --tinte:#000000;
   --leise:#5C5C5E;
-  --kante:#DCD8D2;
+  --kante:#D1D1D6;
   --akzent:#8116E0;
   --marke-voll:#8116E0;
   --auf-marke:#FFFFFF;
   --store-voll:#000000;
   --schatten:0 1px 3px rgba(0,0,0,.06);
   /* Die Segmentleiste. Spur = Band, das gewaehlte Segment = weisse Karte mit
-     dem Schatten des iOS-Segmented-Control. Grau auf der Spur 5,6:1. */
+     dem Schatten des iOS-Segmented-Control. Grau auf der Spur 5,3:1. */
   --leiste-schatten:0 4px 16px rgba(0,0,0,.08);
   --segment-schatten:0 3px 8px rgba(0,0,0,.12), 0 3px 1px rgba(0,0,0,.04);
   color-scheme:light;
@@ -122,15 +126,18 @@ section[id]{ scroll-margin-top:80px }
 
 /* ---------- Kopf: eine Segmentleiste ----------
    Vorlage vom 30.9.2026: eine Kapsel wie das Segmented Control von
-   Apple, so breit wie ihr Inhalt, mittig. Kein Glas, keine Milch: feste
+   Apple, so breit wie ihr Inhalt, mittig. SEIT TICKET 684d (23.10.2026,
+   Entscheidung: die Navigationsleiste in der Breite der Fusszeile) ist die Kapsel
+   so breit wie die Fusskarte: Rand 24 wie .rahmen, hoechstens 1120 minus 48,
+   Wortmarke links, App Store rechts, die Segmente dazwischen (wie 684c). Kein Glas, keine Milch: feste
    Flaeche. Das gewaehlte Segment ist die Seite, auf der man steht
    (aria-current). Symbole: Lucide, rechts neben dem Wort wie in der Vorlage.
    Der Kopf selbst ist durchsichtig und laesst Klicks durch, nur die Leiste
    nimmt sie an. */
 @media (max-width:899px){ .nur-breit{ display:none !important } }
 @media (min-width:900px){ .nur-schmal{ display:none !important } }
-.kopf{ position:sticky; top:0; z-index:10; padding:12px 16px; pointer-events:none }
-.kopf-innen{ position:relative; z-index:1; width:max-content; max-width:100%; margin:0 auto;
+.kopf{ position:sticky; top:0; z-index:10; padding:12px 24px; pointer-events:none }
+.kopf-innen{ position:relative; z-index:1; width:100%; max-width:1072px; margin:0 auto;
   pointer-events:auto }
 .leiste{ display:flex; align-items:center; gap:2px; padding:4px; border-radius:980px;
   background:var(--band); border:1px solid var(--kante); box-shadow:var(--leiste-schatten) }
@@ -144,13 +151,13 @@ section[id]{ scroll-margin-top:80px }
 @media (hover:hover){ .segment:hover{ color:var(--tinte); background:rgba(0,0,0,.05) } }
 .segment[aria-current="page"],.segment[aria-expanded="true"]{
   background:var(--karte); color:var(--tinte); box-shadow:var(--segment-schatten) }
-.segment-marke{ padding:0 16px 0 14px }
+.segment-marke{ padding:0 16px 0 14px; margin-right:auto }
 .segment-marke img{ height:18px; width:auto }
 /* Die Wortmarke steht frei, ohne Pille, auch auf der Startseite und beim
    Zeigen (30.9.2026). aria-current bleibt fuer Screenreader. */
 .segment-marke,.segment-marke[aria-current="page"],.segment-marke:hover{
   background:none !important; box-shadow:none !important }
-.leiste .store{ height:40px; padding:0 14px 0 18px; font-size:14px; margin-left:4px }
+.leiste .store{ height:40px; padding:0 14px 0 18px; font-size:14px; margin-left:auto }
 .leiste .store svg{ width:16px; height:16px }
 .menue-knopf{ width:40px; padding:0 }
 .menue-knopf svg{ width:22px; height:22px }
@@ -326,12 +333,13 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
 <div lang="de">
 
   <h1>Datenschutz</h1>
-  <p class="stand">Stand: 28. September 2026</p>
+  <p class="stand">Stand: 21. Oktober 2026</p>
 
   <div class="kurz">
     <p>Die App Satzwerk erhebt keine personenbezogenen Daten.</p>
-    <p>Es gibt kein Konto, keinen Server und keine Werbung. Alle Trainings- und
-      Körperdaten bleiben auf deinem Gerät.</p>
+    <p>Es gibt kein Konto, keinen Server von mir und keine Werbung. Deine Trainings-
+      und Körperdaten liegen auf deinem Gerät und, solange die iCloud-Sicherung an
+      ist, in deiner eigenen iCloud.</p>
     <p>Satzwerk Pro (ab Version 2.0) kaufst du über Apple. Ich erfahre dabei nicht,
       wer du bist.</p>
   </div>
@@ -352,41 +360,101 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
 
   <h2>2. Die App</h2>
 
-  <h3>Keine Erhebung, keine Übertragung</h3>
+  <h3>Keine Erhebung, keine Übertragung an mich</h3>
   <p>
-    Satzwerk verarbeitet alle Eingaben ausschließlich lokal auf dem Gerät. Es
+    Satzwerk verarbeitet alle Eingaben auf dem Gerät. Es
     existiert kein Nutzerkonto, keine Anmeldung und keine Kennung, die Satzwerk vergibt. Es gibt keinen
-    Server, an den Daten übermittelt werden. Die App enthält keine Werbung, keine
-    Analysewerkzeuge und keine Tracking-Bibliotheken Dritter.
+    Server von mir, an den Daten übermittelt werden. Die App enthält keine Werbung, keine
+    Analysewerkzeuge, keine Werkzeuge für Absturzberichte und keine
+    Tracking-Bibliotheken Dritter.
   </p>
   <p>
     Betroffen sind damit unter anderem Trainingseinheiten, Übungen, Sätze, Gewichte,
-    Wiederholungen, Notizen, Studios, Körpergewicht, Körperfett und Maße. Diese Daten
-    verlassen das Gerät nicht, außer du exportierst sie selbst.
+    Wiederholungen, Notizen, Studios, Körpergewicht, Körperfett und Maße. Satzwerk selbst
+    bringt diese Daten nur auf zwei Wegen vom Gerät: als Sicherungsdatei in deiner
+    eigenen iCloud, wenn du es erlaubst, siehe „iCloud-Sicherung“, und wenn du sie
+    selbst exportierst. Legt iOS ein Backup deines iPhones an (iCloud-Backup oder Backup
+    am Computer), schließt es nach Apples Angaben die Daten der Apps ein, auch die von
+    Satzwerk. Ob iOS das tut, stellst du in den iOS-Einstellungen ein.
   </p>
 
   <h3>Export und Sicherung</h3>
   <p>
-    Über die Teilen-Funktion des Systems kannst du deine Daten und Pläne als Text
-    ausgeben und wieder einlesen. Wohin die Daten dabei gehen, entscheidest du. Der
+    Über die Teilen-Funktion des Systems kannst du deine Daten als Sicherungsdatei
+    und als CSV ausgeben und die Sicherungsdatei wieder einlesen, Pläne auch als Text. Wohin die Daten dabei gehen, entscheidest du. Der
     Export erfolgt ausschließlich auf deine ausdrückliche Handlung hin.
   </p>
 
-  <h3>Apple Health</h3>
+  <h3>iCloud-Sicherung</h3>
   <p>
-    Wenn du es aktivierst, schreibt Satzwerk Trainingseinheiten, Körpergewicht und
-    Körperfett nach Apple Health. Die Funktion ist standardmäßig ausgeschaltet und
-    erfordert deine Zustimmung im Systemdialog von iOS.
+    Satzwerk kann eine Sicherungsdatei in deiner iCloud ablegen, im iCloud-Drive-Ordner
+    der App. Du siehst sie in der Dateien-App unter iCloud Drive › Satzwerk. Es sind
+    höchstens sieben Dateien, eine je Wochentag; dieselbe Datei wird eine Woche später
+    überschrieben. Die Sicherung läuft nur, wenn iCloud Drive auf dem iPhone verfügbar
+    ist.
   </p>
   <p>
-    <strong>Satzwerk liest keine Daten aus Apple Health.</strong> Werte aus anderen
-    Apps oder von einer Waage werden nicht übernommen. Die Übertragung findet
-    ausschließlich auf dem Gerät statt, Apple Health ist ein lokaler Speicher des
-    Betriebssystems.
+    <strong>Ohne dein Ja legt Satzwerk keine Datei an.</strong> Die App fragt dich
+    einmal, ob sie sichern soll, sobald iCloud verfügbar ist: bei einer neuen
+    Installation nach deinem Namen, nach einem Update im Anschluss an „Was ist neu“.
+    Mit „Nicht jetzt“ bleibt die Sicherung aus. Umschalten kannst du jederzeit im
+    Profil unter „iCloud &amp; Backup“ mit dem Schalter „iCloud-Sicherung“.
+  </p>
+  <p>
+    In der Datei stehen deine Pläne, Trainings, Studios, Körperwerte und Ziele, deine
+    persönlichen Daten aus dem Profil (etwa Name, Größe, Geburtsdatum und Geschlecht)
+    und deine Einstellungen. Nicht darin stehen Werte, die Satzwerk aus Apple Health
+    gelesen hat, die Schalter für Apple Health, der Schalter der iCloud-Sicherung und
+    deine Antwort auf die Frage.
+  </p>
+  <p>
+    Die Datei geht nicht an mich. Es gibt keinen Server von mir, und ich habe keinen
+    Zugriff auf diese Datei. Gespeichert wird sie in deinem iCloud-Konto bei Apple;
+    Apple verarbeitet sie nach den iCloud-Bedingungen von Apple.
+  </p>
+  <p>
+    Schaltest du die Sicherung aus, schreibt Satzwerk keine neue Datei mehr; die
+    vorhandenen bleiben, bis du sie löschst. Löschen kannst du sie in der Dateien-App
+    unter iCloud Drive › Satzwerk oder, als iCloud-Daten der App, in den
+    iOS-Einstellungen. Löschst du die App, bleiben die Dateien in deiner iCloud. Ist
+    die App danach leer und findet sie dort eine Sicherung, fragt sie, ob sie sie
+    zurückholen soll. Holst du sie zurück, ist die Sicherung danach eingeschaltet;
+    holst du sie nicht zurück, bleibt sie auf diesem iPhone aus, und die Dateien in
+    iCloud bleiben.
+  </p>
+  <!-- 699: die Zeile Rechtsgrundlage kam als Vorschlag (Bericht 658, 5 a), von Kevin am
+       21.10.2026 abgenommen (doku/pruefung/699-bericht.md, Abschnitt 5 a). -->
+  <p class="klein">Körperdaten können Gesundheitsdaten sein. Rechtsgrundlage ist deine
+    Einwilligung nach Art. 6 Abs. 1 lit. a und Art. 9 Abs. 2 lit. a DSGVO. Du gibst sie
+    mit „Sichern“ oder indem du eine Sicherung zurückholst, und du widerrufst sie
+    jederzeit mit dem Schalter im Profil.</p>
+
+  <h3>Apple Health</h3>
+  <p>
+    <strong>Schreiben.</strong> Wenn du es einschaltest, schreibt Satzwerk Trainings
+    (Art und Dauer), Körpergewicht und Körperfett nach Apple Health, je Datenart mit
+    einem eigenen Schalter. Alle Schalter sind ab Werk aus. Jeder fragt im
+    Systemdialog von iOS nur die Freigabe für seine Datenart an.
+  </p>
+  <p>
+    <strong>Lesen.</strong> Ebenfalls nur, wenn du es einschaltest, liest Satzwerk einen
+    Wert aus Apple Health, mit eigenem Schalter und eigener Freigabe, ab Werk aus:
+    dein Körpergewicht, zum Beispiel von einer Waage, auch frühere Wiegungen. Ein
+    gelesenes Gewicht speichert die App wie eine eigene Wiegung; ein Eintrag in
+    Satzwerk geht vor, und Satzwerk schreibt ein gelesenes Gewicht nie zurück nach
+    Apple Health.
+  </p>
+  <p>
+    Satzwerk tauscht die Werte auf dem Gerät mit Apple Health aus. Was Apple Health
+    selbst mit ihnen tut, regelt Apple. Werte, die Satzwerk aus Apple Health gelesen
+    hat, kommen nie in die iCloud-Sicherung von Satzwerk. Ein gelesenes Gewicht steht
+    aber in der Sicherungsdatei und in der CSV, die du selbst exportierst, und im Backup
+    deines iPhones, siehe oben.
   </p>
   <p>
     Du kannst die Freigabe jederzeit in den iOS-Einstellungen unter „Datenschutz &amp;
-    Sicherheit“ &gt; „Health“ widerrufen. Bereits geschriebene Werte kannst du in der Health-App löschen.
+    Sicherheit“ &gt; „Health“ widerrufen. Bereits geschriebene Werte kannst du in der
+    Health-App löschen, ein übernommenes Gewicht in Satzwerk wie jede andere Wiegung.
   </p>
   <p class="klein">Körperdaten können Gesundheitsdaten sein. Rechtsgrundlage ist deshalb
     deine Einwilligung nach Art. 6 Abs. 1 lit. a und Art. 9 Abs. 2 lit. a DSGVO.</p>
@@ -413,6 +481,16 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
     mich übermittelt, ich erfahre nicht, ob oder wie du bewertet hast.
   </p>
 
+  <h3>Feedback aus der App</h3>
+  <p>
+    „Feedback schreiben“ öffnet deine Mail-App mit einer Nachricht an
+    info@satzwerk.app. Vorausgefüllt sind der Betreff mit der Version und eine Zeile mit
+    technischen Angaben: Version, Sprache, Einheiten, Darstellung, die Art der Leiste und
+    in einzelnen Fällen ihre Maße. Trainings- oder Körperwerte stehen nicht darin, und
+    die Zeile kannst du löschen. Gesendet wird nur, was du selbst absendest; dann gilt
+    „4. Kontakt per E-Mail“.
+  </p>
+
   <h3>Satzwerk Pro</h3>
   <p>
     Ab Version 2.0 gibt es Satzwerk Pro, ein Abo im Monat oder im Jahr. Kauf, Zahlung, Verlängerung,
@@ -434,7 +512,7 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
     Für den Testmonat speichert die App im Schlüsselbund von iOS, wann er begonnen
     hat, und ob beim ersten Start einer Version mit Pro schon Daten in der App waren.
     Gespeichert werden nur ein Zeitpunkt und eine Ja-Nein-Angabe, keine Trainings-
-    oder Körperwerte. Die Einträge liegen nur auf diesem Gerät. Sie werden nicht über
+    oder Körperwerte. Die Einträge sind an dieses Gerät gebunden. Sie werden nicht über
     iCloud abgeglichen und stehen nicht in deiner Sicherungsdatei. Nach heutigem
     Verhalten von iOS bleiben sie erhalten, wenn du die App löschst.
   </p>
@@ -532,8 +610,8 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
     Es findet keine Weitergabe deiner Daten zu Werbe- oder Analysezwecken statt.
     Eine Übermittlung in die USA kann im Rahmen des Hostings dieser Website durch
     GitHub und beim E-Mail-Kontakt durch Google stattfinden, siehe oben. Die Verarbeitung durch Apple im Zusammenhang mit
-    dem App Store, Käufen und Apple Health richtet sich nach den Bestimmungen von Apple.
-    Die Daten in der App selbst verlassen dein Gerät nicht.
+    dem App Store, Käufen, Apple Health und der iCloud-Sicherung richtet sich nach den
+    Bestimmungen von Apple. Die Daten in der App gehen nie an mich.
   </p>
 
   <h2>6. Deine Rechte</h2>
@@ -554,7 +632,8 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
     es dich gibt, kann ich diese Rechte für die App-Daten nicht ausüben. Du hast
     jederzeit vollständigen Zugriff, kannst alles exportieren und durch Löschen der
     App entfernen. Ausgenommen sind die beiden Einträge zum Testmonat, siehe
-    „Satzwerk Pro“. Für Kauf- und Zahlungsdaten wende dich an Apple:
+    „Satzwerk Pro“, und die Sicherungsdateien in deiner iCloud, siehe
+    „iCloud-Sicherung“. Für Kauf- und Zahlungsdaten wende dich an Apple:
     <a href="https://www.apple.com/de/legal/privacy/contact/">apple.com/legal/privacy/contact</a>.
   </p>
 
@@ -592,12 +671,13 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
 <div lang="en">
 
   <h1>Privacy</h1>
-  <p class="stand">Last updated: 28 September 2026</p>
+  <p class="stand">Last updated: 21 October 2026</p>
 
   <div class="kurz">
     <p>The Satzwerk app collects no personal data.</p>
-    <p>There is no account, no server and no advertising. All training and body data
-      stays on your device.</p>
+    <p>There is no account, no server of mine and no advertising. Your training and
+      body data lives on your device and, as long as iCloud backup is on, in your own
+      iCloud.</p>
     <p>Satzwerk Pro (from version 2.0) is bought through Apple. I do not learn who
       you are.</p>
   </div>
@@ -618,40 +698,94 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
 
   <h2>2. The app</h2>
 
-  <h3>No collection, no transmission</h3>
+  <h3>No collection, no transmission to me</h3>
   <p>
-    Satzwerk processes all entries locally on your device only. There is no user
-    account, no sign-in and no identifier assigned by Satzwerk. There is no server that data is sent to.
-    The app contains no advertising, no analytics tools and no third-party tracking
-    libraries.
+    Satzwerk processes all entries on your device. There is no user
+    account, no sign-in and no identifier assigned by Satzwerk. There is no server of mine that data is sent to.
+    The app contains no advertising, no analytics tools, no crash reporting tools and
+    no third-party tracking libraries.
   </p>
   <p>
     This covers workouts, exercises, sets, weights, reps, notes, gyms, body weight,
-    body fat and measurements. This data does not leave your device unless you export
-    it yourself.
+    body fat and measurements. Satzwerk itself moves this data off your device in only
+    two ways: as a backup file in your own iCloud, if you allow it, see “iCloud
+    backup”, and when you export it yourself. If iOS backs up your iPhone (iCloud
+    Backup or a backup on a computer), that backup includes app data according to
+    Apple, Satzwerk's as well. Whether iOS does so is up to your iOS settings.
   </p>
 
   <h3>Export and backup</h3>
   <p>
-    Using the system share sheet you can export your data and plans as text and read
-    them back in. Where that data goes is entirely your decision. Export only happens
+    Using the system share sheet you can export your data as a backup file and as
+    CSV, read the backup file back in, and share plans as text. Where that data goes is entirely your decision. Export only happens
     on your explicit action.
   </p>
 
-  <h3>Apple Health</h3>
+  <h3>iCloud backup</h3>
   <p>
-    If you enable it, Satzwerk writes workouts, body weight and body fat to Apple
-    Health. The feature is off by default and requires your consent in the iOS
-    system dialog.
+    Satzwerk can store a backup file in your iCloud, in the app's iCloud Drive folder.
+    You can see it in the Files app under iCloud Drive › Satzwerk. There are at most
+    seven files, one per weekday; the same file is overwritten a week later. The backup
+    only runs when iCloud Drive is available on the iPhone.
   </p>
   <p>
-    <strong>Satzwerk does not read any data from Apple Health.</strong> Values from
-    other apps or from a scale are not imported. The transfer takes place on the
-    device only; Apple Health is local storage provided by the operating system.
+    <strong>Without your yes, Satzwerk creates no file.</strong> The app asks you once
+    whether to back up, as soon as iCloud is available: on a new install after your
+    name, after an update following “What's new”. With “Not now” the backup stays
+    off. You can switch it at any time in the profile under “iCloud &amp; Backup” with
+    the “iCloud Backup” switch.
+  </p>
+  <p>
+    The file contains your plans, workouts, gyms, body values and goals, your personal
+    details from the profile (such as name, height, date of birth and sex) and your
+    settings. It does not contain values Satzwerk has read from Apple Health, the Apple
+    Health switches, the iCloud backup switch or your answer to the question.
+  </p>
+  <p>
+    The file is not sent to me. There is no server of mine, and I have no access to
+    this file. It is stored in your iCloud account with Apple; Apple processes it under
+    Apple's iCloud terms.
+  </p>
+  <p>
+    If you turn the backup off, Satzwerk writes no new file; the existing ones stay
+    until you delete them. You can delete them in the Files app under iCloud Drive ›
+    Satzwerk or, as the app's iCloud data, in the iOS settings. If you delete the app,
+    the files stay in your iCloud. If the app is empty afterwards and finds a backup
+    there, it asks whether to restore it. If you restore it, the backup is switched on
+    afterwards; if you don't, it stays off on this iPhone, and the files in iCloud
+    remain.
+  </p>
+  <!-- 699: the legal basis line came as a proposal (report 658, 5 a), approved by Kevin on
+       21.10.2026 (doku/pruefung/699-bericht.md, section 5 a). -->
+  <p class="klein">Body data may be health data. The legal basis is your consent under
+    Art. 6 (1) (a) and Art. 9 (2) (a) GDPR. You give it with “Back up” or by restoring
+    a backup, and you can withdraw it at any time with the switch in the profile.</p>
+
+  <h3>Apple Health</h3>
+  <p>
+    <strong>Writing.</strong> If you turn it on, Satzwerk writes workouts (type and
+    duration), body weight and body fat to Apple Health, with a separate switch for
+    each data type. All switches are off by default. Each one asks, in the iOS system
+    dialog, only for access to its own data type.
+  </p>
+  <p>
+    <strong>Reading.</strong> Again only if you turn it on, Satzwerk reads one value
+    from Apple Health, with its own switch and its own permission, off by default:
+    your body weight, for example from a scale, including earlier weigh-ins. The app
+    stores a weight it reads like a weigh-in of your own; an entry in Satzwerk takes
+    precedence, and Satzwerk never writes a weight it read back to Apple Health.
+  </p>
+  <p>
+    Satzwerk exchanges the values with Apple Health on the device. What Apple Health
+    itself does with them is up to Apple. Values Satzwerk has read from Apple Health
+    never go into Satzwerk's iCloud backup. A weight it read is, however, part of the
+    backup file and the CSV you export yourself, and of your iPhone's backup, see
+    above.
   </p>
   <p>
     You can withdraw access at any time in the iOS settings under “Privacy &amp; Security” &gt; “Health”.
-    Values already written can be deleted in the Health app.
+    Values already written can be deleted in the Health app, and a weight taken over
+    can be deleted in Satzwerk like any other weigh-in.
   </p>
   <p class="klein">Body data may be health data. The legal basis is therefore your consent
     under Art. 6 (1) (a) and Art. 9 (2) (a) GDPR.</p>
@@ -677,6 +811,15 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
     do not learn whether or how you rated the app.
   </p>
 
+  <h3>Feedback from the app</h3>
+  <p>
+    “Send feedback” opens your mail app with a message to info@satzwerk.app.
+    Prefilled are the subject with the version and one line of technical details:
+    version, language, units, appearance, the kind of tab bar and, in some cases, its
+    measurements. No workout or body values are included, and you can delete the
+    line. Only what you send yourself is sent; then “4. Contact by email” applies.
+  </p>
+
   <h3>Satzwerk Pro</h3>
   <p>
     From version 2.0 there is Satzwerk Pro, a monthly or yearly subscription. Purchase, payment,
@@ -698,7 +841,7 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
     For the trial month, the app stores in the iOS keychain when it started, and
     whether there was already data in the app the first time a version with Pro was
     launched. Only a point in time and a yes/no value are stored, no workout or body
-    values. These entries stay on this device only. They are not synced via iCloud and
+    values. These entries are tied to this device. They are not synced via iCloud and
     are not part of your backup file. Under current iOS behavior they remain when you
     delete the app.
   </p>
@@ -791,8 +934,8 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
     Your data is not passed on for advertising or analytics purposes. A transfer to
     the USA may occur as part of the hosting of this website by GitHub and, for email
     contact, by Google, see above.
-    Processing by Apple in connection with the App Store, purchases and Apple Health is governed
-    by Apple's own terms. The data inside the app itself never leaves your device.
+    Processing by Apple in connection with the App Store, purchases, Apple Health and the
+    iCloud backup is governed by Apple's own terms. The data inside the app never goes to me.
   </p>
 
   <h2>6. Your rights</h2>
@@ -810,7 +953,8 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
     For data held in the app: since I have neither access to it nor any knowledge that
     you exist, I cannot exercise these rights on your behalf. You have full access at
     all times, can export everything, and can remove it by deleting the app, except
-    for the two trial entries described under “Satzwerk Pro”. For purchase and payment
+    for the two trial entries described under “Satzwerk Pro” and the backup files in
+    your iCloud described under “iCloud backup”. For purchase and payment
     data, please contact Apple:
     <a href="https://www.apple.com/legal/privacy/contact/">apple.com/legal/privacy/contact</a>.
   </p>
@@ -867,6 +1011,7 @@ html[data-lang="en"] main [lang="en"].klein{ display:inline }
         <nav class="fuss-spalte" aria-labelledby="fuss-produkt">
           <p class="fuss-kopf" id="fuss-produkt" data-t="fuss_produkt">Produkt</p>
           <a class="fuss-link" href="/auswertung/" data-t="fuss_auswertung">Was Satzwerk auswertet</a>
+          <a class="fuss-link" href="/neu/" data-t="fuss_neu">Was ist neu</a>
           <a class="fuss-link" href="/#pro" data-t="fuss_pro">Satzwerk Pro</a>
           <a class="fuss-link" href="/#fragen" data-t="fuss_faq">Fragen und Antworten</a>
           <a class="fuss-link" href="https://apps.apple.com/app/id6786720640">App Store</a>
@@ -912,6 +1057,7 @@ var TEXTE = {
   "folgen": "Folge uns",
   "fuss_produkt": "Produkt",
   "fuss_auswertung": "Was Satzwerk auswertet",
+  "fuss_neu": "Was ist neu",
   "fuss_pro": "Satzwerk Pro",
   "fuss_faq": "Fragen und Antworten",
   "fuss_kontakt": "Kontakt",
@@ -942,6 +1088,7 @@ var TEXTE = {
   "folgen": "Follow us",
   "fuss_produkt": "Product",
   "fuss_auswertung": "What Satzwerk analyzes",
+  "fuss_neu": "What’s New",
   "fuss_pro": "Satzwerk Pro",
   "fuss_faq": "Questions and answers",
   "fuss_kontakt": "Contact",
