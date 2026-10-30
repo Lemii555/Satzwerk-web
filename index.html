@@ -278,12 +278,13 @@ document.documentElement.classList.add("js");
   --notch-knopf-zeigen:#3A3A3C;
   --fuss-leise:#8E8E93;
   --fuss-marke:#111113;
-  /* Frei oder Pro (Ticket 802). Die Spalte Pro traegt --tint-pro der App (src/stil.js), nicht den Wert des
-     Prototyps rgba(129,22,224,.055), den die App nicht hat. Der Strich fuer nicht enthalten ist systemGray
+  /* Frei oder Pro (Ticket 802, Tabelle neu in 805). Der Strich fuer nicht enthalten ist systemGray
      (--ghost der App): auf --karte 3,26:1, WCAG 1.4.11 verlangt 3:1 (website_regelcheck rechnet nach);
-     --kante aus dem Prototyp waere 1,5:1. Die Werte der Pro-Karte selbst stehen nicht hier, sondern im Block
-     aus der App (tools/website_prokarte.cjs), damit sie mit src/stil.js gleich bleiben. */
-  --pro-spalte:#EDE2FA;
+     --kante aus dem Prototyp waere 1,5:1. Der Haken in der Spalte Frei steht dunkel im grauen Kreis (--band):
+     #3A3A3C ist der Ton der App (src/stil.js, --garten-tag), der Pro-Haken weiss im violetten Kreis (--akzent).
+     Seit 805 gibt es keine getoente Pro-Spalte mehr (Entscheidung 30.10.2026, Runde 3). Die Werte der Pro-Karte
+     selbst stehen nicht hier, sondern im Block aus der App (tools/website_prokarte.cjs). */
+  --haken-frei:#3A3A3C;
   --nein:#8E8E93;
   /* Bewegung der Notch, aus dem Prototyp: eine Feder mit rund 2 % Ueberschwingen, auf .52 s, zu
      .42 s. Gilt NUR in Notch und Lasche (Ausnahme von UI_SYSTEM 7.1, Entscheidung 29.10.2026);
@@ -738,18 +739,30 @@ footer :focus-visible{ outline-color:var(--auf-notch) }
 @media (prefers-contrast: more){ .tl-prokarte-ringe, .tl-prokarte-glanz{ display:none; } }
 /* Ende aus der App: Pro-Karte */
 
-/* ---------- Frei oder Pro (Ticket 802) ----------
-   Vorbild doku/gestaltung/skizzen-preise/preise-prototyp.html, Variante Faecher (29.10.2026): beide Pro-Karten
-   offen, leicht gedreht, der gewaehlte Tarif vorn rechts, der andere hinten links; darunter Frei gegen Pro als Tabelle.
-   Karte und Regeln kommen aus der App (Block zwischen den Marken darueber), hier steht nur der Rahmen. Die Wahl ist ein
-   fieldset mit zwei echten Radioknoepfen, die Karten sind ihre label: Tippen auf die hintere Karte und die Pfeiltasten
-   tauschen. Vorn steht der gewaehlte Tarif (:has); ohne :has steht Jaehrlich vorn, die Wahl geht trotzdem, der Satz
-   nennt sie. Mittig wie im Prototyp (Abweichung von der einen Flucht, Bericht 802).
-   Abweichungen vom Prototyp: die Kurve der App statt der Feder (UI_SYSTEM 7.1, die Feder gilt nur in der Notch);
-   der Schatten der App (--wkarte-schatten) statt rgba(0,0,0,.2), den die App nicht hat. */
-.preis h2{ margin-bottom:16px; text-align:center }
-.pro-lead{ margin:0 auto 48px; max-width:40ch; text-align:center; color:var(--leise); text-wrap:balance }
-.pro-paket{ max-width:620px; margin:0 auto; container-type:inline-size }
+/* ---------- Frei oder Pro (Ticket 802, Aufbau seit 805) ----------
+   Vorbild doku/gestaltung/skizzen-preise/preise-prototyp-runde8.html, Variante Faecher (Entscheidung 30.10.2026, Runden 3
+   bis 8). Oben das Raster von .haltung (1fr 1.6fr, Abstand 64 ab 768): links Ueberschrift, Satz, Verlaengerungssatz,
+   Store-Knopf und Testmonat, rechts der Faecher; am Handy untereinander, die Karten vor Satz und Knopf. Darunter die
+   Tabelle Frei oder Pro ueber den ganzen Rahmen in zwei Spalten (links Training und Deine Daten, rechts Auswertung und
+   Koerper; am Handy die Pro-Spalte zuerst), je Bereich eine weisse Gruppe auf dem Grund wie Einstellungen.app, die
+   Ueberschrift 20/600 darueber, Frei und Pro einmal ueber jeder Spalte, haftend unter der Notch. Alles linksbuendig am
+   Rahmen wie der Rest der Seite (802 stand mittig); die EINE Ausnahme ist die mittige Zeile Mehr anzeigen unter der
+   Tabelle (website_regelcheck FLUCHT, Ausnahme 805). Karte, Satz und die Zeichen der Tabelle kommen aus der App
+   (Bloecke zwischen den Marken, tools/website_prokarte.cjs), hier steht nur der Rahmen.
+   Die Wahl ist ein fieldset mit zwei echten Radioknoepfen, die Karten sind ihre label: Tippen auf die hintere Karte und
+   die Pfeiltasten tauschen. Vorn steht der gewaehlte Tarif (:has); ohne :has steht Jaehrlich vorn, die Wahl geht trotzdem,
+   der Satz nennt sie. Abweichungen vom Prototyp: die Kurve der App statt der Feder (UI_SYSTEM 7.1, die Feder gilt nur in
+   der Notch); der Schatten der App (--wkarte-schatten) statt rgba(0,0,0,.2), den die App nicht hat. */
+.pro-raster{ display:grid; gap:24px; grid-template-areas:"kopf" "karten" "aktion" }
+.pro-kopf{ grid-area:kopf }
+.pro-paket{ grid-area:karten; min-width:0; container-type:inline-size }
+.pro-aktion{ grid-area:aktion; display:flex; flex-direction:column; align-items:flex-start; gap:16px }
+@media (min-width:768px){
+  .pro-raster{ grid-template-columns:1fr 1.6fr; column-gap:64px; grid-template-areas:"kopf karten" "aktion karten"; align-items:start }
+  .pro-aktion{ align-self:end }
+}
+.preis h2{ margin-bottom:12px }
+.pro-lead{ margin:0; max-width:32ch; color:var(--leise) }
 .pro-wahl{ min-width:0; margin:0; padding:0; border:0 }
 /* Hoehe wie im Prototyp: eine Karte (Breite / 1,586) plus 28 oben und Platz fuer die Drehung. */
 .pro-stapel{ position:relative; height:calc(100cqw * .64 / 1.586 + 56px) }
@@ -770,9 +783,6 @@ footer :focus-visible{ outline-color:var(--auf-notch) }
 .pro-platz:has(input:focus) .tl-prokarte{ outline:3px solid var(--akzent); outline-offset:3px }
 .pro-de, .pro-en{ display:block }
 html[lang="en"] .pro-de, html:not([lang="en"]) .pro-en{ display:none }
-.pro-satz{ max-width:440px; margin:34px auto 0; font-size:15px; line-height:1.5; text-align:center; color:var(--leise) }
-.pro-satz b{ font-weight:600; color:var(--tinte) }
-.pro-store{ display:flex; justify-content:center; max-width:440px; margin:16px auto 0 }
 /* Am Handy wie der Prototyp unter 560: Karten 70 %, vorn ab 30 %, hinten bei 2 % und -4 Grad, Tarifname und Preis 18
    (sonst verdeckt die vordere Karte den Preis der hinteren). Unter 360 faellt die Zeile ueber dem Tarif weg: die Karte
    ist dort keine 190 breit, die Zeile bricht um und stoesst an die Wortmarke (website_webkit Block 10 misst es); die
@@ -795,42 +805,75 @@ html[lang="en"] .pro-de, html:not([lang="en"]) .pro-en{ display:none }
 @media (max-width:359px){
   .pro-stapel .tl-prokarte-unter{ display:none }
 }
-.pro-geschenk{ margin:28px auto 0; max-width:52ch; text-align:center; font-size:16px; text-wrap:balance }
+.pro-satz{ margin:0; max-width:36ch; font-size:15px; line-height:1.5; color:var(--leise) }
+.pro-satz b{ font-weight:600; color:var(--tinte) }
+.pro-geschenk{ margin:8px 0 0; max-width:52ch; font-size:16px }
 .pro-geschenk strong{ font-weight:600 }
-.pro-vergleich{ max-width:620px; margin:72px auto 0 }
-.pro-vergleich h3{ margin-bottom:20px; text-align:center; font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
-  font-weight:600; font-size:26px; line-height:1.2 }
-.pro-tabelle{ overflow-x:auto; background:var(--karte); border-radius:24px; box-shadow:var(--schatten) }
-.pro-tabelle table{ width:100%; border-collapse:collapse; font-size:16px; line-height:1.4 }
-.pro-tabelle th, .pro-tabelle td{ padding:14px 20px; text-align:left; vertical-align:middle }
-.pro-tabelle thead th{ padding-top:22px; padding-bottom:16px; border-bottom:1px solid var(--band); font-size:15px; font-weight:600; line-height:1.2 }
-.pro-tabelle thead small{ display:block; margin-top:4px; font-size:13px; font-weight:400; color:var(--leise) }
-.pro-tabelle .spalte{ width:104px; text-align:center }
-.pro-tabelle .pro{ background:var(--pro-spalte) }
-.pro-tabelle thead .pro{ color:var(--akzent) }
-.pro-tabelle tbody tr > *{ border-top:1px solid var(--band) }
-.pro-tabelle tbody:first-of-type tr:first-child > *{ border-top:0 }
-.pro-tabelle tbody th{ font-weight:400 }
-.pro-tabelle .gruppe th{ padding-top:26px; padding-bottom:10px; font-size:13px; font-weight:600; line-height:1;
-  letter-spacing:.06em; text-transform:uppercase; color:var(--leise) }
-.haken{ display:inline-block; width:20px; height:20px; vertical-align:middle; stroke:currentColor; fill:none;
-  stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round }
-.pro .haken{ color:var(--akzent) }
+/* Die Tabelle: zwei Spalten mit dem Abstand des Rasters, Spaltenbreite 84 (Vorbild Runde 7). Die Koepfe Frei und Pro haften
+   unter der Notch: deren Unterkante liegt in WebKit bei 53 (ab 776) und 50 (Handy), gemessen 30.10.2026, dazu 8 Luft. */
+.pro-vergleich{ --pro-sp:84px; --pro-haft:61px; margin-top:56px }
+.pro-spalten{ display:grid; gap:8px }
+.pro-spalte{ min-width:0 }
+@media (min-width:768px){ .pro-spalten{ grid-template-columns:1fr 1fr; column-gap:64px; align-items:start } }
+@media (max-width:775px){ .pro-vergleich{ --pro-haft:58px } }
+@media (max-width:767px){ .pro-spalte:nth-child(2){ order:-1 } }
+.pro-spaltenkopf{ position:sticky; top:var(--pro-haft); z-index:3; display:grid; grid-template-columns:1fr var(--pro-sp) var(--pro-sp);
+  align-items:center; padding:12px 0; background:var(--grund); font-size:15px; font-weight:600; line-height:1 }
+.pro-spaltenkopf span{ text-align:center }
+.pro-kopf-pro{ color:var(--akzent) }
+.pro-bereich{ margin-top:24px }
+.pro-bereich table{ width:100%; border-collapse:separate; border-spacing:0; table-layout:fixed; background:var(--karte);
+  border-radius:18px; box-shadow:var(--schatten); overflow:hidden; font-size:16px; line-height:1.4 }
+.pro-bereich caption{ caption-side:top; text-align:left; font-size:20px; font-weight:600; line-height:1.2; letter-spacing:-.01em;
+  color:var(--tinte); padding:0 4px 10px }
+.pro-bereich col.pro-c{ width:var(--pro-sp) }
+.pro-bereich th, .pro-bereich td{ padding:14px 0; vertical-align:middle; text-align:center }
+.pro-bereich tbody th{ text-align:left; font-weight:400; padding-left:20px; padding-right:12px }
+/* Trennlinie zwischen den Zeilen: in den Wertespalten durchgehend, in der Textspalte ab dem Einzug (wie Einstellungen.app) */
+.pro-bereich tbody tr + tr td{ box-shadow:inset 0 1px 0 var(--band) }
+.pro-bereich tbody tr + tr th{ background-image:linear-gradient(var(--band), var(--band)); background-size:calc(100% - 20px) 1px;
+  background-position:right top; background-repeat:no-repeat }
+.pro-kreis{ display:inline-grid; place-items:center; width:24px; height:24px; border-radius:50%; vertical-align:middle }
+.pro-kreis svg{ width:14px; height:14px; stroke-width:3 }   /* der Haken der App, im Kreis bei 14 px mit Strich 3 wie im Vorbild */
+.pro-kreis-pro{ background:var(--akzent); color:var(--auf-marke) }
+.pro-kreis-frei{ background:var(--band); color:var(--haken-frei) }
 .nein{ font-weight:600; color:var(--nein) }
-.wert{ font-weight:600; font-variant-numeric:tabular-nums }
-.zusatz{ display:block; margin-top:2px; font-size:12px; line-height:1.2; color:var(--leise) }
-.pro-hinweis{ margin:18px 4px 0; max-width:70ch; font-size:14px; line-height:1.5; color:var(--leise) }
-.pro-vergleich .klein{ margin:12px 4px 0 }
+.wert{ font-weight:600; font-variant-numeric:tabular-nums; font-size:17px }
+.wert-pro{ color:var(--akzent) }
+.pro-zeile{ display:flex; align-items:center; gap:12px }
+.pro-sym{ flex:none; width:22px; height:22px; color:var(--leise); display:grid; place-items:center }
+.pro-sym svg{ display:block }
+.pro-text{ min-width:0 }
+.zusatz{ display:block; margin-top:3px; font-size:13px; line-height:1.3; color:var(--leise) }
+/* Die Tabelle steht sichtbar da, hoechstens 520 hoch, und laeuft ab 45 % in den Grund aus (Maske, kein Blur: der Grund
+   scheint durch). Maske und Knopf setzt erst das Skript (data-kurz); ohne Skript steht sie ganz offen, sonst waere Inhalt
+   fuer immer verdeckt. Der Tipp faehrt sie mit der Kurve der Seite auf ihre volle Hoehe (data-kurz=auf: Maske weg, Knopf
+   weg), danach faellt das Attribut, und die Spaltenkoepfe haften wieder am Fenster (ein overflow:hidden waere sonst ihr
+   Scrollbehaelter). Bewegung reduzieren: der Ruhe-Block oben, die Tabelle springt. */
+.pro-vergleich[data-kurz]{ max-height:520px; overflow:hidden; transition:max-height var(--dauer-bewegung) var(--kurve-bewegung) }
+/* Solange die Tabelle beschnitten ist, ist sie der Scrollbehaelter ihrer Koepfe: sticky rueckte sie dann um --pro-haft nach
+   unten, ueber die erste Bereichsueberschrift (gemessen 30.10.2026, 393). Beschnitten haften sie nicht, offen wieder. */
+.pro-vergleich[data-kurz] .pro-spaltenkopf{ position:static }
+.pro-vergleich[data-kurz="zu"]{ -webkit-mask-image:linear-gradient(to bottom, #000000 45%, transparent 100%);
+  mask-image:linear-gradient(to bottom, #000000 45%, transparent 100%) }
+/* Die mittige Zeile: die eine Ausnahme von der Flucht (Entscheidung 30.10.2026, Runde 6 und 8). Nur Schrift mit Pfeil. */
+.pro-mehrzeile{ margin:8px 0 0; max-width:none; text-align:center }   /* max-width:none gegen p{ max-width:65ch }: die Mitte ist die des Rahmens */
+.pro-mehr{ display:inline-flex; align-items:center; gap:10px; border:0; background:none; padding:8px 4px; cursor:pointer;
+  font-family:inherit; font-size:16px; font-weight:600; line-height:1; color:var(--tinte) }
+.pro-mehr::after{ content:""; width:8px; height:8px; margin-top:-4px; border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor; transform:rotate(45deg) }
+@media (hover:hover){ .pro-mehr:hover{ text-decoration:underline; text-underline-offset:4px } }
+.pro-fuss{ margin-top:20px }
+.pro-hinweis{ margin:0 4px; max-width:70ch; font-size:14px; line-height:1.5; color:var(--leise) }
+.pro-fuss .klein{ margin:12px 4px 0 }
 @media (max-width:720px){
-  .pro-tabelle th, .pro-tabelle td{ padding:12px }
-  .pro-tabelle .spalte{ width:76px }
-  .pro-tabelle table{ font-size:15px }
+  .pro-vergleich{ --pro-sp:64px }
+  .pro-bereich table{ font-size:15px }
+  .pro-bereich tbody th{ padding-left:16px }
 }
 /* 320 breit: die Tabelle bleibt im Rahmen (website_webkit misst es), lange Woerter brechen mit Trennstrich */
 @media (max-width:400px){
-  .pro-tabelle th, .pro-tabelle td{ padding:10px 8px }
-  .pro-tabelle .spalte{ width:64px }
-  .pro-tabelle tbody th{ -webkit-hyphens:auto; hyphens:auto }
+  .pro-bereich tbody th{ -webkit-hyphens:auto; hyphens:auto }
 }
 
 /* ---------- FAQ: zwei Spalten ab 900 px, halbiert die Laenge ---------- */
@@ -888,7 +931,7 @@ html[lang="en"] .pro-de, html:not([lang="en"]) .pro-en{ display:none }
       </div>
     </div>
   </nav>
-    <!-- Symbole: lucide-static 1.44.0 (ISC), chart-column, info, hand, sparkles (Zeichen in Ruhe), arrow-up-right (Store), menu und x (Menueknopf am Handy), check (Tabelle Frei oder Pro) -->
+    <!-- Symbole: lucide-static 1.44.0 (ISC), chart-column, info, hand, sparkles (Zeichen in Ruhe), arrow-up-right (Store), menu und x (Menueknopf am Handy). Die Zeichen der Tabelle Frei oder Pro kommen aus den Bauteilen der App (tools/website_prokarte.cjs) -->
 <!-- Zeichen: nachgezeichnet nach Lucide (lucide-static 1.44.0), https://lucide.dev
 ISC License
 
@@ -1002,9 +1045,12 @@ SOFTWARE.
 
   <section class="preis" id="pro" aria-labelledby="pro-titel">
     <div class="rahmen">
-      <h2 id="pro-titel" class="auftritt" data-t="h2_pro">Frei oder Pro</h2>
-      <p class="pro-lead" data-t="pro_lead">Training und Gewicht erfassen ist frei. Pro ist die Auswertung.</p>
-      <div class="pro-paket">
+      <div class="pro-raster">
+        <div class="pro-kopf">
+          <h2 id="pro-titel" class="auftritt" data-t="h2_pro">Frei oder Pro</h2>
+          <p class="pro-lead" data-t="pro_lead">Training und Gewicht erfassen ist frei. Pro ist die Auswertung.</p>
+        </div>
+        <div class="pro-paket">
 <!-- aus der App: src/bauteile/prokarte.jsx, src/proablauf.js, src/texte.js (tools/website_prokarte.cjs) -->
         <fieldset class="pro-wahl" data-satz="{&quot;de&quot;:{&quot;vor&quot;:&quot;Verlängert sich automatisch für &quot;,&quot;jahr&quot;:&quot;29,99 € pro Jahr&quot;,&quot;monat&quot;:&quot;4,99 € pro Monat&quot;,&quot;nach&quot;:&quot;, jederzeit kündbar.&quot;},&quot;en&quot;:{&quot;vor&quot;:&quot;Renews automatically for &quot;,&quot;jahr&quot;:&quot;€29.99 per year&quot;,&quot;monat&quot;:&quot;€4.99 per month&quot;,&quot;nach&quot;:&quot;, cancel anytime.&quot;}}">
           <legend class="sr"><span class="pro-de">Tarif wählen</span><span class="pro-en">Choose a plan</span></legend>
@@ -1019,48 +1065,82 @@ SOFTWARE.
             </label>
           </div>
         </fieldset>
-        <p class="pro-satz" id="pro-satz" aria-live="polite"><span class="pro-satz-vor">Verlängert sich automatisch für </span><b class="pro-satz-preis">29,99 € pro Jahr</b><span class="pro-satz-nach">, jederzeit kündbar.</span></p>
         <!-- Ende aus der App: Pro-Karte -->
-        <a class="store fuellen pro-store" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-      </div>
-      <p class="pro-geschenk"><strong data-t="geschenk.0">30 Tage Pro geschenkt</strong><span data-t="geschenk.1">, ab deinem ersten abgeschlossenen Training. Sie enden von selbst, du musst nichts kündigen.</span></p>
-      <div class="pro-vergleich">
-        <h3 id="drin-titel" data-t="h2_drin">Was drin ist</h3>
-        <div class="pro-tabelle">
-        <table aria-labelledby="drin-titel">
-          <thead>
-            <tr><th scope="col"><span class="sr" data-t="tabelle.funktion">Funktion</span></th><th scope="col" class="spalte" data-t="h3_frei">Frei</th><th scope="col" class="spalte pro"><span data-t="h3_pro">Pro</span><small data-t="tabelle.pro_ab">ab 2,50 € im Monat</small></th></tr>
-          </thead>
-          <tbody>
-            <tr class="gruppe"><th scope="rowgroup" colspan="2" data-t="tabelle.gruppen.0">Training</th><td class="pro"></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.0">Pläne und Planbibliothek</th><td class="spalte"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.1">Training mit den Werten vom letzten Mal</th><td class="spalte"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.2">Live Activity und Widgets</th><td class="spalte"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.3">Archiv</th><td class="spalte"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.4">Training als Bild teilen</th><td class="spalte"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg><span class="zusatz" data-t="tabelle.teilen_pro">mit Progression</span></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.5">Kartendesigns</th><td class="spalte"><span class="wert">2</span></td><td class="spalte pro"><span class="wert">7</span></td></tr>
-          </tbody>
-          <tbody>
-            <tr class="gruppe"><th scope="rowgroup" colspan="2" data-t="tabelle.gruppen.1">Auswertung</th><td class="pro"></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.6">Progression je Übung</th><td class="spalte"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.7">Sätze je Muskelgruppe</th><td class="spalte"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.8">Intensität und RIR</th><td class="spalte"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.9">Studios</th><td class="spalte"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-          </tbody>
-          <tbody>
-            <tr class="gruppe"><th scope="rowgroup" colspan="2" data-t="tabelle.gruppen.2">Körper</th><td class="pro"></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.10">Gewicht mit Verlauf und gemessenem Tempo</th><td class="spalte"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.11">Körperfett und Umfänge</th><td class="spalte"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.12">Ziel je Phase mit Kalorien</th><td class="spalte"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-          </tbody>
-          <tbody>
-            <tr class="gruppe"><th scope="rowgroup" colspan="2" data-t="tabelle.gruppen.3">Deine Daten</th><td class="pro"></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.13">Sicherung in iCloud und als Datei</th><td class="spalte"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.14">Export</th><td class="spalte"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-            <tr><th scope="row" data-t="tabelle.zeilen.15">Apple Health</th><td class="spalte"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td><td class="spalte pro"><svg class="haken" viewBox="0 0 24 24" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
-          </tbody>
-        </table>
         </div>
+        <div class="pro-aktion">
+<!-- aus der App: der Satz zum Tarif, src/texte.js (tools/website_prokarte.cjs) -->
+          <p class="pro-satz" id="pro-satz" aria-live="polite"><span class="pro-satz-vor">Verlängert sich automatisch für </span><b class="pro-satz-preis">29,99 € pro Jahr</b><span class="pro-satz-nach">, jederzeit kündbar.</span></p>
+          <!-- Ende aus der App: Satz zum Tarif -->
+          <a class="store fuellen pro-store" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+          <p class="pro-geschenk"><strong data-t="geschenk.0">30 Tage Pro geschenkt</strong><span data-t="geschenk.1">, ab deinem ersten abgeschlossenen Training. Sie enden von selbst, du musst nichts kündigen.</span></p>
+        </div>
+      </div>
+      <div class="pro-vergleich" id="pro-vergleich" role="region" aria-label="Frei und Pro im Vergleich" data-t-aria="faq_pro">
+<!-- aus der App: die Zeichen der Tabelle Frei oder Pro, src/bauteile/symbole.jsx, menuesymbole.jsx, themenmotive.jsx (tools/website_prokarte.cjs) -->
+        <div class="pro-spalten">
+          <div class="pro-spalte">
+          <div class="pro-spaltenkopf" aria-hidden="true"><span></span><span data-t="h3_frei">Frei</span><span class="pro-kopf-pro" data-t="h3_pro">Pro</span></div>
+          <div class="pro-bereich">
+            <table>
+              <caption data-t="tabelle.gruppen.0">Training</caption>
+              <colgroup><col><col class="pro-c"><col class="pro-c"></colgroup>
+              <thead class="sr"><tr><th scope="col" data-t="tabelle.funktion">Funktion</th><th scope="col" data-t="h3_frei">Frei</th><th scope="col" data-t="h3_pro">Pro</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-sym-svg"><path d="M16 18h6"></path><path d="M16 2v3"></path><path d="M19 15v6"></path><path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3"></path><path d="M3 9h18"></path><path d="M8 2v3"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.0">Pläne und Planbibliothek</span></span></span></th><td class="frei"><span class="pro-kreis pro-kreis-frei" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-sym-svg"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"></path><path d="m2.5 21.5 1.4-1.4"></path><path d="m20.1 3.9 1.4-1.4"></path><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"></path><path d="m9.6 14.4 4.8-4.8"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.1">Training mit den Werten vom letzten Mal</span></span></span></th><td class="frei"><span class="pro-kreis pro-kreis-frei" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-sym-svg"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.2">Live Activity und Widgets</span></span></span></th><td class="frei"><span class="pro-kreis pro-kreis-frei" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg class="pro-sym-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1"></rect><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8m-10 4h4"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.3">Archiv</span></span></span></th><td class="frei"><span class="pro-kreis pro-kreis-frei" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-sym-svg"><path d="M12 15V3"></path><path d="m8 7 4-4 4 4"></path><path d="M9 8H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-3"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.4">Training als Bild teilen</span><span class="zusatz" data-t="tabelle.teilen_pro">Mit Pro steht die Progression im Bild.</span></span></span></th><td class="frei"><span class="pro-kreis pro-kreis-frei" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg class="pro-sym-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 2h10"></path><path d="M5 6h14"></path><rect width="18" height="12" x="3" y="10" rx="2"></rect></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.5">Kartendesigns</span></span></span></th><td class="frei"><span class="wert">2</span></td><td class="pro"><span class="wert wert-pro">7</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pro-bereich">
+            <table>
+              <caption data-t="tabelle.gruppen.3">Deine Daten</caption>
+              <colgroup><col><col class="pro-c"><col class="pro-c"></colgroup>
+              <thead class="sr"><tr><th scope="col" data-t="tabelle.funktion">Funktion</th><th scope="col" data-t="h3_frei">Frei</th><th scope="col" data-t="h3_pro">Pro</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg class="pro-sym-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.13">Sicherung in iCloud und als Datei</span></span></span></th><td class="frei"><span class="pro-kreis pro-kreis-frei" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-sym-svg"><path d="M12 15V3"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.14">Export</span></span></span></th><td class="frei"><span class="pro-kreis pro-kreis-frei" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"></span><span class="pro-text"><span data-t="tabelle.zeilen.15">Apple Health</span></span></span></th><td class="frei"><span class="pro-kreis pro-kreis-frei" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+          <div class="pro-spalte">
+          <div class="pro-spaltenkopf" aria-hidden="true"><span></span><span data-t="h3_frei">Frei</span><span class="pro-kopf-pro" data-t="h3_pro">Pro</span></div>
+          <div class="pro-bereich">
+            <table>
+              <caption data-t="tabelle.gruppen.1">Auswertung</caption>
+              <colgroup><col><col class="pro-c"><col class="pro-c"></colgroup>
+              <thead class="sr"><tr><th scope="col" data-t="tabelle.funktion">Funktion</th><th scope="col" data-t="h3_frei">Frei</th><th scope="col" data-t="h3_pro">Pro</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg class="pro-sym-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"></path><path d="m22 7l-8.5 8.5l-5-5L2 17"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.6">Progression je Übung</span></span></span></th><td class="frei"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-sym-svg"><path d="M5 21v-6"></path><path d="M12 21V3"></path><path d="M19 21V9"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.7">Sätze je Muskelgruppe</span></span></span></th><td class="frei"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg class="pro-sym-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 14l4-4M3.34 19a10 10 0 1 1 17.32 0"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.8">Intensität und RIR</span></span></span></th><td class="frei"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-sym-svg"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.9">Studios</span></span></span></th><td class="frei"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pro-bereich">
+            <table>
+              <caption data-t="tabelle.gruppen.2">Körper</caption>
+              <colgroup><col><col class="pro-c"><col class="pro-c"></colgroup>
+              <thead class="sr"><tr><th scope="col" data-t="tabelle.funktion">Funktion</th><th scope="col" data-t="h3_frei">Frei</th><th scope="col" data-t="h3_pro">Pro</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg class="pro-sym-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"></circle><path d="M6.5 8a2 2 0 0 0-1.905 1.46L2.1 18.5A2 2 0 0 0 4 21h16a2 2 0 0 0 1.925-2.54L19.4 9.5A2 2 0 0 0 17.48 8Z"></path></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.10">Gewicht mit Verlauf und gemessenem Tempo</span></span></span></th><td class="frei"><span class="pro-kreis pro-kreis-frei" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg class="pro-sym-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" x2="5" y1="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.11">Körperfett und Umfänge</span></span></span></th><td class="frei"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+                <tr><th scope="row"><span class="pro-zeile"><span class="pro-sym" aria-hidden="true"><svg class="pro-sym-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></span><span class="pro-text"><span data-t="tabelle.zeilen.12">Ziel je Phase mit Kalorien</span></span></span></th><td class="frei"><span class="nein" role="img" aria-label="nicht enthalten" data-t-aria="tabelle.nein">–</span></td><td class="pro"><span class="pro-kreis pro-kreis-pro" role="img" aria-label="enthalten" data-t-aria="tabelle.ja"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pro-haken"><path d="M20 6 9 17l-5-5"></path></svg></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+        </div>
+        <!-- Ende aus der App: Tabelle Frei oder Pro -->
+      </div>
+      <p class="pro-mehrzeile" hidden><button type="button" class="pro-mehr" id="pro-mehr" aria-expanded="false" aria-controls="pro-vergleich" data-t="mehr_anzeigen">Mehr anzeigen</button></p>
+      <div class="pro-fuss">
         <p class="pro-hinweis" data-t="pro_hinweis">Endet Pro, wird nichts gelöscht. Preise im deutschen App Store, inkl. MwSt., Stand Oktober 2026. Den Preis in deinem Land zeigt dir der App Store. Das Abo verlängert sich automatisch und ist jederzeit in den Einstellungen deiner Apple-ID kündbar.</p>
         <p class="klein" data-t="nicht">Kein Feed, keine Tonnage, kein Essensprotokoll.</p>
         <p class="klein"><a href="/auswertung/" data-t="mehr">Jede Auswertung im Detail</a></p>
@@ -1213,7 +1293,6 @@ var TEXTE = {
   "alt_vorn": "Satzwerk, Woche: die Karte eines Trainings, darunter Trainings, Im Ziel und Stärker, die Übungen und Training starten",
   "alt_hinten": "Satzwerk während des Trainings: oben der Befund zum Wiederholungsziel, darunter Sätze mit Gewicht, Wiederholungen und Haken",
   "p3": "Satzwerk zeigt, wo du stehst. Es sagt dir nicht, was du tun sollst. Keine Handlungsempfehlungen, keine Gewichtsvorgabe, kein Urteil über eine Entlastungswoche. Ein Onboarding kennt deinen Bandscheibenvorfall nicht, deinen Blutdruck nicht und dein Sprunggelenk nicht. Ein persönlicher Plan kommt von Menschen, die dich kennen. Die Zahlen kommen von hier.",
-  "h2_drin": "Was drin ist",
   "h3_frei": "Frei",
   "preis": {
    "jahr": "29,99 €",
@@ -1229,7 +1308,6 @@ var TEXTE = {
   ],
   "tabelle": {
    "funktion": "Funktion",
-   "pro_ab": "ab {jahr_im_monat} im Monat",
    "ja": "enthalten",
    "nein": "nicht enthalten",
    "gruppen": [
@@ -1256,10 +1334,11 @@ var TEXTE = {
     "Export",
     "Apple Health"
    ],
-   "teilen_pro": "mit Progression"
+   "teilen_pro": "Mit Pro steht die Progression im Bild."
   },
   "pro_hinweis": "Endet Pro, wird nichts gelöscht. Preise im deutschen App Store, inkl. MwSt., Stand Oktober 2026. Den Preis in deinem Land zeigt dir der App Store. Das Abo verlängert sich automatisch und ist jederzeit in den Einstellungen deiner Apple-ID kündbar.",
   "h3_pro": "Pro",
+  "mehr_anzeigen": "Mehr anzeigen",
   "nicht": "Kein Feed, keine Tonnage, kein Essensprotokoll.",
   "mehr": "Jede Auswertung im Detail",
   "h2_faq": "Fragen und Antworten",
@@ -1396,7 +1475,6 @@ var TEXTE = {
   "alt_vorn": "Satzwerk week: the card of a workout, below it Workouts, On target and Stronger, the exercises and Start workout",
   "alt_hinten": "Satzwerk during a workout: at the top the finding on the rep target, below it sets with weight, reps and check marks",
   "p3": "Satzwerk shows you where you stand. It does not tell you what to do. No recommendations, no weight targets, no verdict on a lighter week. An onboarding does not know about your herniated disc, your blood pressure or your ankle. A personal plan comes from people who know you. The numbers come from here.",
-  "h2_drin": "What is in it",
   "h3_frei": "Free",
   "preis": {
    "jahr": "€29.99",
@@ -1412,7 +1490,6 @@ var TEXTE = {
   ],
   "tabelle": {
    "funktion": "Feature",
-   "pro_ab": "from {jahr_im_monat} a month",
    "ja": "included",
    "nein": "not included",
    "gruppen": [
@@ -1439,10 +1516,11 @@ var TEXTE = {
     "Export",
     "Apple Health"
    ],
-   "teilen_pro": "with progression"
+   "teilen_pro": "With Pro, the progression is in the image."
   },
   "pro_hinweis": "When Pro ends, nothing is deleted. Prices in the German App Store, incl. VAT, as of October 2026. The App Store shows you the price in your country. The subscription renews automatically and can be cancelled at any time in your Apple ID settings.",
   "h3_pro": "Pro",
+  "mehr_anzeigen": "Show more",
   "nicht": "No feed, no tonnage, no food log.",
   "mehr": "Every analysis in detail",
   "h2_faq": "Questions and answers",
@@ -1596,6 +1674,35 @@ var TEXTE = {
     wahl.querySelectorAll("input").forEach(function(i){ i.setAttribute("aria-label", i.getAttribute("data-name-" + sprache)); });
   }
   if (wahl) wahl.addEventListener("change", setzePro);
+
+  /* Die Tabelle Frei oder Pro laeuft aus (Ticket 805): ohne Skript steht sie ganz offen. Hier bekommt sie die Maske
+     (data-kurz="zu") und die Zeile Mehr anzeigen; der Tipp faehrt sie auf ihre volle Hoehe, danach faellt das Attribut
+     (ein overflow:hidden waere sonst der Scrollbehaelter der haftenden Spaltenkoepfe). Der Fokus springt auf die erste
+     Zeile, die unter der Maske lag (ab 45 % der 520), damit er nicht ins Leere faellt. Bewegung reduzieren: der
+     Ruhe-Block schaltet den Uebergang ab, also kein transitionend, also sofort. */
+  var vergleich = document.getElementById("pro-vergleich"), mehrzeile = document.querySelector(".pro-mehrzeile"),
+      mehr = document.getElementById("pro-mehr");
+  if (vergleich && mehr && vergleich.scrollHeight > 520) {
+    vergleich.setAttribute("data-kurz", "zu");
+    mehrzeile.hidden = false;
+    mehr.addEventListener("click", function(){
+      var oben = vergleich.getBoundingClientRect().top, ziel = null, zielOben = Infinity;
+      vergleich.querySelectorAll("tbody th").forEach(function(th){
+        var r = th.getBoundingClientRect();
+        if (r.bottom - oben > 520 * .45 && r.top < zielOben) { ziel = th; zielOben = r.top; }
+      });
+      vergleich.style.maxHeight = vergleich.scrollHeight + "px";
+      vergleich.setAttribute("data-kurz", "auf");
+      mehr.setAttribute("aria-expanded", "true");
+      mehrzeile.hidden = true;
+      var fertig = function(){
+        vergleich.removeAttribute("data-kurz"); vergleich.style.maxHeight = "";
+        if (ziel) { ziel.setAttribute("tabindex", "-1"); ziel.focus({ preventScroll: true }); }
+      };
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) fertig();
+      else vergleich.addEventListener("transitionend", fertig, { once: true });
+    });
+  }
 
   function setzeSprache(sprache){
     var t = TEXTE[sprache] || TEXTE.de;
