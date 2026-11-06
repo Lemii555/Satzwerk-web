@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Satzwerk analyzes: training, muscles, body</title>
+<meta name="description" content="How Satzwerk calculates: rep target per exercise, sets per muscle group, intensity from RIR, weight, body fat from skinfolds and circumferences.">
+<link rel="canonical" href="https://satzwerk.app/en/analysis/">
+<link rel="alternate" hreflang="de" href="https://satzwerk.app/auswertung/">
+<link rel="alternate" hreflang="en" href="https://satzwerk.app/en/analysis/">
+<link rel="alternate" hreflang="x-default" href="https://satzwerk.app/en/analysis/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Satzwerk">
+<meta property="og:title" content="What Satzwerk analyzes: training, muscles, body">
+<meta property="og:description" content="How Satzwerk calculates: rep target per exercise, sets per muscle group, intensity from RIR, weight, body fat from skinfolds and circumferences.">
+<meta property="og:url" content="https://satzwerk.app/en/analysis/">
+<meta property="og:image" content="https://satzwerk.app/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/symbol-s.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon-s.png">
+<meta name="theme-color" content="#F2F2F7">
+<meta name="color-scheme" content="light">
+<link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/stil.css">
+<script src="/einwilligung.js" defer></script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "TechArticle",
+ "headline": "What Satzwerk analyzes",
+ "inLanguage": "en",
+ "url": "https://satzwerk.app/en/analysis/",
+ "dateModified": "2026-11-06",
+ "author": {
+  "@type": "Organization",
+  "name": "Satzwerk",
+  "url": "https://satzwerk.app/"
+ },
+ "about": {
+  "@type": "MobileApplication",
+  "name": "Satzwerk",
+  "url": "https://apps.apple.com/app/id6786720640"
+ }
+}
+</script>
+</head>
+<body>
+<a class="sprung" href="#inhalt">Skip to content</a>
+<header class="kopf">
+<a class="marke" href="/en/" aria-label="Satzwerk, home"><img src="/img/logo-dunkel.svg" alt="Satzwerk" width="130" height="22"></a>
+<nav class="nav" aria-label="Main navigation">
+<a href="/en/">Home</a>
+<a href="/en/analysis/" aria-current="page">Analysis</a>
+<a href="/en/about/">About</a>
+<a href="/en/whats-new/">What's new</a>
+</nav>
+<a class="sprache" href="/auswertung/" lang="de" hreflang="de">Deutsch</a>
+</header>
+<main id="inhalt" class="unterseite">
+<article class="text">
+<h1>What Satzwerk analyzes</h1>
+<p class="stand">As of November 6, 2026, version 3.0</p>
+<div class="kurz"><p>Satzwerk is a training log for the iPhone. It records strength training set by set and analyzes it: per exercise, per muscle group and per week. There is also a body section with weight, body fat and circumferences.</p> <p>The app shows findings. It gives no instructions and no weight recommendations. The plan library offers templates as a starting point, not as a recommendation.</p></div>
+<nav class="karte seitennav" aria-labelledby="h-seite">
+<p class="gruppe" id="h-seite">On this page</p>
+<ul>
+<li><a href="#what-you-log">What you log</a></li>
+<li><a href="#training">Training</a></li>
+<li><a href="#body">Body</a></li>
+<li><a href="#not-calculated">What Satzwerk deliberately does not calculate</a></li>
+<li><a href="#questions">Common questions</a></li>
+<li><a href="#sources">Sources</a></li>
+</ul>
+</nav>
+<h2 id="what-you-log">What you log</h2>
+<p>Weight and reps per set, or the duration for timed exercises. Every exercise has a rep target, for example 8 to 12, and a muscle group. Warm-up sets are their own rows and never count in any analysis. A workout counts in the analysis once it is finished.</p>
+<p>With Pro you enter the RIR, the reps in reserve, on the last set of an exercise. And every session belongs to a gym, because the same exercise on a different machine has different numbers.</p>
+<h2 id="training">Training</h2>
+<h3 id="rep-target" class="mit-pille"><span>Rep target finding</span> <span class="pille pille-pro">Pro</span></h3>
+<p>For each exercise, Satzwerk checks whether the reps of the last session are within the rep target. Only working sets count. The finding is: on target, at the top end, too light, too heavy, or above and below.</p>
+<h3 id="progression" class="mit-pille"><span>Progression per exercise</span> <span class="pille pille-pro">Pro</span></h3>
+<p>Each exercise gets one verdict: stronger, same or weaker. Each training week's highest value is compared: from four training weeks on, the last two against the two before; in the first weeks, the latest against the one before, each Monday to Sunday. A verdict is possible from the second training week.</p>
+<p>The verdict uses the strength of the exercise, estimated with the Epley formula extended by the measured RIR:</p>
+<p class="karte formel">weight × (1 + (reps + RIR) / 30)</p>
+<p>Per session, the highest value of the checked working sets counts. Less than one rep of difference counts as the same. Unless both sets carry a logged RIR, a fixed order comes first: a heavier load with as many or more reps is stronger, fewer reps with the same or a lighter load is weaker. A heavier set with fewer reps then only shows stronger or same, otherwise no verdict.</p>
+<p>Above 12 reps including RIR and for pure bodyweight the formula does not apply. There Satzwerk compares the sets directly: more load or more reps, without less of the other, is stronger, the mirror image is weaker, both equal is the same. If each set is better in one of the two, there is no verdict. Plus a curve across the last 35 training weeks, for the selected gym.</p>
+<h3 id="sets" class="mit-pille"><span>Sets per muscle group</span> <span class="pille pille-pro">Pro</span></h3>
+<p>Satzwerk counts the working sets of the week per muscle group, without warm-up sets, and shows last week next to it. Eight groups: chest, back, shoulders, biceps, triceps, quadriceps, hamstrings and glutes, calves.</p>
+<p>A line marks the range of 10 to 20 sets per muscle per week, from the meta-analysis by Schoenfeld, Ogborn and Krieger (2017). The app shows whether a week is below, within or above it. It does not tell you how many sets to do.</p>
+<h3 id="intensity" class="mit-pille"><span>Intensity</span> <span class="pille pille-pro">Pro</span></h3>
+<p>Intensity is the share of hard sets among all working sets of a week, compared with the four weeks before. Hard means RIR 0 to 2 in Satzwerk. For the sets before the last one, Satzwerk estimates the RIR, one more rep in reserve per set.</p>
+<p>Why 0 to 2: this is a choice made by Satzwerk, not a rule from the literature. Reported RIR is on average about one rep too low (Halperin and others, 2022). Someone who reports 0 to 2 usually had more like 1 to 3 in reserve.</p>
+<h3 id="archive" class="mit-pille"><span>Week grid and archive</span> <span class="pille pille-frei">Free</span></h3>
+<p>The week grid shows about half a year on one screen, one dot per day. The archive keeps every session with all sets, with no time limit. Deleting or renaming a plan does not change the archive.</p>
+<h2 id="body">Body</h2>
+<h3 id="weight" class="mit-pille"><span>Weight</span> <span class="pille pille-frei">Free</span></h3>
+<p>The weekly average against last week, the measured pace per week and the trend as a chart. If you want, the weight from a scale comes in through Apple Health; an entry in Satzwerk takes precedence.</p>
+<h3 id="goal" class="mit-pille"><span>Goal per phase</span> <span class="pille pille-pro">Pro</span></h3>
+<p>A phase is a bulk, maintenance or cut, with a planned pace and a target weight. Satzwerk puts planned and measured pace side by side and calculates daily calories from the basal rate of lean mass (Katch-McArdle). A cut faster than 1 % of body weight per week cannot be set up (Helms, Aragon and Fitschen 2014). The calculation is not medical advice.</p>
+<p>To convert between body weight and calories, Satzwerk uses 7700 kcal per kilo (Wishnofsky 1958). This is a convention found in the literature, without an original study behind it.</p>
+<h3 id="body-fat" class="mit-pille"><span>Body fat</span> <span class="pille pille-pro">Pro</span></h3>
+<p>Three methods: 3 skinfolds after Jackson and Pollock, 4 skinfolds after Durnin and Womersley, or the value of a bioimpedance scale. From skinfolds, Satzwerk calculates body fat with the Siri formula. For the scale, the app asks for time of day and last workout, because both shift the value a lot.</p>
+<p>Changing the method is a break. The curve stops, nothing is converted. From weight and body fat, Satzwerk shows whether a change came from fat or from lean mass. Under 17, the app does not calculate a body fat value.</p>
+<h3 id="circumferences" class="mit-pille"><span>Circumferences</span> <span class="pille pille-pro">Pro</span></h3>
+<p>Waist, chest, hips, arm and leg. The waist comes first and is the only one with a chart. The others fluctuate more than they change.</p>
+<h2 id="not-calculated">What Satzwerk deliberately does not calculate</h2>
+<ul class="karte liste">
+<li><strong>No tonnage as a finding.</strong> Total weight moved grows with body weight, number of sets and exercise choice and says nothing about any of them. Satzwerk therefore never compares it week against week. Only the total since the first workout is shown as one number.</li>
+<li><strong>No recommendations.</strong> No weight target, no number of kilograms.</li>
+<li><strong>No plan recommendation.</strong> The plan library offers templates to copy. Which one suits you, the app does not say.</li>
+<li><strong>No food logging.</strong> Satzwerk calculates a daily requirement but does not log meals.</li>
+<li><strong>No feed.</strong> No followers, no likes.</li>
+</ul>
+<p>What is free and what is Pro is listed on the home page under <a href="/en/#pro">Free and Pro</a>.</p>
+<h2 id="questions">Common questions about the analysis</h2>
+<h3>Does Satzwerk count warm-up sets?</h3>
+<p>No. Warm-up sets are their own rows and never count in any analysis.</p>
+<h3>How far back does the analysis go?</h3>
+<p>The data has no time limit. Every workout stays in the archive, also without Pro.</p>
+<h3>Does Satzwerk recommend weights?</h3>
+<p>No. Satzwerk tells you whether your reps were on target, for example “too light”. Which weight you pick next is your decision.</p>
+<h3>Can I import my data from Hevy or Strong?</h3>
+<p>No. Satzwerk does not read exports from other apps. Your own plans can be shared as text and read back in.</p>
+<p class="mehr"><a href="https://apps.apple.com/app/id6786720640">On the App Store ›</a></p>
+<h2 id="sources">Sources</h2>
+<ul class="quellen">
+<li>Schoenfeld, Ogborn, Krieger (2017), Journal of Sports Sciences: sets per muscle per week</li>
+<li>Jackson and Pollock (1978); Jackson, Pollock and Ward (1980): 3 skinfolds</li>
+<li>Durnin and Womersley (1974): 4 skinfolds</li>
+<li>Siri (1961): body density to body fat</li>
+<li>Katch-McArdle: basal rate from lean mass</li>
+<li>Helms, Aragon, Fitschen (2014): pace in a cut</li>
+<li>Halperin and others (2022): accuracy of reported RIR</li>
+<li>Wishnofsky (1958): 7700 kcal per kilo, as a convention</li>
+</ul>
+</article>
+</main>
+<footer class="fuss">
+<div class="fuss-innen">
+<div class="fuss-marke">
+<p class="claim">Handwerk am eigenen Körper.</p>
+<p class="fuss-satz">Satz for the training set, Werk for craft.</p>
+<a class="fuss-store" href="https://apps.apple.com/app/id6786720640">On the App Store ›</a>
+</div>
+<nav class="fuss-spalte" aria-labelledby="fuss-0">
+<p class="fuss-kopf" id="fuss-0">Product</p>
+<ul>
+<li><a href="/en/analysis/">What Satzwerk analyzes</a></li>
+<li><a href="/en/whats-new/">What's new</a></li>
+<li><a href="/en/#pro">Satzwerk Pro</a></li>
+<li><a href="/en/#faq">Questions and answers</a></li>
+</ul>
+</nav>
+<nav class="fuss-spalte" aria-labelledby="fuss-1">
+<p class="fuss-kopf" id="fuss-1">Satzwerk</p>
+<ul>
+<li><a href="/en/about/">About Satzwerk</a></li>
+<li><a href="mailto:info@satzwerk.app">Contact</a></li>
+<li><a href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener">Instagram</a></li>
+<li><a href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener">LinkedIn</a></li>
+</ul>
+</nav>
+<nav class="fuss-spalte" aria-labelledby="fuss-2">
+<p class="fuss-kopf" id="fuss-2">Legal</p>
+<ul id="rechtliches">
+<li><a href="/impressum/#en">Legal notice</a></li>
+<li><a href="/datenschutz/#en">Privacy</a></li>
+</ul>
+</nav>
+</div>
+<p class="fuss-rechte">© 2026 Satzwerk. Apple, App Store, Apple Watch and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries.</p>
+</footer>
+</body>
+</html>

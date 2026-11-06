@@ -3,930 +3,120 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Impressum — Satzwerk</title>
+<title>Satzwerk: Impressum</title>
 <meta name="description" content="Impressum und Anbieterkennzeichnung für Satzwerk.">
-<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://satzwerk.app/impressum/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Satzwerk">
+<meta property="og:title" content="Satzwerk: Impressum">
+<meta property="og:description" content="Impressum und Anbieterkennzeichnung für Satzwerk.">
+<meta property="og:url" content="https://satzwerk.app/impressum/">
+<meta property="og:image" content="https://satzwerk.app/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/symbol-s.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon-s.png">
 <meta name="theme-color" content="#F2F2F7">
 <meta name="color-scheme" content="light">
-<link rel="icon" href="../img/bildmarke.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/publicsans.woff2" as="font" type="font/woff2" crossorigin>
-<script>
-/* Die Website gibt es nur hell (30.9.2026): die Mockups muessten sonst
-   in jeder Sprache zweimal gepflegt werden. Eine frueher gespeicherte Wahl
-   wird geloescht. */
-(function(){ try{ localStorage.removeItem("satzwerk-modus"); }catch(err){} })();
-/* Ticket 798b: .js vor dem ersten Zeichnen. Mit Skript faehrt die Notch auf gemessene
-   Breiten (Feder); ohne Skript oeffnet sie ueber CSS. */
-document.documentElement.classList.add("js");
-</script>
-<style>
-/* ---------- Schriften: zwei, selbst gehostet ---------- */
-@font-face{
-  font-family:"Fraunces";
-  src:url("/fonts/fraunces.woff2") format("woff2");
-  font-weight:100 900; font-display:swap; font-style:normal;
-}
-@font-face{
-  font-family:"Public Sans";
-  src:url("/fonts/publicsans.woff2") format("woff2");
-  font-weight:100 900; font-display:swap; font-style:normal;
-}
-
-/* ---------- Farben: alle Werte hier, sonst nirgends ----------
-   Nur hell (30.9.2026). Werte aus der App: src/stil.js, --bg /
-   --surface-2 / --surface / --ink / --ink-faint / --line / --akzent.
-   Ticket 684d (23.10.2026, Entscheidung: die Creme muss weg, wie in der
-   echten App): die Werte des Hellmodus nach Ticket 701, Apples systemGray6/5/4
-   (--bg #F2F2F7, --surface-2 #E5E5EA, --line #D1D1D6). Marke, Schwarz und
-   Weiss bleiben; Schatten und Hover der Pillen auch (684c/684d). */
-:root{
-  --grund:#F2F2F7;
-  --band:#E5E5EA;
-  --karte:#FFFFFF;
-  --tinte:#000000;
-  --leise:#5C5C5E;
-  --kante:#D1D1D6;
-  --akzent:#8116E0;
-  --marke-voll:#8116E0;
-  --auf-marke:#FFFFFF;
-  --schatten:0 1px 3px rgba(0,0,0,.06);
-  /* Notch und Fuss (Ticket 798b, Entscheidung 29.10.2026, Vorbild supaste.com). Farben aus src/stil.js.
-     Die Wortmarke im Fuss steht Ton in Ton auf Schwarz: #111113 ist der App-Ton, der dem gemessenen
-     Vorbild (#121212) am naechsten liegt. */
-  --notch:#000000;
-  --auf-notch:#FFFFFF;
-  --notch-leise:rgba(255,255,255,.6);
-  --notch-zeichen:#1C1C1E;
-  --notch-knopf:#2C2C2E;
-  --notch-knopf-zeigen:#3A3A3C;
-  --fuss-leise:#8E8E93;
-  --fuss-marke:#111113;
-  /* Bewegung der Notch, aus dem Prototyp: eine Feder mit rund 2 % Ueberschwingen, auf .52 s, zu
-     .42 s. Gilt NUR in Notch und Lasche (Ausnahme von UI_SYSTEM 7.1, Entscheidung 29.10.2026);
-     ueberall sonst bleibt --kurve-bewegung. */
-  --kurve-notch:linear(0, .0175, .0657 4.5%, .2386 9.4%, .4823 15.2%, .7092 21.7%, .8655 28.4%, .9536 35.1%, 1.0029 42.5%, 1.0198 50.1%, 1.0178 58.7%, 1.0072 70.3%, 1.0005 85.3%, 1);
-  --dauer-notch-auf:.52s;
-  --dauer-notch-zu:.42s;
-  --dauer-notch-blende:.18s;
-  --dauer-notch-versatz:.1s;
-  --dauer-notch-heben:.3s;
-  --dauer-notch-schimmer:.35s;
-  --dauer-notch-zeichen:.6s;
-  --dauer-notch-balken:.55s;
-  --dauer-notch-punkt:.45s;
-  color-scheme:light;
-}
-
-/* ---------- Grundlage ---------- */
-*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0 }
-html{ -webkit-text-size-adjust:100% }
-body{
-  background:var(--grund);
-  color:var(--tinte);
-  font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
-  font-size:18px; line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-}
-img{ display:block; max-width:100% }
-a{ color:var(--akzent); text-underline-offset:3px }
-button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer }
-
-/* Fokus: sichtbar, in der Marke, ueberall gleich */
-:focus-visible{ outline:3px solid var(--akzent); outline-offset:3px; border-radius:6px }
-
-/* Die vier Textgroessen. Fraunces nur fuer Ueberschriften, Claim und Marke. */
-h1{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:700;
-    font-size:clamp(38px,7vw,60px); line-height:1.05; letter-spacing:-0.02em }
-h2,.claim{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:600;
-    font-size:clamp(24px,4vw,34px); line-height:1.15 }
-.klein{ font-size:14px; color:var(--leise); line-height:1.5 }
-p{ max-width:65ch }
-
-/* Raum: 8er-Raster. Eine Flucht: alles steht linksbuendig am Rahmen. */
-.rahmen{ width:100%; max-width:1120px; margin:0 auto; padding:0 24px }
-section{ padding:56px 0 }
-@media (min-width:768px){ section{ padding:80px 0 } }
-/* Die Notch liegt fest ueber dem Inhalt: ein Sprung an einen Abschnitt (/#pro, /#fragen) haelt
-   oben so viel frei wie der Kopf (74, Ticket 798b). */
-html{ scroll-padding-top:74px }
-
-/* Sprunglink: erst bei Tastaturfokus sichtbar */
-.sprung{ position:absolute; left:-999px; top:8px; background:var(--karte); color:var(--tinte);
-  padding:8px 16px; border-radius:980px; z-index:20; box-shadow:var(--schatten) }
-.sprung:focus{ left:8px }
-
-
-/* Die Marke laeuft von links hinein, ueberall gleich. :hover nur mit Zeiger,
-   am iPhone bliebe er sonst nach dem Tippen haengen. */
-.fuellen{ position:relative; isolation:isolate; overflow:hidden; transition:color .475s ease }
-.fuell{ position:absolute; inset:0; z-index:-1; border-radius:inherit; pointer-events:none;
-  background:var(--marke-voll); clip-path:inset(0 100% 0 0); transition:clip-path .475s ease }
-@media (hover:hover){
-  .fuellen:hover{ color:var(--auf-marke) }
-  .fuellen:hover .fuell{ clip-path:inset(0 0 0 0) }
-}
-.fuellen:active,.fuellen:focus-visible{ color:var(--auf-marke) }
-.fuellen:active .fuell,.fuellen:focus-visible .fuell{ clip-path:inset(0 0 0 0) }
-
-/* ---------- Kopf: die Notch (Ticket 798b, Entscheidung 29.10.2026) ----------
-   Vorbild supaste.com, gemessen 29.10.2026; Prototyp, Bilder und Entscheidungen in
-   doku/gestaltung/skizzen-798b. Fest oben an der Kante, schwarz, unten Radius 18, seitlich zwei
-   20-px-Rundungen in die Kante (zwei Hilfselemente mit radial-gradient). Desktop in Ruhe 53 hoch.
-   Am Handy (798c) eine Leiste mit Wortmarke und Menueknopf, offen ein Blatt (Abschnitt Am Handy unten).
-   IN RUHE steht die Seite: auf der Startseite die Wortmarke, sonst Zeichen und Seitenname; das
-   Zeichen bewegt sich einmal beim Laden (nur unter no-preference, nie in Schleife).
-   OFFEN: Wortmarke, die Seiten, die Sprache. Keine Icons an den Texten, kein Hintergrund beim
-   Zeigen: der Link unter dem Zeiger wird weiss und hebt sich 2 px, darunter ein Kreisschimmer in
-   der Markenfarbe, der dem Zeiger folgt. Rechts in jedem Zustand der eigene Knopf Im App Store,
-   dunkel und ohne Apple-Logo (Apple erlaubt kein alleinstehendes Apple-Logo, Marketing Guidelines).
-   OHNE SKRIPT oeffnet die Notch ueber :hover und :focus-within, ohne Uebergang, Breite max-content.
-   MIT SKRIPT (.js) setzt das Skript unten data-offen (Zeiger 120 ms, Verlassen 300 ms, Klick, Tab,
-   Escape, Tippen), misst Breite und Hoehe, aus denen die Feder faehrt, und fuehrt den Schimmer.
-   Kurve und Dauern der Notch (--kurve-notch, --dauer-notch-*) gelten nur hier und an der Lasche
-   (Ausnahme von UI_SYSTEM 7.1, website_regelcheck haelt sie dort).
-   UMSCHALTBREITE: unter 776 px die Handy-Leiste mit Blatt (798c), ab 776 px die Reihe.
-   Gemessen (Playwright-WebKit, 29.10.2026): die offene Notch ist in DE 704 px und in EN
-   694 px breit, dazu zweimal 20 Rundung und zweimal 16 Rand. Die Zahl steht hier zweimal,
-   im Fuss einmal und in website_webkit (Block 9). Der Kopf haelt oben 74 px frei: so viel nahm die Kopfleiste
-   vorher ein (gemessen bis 1059 px), die Notch ist 53 hoch. */
-.kopf{ height:74px }
-.notch{ position:fixed; z-index:10; top:0; left:50%; transform:translateX(-50%);
-  width:max-content; padding-top:env(safe-area-inset-top, 0px);
-  background:var(--notch); color:var(--auf-notch);
-  border-radius:0 0 18px 18px; view-transition-name:notch }
-.notch::before,.notch::after{ content:""; position:absolute; top:0; width:20px; height:20px; pointer-events:none }
-.notch::before{ right:100%; background:radial-gradient(circle at 0 100%, rgba(0,0,0,0) 19.5px, var(--notch) 20px) }
-.notch::after{ left:100%; background:radial-gradient(circle at 100% 100%, rgba(0,0,0,0) 19.5px, var(--notch) 20px) }
-.notch .notch-innen{ position:relative; height:100%; overflow:hidden; border-radius:inherit }
-.notch .notch-kopf{ position:relative; z-index:1; display:flex; align-items:center; gap:20px; height:53px; padding:0 10px }
-.notch .notch-stapel{ position:relative; display:flex; align-items:center; align-self:stretch; min-width:0 }
-.notch .notch-ruhe,.notch .notch-reihe{ display:flex; align-items:center; height:100%; white-space:nowrap }
-
-/* Ruhe: Zeichen und Seitenname als ein Knopf */
-.notch .notch-ausloeser{ display:flex; align-items:center; gap:10px; height:37px; padding:0 10px 0 2px; border-radius:10px;
-  color:var(--auf-notch); font-size:15px; font-weight:600; line-height:1; letter-spacing:-.01em; white-space:nowrap }
-.notch .notch-ausloeser .notch-wort{ margin-left:8px }
-.notch .notch-zeichen{ flex:none; display:grid; place-items:center; width:30px; height:30px; border-radius:8px; background:var(--notch-zeichen) }
-.notch .notch-zeichen svg{ width:20px; height:20px; stroke:currentColor; fill:none;
-  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
-/* max-width:none gegen img{ max-width:100% } der Seite: in den schrumpfenden Behaeltern der Notch
-   fiele die Wortmarke sonst auf einen Strich zusammen (gemessen in WebKit, 29.10.2026). */
-.notch .notch-wort{ display:block; flex:none; width:100px; height:auto; max-width:none }
-
-/* Offen: Wortmarke und Textlinks */
-.notch .notch-marke{ display:flex; align-items:center; margin:0 26px 0 8px; line-height:0; border-radius:4px }
-.notch .notch-links{ display:flex; align-items:center; gap:4px; list-style:none }
-.notch .notch-link{ display:block; padding:8px 12px; border-radius:8px; text-decoration:none;
-  font-size:14px; font-weight:500; line-height:1; letter-spacing:-.01em; color:var(--notch-leise);
-  transition:color var(--dauer-notch-blende) var(--kurve-bewegung), transform var(--dauer-notch-heben) var(--kurve-notch) }
-.notch .notch-link[aria-current="page"]{ color:var(--auf-notch) }
-@media (hover:hover){ .notch .notch-link:hover{ color:var(--auf-notch); transform:translateY(-2px) } }
-.notch .notch-link:focus-visible{ color:var(--auf-notch); transform:translateY(-2px) }
-.notch :focus-visible{ outline:2px solid var(--auf-notch); outline-offset:0 }
-
-/* Der Schimmer: ein Kreis in der Markenfarbe, von unten, folgt dem Zeiger (--mx setzt das Skript am Schimmer).
-   Die eine Stelle der Website mit einer Wirkung am Zeiger (website_regelcheck, ZEIGER). Er folgt ohne Uebergang und
-   per transform auf eigener Ebene: mit .28 s Uebergang auf --mx und left an einem Element mit blur hing er sichtbar
-   hinterher und ruckelte (Safari am Mac, 29.10.2026). */
-.notch .notch-schimmer{ position:absolute; inset:0; overflow:hidden; pointer-events:none; opacity:0;
-  transition:opacity var(--dauer-notch-schimmer) var(--kurve-bewegung) }
-.notch .notch-schimmer::before{ content:""; position:absolute; width:260px; height:150px; left:-130px; bottom:-112px;
-  transform:translateX(var(--mx, 0px)); will-change:transform;
-  border-radius:50%; filter:blur(18px); background:radial-gradient(closest-side, var(--akzent), var(--akzent) 30%, transparent) }
-.notch[data-zeiger="true"] .notch-schimmer{ opacity:.75 }
-.notch[data-zeiger="true"][data-ueberlink="true"] .notch-schimmer{ opacity:1 }
-
-/* Der eigene Store-Knopf */
-.notch .notch-store{ flex:none; margin-left:auto; display:inline-flex; align-items:center; gap:6px; height:33px; padding:0 12px 0 14px;
-  border-radius:980px; background:var(--notch-knopf); color:var(--auf-notch); text-decoration:none; white-space:nowrap;
-  font-size:13px; font-weight:600; line-height:1; letter-spacing:-.01em }
-@media (hover:hover){ .notch .notch-store:hover{ background:var(--notch-knopf-zeigen) } }
-.notch .notch-store svg{ flex:none; width:14px; height:14px; stroke:currentColor; fill:none;
-  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
-.notch .notch-store-kurz,.notch .notch-store-form{ display:none }
-/* Ab 776 (Reihe statt Liste): der Knopf heisst kurz „App Store“, und beim Zeigen waechst aus der Unterkante
-   der Notch eine umgedrehte Notch in der Markenfarbe herauf (entschieden 29.10.2026, eine Neuerfindung:
-   im Prototyp steht sie nicht). Oben rund wie der Knopf (Kapsel: halbe Hoehe 33 = 16,5), unten flach auf
-   der Kante, zwei Schultern je 10 nach aussen (10 = Abstand Knopf bis Kante in Ruhe). Die rechte Schulter
-   muss auf der geraden Kante enden, vor der Rundung der Notch (offen 22): offen steht der Knopf 10 + 22 vom
-   Rand. Die Form erscheint nur offen (der Zeiger oeffnet die Notch), in Ruhe bleibt er bei 10.
-   Am Handy (darunter) steht er nicht in der Leiste, sondern unten im Blatt (798c). */
-@media (min-width:776px){
-  .notch .notch-store{ position:relative; isolation:isolate; --store-rand:22px;
-    transition:margin-right var(--dauer-notch-zu) var(--kurve-notch) }
-  .js .notch[data-offen="true"] .notch-store{ margin-right:var(--store-rand); transition-duration:var(--dauer-notch-auf) }
-  html:not(.js) .notch:hover .notch-store,html:not(.js) .notch:focus-within .notch-store{ margin-right:var(--store-rand) }
-  .notch .notch-store-lang{ display:none }
-  .notch .notch-store-kurz{ display:inline }
-  .notch .notch-store-form{ display:block; position:absolute; z-index:-1; top:0; left:-10px; right:-10px;
-    bottom:calc((33px - var(--notch-kopf, 53px)) / 2); pointer-events:none;
-    transform:translateY(101%); transition:transform var(--dauer-notch-heben) var(--kurve-notch) }
-  .notch .notch-store-form::before{ content:""; position:absolute; inset:0 10px; border-radius:16.5px 16.5px 0 0; background:var(--akzent) }
-  .notch .notch-store-form::after{ content:""; position:absolute; inset:0;
-    background:radial-gradient(circle at 0 0, rgba(0,0,0,0) 9.5px, var(--akzent) 10px) left bottom / 10px 10px no-repeat,
-      radial-gradient(circle at 100% 0, rgba(0,0,0,0) 9.5px, var(--akzent) 10px) right bottom / 10px 10px no-repeat }
-  .notch .notch-store:focus-visible .notch-store-form{ transform:none }
-}
-@media (min-width:776px) and (hover:hover){
-  .notch .notch-store:hover .notch-store-form{ transform:none }
-}
-
-/* Am Handy (Ticket 798c, 29.10.2026, unter 776): eine Leiste wie supaste.com, links die Wortmarke, rechts
-   der Menueknopf (Lucide menu, offen x); offen waechst sie nach unten zum Blatt mit den Seiten und dem Store-Knopf.
-   Gemessen an supaste.com bei 393 (Playwright-WebKit, 29.10.2026): Leiste 350 x 50, Polster 5 und 10, Menuefeld
-   40 x 40 mit Strichen 20 x 2; offen 20 unter dieser 40er-Zeile (also 15 unter der Leiste) die Links, 24 px, Zeilenhoehe 1,2, Gewicht 400, Laufweite
-   -0,02 em, weiss mit Deckkraft .6, 30 Abstand und 30 Innenrand; 20 darunter der Knopf ueber die volle Innenbreite,
-   5 bis zur Unterkante; der Radius unten bleibt offen 18. Bewusst anders: der Knopf ist 44 hoch statt 32,8 und eine
-   Kapsel, weiss wie im Fuss (HIG: 44 pt Mindestgroesse); das Menuefeld ist ueber ::after 44 antippbar; der Abstand
-   der Links steht als Innenabstand in der Zeile (15 + 28,8 + 15: dieselbe Lage, 58,8 Trefferflaeche). Das Zeichen
-   ist 30 gross bei Strich 1,6 (= 2 px), so sind die Striche 20 lang wie dort. Ab 776 ist nichts davon da. */
-.notch .notch-heim,.notch .notch-menue,.notch .notch-blatt{ display:none }
-.notch .notch-heim{ align-items:center; height:40px; line-height:0; border-radius:4px }
-.notch .notch-menue{ position:relative; flex:none; place-items:center; width:40px; height:40px; margin-left:auto;
-  border-radius:10px; color:var(--notch-leise) }
-.notch .notch-menue::after{ content:""; position:absolute; inset:-2px }
-.notch .notch-menue svg{ width:30px; height:30px; stroke:currentColor; fill:none;
-  stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round }
-.notch .notch-menue-zu,.notch .notch-menue[aria-expanded="true"] .notch-menue-auf{ display:none }
-.notch .notch-menue[aria-expanded="true"] .notch-menue-zu{ display:block }
-.notch .notch-blatt{ position:relative; z-index:1; flex:1 1 auto; flex-direction:column; min-height:0;
-  overflow-y:auto; overscroll-behavior:contain; padding:15px 10px 5px }
-.notch .notch-liste{ flex:none; display:flex; flex-direction:column; list-style:none; padding:15px 30px }
-.notch .notch-zeile{ display:block; width:100%; padding:15px 0; text-align:left; text-decoration:none;
-  font-size:24px; font-weight:400; line-height:1.2; letter-spacing:-.02em; color:var(--notch-leise) }
-.notch .notch-zeile[aria-current="page"],.notch .notch-zeile:active{ color:var(--auf-notch) }
-@media (hover:hover){ .notch .notch-zeile:hover{ color:var(--auf-notch) } }
-.notch .notch-blatt-store{ flex:none; display:flex; align-items:center; justify-content:center; gap:6px; height:44px;
-  margin-top:20px; border-radius:980px; background:var(--auf-notch); color:var(--tinte); text-decoration:none;
-  white-space:nowrap; font-size:15px; font-weight:600; line-height:1 }
-.notch .notch-blatt-store svg{ flex:none; width:14px; height:14px; stroke:currentColor; fill:none;
-  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
-.notch .notch-blatt-store:focus-visible{ outline-offset:2px }
-
-/* Ohne Skript: :hover und :focus-within oeffnen, sofort. Zugeklappt ist die Reihe 0 breit, aber im
-   Tab-Weg: der erste Link, der den Fokus bekommt, klappt sie auf. */
-html:not(.js) .notch .notch-reihe{ max-width:0; overflow:hidden; opacity:0 }
-html:not(.js) .notch:hover .notch-reihe,
-html:not(.js) .notch:focus-within .notch-reihe{ max-width:none; overflow:visible; opacity:1 }
-
-/* Mit Skript: beide Zustaende uebereinander, die Notch faehrt auf die gemessene Breite. */
-.js .notch{ width:var(--notch-breite, max-content); height:calc(var(--notch-hoehe, 53px) + env(safe-area-inset-top, 0px));
-  border-radius:0 0 var(--notch-radius, 18px) var(--notch-radius, 18px) }
-.js .notch.bereit{ transition:width var(--dauer-notch-zu) var(--kurve-notch), height var(--dauer-notch-zu) var(--kurve-notch),
-  border-radius var(--dauer-notch-zu) var(--kurve-notch) }
-.js .notch.bereit[data-offen="true"]{ transition-duration:var(--dauer-notch-auf) }
-.js .notch .notch-kopf{ height:var(--notch-kopf, 53px) }
-.js .notch .notch-stapel{ flex:1 }
-.js .notch .notch-ruhe,.js .notch .notch-reihe{ position:absolute; left:0; top:0;
-  transition:opacity var(--dauer-notch-blende) var(--kurve-bewegung), filter var(--dauer-notch-blende) var(--kurve-bewegung) }
-.js .notch .notch-reihe{ opacity:0; filter:blur(4px); visibility:hidden;
-  transition:opacity var(--dauer-notch-blende) var(--kurve-bewegung), filter var(--dauer-notch-blende) var(--kurve-bewegung),
-    visibility 0s var(--kurve-bewegung) var(--dauer-notch-blende) }
-.js .notch .notch-blatt{ opacity:0; visibility:hidden;
-  transition:opacity var(--dauer-notch-blende) var(--kurve-bewegung), visibility 0s var(--kurve-bewegung) var(--dauer-notch-blende) }
-.js .notch[data-offen="true"] .notch-blatt{ opacity:1; visibility:visible;
-  transition:opacity var(--dauer-notch-blende) var(--kurve-bewegung) var(--dauer-notch-versatz) }
-
-@media (min-width:776px){
-  html:not(.js) .notch:hover .notch-ruhe,
-  html:not(.js) .notch:focus-within .notch-ruhe{ max-width:0; overflow:hidden; opacity:0 }
-  /* Die Ruhe bleibt im Baum, nur unsichtbar: steht der Fokus auf dem Ausloeser, bleibt er dort. */
-  .js .notch[data-offen="true"] .notch-ruhe{ opacity:0; filter:blur(4px); pointer-events:none }
-  .js .notch[data-offen="true"] .notch-reihe{ opacity:1; filter:none; visibility:visible;
-    transition:opacity var(--dauer-notch-blende) var(--kurve-bewegung) var(--dauer-notch-versatz),
-      filter var(--dauer-notch-blende) var(--kurve-bewegung) var(--dauer-notch-versatz) }
-}
-/* Am Handy immer gleich breit, zu und offen: min(350, Fenster - 40), damit beide Rundungen (je 20) im Fenster
-   bleiben; mit - 32 ragten sie unter 382 px 4 px hinaus (WebKit, 29.10.2026). Mit Skript setzt masse() Breite und Hoehe
-   (offen hoechstens das Fenster, dann scrollt das Blatt in sich). Ohne Skript oeffnet :hover oder :focus-within das
-   Blatt, ohne Uebergang. */
-@media (max-width:775px){
-  .notch{ width:min(350px, calc(100vw - 40px)) }
-  .notch .notch-innen{ display:flex; flex-direction:column }
-  .notch .notch-kopf{ flex:none; height:50px }
-  .notch .notch-stapel,.notch .notch-store{ display:none }
-  .notch .notch-heim{ display:flex }
-  .notch .notch-menue{ display:grid }
-  .notch .notch-blatt{ display:flex }
-  html:not(.js) .notch .notch-blatt{ display:none }
-  html:not(.js) .notch:hover .notch-blatt,
-  html:not(.js) .notch:focus-within .notch-blatt{ display:flex; max-height:calc(100vh - 50px - env(safe-area-inset-top, 0px)) }
-  html:not(.js) .notch:hover .notch-menue-auf,html:not(.js) .notch:focus-within .notch-menue-auf{ display:none }
-  html:not(.js) .notch:hover .notch-menue-zu,html:not(.js) .notch:focus-within .notch-menue-zu{ display:block }
-}
-
-/* Die Zeichen in Ruhe bewegen sich einmal beim Laden, wie im Prototyp: die Balken wachsen von unten,
-   der Punkt der Info faellt ein, der Funke dreht sich auf, die Hand winkt einmal. */
-@keyframes notch-balken{ from{ transform:scaleY(.15) } to{ transform:scaleY(1) } }
-@keyframes notch-punkt{ from{ transform:translateY(-6px); opacity:0 } to{ transform:none; opacity:1 } }
-@keyframes notch-funke{ 0%{ transform:scale(.4) rotate(-30deg); opacity:0 } 70%{ transform:scale(1.1) rotate(6deg); opacity:1 } 100%{ transform:none } }
-@keyframes notch-winken{ from{ transform:rotate(-14deg); opacity:0 } to{ transform:none; opacity:1 } }
-@media (prefers-reduced-motion: no-preference){
-  .notch .z-balken .b{ transform-box:fill-box; transform-origin:50% 100%; animation:notch-balken var(--dauer-notch-balken) var(--kurve-notch) both }
-  .notch .z-balken .b2{ animation-delay:.08s }
-  .notch .z-balken .b3{ animation-delay:.16s }
-  .notch .z-info .p{ animation:notch-punkt var(--dauer-notch-punkt) var(--kurve-notch) .1s both }
-  .notch .z-funke{ transform-origin:center; animation:notch-funke var(--dauer-notch-zeichen) var(--kurve-notch) both }
-  .notch .z-hand{ transform-origin:50% 90%; animation:notch-winken var(--dauer-notch-zeichen) var(--kurve-notch) both }
-}
-/* Weniger Bewegung: kein Schimmer, kein Anheben (Uebergaenge und Zeichen haelt der Ruhe-Block an). */
-@media (prefers-reduced-motion: reduce){
-  .notch .notch-schimmer{ display:none }
-  .notch .notch-link:hover,.notch .notch-link:focus-visible{ transform:none }
-}
-
-/* Seitenwechsel: View Transitions zwischen Dokumenten (CSS View Transitions Module Level 2,
-   @view-transition navigation: auto, aus Ticket 798). Die Notch traegt view-transition-name und
-   faehrt von der alten Seite zur neuen; ohne Unterstuetzung laedt die Seite normal. Nur bei
-   no-preference: bei reduzierter Bewegung schaltet sie sofort. */
-@media (prefers-reduced-motion: no-preference){
-  @view-transition{ navigation:auto }
-  ::view-transition-group(notch){ animation-duration:var(--dauer-bewegung); animation-timing-function:var(--kurve-bewegung) }
-}
-
-/* ---------- Fuss (Ticket 798b, Entscheidung 29.10.2026) ----------
-   Schwarz wie die Notch. Oben endet die helle Seite als umgedrehte Lasche: die Mitte (so breit wie
-   der Rahmen, 1120) ist hell und unten mit 18 gerundet, links und rechts steigt das Schwarz mit
-   18 gerundet an. 36 hoch = 18 + 18: nur so laufen beide Rundungen an der Kante in eine Kurve; bei 24 (Prototyp)
-   endete das Hell an der Kante bei 18, das Schwarz der Mitte begann bei 6, dazwischen stand eine Spitze. Spalten: Marke (Claim, Satz, Store-Knopf weiss, Markenzeile), Produkt, Satzwerk
-   (mit Instagram und LinkedIn als Text), Rechtliches. Unten die Wortmarke riesig, Ton in Ton,
-   von der Kante angeschnitten: 1841 x 312, sichtbar die oberen 76 %, die SVG als Maske. */
-footer{ margin-top:40px; color:var(--auf-notch) }
-.lasche{ display:grid; grid-template-columns:1fr minmax(0, 1120px) 1fr; height:36px }
-.lasche .lasche-seite{ background:var(--grund) }
-.lasche .lasche-seite i,.lasche .lasche-mitte i{ display:block; height:100% }
-.lasche .lasche-seite i{ background:var(--notch) }
-.lasche .lasche-links i{ border-top-right-radius:18px }
-.lasche .lasche-rechts i{ border-top-left-radius:18px }
-.lasche .lasche-mitte{ background:var(--notch) }
-.lasche .lasche-mitte i{ background:var(--grund); border-radius:0 0 18px 18px }
-/* Am Handy keine Lasche (798c, 29.10.2026): unter der Notch stuenden sonst zwei fast gleich breite Rundformen
-   uebereinander. Hell und Schwarz treffen sich an einer geraden Kante. */
-@media (max-width:775px){ .lasche{ display:none } }
-.fuss-koerper{ background:var(--notch); padding-top:72px; overflow:hidden }
-.fuss-raster{ display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px }
-.fuss-raster > *{ min-width:0 }
-@media (max-width:860px){
-  .fuss-raster{ grid-template-columns:1fr 1fr }
-  .fuss-raster > .fuss-marke{ grid-column:1 / -1 }
-}
-.fuss-wort{ display:block; height:24px; width:auto; max-width:none }
-footer .claim{ margin:26px 0 10px; max-width:none }
-.fuss-satz{ font-size:15px; line-height:1.5; color:var(--fuss-leise); margin:0 0 22px; max-width:36ch }
-.fuss-store{ display:inline-flex; align-items:center; gap:6px; height:40px; padding:0 16px 0 18px; border-radius:980px;
-  background:var(--auf-notch); color:var(--tinte); text-decoration:none; white-space:nowrap;
-  font-size:15px; font-weight:600; line-height:1 }
-.fuss-store svg{ flex:none; width:14px; height:14px; stroke:currentColor; fill:none;
-  stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
-.fuss-rechte{ margin-top:22px; max-width:40ch; font-size:13px; line-height:1.5; color:var(--fuss-leise) }
-.fuss-kopf{ margin:6px 0 20px; font-size:15px; font-weight:500; line-height:1; color:var(--fuss-leise) }
-.fuss-spalte ul{ list-style:none; display:flex; flex-direction:column; gap:14px }
-.fuss-link{ font-size:15px; color:var(--auf-notch); text-decoration:none }
-@media (hover:hover){ .fuss-link:hover{ text-decoration:underline; text-underline-offset:3px } }
-.fuss-link[aria-current="page"]{ font-weight:600 }
-/* Am Handy (798c, 29.10.2026): jeder Fusslink mindestens 44 hoch antippbar (HIG), der Abstand zwischen den
-   Links als Innenabstand, Zeilenhoehe 1,3. So hat ein umgebrochener Link innen engere Zeilen als der Abstand zum
-   naechsten Link; vorher las sich der umgebrochene Link wie zwei. */
-@media (max-width:775px){
-  .fuss-spalte ul{ gap:0 }
-  /* 12.25 = (44 - 15 x 1,3) / 2 fuer Safari vor 16.4 (die Einheit lh gibt es dort nicht; die Seite nennt iOS 16) */
-  .fuss-link{ display:block; line-height:1.3; padding-block:12.25px; padding-block:calc((44px - 1lh) / 2) }
-}
-footer :focus-visible{ outline-color:var(--auf-notch) }
-.fuss-riese{ margin-top:64px; aspect-ratio:1841 / 236; overflow:hidden }
-.fuss-riese-marke{ display:block; width:100%; aspect-ratio:1841 / 312; background:var(--fuss-marke);
-  -webkit-mask:url(../img/logo-dunkel.svg) left top / 100% auto no-repeat; mask:url(../img/logo-dunkel.svg) left top / 100% auto no-repeat }
-
-/* Pflicht: alles still, wenn der Nutzer es so eingestellt hat */
-@media (prefers-reduced-motion: reduce){
-  *{ animation:none !important; transition:none !important }
-  .blende{ opacity:1; transform:none }
-}
-
-/* ---------- Rechtstext ----------
-   Die Regeln der bisherigen Seite, auf main.recht begrenzt: die Startseite
-   setzt h1, h2, p und .klein fuer ihren Aufbau, der Rechtstext braucht
-   seine eigene, ruhigere Leiter. */
-/* Rahmen so breit wie Kopfleiste und Fusszeile (1120, 27.9.2026).
-   Der Fliesstext bleibt bei 62ch, sonst werden die Zeilen zu lang. */
-main.recht{ max-width:1120px; margin:0 auto; padding:40px 24px 96px }
-main.recht h1{ font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif; font-weight:700;
-  font-size:clamp(32px,6vw,44px); line-height:1.1; letter-spacing:-.02em; margin:0 0 8px }
-main.recht .stand{ color:var(--leise); font-size:15px; margin:0 0 48px }
-main.recht h2{ font-family:"Public Sans","Helvetica Neue",Arial,sans-serif; font-size:20px; font-weight:600;
-  line-height:1.3; margin:44px 0 12px; letter-spacing:-.01em }
-main.recht h3{ font-size:17px; font-weight:600; margin:28px 0 8px }
-main.recht p{ margin:0 0 14px; max-width:62ch }
-main.recht ul{ margin:0 0 14px; padding-left:20px; max-width:62ch }
-main.recht li{ margin:0 0 6px }
-main.recht address{ font-style:normal; margin:0 0 14px }
-main.recht a{ text-decoration:none }
-main.recht a:not(.store):hover{ text-decoration:underline }
-main.recht .klein{ font-size:15px; color:var(--leise) }
-main.recht .karte{ background:var(--karte); box-shadow:var(--schatten); border-radius:20px;
-  padding:24px 28px; margin:0 0 8px }
-main.recht .karte p:last-child,main.recht .karte ul:last-child{ margin-bottom:0 }
-main.recht .kurz{ border-left:3px solid var(--akzent); padding:4px 0 4px 20px; margin:0 0 40px }
-main.recht .kurz p{ font-size:19px; margin-bottom:8px }
-main.recht .kurz p:last-child{ margin-bottom:0 }
-main.recht hr{ border:0; border-top:1px solid var(--kante); margin:56px 0 }
-/* Sprachumschaltung im Rechtstext: DE- und EN-Block stehen beide im
-   Dokument, data-lang am html waehlt. Kopf und Fuss uebersetzt das Skript. */
-main [lang="en"]{ display:none }
-html[data-lang="en"] main [lang="de"]{ display:none }
-html[data-lang="en"] main>[lang="en"]{ display:block }
-html[data-lang="en"] main [lang="en"].klein{ display:inline }
-</style>
+<link rel="stylesheet" href="/stil.css">
+<script src="/einwilligung.js" defer></script>
 </head>
 <body>
-<a class="sprung" href="#inhalt" data-t="skip">Zum Inhalt</a>
-
+<a class="sprung" href="#inhalt">Zum Inhalt</a>
 <header class="kopf">
-  <nav class="notch" id="notch" data-offen="false" aria-label="Hauptnavigation" data-t-aria="nav_name">
-    <div class="notch-innen">
-      <div class="notch-schimmer" aria-hidden="true"></div>
-      <div class="notch-kopf">
-        <a class="notch-heim" href="/"><img data-auf-dunkel class="notch-wort" src="../img/logo-hell.svg" alt="Satzwerk" width="100" height="17"></a>
-        <div class="notch-stapel">
-          <div class="notch-ruhe">
-            <button class="notch-ausloeser" id="notch-ausloeser" type="button" aria-expanded="false" aria-controls="notch-reihe" data-t-aria="insel" aria-label="Navigation öffnen"><span class="notch-zeichen" aria-hidden="true"><svg class="z-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path class="p" d="M12 8h.01"/></svg></span><span data-t="impressum">Impressum</span></button>
-          </div>
-          <div class="notch-reihe" id="notch-reihe">
-            <a class="notch-marke" href="/"><img data-auf-dunkel class="notch-wort" src="../img/logo-hell.svg" alt="Satzwerk" width="100" height="17"></a>
-            <ul class="notch-links">
-              <li><a class="notch-link" href="/" data-t="start">Start</a></li>
-              <li><a class="notch-link" href="/auswertung/" data-t="nav_auswertung">Auswertung</a></li>
-              <li><a class="notch-link" href="/ueber/" data-t="nav_ueber">Über uns</a></li>
-              <li><a class="notch-link" href="/neu/" data-t="fuss_neu">Was ist neu</a></li>
-              <li><button class="notch-link" type="button" data-sprachknopf data-t-aria="lang_aria" aria-label="Switch to English"><span data-t="lang">EN</span></button></li>
-            </ul>
-          </div>
-        </div>
-        <a class="notch-store" href="https://apps.apple.com/app/id6786720640"><span class="notch-store-form" aria-hidden="true"></span><span class="notch-store-lang" data-t="store">Im App Store</span><span class="notch-store-kurz" data-t="store_kurz">App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-        <button class="notch-menue" id="notch-menue" type="button" aria-expanded="false" aria-controls="notch-blatt" data-t-aria="insel" aria-label="Navigation öffnen"><svg class="notch-menue-auf" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg><svg class="notch-menue-zu" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
-      </div>
-      <div class="notch-blatt" id="notch-blatt">
-        <ul class="notch-liste" id="notch-liste">
-          <li><a class="notch-zeile" href="/" data-t="start">Start</a></li>
-          <li><a class="notch-zeile" href="/auswertung/" data-t="nav_auswertung">Auswertung</a></li>
-          <li><a class="notch-zeile" href="/ueber/" data-t="nav_ueber">Über uns</a></li>
-          <li><a class="notch-zeile" href="/neu/" data-t="fuss_neu">Was ist neu</a></li>
-          <li><button class="notch-zeile" type="button" data-sprachknopf data-t="sprache_voll">English</button></li>
-        </ul>
-          <a class="notch-blatt-store" href="https://apps.apple.com/app/id6786720640"><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-      </div>
-    </div>
-  </nav>
-    <!-- Symbole: lucide-static 1.44.0 (ISC), chart-column, info, hand, sparkles (Zeichen in Ruhe), arrow-up-right (Store), menu und x (Menueknopf am Handy) -->
-<!-- Zeichen: nachgezeichnet nach Lucide (lucide-static 1.44.0), https://lucide.dev
-ISC License
-
-Copyright (c) 2026 Lucide Icons and Contributors
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted, provided that the above
-copyright notice and this permission notice appear in all copies.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
-- - -
-
-The following Lucide icons are derived from the Feather project:
-
-airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
-
-The MIT License (MIT) (for the icons listed above)
-
-Copyright (c) 2013-present Cole Bemis
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
--->
+<a class="marke" href="/" aria-label="Satzwerk, zur Startseite"><img src="/img/logo-dunkel.svg" alt="Satzwerk" width="130" height="22"></a>
+<nav class="nav" aria-label="Hauptnavigation">
+<a href="/">Start</a>
+<a href="/auswertung/">Auswertung</a>
+<a href="/ueber/">Über</a>
+<a href="/neu/">Was ist neu</a>
+</nav>
+<a class="sprache" href="#en" lang="en">English version</a>
 </header>
-
-<main class="recht" id="inhalt">
-
-<!-- ================= DEUTSCH ================= -->
-<div lang="de">
-
-  <h1>Impressum</h1>
-  <p class="stand">Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)</p>
-
-  <div class="karte">
-    <address>
-      Kevin Schropp<br>
-      Satzwerk<br>
-      Veilchenweg 10<br>
-      84186 Vilsheim<br>
-      Deutschland
-    </address>
-    <p>
-      E-Mail: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a>
-    </p>
-  </div>
-
-  <h2>Umsatzsteuer</h2>
-  <p>
-    Als Kleinunternehmer im Sinne von § 19 Abs. 1 UStG wird keine Umsatzsteuer
-    berechnet und daher auch keine Umsatzsteuer-Identifikationsnummer geführt.
-    Käufe im App Store rechnet Apple ab. Der Preis dort enthält die Umsatzsteuer.
-  </p>
-
-  <h2>Verantwortlich für den Inhalt</h2>
-  <p>
-    Nach § 18 Abs. 2 Medienstaatsvertrag (MStV):<br>
-    Kevin Schropp, Veilchenweg 10, 84186 Vilsheim
-  </p>
-
-  <h2>Verbraucherstreitbeilegung</h2>
-  <p>
-    Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor
-    einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).
-  </p>
-  <p class="klein">
-    Die Online-Streitbeilegungsplattform der Europäischen Kommission wurde zum
-    20. Juli 2025 eingestellt. Ein Verweis darauf entfällt deshalb.
-  </p>
-
-  <h2>Haftung für Inhalte</h2>
-  <p>
-    Die Inhalte dieser Seiten wurden mit Sorgfalt erstellt. Für die Richtigkeit,
-    Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen
-    werden. Als Diensteanbieter bin ich für eigene Inhalte auf diesen Seiten nach
-    den allgemeinen Gesetzen verantwortlich, jedoch nicht verpflichtet, übermittelte
-    oder gespeicherte fremde Informationen zu überwachen.
-  </p>
-
-  <h2>Haftung für Links</h2>
-  <p>
-    Diese Seiten enthalten Links zu externen Websites Dritter, auf deren Inhalte ich
-    keinen Einfluss habe. Für diese fremden Inhalte ist stets der jeweilige Anbieter
-    verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf
-    mögliche Rechtsverstöße überprüft, rechtswidrige Inhalte waren nicht erkennbar.
-    Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links umgehend
-    entfernt.
-  </p>
-
-  <h2>Urheberrecht</h2>
-  <p>
-    Die auf diesen Seiten erstellten Inhalte und Werke unterliegen dem deutschen
-    Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
-    Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen
-    Zustimmung. Downloads und Kopien dieser Seite sind für den privaten,
-    nicht kommerziellen Gebrauch gestattet.
-  </p>
-  <p>
-    Satzwerk ist als Wortmarke beim Deutschen Patent- und Markenamt angemeldet
-    (Aktenzeichen 302026246311.8).
-  </p>
-
+<main id="inhalt" class="unterseite">
+<article class="text recht" lang="de">
+<h1>Impressum</h1>
+<p class="stand">Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)</p>
+<div class="karte">
+<address> Kevin Schropp<br> Satzwerk<br> Veilchenweg 10<br> 84186 Vilsheim<br> Deutschland </address>
+<p> E-Mail: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a> </p>
 </div>
-
-<!-- ================= ENGLISH ================= -->
-<div lang="en">
-
-  <h1>Legal notice</h1>
-  <p class="stand">Information pursuant to Section 5 of the German Digital Services Act (DDG)</p>
-
-  <div class="karte">
-    <address>
-      Kevin Schropp<br>
-      Satzwerk<br>
-      Veilchenweg 10<br>
-      84186 Vilsheim<br>
-      Germany
-    </address>
-    <p>
-      Email: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a>
-    </p>
-  </div>
-
-  <h2>VAT</h2>
-  <p>
-    As a small business under Section 19 (1) of the German VAT Act, no VAT is charged
-    and no VAT identification number is held. Purchases in the App Store are billed
-    by Apple, and the price shown there includes VAT.
-  </p>
-
-  <h2>Responsible for content</h2>
-  <p>
-    Pursuant to Section 18 (2) of the German Interstate Media Treaty (MStV):<br>
-    Kevin Schropp, Veilchenweg 10, 84186 Vilsheim, Germany
-  </p>
-
-  <h2>Consumer dispute resolution</h2>
-  <p>
-    I am neither willing nor obliged to take part in dispute resolution proceedings
-    before a consumer arbitration board (Section 36 VSBG).
-  </p>
-  <p class="klein">
-    The European Commission's Online Dispute Resolution platform was discontinued on
-    20 July 2025. A reference to it is therefore omitted.
-  </p>
-
-  <h2>Liability for content</h2>
-  <p>
-    The content of these pages was created with care. No guarantee can be given for
-    its accuracy, completeness or timeliness. As a service provider I am responsible
-    for my own content on these pages under general law, but not obliged to monitor
-    transmitted or stored third-party information.
-  </p>
-
-  <h2>Liability for links</h2>
-  <p>
-    These pages contain links to external websites over whose content I have no
-    influence. The respective provider is always responsible for such third-party
-    content. The linked pages were checked for possible legal violations at the time
-    of linking and no unlawful content was apparent. Should any legal infringement
-    become known, the link in question will be removed promptly.
-  </p>
-
-  <h2>Copyright</h2>
-  <p>
-    Content and works created on these pages are subject to German copyright law.
-    Reproduction, editing, distribution and any kind of use outside the limits of
-    copyright require written consent. Downloads and copies of this page are
-    permitted for private, non-commercial use.
-  </p>
-  <p>
-    Satzwerk has been filed as a word mark with the German Patent and Trade Mark
-    Office (application no. 302026246311.8).
-  </p>
-
+<h2>Umsatzsteuer</h2>
+<p> Als Kleinunternehmer im Sinne von § 19 Abs. 1 UStG wird keine Umsatzsteuer berechnet und daher auch keine Umsatzsteuer-Identifikationsnummer geführt. Käufe im App Store rechnet Apple ab. Der Preis dort enthält die Umsatzsteuer. </p>
+<h2>Verantwortlich für den Inhalt</h2>
+<p> Nach § 18 Abs. 2 Medienstaatsvertrag (MStV):<br> Kevin Schropp, Veilchenweg 10, 84186 Vilsheim </p>
+<h2>Verbraucherstreitbeilegung</h2>
+<p> Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG). </p>
+<p class="klein"> Die Online-Streitbeilegungsplattform der Europäischen Kommission wurde zum 20. Juli 2025 eingestellt. Ein Verweis darauf entfällt deshalb. </p>
+<h2>Haftung für Inhalte</h2>
+<p> Die Inhalte dieser Seiten wurden mit Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden. Als Diensteanbieter bin ich für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich, jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen. </p>
+<h2>Haftung für Links</h2>
+<p> Diese Seiten enthalten Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe. Für diese fremden Inhalte ist stets der jeweilige Anbieter verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft, rechtswidrige Inhalte waren nicht erkennbar. Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links umgehend entfernt. </p>
+<h2>Urheberrecht</h2>
+<p> Die auf diesen Seiten erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung. Downloads und Kopien dieser Seite sind für den privaten, nicht kommerziellen Gebrauch gestattet. </p>
+<p> Satzwerk ist als Wortmarke beim Deutschen Patent- und Markenamt angemeldet (Aktenzeichen 302026246311.8). </p>
+</article>
+<article class="text recht" lang="en" id="en">
+<h1>Legal notice</h1>
+<p class="stand">Information pursuant to Section 5 of the German Digital Services Act (DDG)</p>
+<div class="karte">
+<address> Kevin Schropp<br> Satzwerk<br> Veilchenweg 10<br> 84186 Vilsheim<br> Germany </address>
+<p> Email: <a href="mailto:info@satzwerk.app">info@satzwerk.app</a> </p>
 </div>
-
+<h2>VAT</h2>
+<p> As a small business under Section 19 (1) of the German VAT Act, no VAT is charged and no VAT identification number is held. Purchases in the App Store are billed by Apple, and the price shown there includes VAT. </p>
+<h2>Responsible for content</h2>
+<p> Pursuant to Section 18 (2) of the German Interstate Media Treaty (MStV):<br> Kevin Schropp, Veilchenweg 10, 84186 Vilsheim, Germany </p>
+<h2>Consumer dispute resolution</h2>
+<p> I am neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board (Section 36 VSBG). </p>
+<p class="klein"> The European Commission's Online Dispute Resolution platform was discontinued on 20 July 2025. A reference to it is therefore omitted. </p>
+<h2>Liability for content</h2>
+<p> The content of these pages was created with care. No guarantee can be given for its accuracy, completeness or timeliness. As a service provider I am responsible for my own content on these pages under general law, but not obliged to monitor transmitted or stored third-party information. </p>
+<h2>Liability for links</h2>
+<p> These pages contain links to external websites over whose content I have no influence. The respective provider is always responsible for such third-party content. The linked pages were checked for possible legal violations at the time of linking and no unlawful content was apparent. Should any legal infringement become known, the link in question will be removed promptly. </p>
+<h2>Copyright</h2>
+<p> Content and works created on these pages are subject to German copyright law. Reproduction, editing, distribution and any kind of use outside the limits of copyright require written consent. Downloads and copies of this page are permitted for private, non-commercial use. </p>
+<p> Satzwerk has been filed as a word mark with the German Patent and Trade Mark Office (application no. 302026246311.8). </p>
+</article>
 </main>
-
-<footer>
-  <div class="lasche" aria-hidden="true"><div class="lasche-seite lasche-links"><i></i></div><div class="lasche-mitte"><i></i></div><div class="lasche-seite lasche-rechts"><i></i></div></div>
-  <div class="fuss-koerper">
-    <div class="rahmen">
-      <div class="fuss-raster">
-        <div class="fuss-marke">
-          <img data-auf-dunkel class="fuss-wort" src="../img/logo-hell.svg" alt="Satzwerk" width="142" height="24" loading="lazy">
-          <p class="claim" data-t="claim">Handwerk am eigenen Körper.</p>
-          <p class="fuss-satz" data-t="fuss2">Satz für den Trainingssatz, Werk für Handwerk.</p>
-          <a class="fuss-store fuellen" href="https://apps.apple.com/app/id6786720640"><span class="fuell"></span><span data-t="store">Im App Store</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-          <p class="fuss-rechte">© 2026 Satzwerk. <span data-t="marken">Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</span></p>
-        </div>
-        <nav class="fuss-spalte" aria-labelledby="fuss-produkt">
-          <p class="fuss-kopf" id="fuss-produkt" data-t="fuss_produkt">Produkt</p>
-          <ul>
-            <li><a class="fuss-link" href="/auswertung/" data-t="fuss_auswertung">Was Satzwerk auswertet</a></li>
-            <li><a class="fuss-link" href="/neu/" data-t="fuss_neu">Was ist neu</a></li>
-            <li><a class="fuss-link" href="/#pro" data-t="fuss_pro">Satzwerk Pro</a></li>
-            <li><a class="fuss-link" href="/#fragen" data-t="fuss_faq">Fragen und Antworten</a></li>
-          </ul>
-        </nav>
-        <nav class="fuss-spalte" aria-labelledby="fuss-satzwerk">
-          <p class="fuss-kopf" id="fuss-satzwerk">Satzwerk</p>
-          <ul>
-            <li><a class="fuss-link" href="/ueber/" data-t="nav_ueber">Über uns</a></li>
-            <li><a class="fuss-link" href="mailto:info@satzwerk.app" data-t="fuss_kontakt">Kontakt</a></li>
-            <li><a class="fuss-link" href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a class="fuss-link" href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener">LinkedIn</a></li>
-          </ul>
-        </nav>
-        <nav class="fuss-spalte" aria-labelledby="fuss-recht">
-          <p class="fuss-kopf" id="fuss-recht" data-t="rechtliches">Rechtliches</p>
-          <ul>
-            <li><a class="fuss-link" href="/impressum/" aria-current="page" data-t="impressum">Impressum</a></li>
-            <li><a class="fuss-link" href="/datenschutz/" data-t="datenschutz">Datenschutz</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="fuss-riese" aria-hidden="true"><span class="fuss-riese-marke"></span></div>
-    </div>
-  </div>
+<footer class="fuss">
+<div class="fuss-innen">
+<div class="fuss-marke">
+<p class="claim">Handwerk am eigenen Körper.</p>
+<p class="fuss-satz">Satz für den Trainingssatz, Werk für Handwerk.</p>
+<a class="fuss-store" href="https://apps.apple.com/app/id6786720640">Im App Store ›</a>
+</div>
+<nav class="fuss-spalte" aria-labelledby="fuss-0">
+<p class="fuss-kopf" id="fuss-0">Produkt</p>
+<ul>
+<li><a href="/auswertung/">Was Satzwerk auswertet</a></li>
+<li><a href="/neu/">Was ist neu</a></li>
+<li><a href="/#pro">Satzwerk Pro</a></li>
+<li><a href="/#fragen">Fragen und Antworten</a></li>
+</ul>
+</nav>
+<nav class="fuss-spalte" aria-labelledby="fuss-1">
+<p class="fuss-kopf" id="fuss-1">Satzwerk</p>
+<ul>
+<li><a href="/ueber/">Über Satzwerk</a></li>
+<li><a href="mailto:info@satzwerk.app">Kontakt</a></li>
+<li><a href="https://www.instagram.com/satzwerktraining" target="_blank" rel="noopener">Instagram</a></li>
+<li><a href="https://www.linkedin.com/company/satzwerk-app" target="_blank" rel="noopener">LinkedIn</a></li>
+</ul>
+</nav>
+<nav class="fuss-spalte" aria-labelledby="fuss-2">
+<p class="fuss-kopf" id="fuss-2">Rechtliches</p>
+<ul id="rechtliches">
+<li><a href="/impressum/">Impressum</a></li>
+<li><a href="/datenschutz/">Datenschutz</a></li>
+</ul>
+</nav>
+</div>
+<p class="fuss-rechte">© 2026 Satzwerk. Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.</p>
 </footer>
-
-<script>
-/* Kopf und Fuss wie auf der Startseite; der Text hat DE- und EN-Block.
-   Ohne gespeicherte Wahl entscheidet die Browsersprache. */
-var TEXTE = {
- "de": {
-  "skip": "Zum Inhalt",
-  "lang": "EN",
-  "lang_aria": "Switch to English",
-  "store": "Im App Store",
-  "store_kurz": "App Store",
-  "nav_name": "Hauptnavigation",
-  "nav_auswertung": "Auswertung",
-  "nav_ueber": "Über uns",
-  "start": "Start",
-  "claim": "Handwerk am eigenen Körper.",
-  "fuss2": "Satz für den Trainingssatz, Werk für Handwerk.",
-  "fuss_produkt": "Produkt",
-  "fuss_auswertung": "Was Satzwerk auswertet",
-  "fuss_neu": "Was ist neu",
-  "fuss_pro": "Satzwerk Pro",
-  "fuss_faq": "Fragen und Antworten",
-  "fuss_kontakt": "Kontakt",
-  "rechtliches": "Rechtliches",
-  "impressum": "Impressum",
-  "datenschutz": "Datenschutz",
-  "marken": "Apple, App Store, Apple Watch und iPhone sind Marken der Apple Inc., eingetragen in den USA und weiteren Ländern.",
-  "insel": "Navigation öffnen",
-  "insel_zu": "Navigation schließen",
-  "sprache_voll": "English"
- },
- "en": {
-  "skip": "Skip to content",
-  "lang": "DE",
-  "lang_aria": "Auf Deutsch wechseln",
-  "store": "On the App Store",
-  "store_kurz": "App Store",
-  "nav_name": "Main navigation",
-  "nav_auswertung": "Analysis",
-  "nav_ueber": "About",
-  "start": "Home",
-  "claim": "Handwerk am eigenen Körper.",
-  "fuss2": "Satz for the training set, Werk for craft.",
-  "fuss_produkt": "Product",
-  "fuss_auswertung": "What Satzwerk analyzes",
-  "fuss_neu": "What’s New",
-  "fuss_pro": "Satzwerk Pro",
-  "fuss_faq": "Questions and answers",
-  "fuss_kontakt": "Contact",
-  "rechtliches": "Legal",
-  "impressum": "Legal notice",
-  "datenschutz": "Privacy",
-  "marken": "Apple, App Store, Apple Watch and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries.",
-  "insel": "Open navigation",
-  "insel_zu": "Close navigation",
-  "sprache_voll": "Deutsch"
- }
-};
-(function(){
-  var h = document.documentElement;
-  function hole(o, k){ return o && o[k]; }
-  function setzeSprache(l){
-    var t = TEXTE[l] || TEXTE.de;
-    h.setAttribute("data-lang", l); h.setAttribute("lang", l);
-    document.querySelectorAll("[data-t]").forEach(function(el){
-      var v = hole(t, el.getAttribute("data-t")); if (typeof v === "string") el.textContent = v; });
-    document.querySelectorAll("[data-t-aria]").forEach(function(el){
-      var v = hole(t, el.getAttribute("data-t-aria")); if (typeof v === "string") el.setAttribute("aria-label", v); });
-    try{ localStorage.setItem("satzwerk-sprache", l); }catch(e){}
-  }
-  var g = null; try{ g = localStorage.getItem("satzwerk-sprache"); }catch(e){}
-  setzeSprache(g === "de" || g === "en" ? g : ((navigator.language||"de").slice(0,2) === "de" ? "de" : "en"));
-  document.querySelectorAll("[data-sprachknopf]").forEach(function(k){
-    k.addEventListener("click", function(){
-      setzeSprache(h.getAttribute("data-lang") === "en" ? "de" : "en");
-    });
-  });
-})();
-</script>
-<script>
-/* Die Notch (Ticket 798b, Prototyp doku/gestaltung/skizzen-798b). Ohne Skript oeffnet sie ueber
-   :hover und :focus-within (CSS). Hier, was CSS nicht kann: data-offen, aria-expanded und die
-   Beschriftung des Ausloesers; Zeiger 120 ms bis auf, 300 ms nach dem Verlassen zu; ein Klick mit
-   der Maus oeffnet, Tippen und Tastatur schalten um; Fokus mit der Tastatur oeffnet, Escape schliesst
-   und gibt den Fokus an den Ausloeser; Tippen daneben schliesst. Dazu die Masse (Breite, Hoehe,
-   Radius), aus denen die Feder im CSS faehrt, und der Schimmer (--mx folgt dem Zeiger). Ob die
-   Handy-Leiste gilt, sagt das CSS (das Blatt steht dann im Layout), keine zweite Zahl hier. Am Handy
-   (798c) oeffnet nur der Menueknopf; zu machen ihn x, Tippen daneben, ein Link im Blatt und Escape
-   (der Fokus geht dann auf den Menueknopf). Das Scrollen der Seite bleibt frei. */
-(function(){
-  var notch = document.getElementById("notch");
-  if (!notch) return;
-  var html = document.documentElement;
-  var knopf = document.getElementById("notch-ausloeser");
-  var ruhe = notch.querySelector(".notch-ruhe"), reihe = document.getElementById("notch-reihe");
-  var blatt = document.getElementById("notch-blatt"), menue = document.getElementById("notch-menue");
-  var store = notch.querySelector(".notch-store");
-  var offen = false, tAuf = 0, tZu = 0, zeiger = "mouse", keinFokusAuf = false;
-
-  function handy(){ return getComputedStyle(blatt).display !== "none"; }
-  var warHandy = handy();
-  function beschrifte(){
-    var k = offen ? "insel_zu" : "insel";
-    var t = TEXTE[html.getAttribute("lang") === "en" ? "en" : "de"];
-    [knopf, menue].forEach(function(el){
-      el.setAttribute("data-t-aria", k);
-      if (t && typeof t[k] === "string") el.setAttribute("aria-label", t[k]);
-    });
-  }
-  /* Desktop wie im Prototyp: 10 Rand, Inhalt, 20 (Ruhe) oder 28 (Reihe) bis zum Store-Knopf, 10 Rand.
-     Am Handy (798c, gemessen an supaste.com bei 393): immer min(350, Fenster - 40) breit, zu 50 hoch, offen 50 plus
-     das Blatt, hoechstens so hoch wie das Fenster unter der Sicherheitszone (dann scrollt das Blatt in sich);
-     der Radius bleibt 18. Die Rundungen (je 20) liegen damit immer im Fenster. */
-  function masse(){
-    var h = handy(), kopf = h ? 50 : 53, b, hoehe;
-    if (h) {
-      b = Math.min(350, html.clientWidth - 40);
-      hoehe = offen ? Math.min(kopf + blatt.scrollHeight, window.innerHeight - (parseFloat(getComputedStyle(notch).paddingTop) || 0)) : kopf;
-    } else {
-      var s = store.getBoundingClientRect().width + (offen ? parseFloat(getComputedStyle(store).getPropertyValue("--store-rand")) || 0 : 0);
-      var platz = html.clientWidth - 40;
-      if (!offen) { b = Math.min(ruhe.scrollWidth + 10 + 20 + s + 10, platz); hoehe = kopf; }
-      else { b = Math.min(10 + reihe.scrollWidth + 28 + s + 10, platz); hoehe = kopf + 5; }
-    }
-    notch.style.setProperty("--notch-breite", Math.ceil(b) + "px");
-    notch.style.setProperty("--notch-hoehe", Math.ceil(hoehe) + "px");
-    notch.style.setProperty("--notch-kopf", (offen && !h ? kopf + 5 : kopf) + "px");
-    notch.style.setProperty("--notch-radius", (offen && !h ? 22 : 18) + "px");
-  }
-  function setze(auf){
-    if (auf === offen) return;
-    offen = auf;
-    notch.setAttribute("data-offen", auf ? "true" : "false");
-    knopf.setAttribute("aria-expanded", auf ? "true" : "false");
-    menue.setAttribute("aria-expanded", auf ? "true" : "false");
-    beschrifte();
-    masse();
-  }
-  function zeigerDa(){ try { return notch.matches(":hover"); } catch (err) { return false; } }
-
-  notch.addEventListener("pointerenter", function(e){
-    zeiger = e.pointerType;
-    if (e.pointerType !== "mouse" || handy()) return;
-    clearTimeout(tZu);
-    tAuf = setTimeout(function(){ setze(true); }, 120);
-  });
-  notch.addEventListener("pointerleave", function(e){
-    notch.setAttribute("data-zeiger", "false"); notch.setAttribute("data-ueberlink", "false");
-    if (e.pointerType !== "mouse" || handy()) return;
-    clearTimeout(tAuf);
-    var f = document.activeElement;
-    if (f && notch.contains(f) && f.matches(":focus-visible")) return;
-    tZu = setTimeout(function(){ setze(false); }, 300);
-  });
-  notch.addEventListener("pointerdown", function(e){ zeiger = e.pointerType; });
-  /* Der Schimmer folgt direkt: --mx nur am Schimmer (nicht an der ganzen Notch), die Attribute nur bei Wechsel. */
-  var schimmer = notch.querySelector(".notch-schimmer");
-  function merke(name, wert){ if (notch.getAttribute(name) !== wert) notch.setAttribute(name, wert); }
-  notch.addEventListener("pointermove", function(e){
-    if (e.pointerType !== "mouse") return;
-    schimmer.style.setProperty("--mx", (e.clientX - notch.getBoundingClientRect().left) + "px");
-    merke("data-zeiger", "true");
-    merke("data-ueberlink", e.target.closest(".notch-link, .notch-marke") ? "true" : "false");
-  });
-  knopf.addEventListener("click", function(e){
-    clearTimeout(tAuf); clearTimeout(tZu);
-    /* Die Maus hat die Notch beim Zeigen schon geoeffnet, ihr Klick schliesst sie nicht wieder. */
-    if (e.detail > 0 && zeiger === "mouse") setze(true); else setze(!offen);
-  });
-  menue.addEventListener("click", function(){ setze(!offen); });
-  /* Ein Link im Blatt schliesst es; stand der Fokus darin (Tastatur, die Sprache), geht er auf den Menueknopf. */
-  blatt.addEventListener("click", function(e){
-    if (!e.target.closest(".notch-zeile, .notch-blatt-store")) return;
-    var drin = blatt.contains(document.activeElement);
-    setze(false);
-    if (drin) menue.focus();
-  });
-  notch.addEventListener("focusin", function(e){
-    if (keinFokusAuf || handy()) return;
-    if (e.target.matches(":focus-visible")) setze(true);
-  });
-  notch.addEventListener("focusout", function(e){
-    if (!notch.contains(e.relatedTarget) && !zeigerDa()) setze(false);
-  });
-  document.addEventListener("keydown", function(e){
-    if (e.key !== "Escape" || !offen) return;
-    clearTimeout(tAuf); clearTimeout(tZu);
-    setze(false); keinFokusAuf = true; (handy() ? menue : knopf).focus(); keinFokusAuf = false;
-  });
-  document.addEventListener("pointerdown", function(e){ if (offen && !notch.contains(e.target)) setze(false); });
-  window.addEventListener("resize", function(){
-    var h = handy();
-    if (h !== warHandy) { warHandy = h; clearTimeout(tAuf); clearTimeout(tZu); setze(false); }
-    masse();
-  });
-  window.addEventListener("pageshow", function(e){ if (e.persisted) setze(false); });
-  /* Die Sprache tauscht die Texte (Skript oben, dessen Klick zuerst laeuft): neu messen. */
-  document.querySelectorAll("[data-sprachknopf]").forEach(function(k){
-    k.addEventListener("click", function(){ beschrifte(); masse(); });
-  });
-  beschrifte(); masse();
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){
-    masse(); notch.classList.add("bereit");
-  });
-})();
-</script>
 </body>
 </html>

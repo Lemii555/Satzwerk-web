@@ -3,61 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Seite nicht gefunden – Satzwerk</title>
+<title>Seite nicht gefunden: Satzwerk</title>
 <meta name="robots" content="noindex">
+<link rel="icon" href="/img/symbol-s.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon-s.png">
 <meta name="theme-color" content="#F2F2F7">
 <meta name="color-scheme" content="light">
-<link rel="icon" href="/img/bildmarke.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/publicsans.woff2" as="font" type="font/woff2" crossorigin>
-<style>
-@font-face{font-family:"Fraunces";src:url("/fonts/fraunces.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
-@font-face{font-family:"Public Sans";src:url("/fonts/publicsans.woff2") format("woff2");font-weight:100 900;font-display:swap;font-style:normal}
-
-:root{
-  --grund:#F2F2F7;
-  --tinte:#000000;
-  --leise:#5C5C5E;
-  --akzent:#8116E0;
-  color-scheme:light;
-}
-
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  background:var(--grund);color:var(--tinte);
-  font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
-  font-size:18px;line-height:1.6;
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
-  padding:24px;text-align:center;
-}
-.inhalt{display:flex;flex-direction:column;align-items:center;gap:16px}
-img{display:block;height:28px;width:auto;margin-bottom:24px}
-h1{
-  font-family:"Fraunces","Iowan Old Style","Palatino Linotype",serif;
-  font-weight:600;font-size:clamp(24px,4vw,34px);line-height:1.15;
-}
-p{color:var(--leise);font-size:14px}
-a{
-  color:var(--akzent);text-decoration:none;font-weight:600;
-  display:inline-flex;align-items:center;height:52px;padding:0 28px;
-  border-radius:980px;border:1px solid var(--akzent);margin-top:8px;
-}
-a:focus-visible{outline:3px solid var(--akzent);outline-offset:3px}
-/* Rechtliches (Ticket 684d): zwei leise Links, kein Knopf, wie die Zeile im Fuss der anderen Seiten */
-.recht{display:flex;gap:24px;margin-top:24px}
-.recht a{height:auto;padding:0;border:0;border-radius:0;margin:0;font-size:14px;font-weight:400;color:var(--leise)}
-</style>
+<link rel="stylesheet" href="/stil.css">
+<script src="/einwilligung.js" defer></script>
 </head>
-<body>
-  <div class="inhalt">
-    <img src="/img/logo-dunkel.svg" alt="Satzwerk" width="166" height="28">
-    <h1>Diese Seite gibt es nicht.</h1>
-    <p>Der Link ist alt oder hat einen Tippfehler.</p>
-    <a href="/">Zur Startseite</a>
-    <nav class="recht" aria-label="Rechtliches">
-      <a href="/impressum/">Impressum</a>
-      <a href="/datenschutz/">Datenschutz</a>
-    </nav>
-  </div>
+<body class="nichtda">
+<header class="kopf kopf-schlicht">
+<a class="marke" href="/" aria-label="Satzwerk, zur Startseite"><img src="/img/logo-dunkel.svg" alt="Satzwerk" width="130" height="22"></a>
+</header>
+<main id="inhalt" class="unterseite">
+<article class="text">
+<h1>Diese Seite gibt es nicht.</h1>
+<p>Der Link ist alt oder hat einen Tippfehler.</p>
+<div lang="en">
+<h1>This page doesn't exist.</h1>
+<p>The link is old or has a typo.</p>
+</div>
+<ul class="karte liste links404" id="rechtliches">
+<li><a href="/">Zur Startseite</a></li>
+<li><a href="/en/" lang="en">Home</a></li>
+<li><a href="/impressum/">Impressum</a></li>
+<li><a href="/datenschutz/">Datenschutz</a></li>
+</ul>
+</article>
+</main>
 </body>
 </html>

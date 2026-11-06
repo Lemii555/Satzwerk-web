@@ -1,0 +1,398 @@
+/* satzwerk.app, ein Stylesheet fuer alle Seiten. Stand 6.11.2026.
+   Werte aus der Skizze (doku/website/skizze/) und doku/prompts/WEBSITE.md, Abschnitt 4.
+   Keine Bewegung, keine Animation. Nur hell. */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --grund: #F2F2F7;
+  --karte: #FFFFFF;
+  --linie: #E5E5EA;
+  --linie-fuss: #D1D1D6;
+  --tinte: #000000;
+  --tinte2: #48484A;
+  --tinte3: #5C5C5E;
+  --akzent: #8116E0;
+  --auf-akzent: #FFFFFF;
+  --pro-grund: #EDE2FA;
+  --frei-grund: #E5E5EA;
+  --radius: 26px;
+  --rand: 24px;
+  --serif: "Fraunces", ui-serif, Georgia, serif;
+  --sans: -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--grund);
+  color: var(--tinte);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+
+a { color: var(--akzent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--akzent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+img { max-width: 100%; height: auto; }
+
+h1, h2, .claim { font-family: var(--serif); font-weight: 600; }
+
+/* Sprunglink, nur bei Tastaturfokus sichtbar */
+.sprung {
+  position: absolute;
+  left: 16px;
+  top: -200px;
+  z-index: 20;
+  background: var(--karte);
+  color: var(--akzent);
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 999px;
+}
+.sprung:focus { top: 12px; }
+
+/* ------------------------------------------------------------ Kopf */
+.kopf {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 20px var(--rand);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "marke nav sprache";
+  align-items: center;
+  column-gap: 20px;
+}
+.kopf .marke { grid-area: marke; display: flex; align-items: center; min-height: 44px; }
+.kopf .marke img { display: block; height: 22px; width: auto; }
+.kopf .nav {
+  grid-area: nav;
+  justify-self: end;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  font-size: 15px;
+  line-height: 20px;
+}
+.kopf .nav a, .kopf .sprache { display: inline-block; padding: 12px 0; }
+.kopf .nav a { color: var(--tinte2); }
+.kopf .nav a[aria-current="page"] { color: var(--tinte); font-weight: 600; }
+.kopf .sprache { grid-area: sprache; color: var(--akzent); font-weight: 600; font-size: 15px; line-height: 20px; }
+.kopf-schlicht { grid-template-columns: auto; grid-template-areas: "marke"; }
+
+/* ------------------------------------------------------------ Inhalt */
+main { max-width: 1040px; margin: 0 auto; padding: 0 var(--rand) 72px; }
+
+.held { padding: 64px 0 72px; max-width: 760px; }
+.held h1 { font-size: 64px; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 24px; }
+.einleitung { font-size: 22px; line-height: 1.45; color: var(--tinte2); margin: 0 0 32px; max-width: 640px; }
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: var(--akzent);
+  color: var(--auf-akzent);
+  font-size: 17px;
+  font-weight: 600;
+}
+.hinweis { font-size: 15px; line-height: 1.5; color: var(--tinte3); margin: 20px 0 0; max-width: 560px; }
+
+.block { padding: 0 0 64px; }
+h2 { font-size: 36px; line-height: 1.15; margin: 0 0 20px; }
+h2.mit-unterzeile { margin-bottom: 8px; }
+.unterzeile { margin: 0 0 20px; font-size: 20px; line-height: 1.5; color: var(--tinte2); }
+
+.karte { background: var(--karte); border-radius: var(--radius); }
+
+/* Auf einen Blick */
+dl.blick { margin: 0; padding: 4px 0; }
+.blick .zeile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--linie);
+}
+.blick .zeile:last-child { border-bottom: 0; }
+.blick dt { flex: 0 0 180px; font-size: 15px; line-height: 22px; font-weight: 600; color: var(--tinte2); }
+.blick dd { flex: 1 1 360px; margin: 0; font-size: 17px; line-height: 1.5; }
+
+/* Liste in einer Karte */
+ul.liste { margin: 0; padding: 4px 0; list-style: none; font-size: 17px; line-height: 1.5; }
+ul.liste li { padding: 16px 24px; border-bottom: 1px solid var(--linie); }
+ul.liste li:last-child { border-bottom: 0; }
+
+/* Die neun Karten */
+.raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.kachel {
+  background: var(--karte);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.kachel-kopf { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.kachel h3 { margin: 0; font-size: 17px; line-height: 22px; font-weight: 600; }
+.kachel p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--tinte2); flex: 1 0 auto; }
+.kachel a {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: -11px 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.pille {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.pille-pro { color: var(--akzent); background: var(--pro-grund); }
+.pille-frei { color: var(--tinte2); background: var(--frei-grund); }
+
+.haltung { max-width: 760px; }
+.haltung p { margin: 0; font-size: 20px; line-height: 1.55; }
+
+/* Frei und Pro */
+.zwei { display: flex; flex-wrap: wrap; gap: 16px; }
+.paket { flex: 1 1 320px; padding: 20px 0 4px; }
+.paket h3 { margin: 0 24px 8px; font-size: 22px; line-height: 28px; font-weight: 600; }
+.paket h3.ist-pro { color: var(--akzent); }
+.paket ul { margin: 0; padding: 0; list-style: none; font-size: 17px; line-height: 1.45; }
+.paket li { padding: 12px 24px; border-bottom: 1px solid var(--linie); }
+.paket li:last-child { border-bottom: 0; }
+.pro-text { margin: 20px 0 0; font-size: 15px; line-height: 1.55; color: var(--tinte2); max-width: 760px; }
+.mehr { margin: 12px 0 0; font-size: 15px; font-weight: 600; }
+.mehr a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* Fragen */
+.gruppe {
+  margin: 24px 24px 8px;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinte2);
+}
+.fragen details { border-bottom: 1px solid var(--linie); }
+.fragen details:last-child { border-bottom: 0; }
+.fragen summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  padding: 14px 24px;
+  font-size: 17px;
+  line-height: 22px;
+  cursor: pointer;
+  list-style: none;
+}
+.fragen summary::-webkit-details-marker { display: none; }
+.fragen details[open] summary { font-weight: 600; }
+.fragen .pfeil { flex: 0 0 auto; color: var(--tinte3); }
+.fragen details[open] .pfeil { transform: rotate(90deg); }
+.fragen details p { margin: 0; padding: 0 24px 20px; font-size: 17px; line-height: 1.55; color: var(--tinte2); max-width: 760px; }
+
+/* ------------------------------------------------------------ Unterseiten */
+.text { max-width: 720px; }
+.text h1 { font-size: 52px; line-height: 1.08; letter-spacing: -0.02em; margin: 48px 0 12px; }
+.text .stand { margin: 0 0 24px; font-size: 15px; line-height: 20px; color: var(--tinte3); }
+.text .kurz p { margin: 0 0 16px; font-size: 20px; line-height: 1.55; }
+.text .kurz { margin: 0 0 32px; }
+.text h2 { margin: 48px 0 16px; }
+.text h3 { margin: 32px 0 8px; font-size: 22px; line-height: 28px; font-weight: 600; }
+.text p { margin: 0 0 16px; font-size: 18px; line-height: 1.6; }
+.text ul { margin: 0 0 16px; padding-left: 20px; font-size: 18px; line-height: 1.6; }
+.text ul.liste, .text ul.eintraege { padding-left: 0; }
+.text ul.liste { font-size: 17px; line-height: 1.5; margin-bottom: 16px; }
+.text .klein { font-size: 15px; line-height: 1.55; color: var(--tinte2); }
+.text address { font-style: normal; font-size: 18px; line-height: 1.6; }
+.text .karte { margin-bottom: 16px; }
+.text > .karte:not(.liste):not(.blick):not(.seitennav):not(.eintraege):not(.formel),
+.text div.karte { padding: 16px 24px; }
+.text div.karte p:last-child { margin-bottom: 0; }
+.text dl.blick { margin-bottom: 16px; }
+.mit-pille { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+.text .formel { padding: 16px 24px; font-size: 18px; line-height: 1.6; }
+.text .quellen { color: var(--tinte2); font-size: 17px; }
+.text .mehr { margin: 0 0 8px; }
+
+/* Auf dieser Seite */
+.seitennav { padding: 16px 24px 8px; margin: 0 0 48px; }
+.seitennav .gruppe { margin: 0 0 4px; }
+.seitennav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 24px; font-size: 15px; line-height: 20px; }
+.seitennav a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* Was ist neu */
+ul.eintraege { list-style: none; margin: 0 0 16px; padding: 4px 0; }
+ul.eintraege li { padding: 16px 24px; border-bottom: 1px solid var(--linie); }
+ul.eintraege li:last-child { border-bottom: 0; }
+ul.eintraege h3 { margin: 0 0 4px; font-size: 17px; line-height: 22px; }
+ul.eintraege p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--tinte2); }
+
+/* Datenschutz und Impressum: Deutsch, darunter Englisch */
+.recht + .recht { margin-top: 72px; padding-top: 8px; border-top: 1px solid var(--linie-fuss); }
+
+/* 404 */
+.links404 a { display: flex; align-items: center; min-height: 44px; }
+.links404 .fuss-knopf { color: var(--akzent); }
+ul.links404 li { padding: 0 24px; }
+
+/* ------------------------------------------------------------ Fuss */
+.fuss { border-top: 1px solid var(--linie-fuss); }
+.fuss-innen {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 48px var(--rand) 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 48px;
+}
+.fuss-marke { flex: 1 1 280px; }
+.claim { margin: 0 0 8px; font-size: 24px; line-height: 1.2; }
+.fuss-satz { margin: 0 0 12px; font-size: 15px; line-height: 1.5; color: var(--tinte2); }
+.fuss-store { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 600; }
+.fuss-spalte { flex: 0 1 180px; font-size: 15px; line-height: 20px; }
+.fuss-kopf {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinte2);
+}
+.fuss-spalte ul { list-style: none; margin: 0; padding: 0; }
+.fuss-spalte a, .fuss-knopf {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--tinte);
+}
+.fuss-knopf {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.fuss-knopf:hover { text-decoration: underline; }
+.fuss-rechte {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 var(--rand) 40px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--tinte3);
+}
+
+/* ------------------------------------------------------------ Banner (baut einwilligung.js) */
+.einwilligung {
+  position: fixed;
+  z-index: 30;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  background: var(--karte);
+  color: var(--tinte);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 8px 24px -8px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.einwilligung-titel { margin: 0; font-size: 17px; line-height: 22px; font-weight: 600; }
+.einwilligung-text { margin: 0; font-size: 15px; line-height: 1.45; color: var(--tinte2); }
+.einwilligung-text a { font-weight: 600; }
+.einwilligung-knoepfe { display: flex; gap: 8px; }
+.einwilligung-knoepfe button {
+  flex: 1 1 0;
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--frei-grund);
+  color: var(--tinte);
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------ Breit */
+@media (min-width: 600px) {
+  .einwilligung { left: auto; right: 24px; bottom: 24px; width: 440px; padding: 20px; }
+}
+
+/* ------------------------------------------------------------ Schmal (375 ist der Boden) */
+@media (max-width: 599px) {
+  :root { --rand: 16px; }
+  .kopf {
+    padding: 12px var(--rand) 4px;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "marke sprache" "nav nav";
+    column-gap: 16px;
+  }
+  .kopf-schlicht { grid-template-columns: auto; grid-template-areas: "marke"; }
+  .kopf .marke img { height: 20px; }
+  .kopf .nav { justify-self: start; column-gap: 18px; }
+  main { padding-bottom: 48px; }
+  .held { padding: 24px 0 40px; }
+  .held h1 { font-size: 40px; line-height: 1.08; margin-bottom: 16px; }
+  .einleitung { font-size: 19px; margin-bottom: 24px; }
+  .knopf { display: flex; padding: 0 24px; }
+  .hinweis { margin-top: 16px; }
+  .block { padding-bottom: 48px; }
+  h2 { font-size: 28px; margin-bottom: 16px; }
+  .unterzeile { font-size: 19px; }
+  .blick .zeile { display: block; padding: 14px 16px; }
+  .blick dt { font-size: 13px; line-height: 18px; margin: 0 0 4px; }
+  .blick dd { font-size: 17px; line-height: 1.45; }
+  ul.liste li, ul.eintraege li { padding: 14px 16px; }
+  .kachel { padding: 20px 16px; }
+  .paket h3 { margin: 0 16px 8px; }
+  .paket li { padding: 12px 16px; }
+  .gruppe { margin: 24px 16px 8px; }
+  .fragen summary { padding: 14px 16px; }
+  .fragen details p { padding: 0 16px 20px; }
+  .text h1 { font-size: 40px; margin-top: 24px; }
+  .text .kurz p { font-size: 19px; }
+  .text h2 { margin-top: 40px; }
+  .text > .karte:not(.liste):not(.blick):not(.seitennav):not(.eintraege):not(.formel),
+  .text div.karte, .text .formel, .seitennav { padding-left: 16px; padding-right: 16px; }
+  ul.links404 li { padding: 0 16px; }
+  .fuss-innen { padding: 40px var(--rand) 32px; gap: 32px 40px; }
+  .fuss-spalte { flex: 1 1 140px; }
+}
